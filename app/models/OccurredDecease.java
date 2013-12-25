@@ -21,6 +21,7 @@ public class OccurredDecease extends Model {
 	/**
 	 * Which decease has occurred
 	 */
+	@ManyToOne
 	public Decease desease;
 
 	/**
