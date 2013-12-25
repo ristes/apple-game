@@ -1,0 +1,51 @@
+package models;
+
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import play.data.validation.Range;
+import play.db.jpa.Model;
+
+/**
+ * Definition of the operation
+ * 
+ * @author ristes
+ * 
+ */
+@Entity
+public class Operation extends Model {
+
+	public String name;
+
+	/**
+	 * The default time needed to perform the operation on a single unit of
+	 * plantation (percents of day). It can be overridden by
+	 * {@link OperationDuration} for a certain types, base and terrain features.
+	 */
+	public int defaultDuration;
+
+	/**
+	 * Default operating price for single unit of plantation. It can be
+	 * overridden by {@link OperationDuration} for a certain types, base and
+	 * terrain features.
+	 */
+	public int defaultOperationPrice;
+
+	/**
+	 * How long will it take to finish this operation based on the field and
+	 * item parameters
+	 */
+	@OneToMany(mappedBy = "operation")
+	public List<OperationDuration> durations;
+
+	/**
+	 * List of items capable to perform this operation
+	 */
+	@OneToMany(mappedBy = "operation")
+	public List<Item> itemsCapableToPerform;
+
+}
