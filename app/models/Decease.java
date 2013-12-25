@@ -3,9 +3,11 @@ package models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import play.data.validation.Range;
@@ -28,6 +30,8 @@ public class Decease extends Model {
 	/**
 	 * The dates with maximum probability of decease occurrence
 	 */
+	@ElementCollection
+	@CollectionTable(name = "PeakDates", joinColumns = @JoinColumn(name = "decease_id"))
 	public List<Date> peakDates;
 
 	/**

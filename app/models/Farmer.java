@@ -45,10 +45,4 @@ public class Farmer extends Model {
 	@OneToMany(mappedBy = "ownedBy")
 	public List<ItemInstance> boughtItems;
 
-	/**
-	 * The operations he has executed
-	 */
-	@OneToMany(mappedBy = "executor")
-	public List<ExecutedOperation> executedOperations;
-
 }
