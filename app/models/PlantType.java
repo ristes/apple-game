@@ -14,7 +14,7 @@ import play.db.jpa.Model;
  * 
  */
 @Entity
-public class Type extends Model {
+public class PlantType extends Model {
 
 	/**
 	 * The allowed bases for planting of this type

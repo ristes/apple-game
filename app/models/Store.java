@@ -22,6 +22,6 @@ public class Store extends Model {
 	 * The items that store contains
 	 */
 	@OneToMany(mappedBy = "store")
-	List<Item> items;
+	public List<Item> items;
 
 }

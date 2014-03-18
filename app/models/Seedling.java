@@ -24,7 +24,7 @@ public class Seedling extends Model {
 	 * The type of the appes
 	 */
 	@ManyToOne
-	public Type type;
+	public PlantType type;
 
 	/**
 	 * The seedling type

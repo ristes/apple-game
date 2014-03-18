@@ -1,8 +1,7 @@
 package controllers;
 
-import java.util.List;
-
 import models.Farmer;
+import models.Store;
 import play.mvc.Controller;
 
 /**
@@ -13,7 +12,7 @@ import play.mvc.Controller;
  */
 public class Home extends Controller {
 
-	private Farmer currentFarmer;
+	private static Farmer currentFarmer;
 
 	public static void ownedItems() {
 
@@ -21,6 +20,10 @@ public class Home extends Controller {
 
 	public static void ownedFields() {
 
+	}
+
+	public static void allStores() throws Exception {
+		JsonController.toJson(Store.all().fetch());
 	}
 
 	/**

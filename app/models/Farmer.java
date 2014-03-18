@@ -37,7 +37,7 @@ public class Farmer extends Model {
 	 * The fields he owns
 	 */
 	@OneToMany(mappedBy = "owner")
-	public List<Field> plantations;
+	public List<Field> fields;
 
 	/**
 	 * The items he owns

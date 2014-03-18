@@ -31,7 +31,7 @@ public class DeceaseImpact extends Model {
 	 * The apple type
 	 */
 	@ManyToOne
-	public Type type;
+	public PlantType type;
 
 	/**
 	 * The apple base

@@ -33,6 +33,6 @@ public class Base extends Model {
 	 * Which types can be planted using this base
 	 */
 	@ManyToMany(mappedBy = "plantOn")
-	public List<Type> allowedPlantationFor;
+	public List<PlantType> allowedPlantationFor;
 
 }
