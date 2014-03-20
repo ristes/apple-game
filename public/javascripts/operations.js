@@ -22,6 +22,9 @@ ClickCallbackManager = function() {
 			throw new Error('Invalid callback name: ' + name);
 		}
 		this.active = this.callbacks[name];
+		if (typeof this.active.onActivate === 'function') {
+			this.active.onActivate();
+		}
 	}
 
 	this.deactivate = function() {
@@ -115,6 +118,18 @@ var operations = [ {
 		h : 1
 	},
 	action : 'AddEffectOnTop'
+}, {
+	name : 'green_tractor',
+	sprite : {
+		url : "/public/images/game/green_tractor.png",
+		width : 540,
+		height : 374
+	},
+	ratio : {
+		w : 0.75,
+		h : 0.5
+	},
+	action : 'ProgressCallback'
 } ];
 
 OperationsPanelComponent = function(x, y, z, atom, columns) {
@@ -216,6 +231,92 @@ AddEffectOnTop = function(name, ratio, atom, zLevles) {
 			h : landPart.plant._h
 
 		});
+	}
+
+}
+
+ProgressCallback = function(name, ratio, atom, zLevles) {
+
+	Crafty.sprite(22, 18, "/public/images/game/progress-full.png", {
+		progress : [ 0, 0 ]
+	});
+
+	function createPointer(atom) {
+		return Crafty.e("2D, Canvas, Tween, " + name);
+	}
+
+	function createProgress() {
+		return Crafty.e("2D, Canvas, Tween, progress");
+	}
+
+	this.onClick = function(e, landPart) {
+	}
+
+	this.onActivate = function() {
+
+		var activated = true;
+		var xstart = 650;
+		var ystart = 40;
+		var interval = 10;
+		var pointer = createPointer(atom);
+		pointer.attr({
+			x : xstart,
+			y : ystart,
+			z : 10000,
+			w : ratio.w * atom,
+			h : ratio.h * atom,
+			alpha : 0.0
+		}).tween({
+			alpha : 1.0
+		}, 3000).bind('TweenEnd', function() {
+			if (activated)
+				interval = setInterval(myMethod, 100);
+			activated = false;
+
+		});
+		var prog = createProgress();
+		var offset = ratio.w * atom / 2;
+		var progw = prog._w;
+		prog.attr({
+			x : xstart + offset,
+			y : ystart + ratio.h * atom,
+			z : 10000
+		});
+
+		var progres = [];
+		progres.push(prog);
+
+		var total = 30;
+		function myMethod() {
+			pointer.attr({
+				x : pointer.x + progw
+			});
+			prog = createProgress();
+			prog.attr({
+				x : pointer._x + offset,
+				y : ystart + ratio.h * atom,
+				z : 10000
+			});
+			progres.push(prog);
+			total--;
+			if (total == 0) {
+				clearInterval(interval);
+				pointer.tween({
+					alpha : 0.0
+				}, 4000).bind("TweenEnd", function() {
+					this.destroy();
+				});
+				for (var t = 0; t < progres.length; t++) {
+					progres[t].tween({
+						alpha : 0.0
+					}, 4000).bind("TweenEnd", function() {
+						this.destroy();
+					});
+				}
+
+			}
+		}
+
 	}
 
 }
