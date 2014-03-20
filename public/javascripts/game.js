@@ -1,13 +1,21 @@
 //pro tip: see also this work in progress by Hex http://jsfiddle.net/hexaust/HV4TX/
 window.onload = function() {
-
 	var atom = 64;
+
 	var z = 0;
 	var rows = 50;
 	var fistRow = 10;
 	var columns = 25;
 
 	Crafty.init();
+/*
+	Crafty.e("2D, Canvas, Text").attr({
+		x : 100,
+		y : 100,
+		z : 2000
+	}).text(function() {
+		return "My position is " + this._x
+	});*/
 
 	var gameStripes = new GameStripes();
 

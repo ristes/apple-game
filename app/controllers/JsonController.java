@@ -134,6 +134,11 @@ public abstract class JsonController extends Controller {
 								.getSimpleName(), val.id));
 						handled = true;
 					}
+				} else if ("id".equals(bwriter.getName())) {
+					jgen.writeFieldName(bwriter.getName());
+					jgen.writeString(String.format("%s-%d", pojo.getClass()
+							.getSimpleName(), value));
+					handled = true;
 				}
 			}
 
