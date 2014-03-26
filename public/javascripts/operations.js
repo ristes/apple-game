@@ -93,10 +93,8 @@ var operations = [ {
 		url : "/public/images/game/zemja.png",
 		width : 128,
 		height : 128,
-		ratio : {
-			w : 1,
-			h : 1
-		}
+		ratioWidth : 1,
+		ratioHeight : 1
 	},
 	plant : {
 		url : "/public/images/game/rodna-sadnica.png",
@@ -181,8 +179,17 @@ var operations = [ {
 OperationComponent = function(oper, toolbar, atom, columns, field) {
 	var sp = {};
 	sp[oper.name] = [ 0, 0 ];
-
+	var imageLoaded = false;
+	if (Crafty.asset(oper.icon.url)) {
+		imageLoaded = true;
+	}
 	Crafty.sprite(oper.icon.width, oper.icon.height, oper.icon.url, sp);
+	if (imageLoaded) {
+		Crafty(oper.name).each(function() {
+			this.ready = true;
+			this.trigger("Invalidate");
+		});
+	}
 
 	var callback = window[oper.action];
 	var inst = new callback(oper, atom, columns);

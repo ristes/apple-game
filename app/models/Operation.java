@@ -48,4 +48,25 @@ public class Operation extends Model {
 	@OneToMany(mappedBy = "operation")
 	public List<Item> itemsCapableToPerform;
 
+	@ManyToOne
+	public SpriteImage icon;
+
+	@ManyToOne
+	public SpriteImage ground;
+
+	@ManyToOne
+	public SpriteImage plant;
+
+	@ManyToOne
+	public SpriteImage effect;
+
+	public String action;
+
+	public double rank;
+
+	@Override
+	public String toString() {
+		return String.format("%d. %s(%s)", id, action, name);
+	}
+
 }

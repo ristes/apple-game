@@ -10945,12 +10945,31 @@ Crafty.extend({
             img = new Image();
             img.src = url;
             Crafty.asset(url, img);
-            img.onload = function () {
+            var OnImageLoad = function (map) {
                 //all components with this img are now ready
-                for (var spriteName in map) {
-                    Crafty(spriteName).each(markSpritesReady);
-                }
+            	this.map = {};
+            	var self = this;
+            	
+            	
+            	this.onLoad = function() {
+            		for (var spriteName in self.map) {
+            			Crafty(spriteName).each(markSpritesReady);
+            		}
+            	}
+            	
+            	this.addMap = function(m) {
+            		for (spriteName in m) {
+                        if (!m.hasOwnProperty(spriteName)) continue;
+                        this.map[spriteName] = m[spriteName];
+            		}
+            	}
+            	
+            	self.addMap(map);
             };
+            img.__loader = new OnImageLoad(map);
+            img.onload = img.__loader.onLoad;
+        } else {
+        	img.__loader.addMap(map);
         }
 
         var sharedSpriteInit = function() {

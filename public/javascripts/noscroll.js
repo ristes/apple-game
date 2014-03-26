@@ -127,8 +127,3 @@ ModelStore = {
 		}
 	}
 }
-
-ModelStore.getAll("models.Store");
-ModelStore.getAll("models.Item");
-ModelStore.getAll("models.Operation");
-ModelStore.getAll("models.Base");

@@ -10,6 +10,9 @@ ActionCallback = function() {
 	}
 
 	this.createPlant = function(operation, size, cmp, z) {
+		if (!operation.plant) {
+			return cmp.plant;
+		}
 		if (cmp.plant) {
 			cmp.plant.destroy();
 		}
@@ -17,8 +20,8 @@ ActionCallback = function() {
 				+ "_plant", operation.plant);
 
 		plant.attr({
-			x : cmp._x + (size - plant.def.ratio.w * size) / 2,
-			y : cmp._y + (size / 2 - plant.def.ratio.h * size) - size / 4,
+			x : cmp._x + (size - plant.def.ratioWidth * size) / 2,
+			y : cmp._y + (size / 2 - plant.def.ratioHeight * size) - size / 4,
 			z : cmp._z + z
 		});
 
@@ -54,7 +57,7 @@ ActionCallback = function() {
 			});
 			effect.reel(name, operation.effect.speed, 0, 0,
 					operation.effect.frameNumber);
-			effect.animate(name, operation.effect.duration);
+			effect.animate(name, operation.defaultDuration);
 			if (operation.effect.shouldDestroy) {
 				effect.bind("EnterFrame", function() {
 					if (!this.isPlaying()) {
@@ -67,6 +70,9 @@ ActionCallback = function() {
 	}
 
 	this.createGround = function(operation, size, cmp, z) {
+		if (!operation.ground) {
+			return cmp;
+		}
 		var ground = self.createElement(operation, size, operation.name
 				+ "_ground", operation.ground);
 		ground.attr({
@@ -98,8 +104,8 @@ ActionCallback = function() {
 		if (sprite) {
 			var element = Crafty.e(
 					"2D, Canvas, SpriteAnimation, Mouse, " + name).attr({
-				w : sprite.ratio.w * size,
-				h : sprite.ratio.h * size
+				w : sprite.ratioWidth * size,
+				h : sprite.ratioHeight * size
 			});
 			if (sprite.areaMap) {
 				var am = [];
@@ -192,8 +198,8 @@ ProgressCallback = ActionCallback.extend(function(operation, atom, zLevles) {
 			x : xstart,
 			y : ystart,
 			z : 10000,
-			w : self.operation.icon.ratio.w * atom,
-			h : self.operation.icon.ratio.h * atom,
+			w : self.operation.icon.ratioWidth * atom,
+			h : self.operation.icon.ratioHeight * atom,
 			alpha : 0.0
 		}).tween({
 			alpha : 1.0
@@ -204,11 +210,11 @@ ProgressCallback = ActionCallback.extend(function(operation, atom, zLevles) {
 
 		});
 		var prog = createProgress();
-		var offset = self.operation.icon.ratio.w * atom / 2;
+		var offset = self.operation.icon.ratioWidth * atom / 2;
 		var progw = prog._w;
 		prog.attr({
 			x : xstart + offset,
-			y : ystart + self.operation.icon.ratio.h * atom,
+			y : ystart + self.operation.icon.ratioHeight * atom,
 			z : 10000
 		});
 
@@ -230,13 +236,16 @@ ProgressCallback = ActionCallback.extend(function(operation, atom, zLevles) {
 			prog = createProgress();
 			prog.attr({
 				x : pointer._x + offset,
-				y : ystart + self.operation.icon.ratio.h * atom,
+				y : ystart + self.operation.icon.ratioHeight * atom,
 				z : 10000
 			});
 			var landPart = field.field[keys.pop()];
 			if (landPart) {
 				if (landPart.plant) {
-					self.createEffect(self.operation, atom, landPart, zLevles);
+					if (operation.effect) {
+						self.createEffect(self.operation, atom, landPart,
+								zLevles);
+					}
 					self.createPlant(self.operation, atom, landPart, zLevles);
 				}
 				self.createGround(self.operation, atom, landPart, zLevles);
@@ -244,7 +253,10 @@ ProgressCallback = ActionCallback.extend(function(operation, atom, zLevles) {
 			landPart = field.field[keys.pop()];
 			if (landPart) {
 				if (landPart.plant) {
-					self.createEffect(self.operation, atom, landPart, zLevles);
+					if (operation.effect) {
+						self.createEffect(self.operation, atom, landPart,
+								zLevles);
+					}
 					self.createPlant(self.operation, atom, landPart, zLevles);
 				}
 				self.createGround(self.operation, atom, landPart, zLevles);

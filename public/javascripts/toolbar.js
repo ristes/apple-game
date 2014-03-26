@@ -33,12 +33,17 @@ OperationsPanelComponent = function(x, y, z, atom, columns, field) {
 
 	this.panel.buttons = [];
 
-	for (var j = 0; j < operations.length; j++) {
-		console.log(operations[j].name)
-		var operation = new OperationComponent(operations[j], toolbarBuilder
-				.next(), atom, columns, field);
+	var self = this;
+	ModelStore.getAll("models.Operation", function(operations) {
+		ModelStore.getAll("models.SpriteImage", function(sprites) {
+			for (var j = 0; j < operations.length; j++) {
+				console.log(operations[j].name)
+				var operation = new OperationComponent(operations[j],
+						toolbarBuilder.next(), atom, columns, field);
 
-		this.panel.buttons.push(operation.button);
-	}
+				self.panel.buttons.push(operation.button);
+			}
+		});
+	});
 
 }
