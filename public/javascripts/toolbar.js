@@ -37,7 +37,6 @@ OperationsPanelComponent = function(x, y, z, atom, columns, field) {
 	ModelStore.getAll("models.Operation", function(operations) {
 		ModelStore.getAll("models.SpriteImage", function(sprites) {
 			for (var j = 0; j < operations.length; j++) {
-				console.log(operations[j].name)
 				var operation = new OperationComponent(operations[j],
 						toolbarBuilder.next(), atom, columns, field);
 

@@ -124,6 +124,8 @@ ModelStore = {
 					onLoad(data);
 			});
 
+		} else {
+			onLoad(ModelStore.classes[clazz]);
 		}
 	}
 }

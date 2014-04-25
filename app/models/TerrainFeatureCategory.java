@@ -22,6 +22,17 @@ public class TerrainFeatureCategory extends Model {
 	public String name;
 
 	/**
+	 * If set, there must be defined at least one feature from this category for
+	 * the terrain
+	 */
+	public boolean required;
+
+	/**
+	 * If set, the feature will be displayed without terrain analysis
+	 */
+	public boolean visible;
+
+	/**
 	 * Description of this feature
 	 */
 	public String description;
