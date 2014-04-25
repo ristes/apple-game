@@ -61,10 +61,6 @@ public class Item extends Model {
 	@OneToMany(mappedBy = "attachedTo")
 	public List<Item> attachments;
 
-	/**
-	 * The list of items required for plantation having particular base
-	 */
-	@ManyToMany(mappedBy = "requiredItems")
-	public List<Base> requiredForBases;
+	
 
 }

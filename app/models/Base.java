@@ -21,18 +21,34 @@ public class Base extends Model {
 	/**
 	 * The price to buy the corresponding base for unit of plantation
 	 */
+	
+	public String name;
+	
 	public int price;
 
 	/**
 	 * The base may require some items like support handles etc.
 	 */
-	@ManyToMany
-	public List<Item> requiredItems;
+	
+	public Boolean needConstruction;
+	
+	public Integer minTreePerHa;
+	public Integer maxTreePerHa;
+	public Integer minTreeOnScreen;
+	public Integer maxTreeOnScreen;
+	public Integer minApplesPerHa;
+	public Integer maxApplesPerHa;
+	
+	
 
 	/**
 	 * Which types can be planted using this base
 	 */
 	@ManyToMany(mappedBy = "plantOn")
 	public List<PlantType> allowedPlantationFor;
+	
+	public String toString() {
+		return name;
+	}
 
 }

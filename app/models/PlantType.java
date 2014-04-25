@@ -19,6 +19,9 @@ public class PlantType extends Model {
 	/**
 	 * The allowed bases for planting of this type
 	 */
+	
+	public String name;
+	
 	@ManyToMany
 	public List<Base> plantOn;
 }
