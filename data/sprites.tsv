@@ -1,0 +1,7 @@
+8		0	128	sadnica	0.5	0.25	0	/public/images/game/sadnica.png	70	0
+2	[ [ 0, 0 ], [ 1, 0 ], [ 1, 0.6 ], [ 0, 0.6 ] ]	0	545	mala-sadnica	1	1	0	/public/images/game/mala-sadnica.png	351	0
+3	[ [ 0, 0 ], [ 1, 0 ], [ 1, 0.9 ], [ 0, 0.9 ] ]	0	720	golema-sadnica	1.5	1	0	/public/images/game/golema-sadnica.png	543	0
+4	[ [ 0, 0 ], [ 1, 0 ], [ 1, 0.9 ], [ 0, 0.9 ] ]	0	941	rodna-sadnica	1.5	1	0	/public/images/game/rodna-sadnica.png	802	0
+5		3	128	prskanje	1	1	30	/public/images/game/prskanje.png	128	1
+6		0	128	zemja	1	1	0	/public/images/game/zemja.png	128	0
+7		0	374	green_tractor	0.5	0.75	0	/public/images/game/green_tractor.png	540	0

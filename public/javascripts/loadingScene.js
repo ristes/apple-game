@@ -26,7 +26,7 @@ window.onload = function() {
 			images.push(sprites[j].url)
 		}
 		Crafty.load(images, function() {
-			Crafty.scene("plantation");
+			Crafty.scene("terrainShop");
 		});
 	});
 
