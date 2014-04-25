@@ -1,9 +1,7 @@
 package models;
 
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 import play.db.jpa.Model;
 
@@ -24,10 +22,7 @@ public class Terrain extends Model {
 	 */
 	public String description;
 
-	/**
-	 * The list of features. It contains exactly one feature from each category
-	 */
-	@ManyToMany
-	public List<TerrainFeature> features;
+	@OneToOne
+	public TerrainAnalysis analysis;
 
 }

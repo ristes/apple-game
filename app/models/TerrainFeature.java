@@ -29,7 +29,7 @@ public class TerrainFeature extends Model {
 	@ManyToOne
 	public TerrainFeatureCategory category;
 
-	@ManyToMany(mappedBy = "features")
-	public List<Terrain> terrains;
+	@ManyToOne
+	public TerrainAnalysis analysis;
 
 }
