@@ -1,6 +1,7 @@
 package models;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 import play.db.jpa.Model;
 
@@ -13,18 +14,18 @@ import play.db.jpa.Model;
 @Entity
 public class SeedlingType extends Model {
 
-	/**
-	 * Minimal distance between the crown and the last tree limb for this
-	 * seedling type
-	 */
-	public int fromHeight;
-
-	/**
-	 * Maximal distance between the crown and the last tree limb for this
-	 * seedling type
-	 */
-	public int toHeight;
+	
 
 	public String description;
+	
+	public String type;
+	
+	
+	@ManyToOne
+	public SpriteImage image;
+	
+	public String toString() {
+		return description;
+	}
 
 }

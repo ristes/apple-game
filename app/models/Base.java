@@ -40,12 +40,6 @@ public class Base extends Model {
 	public Integer maxApplesPerHa;
 	
 	
-
-	/**
-	 * Which types can be planted using this base
-	 */
-	@ManyToMany(mappedBy = "plantOn")
-	public List<PlantType> allowedPlantationFor;
 	
 	public String toString() {
 		return name;

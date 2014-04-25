@@ -1,6 +1,9 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
@@ -32,6 +35,9 @@ public class SpriteImage extends Model {
 	public int speed;
 
 	public boolean shouldDestroy;
+	
+	@OneToMany(mappedBy="image")
+	public List<SeedlingType> seedlings;
 
 	@PrePersist
 	protected void onCreate() {

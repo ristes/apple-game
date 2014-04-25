@@ -22,6 +22,8 @@ public class PlantType extends Model {
 	
 	public String name;
 	
-	@ManyToMany
-	public List<Base> plantOn;
+	
+	public String toString() {
+		return name;
+	}
 }
