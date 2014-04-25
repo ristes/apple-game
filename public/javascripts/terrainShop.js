@@ -24,15 +24,9 @@ Crafty.scene("terrainShop", function() {
 				"padding-top" : "5px",
 				"cursor" : "pointer",
 				"background-color" : "red"
-			}).bind(
-					"Click",
-					function() {
-						ModelStore.getFromService(
-								"/terrainshop/analyze?terrainId="
-										+ this.terrain.entityId, function(data) {
+			}).bind("Click", function() {
 
-								});
-					});
+			});
 			analyze.terrain = data[i];
 
 			var buy = Crafty.e("2D, DOM, Text, Mouse").attr({
