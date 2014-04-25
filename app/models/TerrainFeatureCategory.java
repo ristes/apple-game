@@ -40,4 +40,9 @@ public class TerrainFeatureCategory extends Model {
 	@OneToMany(mappedBy = "category")
 	public List<TerrainFeature> fetures;
 
+	@Override
+	public String toString() {
+		return String.format("[%d] %s", id, name);
+	}
+
 }
