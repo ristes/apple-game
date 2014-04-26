@@ -61,6 +61,8 @@ public class Item extends Model {
 	@OneToMany(mappedBy = "attachedTo")
 	public List<Item> attachments;
 
-	
+	public String toString() {
+		return name;
+	}
 
 }

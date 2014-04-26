@@ -4,7 +4,7 @@ Array.prototype.get = function(idx) {
 		return ModelStore.get(this[idx]);
 	}
 	return this[idx];
-}
+};
 
 ModelStore = {
 	store : {},
@@ -117,7 +117,7 @@ ModelStore = {
 					return ModelStore.get(from[prop]);
 				}
 				return from[prop];
-			}
+			};
 
 		}
 
@@ -227,7 +227,7 @@ ModelStore = {
 					return ModelStore.get(from[prop]);
 				}
 				return from[prop];
-			}
+			};
 
 		}
 
@@ -247,4 +247,4 @@ ModelStore = {
 			onLoad(ModelStore.classes[clazz]);
 		}
 	}
-}
+};

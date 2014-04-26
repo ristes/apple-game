@@ -35,4 +35,4 @@ window.onload = function() {
 		});
 	});
 
-}
+};
