@@ -32,4 +32,10 @@ public class Seedling extends Model {
 	@ManyToOne
 	public SeedlingType seedlingType;
 
+	@Override
+	public String toString() {
+		return String.format("[%d] %s (%s)", id, type.name,
+				seedlingType.description);
+	}
+
 }
