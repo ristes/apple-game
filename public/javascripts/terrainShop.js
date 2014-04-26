@@ -25,7 +25,28 @@ Crafty.scene("terrainShop", function() {
 				"cursor" : "pointer",
 				"background-color" : "red"
 			}).bind("Click", function() {
-
+				var features = this.terrain.analysis.features;
+				for (var i = 0; i < features.length; i++) {
+					console.log(features[i]);
+				}
+				ModelStore.getFromService("/terrainshop/analyze?terrainId=" + this.terrain.analysis.entityId, function(dataTerrain) {
+					for (var j = 0; j < dataTerrain.length; j++) {
+						var analyseFeatures = Crafty.e("2D, DOM, Text, Mouse").attr({
+							w : 400,
+							h : 20,
+							x : 600,
+							y : 120 + 30 * j
+						}).text(dataTerrain[j].analysis + dataTerrain[j].value).css({
+							"text-align" : "left",
+							"font-size" : "50px",
+							"padding-top" : "5px",
+							"padding-left" : "5px",
+							"background-color" : "green"
+						}).bind("Click", function() {
+							console.log(this);
+						});
+					}
+				});
 			});
 			analyze.terrain = data[i];
 

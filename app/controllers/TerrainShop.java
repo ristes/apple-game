@@ -18,5 +18,6 @@ public class TerrainShop extends Controller {
 		Terrain t = Terrain.findById(terrainId);
 		JsonController.toJson(t.analysis.features);
 	}
+	
 
 }

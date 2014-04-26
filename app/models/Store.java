@@ -23,5 +23,9 @@ public class Store extends Model {
 	 */
 	@OneToMany(mappedBy = "store")
 	public List<Item> items;
+	
+	public String toString() {
+		return name;
+	}
 
 }

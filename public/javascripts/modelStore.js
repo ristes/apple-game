@@ -4,7 +4,7 @@ Array.prototype.get = function(idx) {
 		return ModelStore.get(this[idx]);
 	}
 	return this[idx];
-}
+};
 
 ModelStore = {
 	store : {},
@@ -117,13 +117,13 @@ ModelStore = {
 					return ModelStore.get(from[prop]);
 				}
 				return from[prop];
-			}
+			};
 
 		}
 
 		if (!ModelStore.classes[url]) {
 			$.getJSON(url, function(data) {
-				ModelStore.classes[url] = true;
+				ModelStore.classes[url] = data;
 				for (var i = 0; i < data.length; i++) {
 					data[i].get = getOrLoadProperty(data[i]);
 					ModelStore.store[data[i].id] = data[i];
@@ -134,7 +134,7 @@ ModelStore = {
 			});
 
 		} else {
-			onLoad(ModelStore.classes[clazz]);
+			onLoad(ModelStore.classes[url]);
 		}
 	},
 	getAll : function(clazz, onLoad) {
@@ -227,13 +227,13 @@ ModelStore = {
 					return ModelStore.get(from[prop]);
 				}
 				return from[prop];
-			}
+			};
 
 		}
 
 		if (!ModelStore.classes[clazz]) {
 			$.getJSON("/modelstore/all?clazz=" + clazz, function(data) {
-				ModelStore.classes[clazz] = true;
+				ModelStore.classes[clazz] = data;
 				for (var i = 0; i < data.length; i++) {
 					data[i].get = getOrLoadProperty(data[i]);
 					ModelStore.store[data[i].id] = data[i];
@@ -247,4 +247,4 @@ ModelStore = {
 			onLoad(ModelStore.classes[clazz]);
 		}
 	}
-}
+};
