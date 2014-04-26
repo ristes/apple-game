@@ -1,11 +1,11 @@
 
 OperationComponent = function(oper, toolbar, atom, columns, field) {
-	var sp = {};
-	sp[oper.name] = [ 0, 0 ];
 	var imageLoaded = false;
 	if (Crafty.asset(oper.icon.url)) {
 		imageLoaded = true;
 	}
+	var sp = {};
+	sp[oper.name] = [ 0, 0 ];
 	Crafty.sprite(oper.icon.width, oper.icon.height, oper.icon.url, sp);
 	if (imageLoaded) {
 		Crafty(oper.name).each(function() {
