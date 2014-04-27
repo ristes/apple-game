@@ -13,8 +13,8 @@ ToolbarBuilder = function(x, y, z) {
 		};
 		this.k++;
 		return n;
-	}
-}
+	};
+};
 
 OperationsPanelComponent = function(x, y, z, atom, columns, field) {
 	var toolbarBuilder = new ToolbarBuilder(x, y, z);
@@ -45,4 +45,4 @@ OperationsPanelComponent = function(x, y, z, atom, columns, field) {
 		});
 	});
 
-}
+};

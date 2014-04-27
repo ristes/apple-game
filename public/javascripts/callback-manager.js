@@ -15,7 +15,7 @@ ClickCallbackManager = function() {
 			this.visualizer.registerAction(name, self);
 		}
 
-	}
+	};
 
 	this.activate = function(name,field) {
 		if (!this.callbacks[name]) {
@@ -25,18 +25,18 @@ ClickCallbackManager = function() {
 		if (typeof this.active.onActivate === 'function') {
 			this.active.onActivate(field);
 		}
-	}
+	};
 
 	this.deactivate = function() {
 		this.active = null;
-	}
+	};
 
 	this.onClick = function(e) {
-		console.log(this.def)
+		console.log(this.def);
 		if (self.active) {
 			self.active.onClick(e, this);
 		}
-	}
-}
+	};
+};
 
 OnClickCallbackManager = new ClickCallbackManager();

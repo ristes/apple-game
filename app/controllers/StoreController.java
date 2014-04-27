@@ -3,6 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,6 +26,11 @@ public class StoreController extends Controller {
 	public static void show(Long storeId) throws JsonGenerationException,
 			JsonMappingException, IOException {
 		JsonController.toJson(Store.findById(storeId));
+	}
+	
+	public static void showitems(Long storeId) throws IOException {
+		Store store = Store.findById(storeId);
+		JsonController.toJson(store.items);
 	}
 
 	/**

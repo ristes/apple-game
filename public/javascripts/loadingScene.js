@@ -19,14 +19,15 @@ window.onload = function() {
 	Crafty.scene("loading");
 	var images = [ "/public/images/sky.png",
 			"/public/images/game/bg_grass.png", "/public/images/sprite.png",
-			"/public/images/game/dolen-element.png" ];
+			"/public/images/game/dolen-element.png"];
 
 	ModelStore.getAll("models.SpriteImage", function(sprites) {
 		for (var j = 0; j < sprites.length; j++) {
 			images.push(sprites[j].url)
 		}
 		Crafty.load(images, function() {
-			Crafty.scene("terrainShop");
+			//Crafty.scene("terrainShop");
+			Crafty.scene("shop");
 		});
 	});
 

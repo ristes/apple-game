@@ -49,7 +49,7 @@ Land = function(columns, rows, firstRow, iso, atom) {
 			};
 		}
 		return land;
-	}
+	};
 
 	this.init = function() {
 		for (var i = 0; i <= columns; i++) {
@@ -61,6 +61,6 @@ Land = function(columns, rows, firstRow, iso, atom) {
 				}
 			}
 		}
-	}
+	};
 
-}
+};

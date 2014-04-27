@@ -18,6 +18,7 @@ public class Store extends Model {
 
 	public String name;
 
+	public String imageurl;
 	/**
 	 * The items that store contains
 	 */

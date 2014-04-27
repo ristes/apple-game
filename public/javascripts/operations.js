@@ -28,4 +28,4 @@ OperationComponent = function(oper, toolbar, atom, columns, field) {
 	}).bind('Click', function(e) {
 		OnClickCallbackManager.activate(oper.name, field);
 	});
-}
+};
