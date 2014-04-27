@@ -23,7 +23,12 @@ window.onload = function() {
 
 	ModelStore.getAll("models.SpriteImage", function(sprites) {
 		for (var j = 0; j < sprites.length; j++) {
-			images.push(sprites[j].url)
+			images.push(sprites[j].url);
+
+			var sp = {};
+			sp[sprites[j].name] = [ 0, 0 ];
+			Crafty.sprite(sprites[j].width, sprites[j].height, sprites[j].url,
+					sp);
 		}
 		Crafty.load(images, function() {
 			//Crafty.scene("terrainShop");

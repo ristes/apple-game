@@ -20,3 +20,4 @@ server.pid
 *.iml
 *.eml
 conf/db.conf
+app/views/Crafty/iso.html

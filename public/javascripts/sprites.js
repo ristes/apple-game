@@ -10,20 +10,20 @@ function GameStripes() {
 			bgLand : [ 0, 0, 1, 1 ]
 		});
 
-	}
+	};
 
 	this.bgLand = function(x, y) {
 		return Crafty.e("2D, Canvas, bgLand").attr({
 			x : x,
 			y : y
 		});
-	}
+	};
 
 	this.sky = function(x, y) {
 		return Crafty.e("2D, Canvas, sky").attr({
 			x : x,
 			y : y
 		});
-	}
+	};
 
 }
