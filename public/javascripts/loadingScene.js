@@ -9,7 +9,7 @@ window.onload = function() {
 			h : 20,
 			x : 150,
 			y : 120
-		}).text("Loading").css({
+		}).text("Loading scenes").css({
 			"text-align" : "center",
 			"font-size" : "50px"
 		});

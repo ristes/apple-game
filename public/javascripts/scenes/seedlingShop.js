@@ -28,7 +28,7 @@ Crafty.c("SeedlingText", {
 					+ ") - $" + data.price);
 
 			this.addCmp(sp);
-		}
+		};
 		this.bind("Click", function() {
 			$.post("/terrainshop/buySeedling?seedlingId="
 					+ this.modelData.entityId, function() {
@@ -60,10 +60,10 @@ Crafty.scene("seedlingShop", function() {
 	});
 	lst.fx = function(item, x, y, padding) {
 		return x + (item.order % 2) * (item.w + padding);
-	}
+	};
 	lst.fy = function(item, x, y, padding) {
 		return y + Math.floor(item.order / 2) * (item.h + padding);
-	}
+	};
 	lst.load("/terrainshop/allSeedlings", 150, 30, 10, function() {
 		loading.destroy();
 	});

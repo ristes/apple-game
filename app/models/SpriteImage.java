@@ -37,6 +37,12 @@ public class SpriteImage extends Model {
 	public boolean shouldDestroy;
 	
 	@OneToMany(mappedBy="image")
+	public List<Store> stores;
+	
+	@OneToMany(mappedBy="image")
+	public List<Item> items;
+	
+	@OneToMany(mappedBy="image")
 	public List<SeedlingType> seedlings;
 
 	@PrePersist
