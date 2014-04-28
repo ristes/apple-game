@@ -19,7 +19,7 @@ window.onload = function() {
 	Crafty.scene("loading");
 	var images = [ "/public/images/sky.png",
 			"/public/images/game/bg_grass.png", "/public/images/sprite.png",
-			"/public/images/game/dolen-element.png"];
+			"/public/images/game/dolen-element.png" ];
 
 	ModelStore.getAll("models.SpriteImage", function(sprites) {
 		for (var j = 0; j < sprites.length; j++) {
@@ -31,8 +31,15 @@ window.onload = function() {
 					sp);
 		}
 		Crafty.load(images, function() {
-			//Crafty.scene("terrainShop");
-			Crafty.scene("shop");
+			// Crafty.scene("terrainShop");
+			$.get("/AuthController/farmer", function(data) {
+				ModelStore.add(data);
+				if (data.currentState) {
+					Crafty.scene(data.currentState);
+				} else {
+					Crafty.scene("terrainShop");
+				}
+			});
 		});
 	});
 
