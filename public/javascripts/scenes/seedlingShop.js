@@ -17,13 +17,13 @@ Crafty.c("SeedlingText", {
 			"background-color" : "grey"
 		});
 		this.display = function(data) {
-			sp = Crafty.e("2D, DOM, " + data.seedlingType.image.name).attr({
-				xoffset : 200,
-				yoffset : 2,
-				w : 25,
-				h : 35
-			});
-			tt = this;
+			var sp = Crafty.e("2D, DOM, " + data.seedlingType.image.name).attr(
+					{
+						xoffset : 200,
+						yoffset : 2,
+						w : 25,
+						h : 35
+					});
 			this.text(data.type.name + " (" + data.seedlingType.description
 					+ ") - $" + data.price);
 
