@@ -3,7 +3,6 @@ package models;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -33,7 +32,7 @@ public class Field extends Model {
 	/**
 	 * The owner of the field (the one that bought it)
 	 */
-	@ManyToOne
+	@OneToOne(mappedBy = "field")
 	public Farmer owner;
 
 	/**
@@ -45,8 +44,8 @@ public class Field extends Model {
 	/**
 	 * The plantations placed on the field
 	 */
-	@OneToMany(mappedBy = "field")
-	public List<Plantation> plantations;
+	@OneToOne
+	public Plantation plantation;
 
 	/**
 	 * The operations executed on this field

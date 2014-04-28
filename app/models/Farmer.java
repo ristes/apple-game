@@ -4,8 +4,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import play.db.jpa.Model;
 
@@ -18,6 +20,13 @@ import play.db.jpa.Model;
 @Entity
 public class Farmer extends Model {
 
+	public String username;
+
+	@JsonIgnore
+	public String password;
+
+	public String currentState;
+
 	/**
 	 * How much money does the player have
 	 */
@@ -26,6 +35,7 @@ public class Farmer extends Model {
 	/**
 	 * The quantity of the product he has gained, and haven't sold yet
 	 */
+	@JsonIgnore
 	public int producatQuantity;
 
 	/**
@@ -36,8 +46,8 @@ public class Farmer extends Model {
 	/**
 	 * The fields he owns
 	 */
-	@OneToMany(mappedBy = "owner")
-	public List<Field> fields;
+	@OneToOne
+	public Field field;
 
 	/**
 	 * The items he owns
