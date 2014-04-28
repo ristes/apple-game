@@ -32,6 +32,7 @@ window.onload = function() {
 		}
 		Crafty.load(images, function() {
 			//Crafty.scene("terrainShop");
+			//Crafty.scene("terrainShop");
 			Crafty.scene("shop");
 		});
 	});
