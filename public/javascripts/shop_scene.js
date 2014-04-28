@@ -1,3 +1,0 @@
-Crafty.scene("shop", function() {
-	
-});
