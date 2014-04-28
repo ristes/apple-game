@@ -16,6 +16,7 @@ Crafty.c("ShopItemText", {
 			"cursor" : "pointer",
 			"background-color" : "grey"
 		});
+		
 		this.display = function(data) {
 			sp = Crafty.e("2D, DOM, " + data.image.name).attr({
 				xoffset : 100,
@@ -50,13 +51,37 @@ Crafty.c("ShopItemText", {
 				return x + 170 + (item.order % 1) * (item.w + padding);
 			};
 			lst.fy = function(item, x, y, padding) {
-				return y + Math.floor(item.order) * (item.h + padding);
+				return y  + Math.floor(item.order) * (item.h + padding);
 			};
 			lst.load("/storecontroller/showitems?storeId="+id, 150, 30, 10, function() {
 				loading.destroy();
 			});
 		});
 
+	}
+});
+
+Crafty.c("ItemStoreLabel",{
+	init : function() {
+		this.childCmps = [];
+		this.addComponent("2D, DOM, Text, Mouse");
+		
+		this.attr({
+			w : 20,
+			h : 15
+		});
+		this.css({
+			"text-align" : "center",
+			"font-size" : "x-large",
+			"padding-top" : "5px",
+		});
+		
+	},
+	data : function(data) {
+		var text = "";
+		text = data.price+" ден.";
+		this.text(text);
+		return this;
 	}
 });
 
@@ -77,6 +102,10 @@ Crafty.c("ItemStoreText", {
 			"cursor" : "pointer",
 			"background-color" : "grey"
 		});
+		this.addCmp(Crafty.e("ItemStoreLabel").attr({
+			xoffset : 5,
+			yoffset : 15
+		}));
 		this.display = function(data) {
 			sp = Crafty.e("2D, DOM, " + data.image.name).attr({
 				xoffset : 100,
@@ -91,6 +120,14 @@ Crafty.c("ItemStoreText", {
 			this.childCmps.push(sp);
 			this.addCmp(sp);
 		};
+		this.bind("Click",function() {
+			console.log("CKIKC");
+			var item = Crafty.e("BuyItemComponent").data(this.data).attr({
+					x : x,
+					y : y
+				});
+				return item;
+		});
 		this.remove = function() {
 			
 			for (var i=0;i<this.childCmps.length;i++) {
@@ -99,6 +136,47 @@ Crafty.c("ItemStoreText", {
 			
 		};
 	}
+	
+});
+
+Crafty.c("BuyItemComponent",{
+	init: function() {
+		this.childCmps = [];
+		this.addComponent("2D, DOM, Text, Mouse, CompositeDataComponent");
+
+		this.attr({
+			w : 600,
+			h : 400
+		});
+		this.css({
+			"text-align" : "left",
+			"font-size" : "50px",
+			"padding-top" : "5px",
+			"padding-left" : "5px",
+			"cursor" : "pointer",
+			"background-color" : "grey"
+		});
+		
+		this.display = function(data) {
+			sp = Crafty.e("2D, DOM, " + data.image.name).attr({
+				xoffset : 100,
+				yoffset : 2,
+				w : 45,
+				h : 35
+			});
+			tt = this;
+			this.text(data.name);
+			this.childCmps.push(sp);
+			this.addCmp(sp);
+		};
+	},
+	data : function(data) {
+		var text = "";
+		text = data.price+" ден.";
+		this.text(text);
+		return this;
+	}
+	
 });
 
 Crafty.scene("shop", function() {
