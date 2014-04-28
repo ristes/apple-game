@@ -3,9 +3,9 @@ package models;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import play.db.jpa.Model;
 
@@ -43,7 +43,7 @@ public class Plantation extends Model {
 	/**
 	 * Which is the field on which this plantation is planted on
 	 */
-	@ManyToOne
+	@OneToOne(mappedBy = "plantation")
 	public Field field;
 
 	/**

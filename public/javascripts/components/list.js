@@ -1,6 +1,12 @@
 Crafty.c("List", {
 	init : function() {
 		this.listItems = [];
+		var self = this;
+		this.bind("Remove", function() {
+			for (var i = 0; i < self.listItems.length; i++) {
+				self.listItems[i].destroy();
+			}
+		});
 	},
 	fx : function(item, x, y, padding) {
 		return x;
