@@ -1,6 +1,13 @@
 Crafty.c("CompositeDataComponent", {
 	init : function() {
 		this.childCmps = [];
+		var self = this;
+		this.bind("Remove", function() {
+			for (var i = 0; i < self.childCmps.length; i++) {
+				self.childCmps[i].destroy();
+			}
+		});
+
 	},
 	addCmp : function(cmp) {
 		this.childCmps = this.childCmps || [];
