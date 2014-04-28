@@ -86,6 +86,8 @@ Crafty.c("ItemStoreText", {
 			});
 			tt = this;
 			this.text(data.name);
+			// this.text("$"+data.price);
+			
 			this.childCmps.push(sp);
 			this.addCmp(sp);
 		};
@@ -94,7 +96,7 @@ Crafty.c("ItemStoreText", {
 			for (var i=0;i<this.childCmps.length;i++) {
 				this.childCmps[i].destroy();
 			}
-			//
+			
 		};
 	}
 });

@@ -44,6 +44,9 @@ public class SpriteImage extends Model {
 	
 	@OneToMany(mappedBy="image")
 	public List<SeedlingType> seedlings;
+	
+	@OneToMany(mappedBy="icon")
+	public List<WeatherType> types;
 
 	@PrePersist
 	protected void onCreate() {

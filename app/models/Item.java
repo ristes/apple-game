@@ -36,7 +36,8 @@ public class Item extends Model {
 	@Range(min = 0, max = 10)
 	public int pollutionCoefficient;
 	
-	public String imageurl;
+	@ManyToOne
+	public SpriteImage image;
 
 	/**
 	 * Where can we buy the item
