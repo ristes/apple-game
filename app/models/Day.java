@@ -5,13 +5,14 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+
 import play.db.jpa.Model;
 
 
 @Entity
 public class Day extends Model{
 	
-	public static Date date;
+	public Date date;
 	
 	@ManyToOne
 	public WeatherType weatherType;
@@ -20,11 +21,11 @@ public class Day extends Model{
 	
 	public Double tempHigh;
 	
-	public Integer humidityOfLeaf;
+	public Long humidityOfLeaf;
 	
 	public Double iceProb;
 	
-	public Integer humidity;
+	public Long humidity;
 	
 	/**
 	 * if above 0.5, it's high UV radiation
