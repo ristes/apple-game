@@ -18,10 +18,9 @@ Crafty.c("BaseText", {
 			this.text(data.name + " - $" + data.price);
 		}
 		this.bind("Click", function() {
-			$.post("/terrainshop/buyBase?baseId=" + this.modelData.entityId,
-					function() {
-						Crafty.scene("seedlingShop");
-					});
+			var msg = "Are you sure that you want to by this base?";
+			AppleGame.buy("/terrainshop/buyBase?baseId="
+					+ this.modelData.entityId, this.modelData.price, msg);
 		});
 	}
 });
@@ -45,6 +44,10 @@ Crafty.scene("baseShop", function() {
 
 		return item;
 	}).load("/terrainshop/allBases", 150, 30, 10, function() {
+		var userframe = Crafty.e("UserFrame").data(AppleGame.farmer).attr({
+			x : 800,
+			y : 30
+		});
 		loading.destroy();
 	});
 

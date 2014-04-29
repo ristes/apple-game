@@ -44,7 +44,7 @@ public class TerrainShop extends Controller {
 			field.save();
 			farmer.save();
 		}
-		JsonController.toJson(farmer);
+		JsonController.toJson(farmer, "field");
 	}
 
 	public static void allBases() throws Exception {
@@ -68,7 +68,7 @@ public class TerrainShop extends Controller {
 			field.save();
 			farmer.save();
 		}
-		JsonController.toJson(farmer);
+		JsonController.toJson(farmer, "field", "plantation");
 	}
 
 	public static void allSeedlings() throws Exception {
@@ -89,7 +89,7 @@ public class TerrainShop extends Controller {
 			plantation.save();
 			farmer.save();
 		}
-		JsonController.toJson(farmer);
+		JsonController.toJson(farmer, "seedlingType", "type");
 	}
 
 	public static void generateAllSeedlings() {

@@ -53,9 +53,10 @@ Crafty.c("ShopItemText", {
 			lst.fy = function(item, x, y, padding) {
 				return y + Math.floor(item.order) * (item.h + padding);
 			};
-			lst.load("/storecontroller/showitems?storeId=" + id, 150, 30, 10, function() {
-				loading.destroy();
-			});
+			lst.load("/storecontroller/showitems?storeId=" + id, 150, 30, 10,
+					function() {
+						loading.destroy();
+					});
 		});
 
 	}
@@ -168,12 +169,14 @@ Crafty.c("BuyItemComponent", {
 				size : "20px",
 				width : "bold"
 			}).setText(data.name);
+
 			var image = Crafty.e("2D, DOM, " + data.image.name).attr({
 				xoffset : 165,
 				yoffset : 70,
 				w : 90,
 				h : 70
 			});
+
 			var price = Crafty.e("ItemStoreLabel").attr({
 				xoffset : 180,
 				yoffset : 150
@@ -183,38 +186,43 @@ Crafty.c("BuyItemComponent", {
 
 			var cancel_btn = Crafty.e("ItemStoreLabel").attr({
 				xoffset : 200,
-				yoffset : 250
+				yoffset : 250,
+				w : 50,
+				h : 20
 			}).setText("Cancel").css({
-				"cursor" : "pointer"
+				"cursor" : "pointer",
+				"background-color" : "blue"
 			}).textFont({
 				size : "15px",
 				width : "bold"
 			});
+
 			var buy_btn = Crafty.e("ItemStoreLabel").attr({
 				xoffset : 200,
-				yoffset : 200
-			}).setText("Buy").css({
-				"cursor" : "pointer"
+				yoffset : 200,
+				w : 50,
+				h : 20
+			}).text("Buy").css({
+				"cursor" : "pointer",
+				"background-color" : "blue"
 			}).textFont({
 				size : "15px",
 				width : "bold"
 			});
 			tt = this;
 			buy_btn.bind("Click", function() {
-				$.post("/storecontroller/buyItem?itemid=" + data.entityId+"&quantity=1", function(result) {
-					if (result.status==true) {
+				$.post("/storecontroller/buyItem?itemid=" + data.entityId
+						+ "&quantity=1", function(result) {
+					if (result.status == true) {
 						Crafty("BuyItemComponent").destroy();
-						Crafty("UserFrame").trigger("Invalidate",result);
+						Crafty("UserFrame").trigger("Invalidate", result);
 						alert("KUPENO!");
-						// Crafty("UserFrame").each(function(i){
-							// Crafty("UserFrame").get(0).invalidate();
-						// });
 					} else {
 						alert("NEMA PARI!");
 					}
 				});
 			});
-			
+
 			cancel_btn.bind("Click", function(tt) {
 				Crafty("BuyItemComponent").destroy();
 			});
@@ -237,20 +245,7 @@ Crafty.c("BuyItemComponent", {
 		this.text(text);
 		return this;
 	}
-	// buyitem : function(data) {
-// 				
-				// $.post("/storecontroller/buyItem?itemid=" + data.entityId+"&quantity=1", function(result) {
-					// if (result.status==true) {
-						// //alert("Kupeno!");
-						// //console.log(Crafty.debug('handlers'))
-						// Crafty("UserFrame").trigger("Invalidate",result.value);
-					// } else {
-						// alert("Neuspesno kupuvanje!");
-					// }
-				// });
-// 				
-				// console.log("OK");
-	// }
+
 });
 
 Crafty.scene("shop", function() {
@@ -263,107 +258,22 @@ Crafty.scene("shop", function() {
 		"text-align" : "center",
 		"font-size" : "50px"
 	});
-	var lstUserInfo = Crafty.e("List").itemFn(function(data, x, y) {
-		var userframe = Crafty.e("UserFrame").data(data).attr({
-			
+
+	var lst = Crafty.e("List").itemFn(function(data, x, y) {
+		var item = Crafty.e("ShopItemText").data(data).attr({
+			x : x,
+			y : y
 		});
-		
-		userframe.fx = function(item, x, y, padding) {
-			return 	x + (item.order % 1) * (item.w + padding);
-		};
-		userframe.fy = function(item, x, y, padding) {
-			return y + Math.floor(item.order) * (item.h + padding);
-		};
-		
-		return userframe;
+
+		return item;
 	});
-	lstUserInfo.load("/authcontroller/farmer", 800, 30, 10, function() {
 
-
-		var lst = Crafty.e("List").itemFn(function(data, x, y) {
-			var item = Crafty.e("ShopItemText").data(data).attr({
-				x : x,
-				y : y
-			});
-
-			return item;
+	lst.load("/storecontroller/all", 150, 30, 10, function() {
+		var userframe = Crafty.e("UserFrame").data(AppleGame.farmer).attr({
+			x : 800,
+			y : 30
 		});
-		lst.fx = function(item, x, y, padding) {
-			return x + (item.order % 1) * (item.w + padding);
-		};
-		lst.fy = function(item, x, y, padding) {
-			return y + Math.floor(item.order) * (item.h + padding);
-		};
-		lst.load("/storecontroller/all", 150, 30, 10, function() {
-			loading.destroy();
-		});
-		
+		loading.destroy();
 	});
 
 });
-
-/*
-
- Crafty.scene("shop", function() {
-
- // for now only redirect to the plantation scene
- //Crafty.scene("terrainShop");
-
- ModelStore.getFromService("/storecontroller/all", function(data) {
- for (var i = 0; i < data.length; i++) {
-
- Crafty.sprite(540, 374, "/public/images/game/green_tractor.png", {
- store_item : [0, 0, 1, 1]
- });
- var btn = Crafty.e("2D, DOM, store_item, Mouse").attr({
- w : 60,
- h : 50,
- x : 200,
- y : 123 + 60 * i
- }).css({
- "cursor":"pointer",
- "title":data[i].name
- }).bind("Click", function() {
- if (!this.itemStore) {
- Crafty("item_store").destroy();
- Crafty("store_item").each(function(store) {
- Crafty("store_item").get(store).itemStore = undefined;
- });
- var itemStore = new ItemStore(260, this.store.y, this.store.entityId);
- this.itemStore = itemStore;
- // this.bind("MouseOut", function() {
- // this.unbind("MouseOut");
- //
- // //this.itemStore.removeComponent("item_store");
- // //this.itemStore.destroy();
- // //Crafty.removeComponent(itemStore);
- // });
- } else {
- console.log("Out");
- Crafty("item_store").destroy();
- this.itemStore = undefined;
- }
- });
- btn.store = data[i];
- btn.store.y = 123 + 60 * i;
- var buy = Crafty.e("2D, DOM, Text, Mouse").attr({
- w : 50,
- h : 14,
- x : 300,
- y : 143 + 60 * i
- }).text("buy").css({
- "text-align" : "center",
- "font-size" : "50px",
- "padding-top" : "5px",
- "cursor" : "pointer",
- "background-color" : "red",
- "valign" : "center"
- }).bind("Click", function() {
-
- });
- //buy.terrain = data[i];
- }
- });
-
- });
- */

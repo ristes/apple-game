@@ -92,8 +92,10 @@ ModelStore = {
 			}
 			// if expanded model
 			if (o[p] != null && typeof o[p] === 'object' && regex.test(o[p].id)) {
-				ModelStore.fixPending(o[p]);
-				ModelStore.store[o[p].id] = o[p];
+				if (!ModelStore.store[o[p].id]) {
+					ModelStore.fixPending(o[p]);
+					ModelStore.store[o[p].id] = o[p];
+				}
 			}
 		}
 	},

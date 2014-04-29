@@ -8,6 +8,29 @@ var AppleGame = {
 	},
 	changeState : function(farmer) {
 		this.farmer = farmer;
+		ModelStore.add(farmer);
+	},
+	buy : function(url, amount, msg) {
+		var pay = msg && confirm(msg);
+		if (pay) {
+			if (AppleGame.farmer.balans > amount) {
+				$
+						.post(
+								url,
+								function(data) {
+									if (amount === 0
+											|| AppleGame.farmer.balans !== data.balans) {
+										AppleGame.changeState(data);
+										Crafty
+												.scene(AppleGame.farmer.currentState);
+									} else {
+										alert("Not enough balans for the user!!!");
+									}
+								});
+			} else {
+				alert("Not enough balans for the user!!!");
+			}
+		}
 	}
 
 };
@@ -48,7 +71,7 @@ window.onload = function() {
 			$.post("/AuthController/farmer", function(data) {
 				AppleGame.changeState(data);
 				if (AppleGame.farmer.currentState) {
-					Crafty.scene(AppleGame.farmer.currentScene);
+					Crafty.scene(AppleGame.farmer.currentState);
 				} else {
 					Crafty.scene("terrainShop");
 				}

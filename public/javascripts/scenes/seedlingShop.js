@@ -30,10 +30,13 @@ Crafty.c("SeedlingText", {
 			this.addCmp(sp);
 		};
 		this.bind("Click", function() {
-			$.post("/terrainshop/buySeedling?seedlingId="
-					+ this.modelData.entityId, function() {
-				Crafty.scene("shop");
-			});
+
+			var msg = "Are you sure that you want to by thisese seedlings?";
+			var price = this.modelData.price * AppleGame.farmer.field.area;
+			var url = "/terrainshop/buySeedling?seedlingId="
+					+ this.modelData.entityId;
+			AppleGame.buy(url, price, msg);
+
 		});
 
 	}
@@ -65,6 +68,10 @@ Crafty.scene("seedlingShop", function() {
 		return y + Math.floor(item.order / 2) * (item.h + padding);
 	};
 	lst.load("/terrainshop/allSeedlings", 150, 30, 10, function() {
+		var userframe = Crafty.e("UserFrame").data(AppleGame.farmer).attr({
+			x : 800,
+			y : 30
+		});
 		loading.destroy();
 	});
 

@@ -94,16 +94,11 @@ Crafty.c("BuyTerrainButton", {
 		return this;
 	},
 	buy : function() {
-		if (AppleGame.farmer.balans > this.modelData.analysis.unitPrice
-				* this.size) {
-			$.post("/terrainshop/buyTerrain?size=" + this.size + "&terrainId="
-					+ this.modelData.entityId, function(data) {
-
-				Crafty.scene("baseShop");
-			});
-		} else {
-			alert("Not enough balans for the user!!!");
-		}
+		var msg = "Are you sure that you want to by this terrain?";
+		var price = this.modelData.analysis.unitPrice * this.size;
+		var url = "/terrainshop/buyTerrain?size=" + this.size + "&terrainId="
+				+ this.modelData.entityId;
+		AppleGame.buy(url, price, msg);
 	}
 });
 
@@ -173,6 +168,10 @@ Crafty.scene("terrainShop", function() {
 
 		return item;
 	}).load("/terrainshop/allTerrains", 150, 30, 10, function() {
+		var userframe = Crafty.e("UserFrame").data(AppleGame.farmer).attr({
+			x : 800,
+			y : 30
+		});
 		loading.destroy();
 	});
 
