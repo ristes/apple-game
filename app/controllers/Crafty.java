@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.UUID;
 
+import models.Day;
 import models.Farmer;
 import play.cache.Cache;
 import play.mvc.Controller;
@@ -9,6 +10,14 @@ import play.mvc.Controller;
 public class Crafty extends Controller {
 
 	public static void iso() {
+		Farmer farmer = AuthController.getFarmer();
+		if (farmer == null) {
+			login();
+		}
+		render();
+	}
+	
+	public static void iso1() {
 		Farmer farmer = AuthController.getFarmer();
 		if (farmer == null) {
 			login();
@@ -33,6 +42,9 @@ public class Crafty extends Controller {
 		System.out.println(farmer);
 		if (farmer == null) {
 			farmer = new Farmer();
+			Day start = Day.find("dayOrder", 1l).first();
+			farmer.gameDate = start;
+			farmer.balans = 1000000;
 			farmer.username = username;
 			farmer.password = password;
 			farmer.save();

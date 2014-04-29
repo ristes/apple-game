@@ -46,18 +46,22 @@ Crafty.c("AnalyzeTerrainButton", {
 	},
 	analyze : function() {
 		var self = this;
-		ModelStore.getFromService("/terrainshop/analyze?terrainId="
-				+ this.modelData.entityId, function(data) {
+		if (AppleGame.farmer.balans > AppleGame.analysisPrice) {
+			ModelStore.getFromService("/terrainshop/analyze?terrainId="
+					+ this.modelData.entityId, function(data) {
 
-			var cmp = Crafty.e("TerrainFeature").data(
-					self.modelData.analysis.features).attr({
-				xoffset : 10,
-				yoffset : 50
+				var cmp = Crafty.e("TerrainFeature").data(
+						self.modelData.analysis.features).attr({
+					xoffset : 10,
+					yoffset : 50
+				});
+				self.container.addCmp(cmp);
+				self.container.attr("h", self.container.h + cmp.h + 16);
+				self.destroy();
 			});
-			self.container.addCmp(cmp);
-			self.container.attr("h", self.container.h + cmp.h + 16);
-			self.destroy();
-		});
+		} else {
+			alert("Not enough balans for the user!!!");
+		}
 	}
 });
 
@@ -90,10 +94,16 @@ Crafty.c("BuyTerrainButton", {
 		return this;
 	},
 	buy : function() {
-		$.post("/terrainshop/buyTerrain?size=" + this.size + "&terrainId="
-				+ this.modelData.entityId, function() {
-			Crafty.scene("baseShop");
-		});
+		if (AppleGame.farmer.balans > this.modelData.analysis.unitPrice
+				* this.size) {
+			$.post("/terrainshop/buyTerrain?size=" + this.size + "&terrainId="
+					+ this.modelData.entityId, function(data) {
+
+				Crafty.scene("baseShop");
+			});
+		} else {
+			alert("Not enough balans for the user!!!");
+		}
 	}
 });
 

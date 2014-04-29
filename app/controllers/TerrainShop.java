@@ -10,6 +10,7 @@ import models.Plantation;
 import models.Seedling;
 import models.SeedlingType;
 import models.Terrain;
+import models.TerrainAnalysis;
 import play.mvc.Controller;
 
 public class TerrainShop extends Controller {
@@ -18,23 +19,32 @@ public class TerrainShop extends Controller {
 		JsonController.toJson(Terrain.findAll(), "analysis");
 	}
 
+	public static void analyze(Long terrainId) throws Exception {
+		Terrain t = Terrain.findById(terrainId);
+		Farmer farmer = AuthController.getFarmer();
+		farmer.balans -= TerrainAnalysis.ANALYSIS_PRICE;
+		if (farmer.balans > 0) {
+			farmer.save();
+		}
+		JsonController.toJson(t.analysis.features, "category");
+	}
+
 	public static void buyTerrain(Long terrainId, Double size) throws Exception {
 
 		Field field = new Field();
+		field.area = size;
 		field.terrain = Terrain.findById(terrainId);
-		field.save();
 
 		Farmer farmer = AuthController.getFarmer();
 		farmer.currentState = "baseShop";
 		farmer.field = field;
-		farmer.save();
+		farmer.balans -= field.terrain.analysis.unitPrice * size;
 
+		if (farmer.balans > 0) {
+			field.save();
+			farmer.save();
+		}
 		JsonController.toJson(farmer);
-	}
-
-	public static void analyze(Long terrainId) throws Exception {
-		Terrain t = Terrain.findById(terrainId);
-		JsonController.toJson(t.analysis.features, "category");
 	}
 
 	public static void allBases() throws Exception {
@@ -47,13 +57,17 @@ public class TerrainShop extends Controller {
 
 		Plantation plantation = new Plantation();
 		plantation.base = Base.findById(baseId);
-		plantation.save();
 
 		field.plantation = plantation;
-		field.save();
 
 		farmer.currentState = "seedlingShop";
-		farmer.save();
+		farmer.balans -= plantation.base.price;
+
+		if (farmer.balans > 0) {
+			plantation.save();
+			field.save();
+			farmer.save();
+		}
 		JsonController.toJson(farmer);
 	}
 
@@ -67,10 +81,14 @@ public class TerrainShop extends Controller {
 		Plantation plantation = Plantation.find("field.owner.id", farmer.id)
 				.first();
 		plantation.seadlings = Seedling.findById(seedlingId);
-		plantation.save();
 
 		farmer.currentState = "shop";
-		farmer.save();
+		farmer.balans -= plantation.seadlings.price * plantation.field.area;
+
+		if (farmer.balans > 0) {
+			plantation.save();
+			farmer.save();
+		}
 		JsonController.toJson(farmer);
 	}
 
