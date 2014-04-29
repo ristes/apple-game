@@ -204,7 +204,7 @@ Crafty.c("BuyItemComponent", {
 				$.post("/storecontroller/buyItem?itemid=" + data.entityId+"&quantity=1", function(result) {
 					if (result.status==true) {
 						Crafty("BuyItemComponent").destroy();
-						Crafty("UserFrame").trigger("Invalidate");
+						Crafty("UserFrame").trigger("Invalidate",result);
 						alert("KUPENO!");
 						// Crafty("UserFrame").each(function(i){
 							// Crafty("UserFrame").get(0).invalidate();
@@ -236,19 +236,21 @@ Crafty.c("BuyItemComponent", {
 		text = data.price + " ден.";
 		this.text(text);
 		return this;
-	},
-	buyitem : function(data) {
-				
-				$.post("/storecontroller/buyItem?itemid=" + data.entityId+"&quantity=1", function(result) {
-					if (result.status==true) {
-						alert("Kupeno!");
-					} else {
-						alert("Neuspesno kupuvanje!");
-					}
-				});
-				
-				console.log("OK");
 	}
+	// buyitem : function(data) {
+// 				
+				// $.post("/storecontroller/buyItem?itemid=" + data.entityId+"&quantity=1", function(result) {
+					// if (result.status==true) {
+						// //alert("Kupeno!");
+						// //console.log(Crafty.debug('handlers'))
+						// Crafty("UserFrame").trigger("Invalidate",result.value);
+					// } else {
+						// alert("Neuspesno kupuvanje!");
+					// }
+				// });
+// 				
+				// console.log("OK");
+	// }
 });
 
 Crafty.scene("shop", function() {

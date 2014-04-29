@@ -12,6 +12,11 @@ Crafty.c("UserLabel", {
 			"font-size" : "x-large",
 			"padding-top" : "5px",
 		});
+		this.bind("Invalidate", function(data) {
+			if (data != undefined) {
+				this.text("$"+data.balans);
+			}
+		});
 
 	},
 	setText : function(t) {
@@ -26,6 +31,7 @@ Crafty.c("UserLabel", {
 Crafty.c("UserFrame", {
 	init : function() {
 		this.childCmps = [];
+		this.balanceComponent
 		this.addComponent("2D, DOM, Text, Mouse, CompositeDataComponent");
 		this.attr({
 			w : 200,
@@ -38,24 +44,41 @@ Crafty.c("UserFrame", {
 			"padding-left" : "5px",
 			"cursor" : "pointer",
 		});
+		self = this;
 		this.display = function(data) {
 			console.log(data);
 			this.text(data.username).textFont({
 				size : "20px"
 			});
-			var namefarmer = Crafty.e("UserLabel").attr({
+			var datefarmer = Crafty.e("UserLabel").attr({
 				xoffset : 1,
-				yoffset : 30
+				yoffset : 25
 			}).textFont({
 				size : "20px"
-			}).setText(data.gameDate.date + "  $" + data.balans);
-			this.childCmps.push(namefarmer);
-			this.addCmp(namefarmer);
+			}).setText(data.gameDate.date);
+			var balancefarmer = Crafty.e("UserLabel").attr({
+				xoffset : 1,
+				yoffset : 50
+			}).textFont({
+				size : "20px"
+			}).setText("$" + data.balans);
+			//this.childCmps.push(namefarmer);
+			this.addCmp(balancefarmer);
+			this.addCmp(datefarmer);
+			this.childCmps.push(balancefarmer);
+			this.childCmps.push(datefarmer);
+			this.balanceComponent = balancefarmer;
 		};
+		this.bind("Invalidate", function(data) {
+			//this.text(data);
+			if (this.balanceComponent !== undefined) {
+				this.balanceComponent.trigger("Invalidate", data);
+			}
+		});
 		// this.bind("Click", function() {
-			// $.post("/terrainshop/buyBase?baseId=" + this.modelData.entityId, function() {
-				// Crafty.scene("seedlingShop");
-			// });
+		// $.post("/terrainshop/buyBase?baseId=" + this.modelData.entityId, function() {
+		// Crafty.scene("seedlingShop");
+		// });
 		// });
 
 	}

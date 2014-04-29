@@ -10,7 +10,7 @@ import java.util.Set;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import dao.ResultTransactionDao;
+import dao.FarmerTransactionDao;
 
 import models.Farmer;
 import models.Item;
@@ -47,10 +47,10 @@ public class StoreController extends Controller {
 			Boolean successTransaction = triggerBuyingItem(farmer, item,
 					quantity);
 			if (successTransaction) {
-				JsonController.toJson(new ResultTransactionDao(true, cost));
+				JsonController.toJson(new FarmerTransactionDao(farmer, true));
 			}
 		}
-		JsonController.toJson(new ResultTransactionDao(false));
+		JsonController.toJson(new FarmerTransactionDao(false));
 	}
 
 	public static Boolean triggerBuyingItem(Farmer farmer, Item item,
