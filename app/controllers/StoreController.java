@@ -10,10 +10,15 @@ import java.util.Set;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import dao.ResultTransactionDao;
+
+import models.Farmer;
 import models.Item;
+import models.ItemInstance;
 import models.Operation;
 import models.OperationDuration;
 import models.Store;
+import play.cache.Cache;
 import play.mvc.Controller;
 
 public class StoreController extends Controller {
@@ -27,10 +32,44 @@ public class StoreController extends Controller {
 			JsonMappingException, IOException {
 		JsonController.toJson(Store.findById(storeId));
 	}
-	
+
 	public static void showitems(Long storeId) throws IOException {
 		Store store = Store.findById(storeId);
 		JsonController.toJson(store.items);
+	}
+
+	public static void buyItem(String itemid, Integer quantity)
+			throws IOException {
+		Farmer farmer = AuthController.getFarmer();
+		if (farmer != null) {
+			Item item = Item.findById(Long.parseLong(itemid));
+			Long cost = (long) item.price * quantity;
+			Boolean successTransaction = triggerBuyingItem(farmer, item,
+					quantity);
+			if (successTransaction) {
+				JsonController.toJson(new ResultTransactionDao(true, cost));
+			}
+		}
+		JsonController.toJson(new ResultTransactionDao(false));
+	}
+
+	public static Boolean triggerBuyingItem(Farmer farmer, Item item,
+			int quantity) {
+		long value = item.price * quantity;
+
+		if (farmer.balans < value) {
+			return false;
+		}
+		farmer.balans -= value;
+		for (int i = 0; i < quantity; i++) {
+			ItemInstance instance = new ItemInstance();
+			instance.ownedBy = farmer;
+			instance.type = item;
+			instance.save();
+
+		}
+		farmer.save();
+		return true;
 	}
 
 	/**

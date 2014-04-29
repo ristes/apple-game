@@ -1,9 +1,11 @@
 package models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 
 import play.db.jpa.Model;
@@ -41,5 +43,12 @@ public class Day extends Model{
 	 * if above 0.8 and below 1 there is 80% loss 
 	 */
 	public Double heavyRain;
+	
+	@OneToMany(mappedBy="gameDate")
+	public List<Farmer> farmers;
+	
+	public String toString() {
+		return date + "-"+weatherType.name;
+	}
 
 }

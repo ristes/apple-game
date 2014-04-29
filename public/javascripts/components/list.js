@@ -33,6 +33,19 @@ Crafty.c("List", {
 				}
 
 			}
+			
+			if (!Array.isArray(data)) {
+				var item = self.itemConstructor(data, x, y);
+				item.order = 0;
+				item.attr({
+					x : self.fx(item, x, y, padding),
+					y : self.fy(item, x, y, padding)
+				});
+				item.bind("Change", heightChanged);
+
+				self.listItems.push(item);
+			}
+			
 			for (var i = 0; i < data.length; i++) {
 				var item = self.itemConstructor(data[i], x, y);
 				item.order = i;

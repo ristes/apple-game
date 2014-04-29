@@ -12,7 +12,7 @@ import play.mvc.Controller;
 public class AuthController extends Controller {
 
 	public static void farmer() throws Exception {
-		JsonController.toJson(getFarmer());
+		JsonController.toJson(getFarmer(),"gameDate");
 	}
 
 	protected static Farmer getFarmer() {

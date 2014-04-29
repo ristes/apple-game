@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -41,7 +42,8 @@ public class Farmer extends Model {
 	/**
 	 * The date for the player in the game
 	 */
-	public Date gameDate;
+	@ManyToOne
+	public Day gameDate;
 
 	/**
 	 * The fields he owns
