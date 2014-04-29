@@ -27,7 +27,7 @@ public class Field extends Model {
 	 * The units of area of the field (everywhere referred to as units of
 	 * plantation)
 	 */
-	public int area;
+	public double area;
 
 	/**
 	 * The owner of the field (the one that bought it)

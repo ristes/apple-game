@@ -11,6 +11,8 @@ import play.db.jpa.Model;
 @Entity
 public class TerrainAnalysis extends Model {
 
+	public static final int ANALYSIS_PRICE = 1000;
+
 	public String name;
 
 	/**
