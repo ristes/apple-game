@@ -204,6 +204,7 @@ Crafty.c("BuyItemComponent", {
 				$.post("/storecontroller/buyItem?itemid=" + data.entityId+"&quantity=1", function(result) {
 					if (result.status==true) {
 						Crafty("BuyItemComponent").destroy();
+						Crafty("UserFrame").trigger("Invalidate");
 						alert("KUPENO!");
 						// Crafty("UserFrame").each(function(i){
 							// Crafty("UserFrame").get(0).invalidate();

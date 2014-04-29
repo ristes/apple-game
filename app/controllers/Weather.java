@@ -162,7 +162,7 @@ public class Weather extends Controller {
 		return day;
 	}
 
-	public static Day createWeatherForDay(Integer year, String line) {
+	public static Day createWeatherForDay(Integer year, String line, Long dayOrder) {
 		String[] fields = line.split(",");
 		
 		String date = fields[DATE_MODEL];
@@ -235,24 +235,28 @@ public class Weather extends Controller {
 		day = generateHumidityOfLeaf(humLeaf,day);
 		day = generateHeavyRain(day);
 		day = generateUV(uvProb,day);
-		
+		day.dayOrder =dayOrder;
 		return day;
 		
 		
 	}
 
-	public static void generateWeather(String endYear) {
+	public static void generateWeather(String startYear, String endYear) {
+		
+		Long dayOrder = (long)0;
+		Integer startYearInt = Integer.parseInt(startYear);
 		Integer endYearInt = Integer.parseInt(endYear);
 		HashMap<Integer, Double> biasForYear = generateValuesForHashSetBadYear(endYearInt);
-		for (int i=Calendar.getInstance().get(Calendar.YEAR);i<=endYearInt;i++) {
+		for (int i=startYearInt;i<=endYearInt;i++) {
 			File file = Play.getFile("/data/weathermodel.csv");
 			BufferedReader br = null;
 			try {
 				br = new BufferedReader(new FileReader(file));
 				String line = null;
 				while ((line=br.readLine())!=null) {
-					Day day = createWeatherForDay(i,line);
+					Day day = createWeatherForDay(i,line,dayOrder);
 					day.save();
+					dayOrder++;
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
