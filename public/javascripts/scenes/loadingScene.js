@@ -14,23 +14,24 @@ var AppleGame = {
 		var pay = msg && confirm(msg);
 		if (pay) {
 			if (AppleGame.farmer.balans > amount) {
-				$
-						.post(
-								url,
-								function(data) {
-									if (amount === 0
-											|| AppleGame.farmer.balans !== data.balans) {
-										AppleGame.changeState(data);
-										Crafty
-												.scene(AppleGame.farmer.currentState);
-									} else {
-										alert("Not enough balans for the user!!!");
-									}
-								});
+				$.post(url,function(data) {
+								
+					if (amount === 0 || AppleGame.farmer.balans !== data.balans) {
+						AppleGame.changeState(data);
+						Crafty.scene(AppleGame.farmer.currentState);
+					} else {
+						alert("Not enough balans for the user!!!");
+					}
+					});
+
 			} else {
 				alert("Not enough balans for the user!!!");
 			}
 		}
+	},
+	setWeather : function(data) {
+		this.weather = data;
+		ModelStore.add(data);
 	}
 
 };
@@ -70,11 +71,15 @@ window.onload = function() {
 		Crafty.load(images, function() {
 			$.post("/AuthController/farmer", function(data) {
 				AppleGame.changeState(data);
-				if (AppleGame.farmer.currentState) {
-					Crafty.scene(AppleGame.farmer.currentState);
-				} else {
-					Crafty.scene("terrainShop");
-				}
+				$.post("/weathercontroller/weatherforecast?fordays=3",function(data) {
+					AppleGame.setWeather(data);
+					if (AppleGame.farmer.currentState) {
+						Crafty.scene(AppleGame.farmer.currentState);
+					} else {
+						Crafty.scene("plantation");
+					}	
+				});
+				
 			});
 		});
 	});

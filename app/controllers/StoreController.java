@@ -10,7 +10,7 @@ import java.util.Set;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import dao.FarmerTransactionDao;
+import dto.FarmerTransactionDao;
 
 import models.Farmer;
 import models.Item;

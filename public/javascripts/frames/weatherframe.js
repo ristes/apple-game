@@ -1,4 +1,4 @@
-Crafty.c("UserLabel", {
+Crafty.c("WeatherLabel", {
 	init : function() {
 		this.childCmps = [];
 		this.addComponent("2D, DOM, Text, Mouse");
@@ -22,20 +22,15 @@ Crafty.c("UserLabel", {
 	setText : function(t) {
 		this.t = t;
 		return this;
-	},
-	data : function(data) {
-		this.text(this.t);
-		return this;
 	}
 });
-Crafty.c("UserFrame", {
+Crafty.c("WeatherFrame", {
 	init : function() {
 		this.childCmps = [];
-		this.balanceComponent;
 		this.addComponent("2D, DOM, Text, Mouse, CompositeDataComponent");
 		this.attr({
-			w : 200,
-			h : 30
+			w : 80,
+			h : 200
 		});
 		this.css({
 			"text-align" : "left",
@@ -47,27 +42,33 @@ Crafty.c("UserFrame", {
 		self = this;
 		this.display = function(data) {
 			console.log(data);
-			this.text(data.username).textFont({
-				size : "20px"
+			icon = Crafty.e("2D, DOM, " + data.icon_url).attr({
+				xoffset : 10,
+				yoffset : 25,
+				w : 45,
+				h : 70
 			});
-			var datefarmer = Crafty.e("UserLabel").attr({
-				xoffset : 1,
-				yoffset : 25
+			this.text(data.date).textFont({
+				size : "12px"
+			});
+		
+			var lowTemp = Crafty.e("WeatherLabel").attr({
+				xoffset : 20,
+				yoffset : 100
 			}).textFont({
-				size : "20px"
-			}).setText(data.gameDate.date);
-			var balancefarmer = Crafty.e("UserLabel").attr({
-				xoffset : 1,
-				yoffset : 50
+				size : "16px"
+			}).text(parseInt(data.lowTemp).toString()+'C');
+			var highTemp = Crafty.e("WeatherLabel").attr({
+				xoffset : 20,
+				yoffset : 120
 			}).textFont({
-				size : "20px"
-			}).setText("$" + data.balans);
-			//this.childCmps.push(namefarmer);
-			this.addCmp(balancefarmer);
-			this.addCmp(datefarmer);
-			this.childCmps.push(balancefarmer);
-			this.childCmps.push(datefarmer);
-			this.balanceComponent = balancefarmer;
+				size : "16px"
+			}).text(parseInt(data.highTemp)+"C");
+			this.addCmp(icon);
+			this.addCmp(lowTemp);
+			this.addCmp(highTemp);
+			this.childCmps.push(lowTemp);
+			this.childCmps.push(highTemp);
 		};
 		this.bind("Invalidate", function(data) {
 			//this.text(data);
@@ -83,4 +84,3 @@ Crafty.c("UserFrame", {
 
 	}
 });
-

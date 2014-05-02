@@ -273,7 +273,29 @@ Crafty.scene("shop", function() {
 			x : 800,
 			y : 30
 		});
-		loading.destroy();
+		
+		var weatherFrame = Crafty.e("List").itemFn(function(data, x, y) {
+			var item = Crafty.e("WeatherFrame").data(data).attr({
+				x : x,
+				y : y
+			});
+
+			return item;
+		});
+		
+		weatherFrame.fx = function(item, x, y, padding) {
+			return x + item.w * item.order + padding;
+		};
+		weatherFrame.fy = function(item, x, y, padding) {
+			return y;
+		}; 
+
+		weatherFrame.load("/weathercontroller/weatherforecast?fordays=4",950,30,10,function(){
+			loading.destroy();
+		}); 
+		
+		
+		//loading.destroy();
 	});
 
 });

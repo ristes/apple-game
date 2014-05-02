@@ -1,4 +1,4 @@
-package dao;
+package dto;
 
 import models.Day;
 import models.Farmer;

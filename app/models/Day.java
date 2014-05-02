@@ -16,6 +16,8 @@ public class Day extends Model{
 	
 	public Date date;
 	
+	public String season;
+	
 	@ManyToOne
 	public WeatherType weatherType;
 	
