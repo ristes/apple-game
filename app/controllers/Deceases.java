@@ -3,6 +3,7 @@ package controllers;
 import java.util.Date;
 import java.util.List;
 
+import models.GameContext;
 import models.Plantation;
 import models.Decease;
 import models.DeceaseImpact;
@@ -11,6 +12,7 @@ import play.mvc.Controller;
 import dao.DeceasesDao;
 
 public class Deceases extends Controller {
+	
 
 	static DeceasesDao deceases;
 
@@ -30,4 +32,5 @@ public class Deceases extends Controller {
 		// generate the probability from the conditions
 
 	}
+	
 }

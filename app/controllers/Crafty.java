@@ -42,7 +42,7 @@ public class Crafty extends Controller {
 		System.out.println(farmer);
 		if (farmer == null) {
 			farmer = new Farmer();
-			Day start = Day.find("dayOrder", 1l).first();
+			Day start = Day.find("dayOrder", 0l).first();
 			farmer.gameDate = start;
 			farmer.balans = 1000000;
 			farmer.username = username;

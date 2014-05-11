@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import models.Farmer;
+import models.GameContext;
 import play.cache.Cache;
 import play.mvc.Controller;
 
@@ -21,6 +22,16 @@ public class AuthController extends Controller {
 		if (fid != null) {
 			Farmer farmer = Farmer.findById(fid);
 			return farmer;
+		}
+		return null;
+	}
+	
+	protected static GameContext getContext() {
+		String id = session.get("farmer");
+		Long cid = (Long) Cache.get(id);
+		if (cid != null) {
+			GameContext context = GameContext.findById(cid);
+			return context;
 		}
 		return null;
 	}

@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import play.db.jpa.Model;
+import utils.GameUtils;
 
 /**
  * The player in the game
@@ -27,6 +28,8 @@ public class Farmer extends Model {
 	public String password;
 
 	public String currentState;
+	
+	public Double luck;
 
 	/**
 	 * How much money does the player have
@@ -42,6 +45,8 @@ public class Farmer extends Model {
 	/**
 	 * The date for the player in the game
 	 */
+	
+	
 	@ManyToOne
 	public Day gameDate;
 
@@ -50,11 +55,24 @@ public class Farmer extends Model {
 	 */
 	@OneToOne
 	public Field field;
+	
+	
+	public Double cumulativeHumidity;
+	public Double cumulativeLeafHumidity;
 
 	/**
 	 * The items he owns
 	 */
 	@OneToMany(mappedBy = "ownedBy")
 	public List<ItemInstance> boughtItems;
+	
+	
+	public Double getLuck() {
+		return luck;
+	}
+	
+	public void generateLuck() {
+		luck = GameUtils.random(0.5,1.0,0.2);
+	}
 
 }

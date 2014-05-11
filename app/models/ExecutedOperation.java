@@ -19,6 +19,7 @@ public class ExecutedOperation extends Model {
 	/**
 	 * On which field the operation is executed
 	 */
+	
 	@ManyToOne
 	public Field field;
 
