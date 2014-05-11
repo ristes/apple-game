@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -73,6 +74,21 @@ public class Farmer extends Model {
 	
 	public void generateLuck() {
 		luck = GameUtils.random(0.5,1.0,0.2);
+	}
+	
+	public Boolean isSameYear(Date date) {
+		Calendar c= Calendar.getInstance();
+		c.setTime(gameDate.date);
+		c.set(Calendar.DAY_OF_MONTH, 1);
+		c.set(Calendar.MONTH, 1);
+		if (date.after(c.getTime())) {
+			c.set(Calendar.DAY_OF_MONTH,31);
+			c.set(Calendar.MONTH,12);
+			if (c.before(date)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

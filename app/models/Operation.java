@@ -41,12 +41,17 @@ public class Operation extends Model {
 	 */
 	@OneToMany(mappedBy = "operation")
 	public List<OperationDuration> durations;
+	
+	@OneToMany(mappedBy="operation")
+	public List<DeceaseProtectingOperation> protectedDecease;
 
 	/**
 	 * List of items capable to perform this operation
 	 */
 	@OneToMany(mappedBy = "operation")
 	public List<Item> itemsCapableToPerform;
+	
+
 
 	@ManyToOne
 	public SpriteImage icon;

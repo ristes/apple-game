@@ -39,7 +39,7 @@ public class Decease extends Model implements DeseaseRisk {
 	/**
 	 * math expr for desease occurrence
 	 */
-	@Column(length=500) 
+	@Column(length=65535) 
 	public String expression;
 
 	/**
@@ -88,15 +88,20 @@ public class Decease extends Model implements DeseaseRisk {
 
 	/**
 	 * The operations that prevent decease occurrence
+	 * MAYBE THIS MAY BE REMOVED
 	 */
 	@ManyToMany
 	public List<Operation> preventingOperations;
+	
+	@OneToMany(mappedBy="decease")
+	public List<DeceaseProtectingOperation> protections;
 
 	/**
 	 * Which operations can heal this decease, or at least lower the losses
 	 */
 	@ManyToMany
 	public List<Operation> healingOperation;
+	
 
 	@Override
 	public Double getRisk(Farmer context) {
@@ -121,6 +126,51 @@ public class Decease extends Model implements DeseaseRisk {
 		}
 		result = value.calculate();
 		return result;
+	}
+	
+	/**
+	 * if the farmer threats properly the field with protecting operations,
+	 * the probability of disease is diminishing by the coefficient
+	 * obtained by this method.
+	 * The default value in this case is 0.4 t.e. 40%
+	 */
+
+	@Override
+	public Double getOperationsDiminushing(Farmer context) {
+		Double result = 0.0;
+		List<ExecutedOperation> operations = context.field.executedOperations;
+		List<ExecutedOperation> operationsThisYear = new ArrayList<ExecutedOperation>();
+		for (ExecutedOperation operation : operations) {
+			if (context.isSameYear(operation.startDate)) {
+				operationsThisYear.add(operation);
+			}
+		}
+		for (ExecutedOperation operation : operations) {
+			DeceaseProtectingOperation protection = null;
+			if ((protection = isOperationInProtections(operation))!=null) {
+				if (context.isSameYear(operation.startDate)) {
+					if (protection.isInInterval(operation.startDate)) {
+						result = 0.4;
+					}
+				}
+			}
+		}
+		
+		return result;
+		
+	}
+	
+	private DeceaseProtectingOperation isOperationInProtections(ExecutedOperation operation) {
+		for (DeceaseProtectingOperation protection : protections) {
+			if (protection.operation.id == operation.operation.id) {
+				return protection;
+			}
+		}
+		return null;
+	}
+	
+	public String toString() {
+		return name;
 	}
 
 }

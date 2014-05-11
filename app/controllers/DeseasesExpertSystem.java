@@ -1,11 +1,13 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.congrace.exp4j.Calculable;
 import de.congrace.exp4j.ExpressionBuilder;
 import de.congrace.exp4j.UnknownFunctionException;
 import de.congrace.exp4j.UnparsableExpressionException;
+import dto.DiseaseOccurenceProb;
 
 import models.Decease;
 import models.ExecutedOperation;
@@ -33,9 +35,21 @@ public class DeseasesExpertSystem extends Controller {
 	}
 	
 	public static void getDeseasePossibility() throws UnknownFunctionException, UnparsableExpressionException {
-		Calculable calc = new ExpressionBuilder("sin(humidity)*humidityOfLeaf").withVariable("humidity", 30).withVariable("humidityOfLeaf", 5).build();
-		Double aphidProb = calc.calculate();
-		renderJSON(aphidProb);
+		Farmer farmer = AuthController.getFarmer();
+		if (farmer==null) {
+			redirect("/login");
+		}
+		List<DiseaseOccurenceProb> disProbs = new ArrayList<DiseaseOccurenceProb>();
+		List<Decease> deceases = Decease.findAll();
+		for (Decease disease : deceases) {
+			DiseaseOccurenceProb dis = new DiseaseOccurenceProb();
+			dis.name = disease.name;
+			Double prob = disease.getRisk(farmer);
+			Double diminishingFactor = disease.getOperationsDiminushing(farmer);
+			dis.probability = prob-prob*diminishingFactor;
+			disProbs.add(dis);
+		}
+		renderJSON(disProbs);
 	}
 	
 	public static void getOperations(Farmer farmer) {

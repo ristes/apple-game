@@ -1,7 +1,11 @@
 package models;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import play.data.validation.Range;
 import play.db.jpa.Model;
@@ -24,6 +28,12 @@ public class DeceaseProtectingOperation extends Model {
 	 */
 	@Range(min = 0, max = 100)
 	public int deceaseProtectingFactor;
+	
+	
+	@OneToMany(mappedBy="operation")
+	public List<OperationBestTimeInterval> intervalsForPrevetions; 
+	
+	
 
 	/**
 	 * The protecting operation
@@ -36,5 +46,15 @@ public class DeceaseProtectingOperation extends Model {
 	 */
 	@ManyToOne
 	public Decease decease;
+	
+	public Boolean isInInterval(Date date) {
+		for (OperationBestTimeInterval interval : intervalsForPrevetions) {
+			if (interval.isInInterval(date)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 
 }
