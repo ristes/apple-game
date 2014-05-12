@@ -21,12 +21,12 @@ Land = function(columns, rows, firstRow, iso, atom) {
 		if (inside) {
 
 			var over = function() {
-				this.sprite(0, 1, 1, 1);
+				//this.sprite(0, 1, 1, 1);
 			}
 			var out = function() {
-				this.sprite(0, 0, 1, 1);
+				//this.sprite(0, 0, 1, 1);
 			}
-			var land = Crafty.e("2D, Canvas, grass , Mouse").attr({
+			var land = Crafty.e("2D, Canvas , Mouse").attr({
 				z : z,
 				w : size,
 				h : size

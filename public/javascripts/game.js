@@ -28,6 +28,11 @@ Crafty.scene("plantation", function() {
 
 	var itemsPanel = new OperationsPanelComponent(64, 32, 1000, atom, columns,
 			field);
+	
+	var userframe = Crafty.e("UserFrame").data(AppleGame.farmer).attr({
+		x : 800,
+		y : 30
+	});
 
 	Crafty.viewport.y = -32;
 	Crafty.viewport.x = -64;
