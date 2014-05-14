@@ -10,7 +10,7 @@ Game.config([
     '$httpProvider',
     '$locationProvider',
     function($routeProvider, $translateProvider, $httpProvider,
-            $locationProvider, toaster) {
+            $locationProvider) {
 
       // Initialize angular-translate
       $translateProvider.useStaticFilesLoader({

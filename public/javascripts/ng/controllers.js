@@ -1,9 +1,46 @@
 'use strict';
 
-Game.controller('ScoreController', ['$scope', '$translate', 'Crafty',
-    'ModelStore', function($scope, $translate, Crafty, ModelStore) {
+Game.controller('UserInfoController', ['$scope', '$translate', 'Crafty',
+    'ModelStore', 'jQuery',
+    function($scope, $translate, Crafty, ModelStore, $) {
+
+      $scope.itemClick = function(a) {
+        a.action();
+      }
+
+      $scope.actions = [{
+        ico: "prodavnica_home_icon",
+        order: 1,
+        action: function() {
+          $scope.$root.$emit('shop-show', {
+            id: 'prodavnica_home_icon'
+          })
+        }
+      }, {
+        ico: "korisnik_home_icon",
+        order: 2,
+        action: function() {
+
+        }
+      }, {
+        ico: "akcii_home_icon",
+        order: 3,
+        action: function() {
+
+        }
+      }, {
+        ico: "analiza_home_icon",
+        order: 4,
+        action: function() {
+
+        }
+      }];
+
       $.post("/AuthController/farmer", function(data) {
-        console.log(data);
+        $scope.$root.farmer = data;
+        $scope.farmer = data;
+        $scope.username = data.username;
+        $scope.balans = data.balans;
       });
     }]);
 

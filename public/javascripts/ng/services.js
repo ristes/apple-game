@@ -10,3 +10,7 @@ Game.factory('Crafty', [function() {
 Game.factory('ModelStore', function() {
   return ModelStore;
 });
+
+Game.factory('jQuery', function() {
+  return jQuery;
+});
