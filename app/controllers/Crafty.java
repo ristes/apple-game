@@ -17,6 +17,10 @@ public class Crafty extends Controller {
 		render();
 	}
 	
+	public static void shopwindow() {
+		render();
+	}
+	
 	public static void iso1() {
 		Farmer farmer = AuthController.getFarmer();
 		if (farmer == null) {
