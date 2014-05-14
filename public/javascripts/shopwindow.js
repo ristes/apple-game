@@ -2,7 +2,7 @@ $(document).ready(function() {
 	$.cssEase['bounce'] = 'cubic-bezier(0,1,0.5,1.3)';
 	$("#div_user_icon").transition({
 		left : '40px'
-	}, 700, 'ease');
+	}, 1000, 'ease');
 	$("#div_apple_in_stock_info").transition({
 		top : '-20px'
 	}, 1000, 'bounce');
@@ -16,7 +16,6 @@ $(document).ready(function() {
 		$("#div-shop-manu").transition({
 			right : '-750px'
 		}, 700, 'ease');
-		$("#div-shop-manu").visibility("hidden");
 	});
 	$("#home_arrow_main_menu").toggle(function() {
 
