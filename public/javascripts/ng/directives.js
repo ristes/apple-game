@@ -56,10 +56,17 @@ angular.module(
       $.cssEase['bounce'] = 'cubic-bezier(0,1,0.5,1.3)';
       scope.showNext = true;
       scope.visible = false;
-
+      scope.buying = false;
       scope.itemClick = function(item) {
-        scope.$root.$emit('buy-item', item);
+        if (!scope.buying) {
+          scope.buying = true;
+          scope.$root.$emit('buy-item', item);
+        }
       };
+
+      scope.$root.$on("item-bought", function($scope) {
+        scope.buying = false;
+      });
 
       scope.$root.$on("shop-show", function($scope, cfg) {
         scope.items = cfg.items;

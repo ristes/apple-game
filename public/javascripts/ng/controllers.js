@@ -36,7 +36,9 @@ Game.controller('BuyTractorController', [
                   } else {
                     alert("NEMA PARI!");
                   }
-                });
+                })['finally'](function() {
+          $scope.$root.$emit('item-bought');
+        });
       });
 
       $scope.$root.$emit('shop-show', {
@@ -83,7 +85,8 @@ Game.controller('UserInfoController', ['$scope', '$translate', '$http',
         if (data.currentState === null) {
           $location.path("/buy_tractor");
         } else {
-          $location.path(data.currentState);
+          $location.path("/buy_tractor");
+          // $location.path(data.currentState);
         }
 
       });
