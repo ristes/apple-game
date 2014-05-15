@@ -26,7 +26,6 @@ angular.module(
     restrict: 'E',
     transclude: true,
     scope: {
-      farmer: '='
     },
     link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
       $.cssEase['bounce'] = 'cubic-bezier(0,1,0.5,1.3)';

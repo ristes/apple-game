@@ -5,62 +5,59 @@ Game.controller('LoginController', ['$scope', '$translate',
 
     }]);
 
-Game.controller('BuyTractorController', [
-    '$scope',
-    '$translate',
-    '$http',
-    function($scope, $translate, $http) {
+Game.controller('StoreController', ['$scope', '$translate', '$http', 'Store',
+    function($scope, $translate, $http, Store) {
 
-      $scope.items = [{
-        id: 1,
-        name: 'riste',
-        url: '/public/images/game/plant.png'
-      }, {
-        id: 2,
-        name: 'koki',
-        url: '/public/images/game/plant.png'
-      }, {
-        id: 3,
-        name: 'daci',
-        url: '/public/images/game/plant.png'
-      }];
+      $scope.initStore = function(store, nextState, servMethod) {
+        $scope.nextState = nextState;
+        $scope.servMethod = servMethod || 'buy';
+        console.log(store);
 
-      $scope.$root.$on('buy-item', function(_scope, item) {
-        $http.post(
-                "/storecontroller/buyItem?itemid=" + item.id
-                        + "&quantity=1&currentState=/buy_terrain").success(
-                function(result) {
-                  if (result) {
-                    $scope.$root.farmer = result;
-                    $scope.$root.$emit('shop-hide');
-                  } else {
-                    alert("NEMA PARI!");
-                  }
-                })['finally'](function() {
+        // load from service
+        $scope.items = [{
+          id: 1,
+          name: 'riste',
+          url: '/public/images/game/plant.png'
+        }, {
+          id: 2,
+          name: 'koki',
+          url: '/public/images/game/plant.png'
+        }, {
+          id: 3,
+          name: 'daci',
+          url: '/public/images/game/plant.png'
+        }];
+
+        $scope.$root.$emit('shop-show', {
+          items: $scope.items,
+          showNext: false,
+          storeUrl: '/public/images/home/prodavnica-icon-gore.png'
+        });
+      };
+
+      $scope.onBuyItem = function(_scope, item) {
+        Store[$scope.servMethod]({
+          itemid: item.id,
+          quantity: 1,
+          currentState: "/" + $scope.nextState
+        }, null, function(result) {
+          console.log(result)
+          if (result) {
+            $scope.$root.farmer = result;
+            $scope.$root.$emit('shop-hide');
+          } else {
+            alert("NEMA PARI!");
+          }
+        }).$promise['finally'](function() {
           $scope.$root.$emit('item-bought');
         });
-      });
+      };
 
-      $scope.$root.$emit('shop-show', {
-        items: $scope.items,
-        showNext: false,
-        storeUrl: '/public/images/home/prodavnica-icon-gore.png'
-      });
+      var unreg = $scope.$root.$on('buy-item', $scope.onBuyItem);
 
-    }]);
-
-Game.controller('BuyTerrainController', ['$scope', '$translate',
-    function($scope, $translate) {
-
-    }]);
-
-Game.controller('BuyBaseController', ['$scope', '$translate',
-    function($scope, $translate) {
-
-    }]);
-
-Game.controller('BuySeedlingController', ['$scope', '$translate',
-    function($scope, $translate) {
+      $scope.$on("$destroy", function() {
+        unreg();
+      })
 
     }]);
 

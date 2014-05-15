@@ -51,6 +51,7 @@ public class StoreController extends Controller {
 	public static void showitems(Long storeId) throws IOException {
 		Store store = Store.findById(storeId);
 		JsonController.toJson(store.items);
+		
 	}
 
 	public static void buyItem(String itemid, Integer quantity,
@@ -61,6 +62,7 @@ public class StoreController extends Controller {
 			Long cost = (long) item.price * quantity;
 			Boolean successTransaction = triggerBuyingItem(farmer, item,
 					quantity);
+
 			if (successTransaction) {
 				farmer.currentState = currentState;
 				farmer.save();

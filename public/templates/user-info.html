@@ -1,17 +1,17 @@
 <div id="user_tile">
 	<div id="div_user_icon">
-		<span id="span_user_name">{{farmer.username}}</span>
+		<span id="span_user_name">{{$root.farmer.username}}</span>
 	</div>
 	<div id="div_apple_in_stock_info">
 		<img class="user_icons_info" src="/public/images/home/apple_icon_in_stock.png"/>
-		<span id="span_apples_in_stock_info">{{farmer.apples_in_stock}}</span>
+		<span id="span_apples_in_stock_info">{{$root.farmer.apples_in_stock}}</span>
 	</div>
 	<div id="div_money_in_stock_info">
 		<span id="span_icon_money_in_stock"></span>
-		<span id="span_money_in_stock_info">{{farmer.balans}}</span>
+		<span id="span_money_in_stock_info">{{$root.farmer.balans}}</span>
 	</div>
 	<div id="div_eco_points_info">
 		<span id="span_icon_eco_points"></span>
-		<span id="span_eco_point_info">{{farmer.eco_points}}</span>
+		<span id="span_eco_point_info">{{$root.farmer.eco_points}}</span>
 	</div>
 </div>

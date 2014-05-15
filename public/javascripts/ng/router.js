@@ -8,19 +8,19 @@ Game.config(['$routeProvider', function($routeProvider) {
   })
   .when('/buy_tractor', {
     templateUrl: '/public/_views/buy-tractor.html',
-    controller : 'BuyTractorController'
+    controller : 'StoreController'
   })
   .when('/buy_terrain', {
     templateUrl: '/public/_views/buy-terrain.html',
-    controller : 'BuyTerrainController'
+    controller : 'StoreController'
   })
   .when('/buy_base', {
     templateUrl: '/public/_views/buy-base.html',
-    controller : 'BuyBaseController'
+    controller : 'StoreController'
   })
   .when('/buy_seedlings', {
     templateUrl: '/public/_views/buy-seedlings.html',
-    controller : 'BuySeedlingsController'
+    controller : 'StoreController'
   })
   .when('/plantation', {
     templateUrl: '/public/_views/plantation.html',

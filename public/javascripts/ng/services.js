@@ -14,3 +14,12 @@ Game.factory('ModelStore', function() {
 Game.factory('jQuery', function() {
   return jQuery;
 });
+
+Game.factory('Store', ['$resource', function($resource) {
+  return $resource('', {}, {
+    'buy': {
+      method: 'POST',
+      url: '/storecontroller/buyItem'
+    }
+  });
+}]);
