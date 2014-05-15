@@ -12,14 +12,12 @@ import dao.DeceasesDao;
 
 public class DeceasesDaoImpl implements DeceasesDao {
 
-	@Override
 	public List<ExecutedOperation> executedValidOperations(Decease decease,
 			Field field) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public DeceaseImpact getDeceaseThreshold(Decease decease,
 			Seedling seadlings, Base base) {
 

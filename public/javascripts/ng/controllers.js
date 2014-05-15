@@ -42,8 +42,35 @@ Game.controller('UserInfoController', ['$scope', '$translate', 'Crafty',
         $scope.username = data.username;
         $scope.balans = data.balans;
       });
+      
+      $.get("/WeatherController/weatherforecast?fordays=5",function(data) {
+			$scope.$root.weather = data;
+		});
+		
     }]);
-
+Game.controller('WeatherController', [
+	'$scope',
+	'$translate',
+	'Crafty',
+	'ModelStore',
+	'jQuery',
+	function($scope,$translate,Crafty,ModelStore,$) {
+		$.post("/WeatherController/weatherforecast?fordays=3",function(data) {
+			$scope.weather = data;
+		});
+	}]);
+Game.controller('ShopController',[
+	'$scope',
+	'$translate',
+	'Crafty',
+	'ModelStore',
+	'jQuery',
+	function($scope,$translate,Crafty,ModelStore,$) {
+		$.post("/storecontroller/allNg",function(data) {
+			$scope.main_store = data;
+		});
+	}
+]);
 Game.controller('PlantationController', [
     '$scope',
     '$translate',

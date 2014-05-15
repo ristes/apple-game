@@ -63,12 +63,17 @@ body,html {
 </style>
 </head>
 <body ng-app="Game">
-
+	<shop-menu ng-controller="ShopController">
+		<shopMenu main_store="main_store"></shopMenu>
+	</shop-menu>
 	<div class="div_wrapper" ng-controller="UserInfoController">
 		<user-info farmer="farmer"></user-info>
-		<side-menu actions="actions">
+		<side-menu actions="actions" weather="weather">
 		</side-menu>
 		<!-- <div id="target" ng-controller="PlantationController" style="width=70%;height: 80%;margin: 0 auto;"></div> -->
+	</div>
+	<div class="div_wrapper" ng-controller="WeatherController">
+		
 	</div>
 </body>
 </html>

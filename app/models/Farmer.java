@@ -30,12 +30,17 @@ public class Farmer extends Model {
 
 	public String currentState;
 	
+	@JsonIgnore
 	public Double luck;
 
 	/**
 	 * How much money does the player have
 	 */
 	public int balans;
+	
+	public int eco_points=100;
+	
+	public int apples_in_stock=0;
 
 	/**
 	 * The quantity of the product he has gained, and haven't sold yet

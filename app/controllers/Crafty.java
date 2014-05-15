@@ -49,6 +49,7 @@ public class Crafty extends Controller {
 			Day start = Day.find("dayOrder", 0l).first();
 			farmer.gameDate = start;
 			farmer.balans = 1000000;
+			farmer.eco_points = 100;
 			farmer.username = username;
 			farmer.password = password;
 			farmer.save();

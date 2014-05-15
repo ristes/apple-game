@@ -51,7 +51,6 @@ angular.module(
   return {
     restrict: 'E',
     transclude: true,
-    scope: {},
     link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
       $.cssEase['bounce'] = 'cubic-bezier(0,1,0.5,1.3)';
 
@@ -96,7 +95,8 @@ angular.module(
     restrict: 'E',
     transclude: true,
     scope: {
-      actions: '='
+   		weather: '=',
+      	actions: '='
     },
     link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
       scope.itemClick = function(a) {

@@ -103,7 +103,6 @@ public class Decease extends Model implements DeseaseRisk {
 	public List<Operation> healingOperation;
 	
 
-	@Override
 	public Double getRisk(Farmer context) {
 		Double result = 0.0;
 		if (expression == null || expression.equals("")) {
@@ -135,7 +134,6 @@ public class Decease extends Model implements DeseaseRisk {
 	 * The default value in this case is 0.4 t.e. 40%
 	 */
 
-	@Override
 	public Double getOperationsDiminushing(Farmer context) {
 		Double result = 0.0;
 		List<ExecutedOperation> operations = context.field.executedOperations;
