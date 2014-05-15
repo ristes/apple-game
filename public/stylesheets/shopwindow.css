@@ -109,6 +109,7 @@ body {
 	top: 130px;
 	background-image: url("/public/images/home/ploca.png");
 	background-size: 100% 100%;
+	z-index:20
 }
 
 #shop_icon_div_main_menu {
@@ -277,22 +278,23 @@ body {
 	position:absolute;
 	width:400px;
 	height:500px;
-	top:80px;
+	top:50px;
 	left:150px;
 }
 .shop_item_in_grid {
-	padding:5px;
+	padding-right:40px;
 	width:23%;
 	float:left;
 	text-align: center;
+	background-size: cover;
+	z-index: 300
 }
 .shop_icon_in_grid {
-	width:100px;
-	height:90px;
+	width:120px;
+	height:110px;
+	background-size: cover;
 }
 .shop_icon_in_grid:hover {
-	width:105px;
-	height:95px;
-	padding:0px;
+	cursor: pointer;
 }
 

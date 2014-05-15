@@ -3,8 +3,7 @@
 	<div id="shop_arrow_main_menu"></div>
 	<div class="shop_menu_grid" main_store="main_store">
 		<div class="shop_item_in_grid" ng-repeat="item in main_store">
-			<img class="shop_icon_in_grid" ng-src={{item.url}}/>
-			<span>{{item.name}}</span>
+			<div class="shop_icon_in_grid" style="background-image:url('{{item.url}}')"></div>
 		</div>
 	</div>
 </div>
