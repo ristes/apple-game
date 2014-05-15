@@ -1,76 +1,108 @@
 'use strict';
 
-Game.controller('UserInfoController', ['$scope', '$translate', 'Crafty',
-    'ModelStore', 'jQuery',
-    function($scope, $translate, Crafty, ModelStore, $) {
+Game.controller('LoginController', ['$scope', '$translate',
+    function($scope, $translate) {
 
-      $scope.itemClick = function(a) {
-        a.action();
-      }
+    }]);
 
-      $scope.actions = [{
-        ico: "prodavnica_home_icon",
-        order: 1,
-        action: function() {
-          $scope.$root.$emit('shop-show', {
-            id: 'prodavnica_home_icon'
-          })
-        }
+Game.controller('BuyTractorController', [
+    '$scope',
+    '$translate',
+    '$http',
+    function($scope, $translate, $http) {
+
+      $scope.items = [{
+        id: 1,
+        name: 'riste',
+        url: '/public/images/game/plant.png'
       }, {
-        ico: "korisnik_home_icon",
-        order: 2,
-        action: function() {
-
-        }
+        id: 2,
+        name: 'koki',
+        url: '/public/images/game/plant.png'
       }, {
-        ico: "akcii_home_icon",
-        order: 3,
-        action: function() {
-
-        }
-      }, {
-        ico: "analiza_home_icon",
-        order: 4,
-        action: function() {
-
-        }
+        id: 3,
+        name: 'daci',
+        url: '/public/images/game/plant.png'
       }];
+
+      $scope.$root.$on('buy-item', function(_scope, item) {
+        $http.post(
+                "/storecontroller/buyItem?itemid=" + item.id
+                        + "&quantity=1&currentState=/buy_terrain").success(
+                function(result) {
+                  if (result) {
+                    $scope.$root.farmer = result;
+                    $scope.$root.$emit('shop-hide');
+                  } else {
+                    alert("NEMA PARI!");
+                  }
+                });
+      });
+
+      $scope.$root.$emit('shop-show', {
+        items: $scope.items,
+        showNext: false,
+        storeUrl: '/public/images/home/prodavnica-icon-gore.png'
+      });
+
+    }]);
+
+Game.controller('BuyTerrainController', ['$scope', '$translate',
+    function($scope, $translate) {
+
+    }]);
+
+Game.controller('BuyBaseController', ['$scope', '$translate',
+    function($scope, $translate) {
+
+    }]);
+
+Game.controller('BuySeedlingController', ['$scope', '$translate',
+    function($scope, $translate) {
+
+    }]);
+
+Game.controller('PlantingController', ['$scope', '$translate',
+    function($scope, $translate) {
+
+    }]);
+
+Game.controller('UserInfoController', ['$scope', '$translate', '$http',
+    '$location', function($scope, $translate, $http, $location) {
 
       $.post("/AuthController/farmer", function(data) {
         $scope.$root.farmer = data;
         $scope.farmer = data;
         $scope.username = data.username;
         $scope.balans = data.balans;
+
+        $scope.$root.$watch('farmer', function(n, o) {
+          if (o === n || n === null) return;
+          $location.path(n.currentState);
+        });
+        if (data.currentState === null) {
+          $location.path("/buy_tractor");
+        } else {
+          $location.path(data.currentState);
+        }
+
       });
-      
-      $.get("/WeatherController/weatherforecast?fordays=5",function(data) {
-			$scope.$root.weather = data;
-		});
-		
+
     }]);
-Game.controller('WeatherController', [
-	'$scope',
-	'$translate',
-	'Crafty',
-	'ModelStore',
-	'jQuery',
-	function($scope,$translate,Crafty,ModelStore,$) {
-		$.post("/WeatherController/weatherforecast?fordays=3",function(data) {
-			$scope.weather = data;
-		});
-	}]);
-Game.controller('ShopController',[
-	'$scope',
-	'$translate',
-	'Crafty',
-	'ModelStore',
-	'jQuery',
-	function($scope,$translate,Crafty,ModelStore,$) {
-		$.post("/storecontroller/allNg",function(data) {
-			$scope.main_store = data;
-		});
-	}
-]);
+Game.controller('WeatherController', ['$scope', '$translate', 'Crafty',
+    'ModelStore', 'jQuery',
+    function($scope, $translate, Crafty, ModelStore, $) {
+      $.post("/WeatherController/weatherforecast?fordays=3", function(data) {
+        $scope.weather = data;
+      });
+    }]);
+Game.controller('ShopController', ['$scope', '$translate', 'Crafty',
+    'ModelStore', 'jQuery',
+    function($scope, $translate, Crafty, ModelStore, $) {
+      $.post("/storecontroller/allNg", function(data) {
+        $scope.main_store = data;
+      });
+    }]);
 Game.controller('PlantationController', [
     '$scope',
     '$translate',

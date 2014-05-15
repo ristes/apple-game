@@ -29,11 +29,11 @@ public class StoreController extends Controller {
 			JsonMappingException, IOException {
 		JsonController.toJson(Store.findAll());
 	}
-	
+
 	public static void allNg() {
 		List<StoreDto> result = new ArrayList<StoreDto>();
 		List<Store> stores = Store.findAll();
-		for (Store store:stores) {
+		for (Store store : stores) {
 			StoreDto dto = new StoreDto();
 			dto.id = store.id;
 			dto.name = store.name;
@@ -53,8 +53,8 @@ public class StoreController extends Controller {
 		JsonController.toJson(store.items);
 	}
 
-	public static void buyItem(String itemid, Integer quantity)
-			throws IOException {
+	public static void buyItem(String itemid, Integer quantity,
+			String currentState) throws IOException {
 		Farmer farmer = AuthController.getFarmer();
 		if (farmer != null) {
 			Item item = Item.findById(Long.parseLong(itemid));
@@ -62,10 +62,13 @@ public class StoreController extends Controller {
 			Boolean successTransaction = triggerBuyingItem(farmer, item,
 					quantity);
 			if (successTransaction) {
-				JsonController.toJson(new FarmerTransactionDao(farmer, true));
+				farmer.currentState = currentState;
+				farmer.save();
+				JsonController.toJson(farmer);
 			}
 		}
-		JsonController.toJson(new FarmerTransactionDao(false));
+
+		JsonController.toJson("");
 	}
 
 	public static Boolean triggerBuyingItem(Farmer farmer, Item item,

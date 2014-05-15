@@ -51,22 +51,29 @@ angular.module(
   return {
     restrict: 'E',
     transclude: true,
+    scope: {},
     link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
       $.cssEase['bounce'] = 'cubic-bezier(0,1,0.5,1.3)';
-
+      scope.showNext = true;
       scope.visible = false;
 
-      scope.$root.$on("side-show", function() {
-        if (scope.visible) {
-          scope.visible = false;
-          hide();
-        }
-      });
+      scope.itemClick = function(item) {
+        scope.$root.$emit('buy-item', item);
+      };
 
-      scope.$root.$on("shop-show", function(data) {
-        scope.data = data;
+      scope.$root.$on("shop-show", function($scope, cfg) {
+        scope.items = cfg.items;
+        scope.storeUrl = cfg.storeUrl;
+        if (cfg.showNext !== null) {
+          scope.showNext = cfg.showNext;
+        }
         scope.visible = true;
         show();
+      });
+
+      scope.$root.$on("shop-hide", function($scope) {
+        scope.visible = false;
+        hide();
       });
 
       function hide() {
@@ -95,8 +102,8 @@ angular.module(
     restrict: 'E',
     transclude: true,
     scope: {
-   		weather: '=',
-      	actions: '='
+      weather: '=',
+      actions: '='
     },
     link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
       scope.itemClick = function(a) {
