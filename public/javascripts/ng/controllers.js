@@ -152,8 +152,52 @@ Game.controller('BuySeadlingsController', ['$scope', '$translate', '$http',
 
     }]);
 
-Game.controller('PlantingController', ['$scope', '$translate',
-    function($scope, $translate) {
+Game.controller('PlantingController', [
+    '$scope',
+    '$translate',
+    '$http',
+    'StoreItems',
+    function($scope, $translate, $http, StoreItems) {
+      $http.post("/WeatherController/weatherforecast?fordays=5").success(
+              function(data) {
+                $scope.weather = data;
+              });
+
+      $scope.itemClick = function(a) {
+        a.action();
+      }
+
+      $scope.items = StoreItems['traktor'];
+
+      $scope.actions = [{
+        ico: "prodavnica_home_icon",
+        order: 1,
+        action: function() {
+          $scope.$root.$emit('shop-show', {
+            items: $scope.items,
+            showNext: true,
+            storeUrl: '/public/images/game/grance.png'
+          })
+        }
+      }, {
+        ico: "korisnik_home_icon",
+        order: 2,
+        action: function() {
+
+        }
+      }, {
+        ico: "akcii_home_icon",
+        order: 3,
+        action: function() {
+
+        }
+      }, {
+        ico: "analiza_home_icon",
+        order: 4,
+        action: function() {
+
+        }
+      }];
 
     }]);
 
@@ -173,8 +217,8 @@ Game.controller('UserInfoController', ['$scope', '$translate', '$http',
         if (data.currentState === null) {
           $location.path("/buy_tractor");
         } else {
-          $location.path("/buy_tractor");
-          // $location.path(data.currentState);
+          // $location.path("/buy_tractor");
+          $location.path(data.currentState);
         }
 
       });
