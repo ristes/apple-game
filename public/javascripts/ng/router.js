@@ -12,7 +12,7 @@ Game.config(['$routeProvider', function($routeProvider) {
   })
   .when('/buy_terrain', {
     templateUrl: '/public/_views/buy-terrain.html',
-    controller : 'StoreController'
+    controller : 'BuyTerrainController'
   })
   .when('/buy_base', {
     templateUrl: '/public/_views/buy-base.html',
@@ -20,7 +20,7 @@ Game.config(['$routeProvider', function($routeProvider) {
   })
   .when('/buy_seedlings', {
     templateUrl: '/public/_views/buy-seedlings.html',
-    controller : 'StoreController'
+    controller : 'BuySeadlingsController'
   })
   .when('/plantation', {
     templateUrl: '/public/_views/plantation.html',

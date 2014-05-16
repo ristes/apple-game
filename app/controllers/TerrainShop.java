@@ -29,14 +29,15 @@ public class TerrainShop extends Controller {
 		JsonController.toJson(t.analysis.features, "category");
 	}
 
-	public static void buyTerrain(Long terrainId, Double size) throws Exception {
+	public static void buyTerrain(Long terrainId, Double size,
+			String currentState) throws Exception {
 
 		Field field = new Field();
 		field.area = size;
 		field.terrain = Terrain.findById(terrainId);
 
 		Farmer farmer = AuthController.getFarmer();
-		farmer.currentState = "baseShop";
+		farmer.currentState = currentState;
 		farmer.field = field;
 		farmer.balans -= field.terrain.analysis.unitPrice * size;
 
@@ -51,16 +52,17 @@ public class TerrainShop extends Controller {
 		JsonController.toJson(Base.findAll());
 	}
 
-	public static void buyBase(Long baseId) throws Exception {
+	public static void buyBase(Long itemid, String currentState)
+			throws Exception {
 		Farmer farmer = AuthController.getFarmer();
 		Field field = Field.find("owner.id", farmer.id).first();
 
 		Plantation plantation = new Plantation();
-		plantation.base = Base.findById(baseId);
+		plantation.base = Base.findById(itemid);
 
 		field.plantation = plantation;
 
-		farmer.currentState = "seedlingShop";
+		farmer.currentState = currentState;
 		farmer.balans -= plantation.base.price;
 
 		if (farmer.balans > 0) {
@@ -75,14 +77,18 @@ public class TerrainShop extends Controller {
 		JsonController.toJson(Seedling.findAll(), "seedlingType", "type");
 	}
 
-	public static void buySeedling(Long seedlingId) throws Exception {
+	public static void buySeedling(Long seedlingTypeId, Long plantTypeId,
+			String currentState) throws Exception {
 		Farmer farmer = AuthController.getFarmer();
 
 		Plantation plantation = Plantation.find("field.owner.id", farmer.id)
 				.first();
-		plantation.seadlings = Seedling.findById(seedlingId);
 
-		farmer.currentState = "shop";
+		plantation.seadlings = Seedling.find("type.id=:t and seedlingType.id=:st")
+				.setParameter("t", plantTypeId)
+				.setParameter("st", seedlingTypeId).first();
+
+		farmer.currentState = currentState;
 		farmer.balans -= plantation.seadlings.price * plantation.field.area;
 
 		if (farmer.balans > 0) {

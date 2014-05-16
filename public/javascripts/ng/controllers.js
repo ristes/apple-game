@@ -6,32 +6,19 @@ Game.controller('LoginController', ['$scope', '$translate',
     }]);
 
 Game.controller('StoreController', ['$scope', '$translate', '$http', 'Store',
-    function($scope, $translate, $http, Store) {
+    'StoreItems', function($scope, $translate, $http, Store, StoreItems) {
 
-      $scope.initStore = function(store, nextState, servMethod) {
+      $scope.initStore = function(store, nextState, servMethod, shopIcon) {
         $scope.nextState = nextState;
         $scope.servMethod = servMethod || 'buy';
-        console.log(store);
 
         // load from service
-        $scope.items = [{
-          id: 1,
-          name: 'riste',
-          url: '/public/images/game/plant.png'
-        }, {
-          id: 2,
-          name: 'koki',
-          url: '/public/images/game/plant.png'
-        }, {
-          id: 3,
-          name: 'daci',
-          url: '/public/images/game/plant.png'
-        }];
+        $scope.items = StoreItems[store];
 
         $scope.$root.$emit('shop-show', {
           items: $scope.items,
           showNext: false,
-          storeUrl: '/public/images/home/prodavnica-icon-gore.png'
+          storeUrl: shopIcon
         });
       };
 
@@ -41,8 +28,7 @@ Game.controller('StoreController', ['$scope', '$translate', '$http', 'Store',
           quantity: 1,
           currentState: "/" + $scope.nextState
         }, null, function(result) {
-          console.log(result)
-          if (result) {
+          if (result.balans) {
             $scope.$root.farmer = result;
             $scope.$root.$emit('shop-hide');
           } else {
@@ -57,6 +43,111 @@ Game.controller('StoreController', ['$scope', '$translate', '$http', 'Store',
 
       $scope.$on("$destroy", function() {
         unreg();
+      })
+
+    }]);
+
+Game.controller('BuyTerrainController', ['$scope', '$translate', '$http',
+    'Store', 'StoreItems',
+    function($scope, $translate, $http, Store, StoreItems) {
+
+      // load from service
+      $scope.items = StoreItems['terrain-size'];
+
+      $scope.$root.$emit('shop-show', {
+        items: $scope.items,
+        showNext: false,
+        storeUrl: '/public/images/game/pocva-prodavnica-icon.png'
+      });
+
+      $scope.onSelectSize = function(_scope, item) {
+        $scope.size = item.size;
+        $scope.unreg();
+        $scope.$root.$emit('shop-hide');
+        $scope.$root.$emit('item-bought');
+        $scope.items = StoreItems['terrain'];
+        $scope.$root.$emit('shop-show', {
+          items: $scope.items,
+          showNext: false,
+          storeUrl: '/public/images/game/pocva-prodavnica-icon.png'
+        });
+        $scope.unreg = $scope.$root.$on('buy-item', $scope.onBuyItem);
+
+      };
+
+      $scope.onBuyItem = function(_scope, item) {
+        Store['buyTerrain']({
+          terrainId: item.id,
+          size: $scope.size,
+          currentState: "/buy_base"
+        }, null, function(result) {
+          if (result.balans) {
+            $scope.$root.farmer = result;
+            $scope.$root.$emit('shop-hide');
+          } else {
+            alert("NEMA PARI!");
+          }
+        }).$promise['finally'](function() {
+          $scope.$root.$emit('item-bought');
+        });
+      };
+
+      $scope.unreg = $scope.$root.$on('buy-item', $scope.onSelectSize);
+
+      $scope.$on("$destroy", function() {
+        $scope.unreg();
+      })
+
+    }]);
+
+Game.controller('BuySeadlingsController', ['$scope', '$translate', '$http',
+    'Store', 'StoreItems',
+    function($scope, $translate, $http, Store, StoreItems) {
+
+      $scope.items = StoreItems['apple-type'];
+
+      $scope.$root.$emit('shop-show', {
+        items: $scope.items,
+        showNext: false,
+        storeUrl: '/public/images/game/jabolko.png'
+      });
+
+      $scope.onSelectSize = function(_scope, item) {
+        $scope.plantTypeId = item.id;
+        $scope.unreg();
+        $scope.$root.$emit('shop-hide');
+        $scope.$root.$emit('item-bought');
+        $scope.items = StoreItems['seedling-type'];
+        $scope.$root.$emit('shop-show', {
+          items: $scope.items,
+          showNext: false,
+          storeUrl: '/public/images/game/grance.png'
+        });
+        $scope.unreg = $scope.$root.$on('buy-item', $scope.onBuyItem);
+
+      };
+
+      $scope.onBuyItem = function(_scope, item) {
+        Store['buySeedling']({
+          seedlingTypeId: item.id,
+          plantTypeId: $scope.plantTypeId,
+          currentState: "/plantation"
+        }, null, function(result) {
+          if (result.balans) {
+            $scope.$root.farmer = result;
+            $scope.$root.$emit('shop-hide');
+          } else {
+            alert("NEMA PARI!");
+          }
+        }).$promise['finally'](function() {
+          $scope.$root.$emit('item-bought');
+        });
+      };
+
+      $scope.unreg = $scope.$root.$on('buy-item', $scope.onSelectSize);
+
+      $scope.$on("$destroy", function() {
+        $scope.unreg();
       })
 
     }]);
