@@ -1,3 +1,7 @@
+.modal-backdrop {
+	opacity: 0.7;
+}
+
 body {
 	font-family: "Trebuchet MS";
 }
@@ -137,10 +141,20 @@ body {
 	width: 750px;
 	height: 700px;
 	right: -570px;
+	z-index: 1000;
 	top: 0px;
 	background-image: url("/public/images/home/ploca.png");
 	background-size: 100% 100%;
 }
+
+.side-screen-bg {
+	position: absolute;
+	top:0;
+	left:0;
+	z-index: 999;
+	opacity: 0;
+}
+
 
 #home_arrow_main_menu {
 	position: relative;
@@ -191,6 +205,24 @@ body {
 	background-size: 100% 100%;
 }
 
+.side-icon-5 {
+	position: absolute;
+	width: 180px;
+	height: 190px;
+	top: 310px;
+	left: 370px;
+	background-size: 100% 100%;
+}
+
+.side-icon-6 {
+	position: absolute;
+	width: 180px;
+	height: 190px;
+	top: 310px;
+	left: 570px;
+	background-size: 100% 100%;
+}
+
 #prodavnica_home_icon {
 	background-image: url("/public/images/home/prodavnica_icon.png");
 }
@@ -238,6 +270,22 @@ body {
 	height: 200px;
 	top: 310px;
 	left: 160px;
+}
+
+.side-icon-5:hover {
+	cursor: pointer;
+	width: 200px;
+	height: 200px;
+	top: 310px;
+	left: 360px;
+}
+
+.side-icon-6:hover {
+	cursor: pointer;
+	width: 200px;
+	height: 200px;
+	top: 310px;
+	left: 560px;
 }
 
 #weather_title {

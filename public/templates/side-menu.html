@@ -1,7 +1,7 @@
-
+<div class="side-screen-bg" style='width:{{bgw}}px;height:{{bgh}}px' ng-click='hide()'></div>
 <div id="div-side-screen">
 	<span id="weather_title">ВРЕМЕНСКА ПРОГНОЗА</span>
-	<div id="home_arrow_main_menu"></div>
+	<div id="home_arrow_main_menu" ng-click="onClick()"></div>
 
 	<div class="weather_wrapper">
 		<div class="weather-div" ng-repeat="w in weather">

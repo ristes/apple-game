@@ -11,6 +11,7 @@ Game.controller('StoreController', ['$scope', '$translate', '$http', 'Store',
       $scope.initStore = function(store, nextState, servMethod, shopIcon) {
         $scope.nextState = nextState;
         $scope.servMethod = servMethod || 'buy';
+        $scope.store = store;
 
         // load from service
         $scope.items = StoreItems[store];
@@ -30,6 +31,7 @@ Game.controller('StoreController', ['$scope', '$translate', '$http', 'Store',
         }, null, function(result) {
           if (result.balans) {
             $scope.$root.farmer = result;
+            $scope.$root.items[$scope.store] = true;
             $scope.$root.$emit('shop-hide');
           } else {
             alert("NEMA PARI!");
@@ -109,7 +111,7 @@ Game.controller('BuySeadlingsController', ['$scope', '$translate', '$http',
       $scope.$root.$emit('shop-show', {
         items: $scope.items,
         showNext: false,
-        storeUrl: '/public/images/game/jabolko.png'
+        storeUrl: '/public/images/game/sadnici-icon.png'
       });
 
       $scope.onSelectSize = function(_scope, item) {
@@ -121,7 +123,7 @@ Game.controller('BuySeadlingsController', ['$scope', '$translate', '$http',
         $scope.$root.$emit('shop-show', {
           items: $scope.items,
           showNext: false,
-          storeUrl: '/public/images/game/grance.png'
+          storeUrl: '/public/images/game/sadnici-icon.png'
         });
         $scope.unreg = $scope.$root.$on('buy-item', $scope.onBuyItem);
 
@@ -134,6 +136,7 @@ Game.controller('BuySeadlingsController', ['$scope', '$translate', '$http',
           currentState: "/plantation"
         }, null, function(result) {
           if (result.balans) {
+            $scope.$root.items['seedlings'] = true;
             $scope.$root.farmer = result;
             $scope.$root.$emit('shop-hide');
           } else {
@@ -157,47 +160,53 @@ Game.controller('PlantingController', [
     '$translate',
     '$http',
     'StoreItems',
-    function($scope, $translate, $http, StoreItems) {
+    'Operations',
+    function($scope, $translate, $http, StoreItems, Operations) {
       $http.post("/WeatherController/weatherforecast?fordays=5").success(
               function(data) {
                 $scope.weather = data;
               });
 
-      $scope.itemClick = function(a) {
-        a.action();
-      }
-
       $scope.items = StoreItems['traktor'];
 
-      $scope.actions = [{
-        ico: "prodavnica_home_icon",
-        order: 1,
-        action: function() {
-          $scope.$root.$emit('shop-show', {
-            items: $scope.items,
-            showNext: true,
-            storeUrl: '/public/images/game/grance.png'
-          })
-        }
-      }, {
-        ico: "korisnik_home_icon",
-        order: 2,
-        action: function() {
+      $scope.actions = Operations['planting'];
 
+      var listeners = [];
+      for (var i = 0; i < $scope.actions.length; i++) {
+        var a = $scope.actions[i]
+        var unreg = $scope.$root.$on('operation-' + a.name, function(_scope,
+                oper) {
+          console.log(oper);
+          if (oper.duration > 0) {
+            $scope.$root.$emit('show-progress-global', {
+              title: 'progress.' + oper.name,
+              duration: oper.duration
+            })
+          }
+        });
+        listeners.push(unreg);
+      }
+      $scope.$on("$destroy", function() {
+        for (var i = 0; i < listeners.length; i++) {
+          listeners[i]();
         }
-      }, {
-        ico: "akcii_home_icon",
-        order: 3,
-        action: function() {
+      });
 
-        }
-      }, {
-        ico: "analiza_home_icon",
-        order: 4,
-        action: function() {
-
-        }
-      }];
+//      var atom = 128;
+//
+//      var z = 0;
+//      var rows = 30;
+//      var fistRow = 6;
+//      var columns = 25;
+//
+//      Crafty.init(1366, 768, 'plantation');
+//
+//      var iso = Crafty.isometric.size(atom);
+//      var field = new Land(columns, rows, fistRow, iso, atom);
+//      field.init();
+//
+//      Crafty.viewport.y = -32;
+//      Crafty.viewport.x = -64;
 
     }]);
 
@@ -206,6 +215,7 @@ Game.controller('UserInfoController', ['$scope', '$translate', '$http',
 
       $.post("/AuthController/farmer", function(data) {
         $scope.$root.farmer = data;
+        $scope.$root.items = {};
         $scope.farmer = data;
         $scope.username = data.username;
         $scope.balans = data.balans;

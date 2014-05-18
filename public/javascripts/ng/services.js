@@ -122,15 +122,63 @@ Game.factory('StoreItems', function($resource) {
     'seedling-type': [{
       id: 1,
       name: '0 grancinja',
-      url: '/public/images/game/grance.png'
+      url: '/public/images/game/sadnici-icon.png'
     }, {
       id: 2,
       name: '3-4 grancinja',
-      url: '/public/images/game/grance.png'
+      url: '/public/images/game/sadnici-icon.png'
     }, {
       id: 3,
       name: '8 grancinja',
-      url: '/public/images/game/grance.png'
+      url: '/public/images/game/sadnici-icon.png'
     }],
   };
 });
+
+Game.factory('Operations', ['$resource', function($resource) {
+  return {
+    'planting': [{
+      ico: "prodavnica_home_icon",
+      name: 'prodavnica',
+      price: 0,
+      duration: 0,
+      requires: [],
+      order: 1
+    }, {
+      ico: "korisnik_home_icon",
+      name: 'oranje',
+      price: 2000,
+      duration: 20,
+      requires: [],
+      order: 2
+    }, {
+      ico: "analiza_home_icon",
+      name: 'gjubrenje',
+      price: 1000,
+      duration: 10,
+      requires: ['gjubre'],
+      order: 3
+    }, {
+      ico: "akcii_home_icon",
+      name: 'navodnuvanje',
+      price: 100,
+      duration: -1,
+      requires: [],
+      order: 4
+    }, {
+      ico: "analiza_home_icon",
+      name: 'analiza',
+      price: 3000,
+      duration: 0,
+      requires: [],
+      order: 5
+    }, {
+      ico: "analiza_home_icon",
+      name: 'sadenje',
+      price: 0,
+      duration: 0,
+      requires: ['seedlings'],
+      order: 6
+    }]
+  };
+}]);

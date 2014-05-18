@@ -5,8 +5,8 @@
 angular.module(
         'Game.directives',
         ['ngResource', 'ngRoute', 'ngAnimate', 'ngCookies', 'ui.bootstrap',
-            'toaster', 'pascalprecht.translate']).directive('appVersion',
-        ['version', function(version) {
+            'toaster', 'mgcrea.ngStrap', 'pascalprecht.translate']).directive(
+        'appVersion', ['version', function(version) {
           return function(scope, elm, attrs) {
             elm.text(version);
           };
@@ -20,13 +20,71 @@ angular.module(
     },
     templateUrl: 'templates/delete-dialog.html'
   };
-}).directive('userInfo', ['jQuery', function($) {
+}).directive('progressDialog', ['jQuery', '$modal', function($, $modal) {
+  return {
+    transclude: true,
+    restrict: 'E',
+    scope: {
+      prefix: '@'
+    },
+    link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
+      var listeners = [];
+
+      var dialog = $modal({
+        scope: scope,
+        backdrop: 'static',
+        template: '/public/templates/progress-dialog.html',
+        show: false
+      });
+
+      function onProgress(_scope, v) {
+        scope.$apply(function() {
+          scope.status += v;
+        });
+        if (scope.status > 100) {
+          clearInterval(scope.timer);
+          onHide();
+        }
+      }
+
+      function onHide() {
+        dialog.hide();
+      }
+
+      function onShow(_scope, cfg) {
+        scope.status = 0;
+        scope.title = cfg.title;
+
+        if (cfg.waitProgress) {
+          var prog = scope.$root.$on('progress-' + scope.prefix, onProgress);
+          listeners.push(prog);
+        } else {
+          var step = 100 / cfg.duration;
+          scope.timer = setInterval(function() {
+            onProgress(scope, step);
+          }, 1000);
+
+        }
+        dialog.show();
+      }
+
+      var show = scope.$root.$on('show-progress-' + scope.prefix, onShow);
+      listeners.push(show);
+
+      scope.$on("$destroy", function() {
+        for (var i = 0; i < listeners.length; i++) {
+          listeners[i]();
+        }
+      });
+    },
+    template: '<div></div>'
+  };
+}]).directive('userInfo', ['jQuery', function($) {
 
   return {
     restrict: 'E',
     transclude: true,
-    scope: {
-    },
+    scope: {},
     link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
       $.cssEase['bounce'] = 'cubic-bezier(0,1,0.5,1.3)';
       $(element).find("#div_user_icon").transition({
@@ -113,46 +171,53 @@ angular.module(
     },
     link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
       scope.itemClick = function(a) {
-        a.action();
+        scope.$root.$emit('operation-' + a.name, a);
       }
+      scope.bgw = 0;
+      scope.bgh = 0;
 
       scope.visible = false;
       scope.$root.$on("shop-show", function(data) {
         if (scope.visible) {
-          hide();
+          scope.hide();
         }
       });
 
-      function show() {
-        $(element).find("#div-side-screen").transition({
+      scope.mainDiv = $(element).find("#div-side-screen");
+      scope.btn = $(element).find("#home_arrow_main_menu");
+      scope.show = function() {
+        scope.bgw = 1366;
+        scope.bgh = 768;
+        scope.mainDiv.transition({
           right: '-10px'
         }, 700, 'ease');
-        $(element).find("#home_arrow_main_menu").transition({
+
+        scope.btn.transition({
           rotate: '0deg'
         });
         scope.$root.$emit("side-show");
         scope.visible = true;
       }
-      function hide() {
-        $(element).find("#div-side-screen").transition({
+      scope.hide = function() {
+        scope.bgw = 0;
+        scope.bgh = 0;
+        scope.mainDiv.transition({
           right: '-570px'
         }, 700, 'ease');
-        $(element).find("#home_arrow_main_menu").transition({
+        scope.btn.transition({
           rotate: '180deg'
         });
         scope.$root.$emit("side-hide");
         scope.visible = false;
       }
 
-      function onClick() {
+      scope.onClick = function() {
         if (scope.visible) {
-          hide();
+          scope.hide();
         } else {
-          show();
+          scope.show();
         }
       }
-      $(element).find("#home_arrow_main_menu").bind('click', onClick);
-
     },
     templateUrl: '/public/templates/side-menu.html'
   };
