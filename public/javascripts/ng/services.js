@@ -21,6 +21,10 @@ Game.factory('Store', ['$resource', function($resource) {
       method: 'POST',
       url: '/storecontroller/buyItem'
     },
+    'buyItem': {
+      method: 'POST',
+      url: '/storecontroller/buyItem'
+    },
     'buyTerrain': {
       method: 'POST',
       url: '/terrainshop/buyTerrain'
@@ -38,12 +42,14 @@ Game.factory('Store', ['$resource', function($resource) {
 
 Game.factory('StoreItems', function($resource) {
   return {
-    'traktor': [{
+    'tractor': [{
       id: 1,
+      store: 'tractor',
       name: 'ObicenTraktor',
       url: '/public/images/game/TraktorStoreIcon.png'
     }, {
       id: 2,
+      store: 'tractor',
       name: 'EkoTraktor',
       url: '/public/images/game/TraktorStoreIcon.png'
     }],
@@ -84,14 +90,20 @@ Game.factory('StoreItems', function($resource) {
     'base': [{
       id: 1,
       name: 'M9',
+      perHa: true,
+      price: 1000,
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }, {
       id: 2,
       name: 'M26',
+      perHa: true,
+      price: 0,
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }, {
       id: 3,
       name: 'MM106',
+      perHa: true,
+      price: 0,
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }],
     'apple-type': [{
@@ -132,53 +144,79 @@ Game.factory('StoreItems', function($resource) {
       name: '8 grancinja',
       url: '/public/images/game/sadnici-icon.png'
     }],
+    'fertilizer': [{
+      id: 1,
+      store: 'tractor',
+      name: 'ObicenTraktor',
+      url: '/public/images/game/TraktorStoreIcon.png'
+    }, {
+      id: 2,
+      store: 'tractor',
+      name: 'EkoTraktor',
+      url: '/public/images/game/TraktorStoreIcon.png'
+    }],
+    'stores': [{
+      name: 'tractor',
+      url: '/public/images/game/sadnici-icon.png'
+    }, {
+      name: 'fertilizer',
+      url: '/public/images/game/sadnici-icon.png'
+    }, {
+      name: 'spraying',
+      url: '/public/images/game/sadnici-icon.png'
+    }, {
+      name: 'irrigation',
+      url: '/public/images/game/sadnici-icon.png'
+    }, {
+      name: 'other',
+      items: 'other',
+      url: '/public/images/game/sadnici-icon.png'
+    }],
   };
 });
 
-Game.factory('Operations', ['$resource', function($resource) {
-  return {
-    'planting': [{
-      ico: "prodavnica_home_icon",
-      name: 'prodavnica',
-      price: 0,
-      duration: 0,
-      requires: [],
-      order: 1
-    }, {
-      ico: "korisnik_home_icon",
-      name: 'oranje',
-      price: 2000,
-      duration: 20,
-      requires: [],
-      order: 2
-    }, {
-      ico: "analiza_home_icon",
-      name: 'gjubrenje',
-      price: 1000,
-      duration: 10,
-      requires: ['gjubre'],
-      order: 3
-    }, {
-      ico: "akcii_home_icon",
-      name: 'navodnuvanje',
-      price: 100,
-      duration: -1,
-      requires: [],
-      order: 4
-    }, {
-      ico: "analiza_home_icon",
-      name: 'analiza',
-      price: 3000,
-      duration: 0,
-      requires: [],
-      order: 5
-    }, {
-      ico: "analiza_home_icon",
-      name: 'sadenje',
-      price: 0,
-      duration: 0,
-      requires: ['seedlings'],
-      order: 6
-    }]
-  };
-}]);
+Game.factory('Operations', ['$resource', '$rootScope',
+    function($resource, $rootScope) {
+      return {
+        'planting': [{
+          ico: "prodavnica_home_icon",
+          name: 'store',
+          price: 0,
+          duration: 0,
+          requires: [],
+          order: 1
+        }, {
+          ico: "korisnik_home_icon",
+          name: 'oranje',
+          price: 2000,
+          duration: 20,
+          order: 2
+        }, {
+          ico: "analiza_home_icon",
+          name: 'gjubrenje',
+          price: 1000,
+          duration: 10,
+          requires: 'fertilizer',
+          order: 3
+        }, {
+          ico: "akcii_home_icon",
+          name: 'navodnuvanje',
+          price: 100,
+          duration: -1,
+          order: 4
+        }, {
+          ico: "analiza_home_icon",
+          name: 'analiza',
+          price: 3000,
+          duration: 0,
+          order: 5
+        }, {
+          ico: "analiza_home_icon",
+          name: 'sadenje',
+          price: 0,
+          duration: 0,
+          requires: 'seedlings',
+          order: 6
+        }]
+      };
+    }]);

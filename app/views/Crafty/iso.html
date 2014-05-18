@@ -55,7 +55,12 @@
 <script src="/public/javascripts/ng/filters.js"></script>
 <script src="/public/javascripts/ng/directives.js"></script>
 <script src="/public/javascripts/ng/controllers.js"></script>
+<script src="/public/javascripts/ng/controllers/store.js"></script>
+<script src="/public/javascripts/ng/controllers/buy-terrain.js"></script>
+<script src="/public/javascripts/ng/controllers/buy-seedlings.js"></script>
+<script src="/public/javascripts/ng/controllers/planting.js"></script>
 <script src="/public/javascripts/ng/router.js"></script>
+<script src="/public/javascripts/ng/global/services.js"></script>
 <title>Iso</title>
 <style>
 body,html {
@@ -69,11 +74,9 @@ body,html {
 	<div class="div_wrapper">
 		<div ng-view></div>
 		<shop-menu items="items"></shop-menu>
-		<div ng-controller="UserInfoController" >
-			<user-info farmer="farmer" ng-if="$root.farmer.id"></user-info>
-		</div>
-		<login ng-if="!$root.farmer.id"></login>
 		
+		<login ng-if="!$root.farmer.id"></login>
+		<user-info ng-if="$root.farmer.id"></user-info>
 	</div>
 	<progress-dialog prefix="global"></progress-dialog>
 </body>

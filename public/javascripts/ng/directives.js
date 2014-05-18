@@ -49,6 +49,7 @@ angular.module(
 
       function onHide() {
         dialog.hide();
+        scope.$root.$emit('hide-progress-' + scope.prefix);
       }
 
       function onShow(_scope, cfg) {

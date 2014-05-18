@@ -1,19 +1,52 @@
 package controllers;
 
 import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
+import java.util.List;
 
 import models.Farmer;
 import models.GameContext;
+import models.Item;
+import models.ItemInstance;
 import play.cache.Cache;
 import play.mvc.Controller;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 public class AuthController extends Controller {
 
 	public static void farmer() throws Exception {
 		JsonController.toJson(getFarmer(), "gameDate", "field");
+	}
+
+	public static class PlantationDto {
+		public String base;
+		public double area;
+	}
+
+	public static void plantation() throws JsonGenerationException,
+			JsonMappingException, IOException {
+		Farmer farmer = getFarmer();
+		if (farmer != null) {
+			PlantationDto dto = new PlantationDto();
+			dto.area = farmer.field.area;
+			dto.base = farmer.field.plantation.base.name;
+			JsonController.toJson(dto);
+		} else {
+			response.status = 401;
+			renderJSON(null);
+		}
+	}
+
+	public static void items() throws JsonGenerationException,
+			JsonMappingException, IOException {
+		Farmer farmer = getFarmer();
+		if (farmer != null) {
+			List<ItemInstance> items = farmer.boughtItems;
+		} else {
+			response.status = 401;
+			renderJSON(null);
+		}
 	}
 
 	protected static Farmer getFarmer() {
@@ -25,7 +58,7 @@ public class AuthController extends Controller {
 		}
 		return null;
 	}
-	
+
 	protected static GameContext getContext() {
 		String id = session.get("farmer");
 		Long cid = (Long) Cache.get(id);
