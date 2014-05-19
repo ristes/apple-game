@@ -5,7 +5,6 @@ import java.util.List;
 
 import models.Farmer;
 import models.GameContext;
-import models.Item;
 import models.ItemInstance;
 import play.cache.Cache;
 import play.mvc.Controller;
@@ -57,6 +56,14 @@ public class AuthController extends Controller {
 			return farmer;
 		}
 		return null;
+	}
+
+	public static void context() throws IOException {
+		Farmer farmer = getFarmer();
+		if (farmer == null) {
+			redirect("/login");
+		}
+		JsonController.toJson(farmer, "field", "gameDate");
 	}
 
 	protected static GameContext getContext() {

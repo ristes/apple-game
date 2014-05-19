@@ -33,6 +33,10 @@ public class Crafty extends Controller {
 		render();
 	}
 
+	public static void test() {
+		render();
+	}
+
 	public static void authenticate(String username, String password) {
 		Farmer farmer = null;
 		try {
@@ -43,18 +47,13 @@ public class Crafty extends Controller {
 			System.out.println(ex);
 
 		}
+		System.out.println(farmer);
 		if (farmer == null) {
-			farmer = new Farmer();
-			Day start = Day.find("dayOrder", 0l).first();
-			farmer.gameDate = start;
-			farmer.balans = 1000000;
-			farmer.eco_points = 100;
-			farmer.username = username;
-			farmer.password = password;
-			farmer.save();
+			farmer = Farmer.buildInstance(username, password);
 		}
 		UUID id = UUID.randomUUID();
 		Cache.add(id.toString(), farmer.id);
+		Cache.add(farmer.username, id.toString());
 		session.put("farmer", id.toString());
 
 		iso();

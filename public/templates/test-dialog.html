@@ -1,0 +1,103 @@
+<div>
+	<div style="text-align: center">
+		<span style="font-size: x-large">{{$root.context.gameDate.date}}</span>
+	</div>
+	<div style="float:left">
+		<h3>Basic Farmer Info</h3>
+		<div>
+			<div style="float:left">
+				<span>Username: </span>
+			</div>
+			<div style="float:left;margin-left: 5px;">
+				{{$root.context.username}}
+			</div>
+		</div>
+		<div>
+			<div style="float:left">
+				<span>Balance: </span>
+			</div>
+			<div style="float:left;margin-left: 5px;">
+				{{$root.context.balans}}
+			</div>
+		</div>
+		<div>
+			<div style="float:left">
+				<span>Eco-points:</span>
+			</div>
+			<div style="float:left;margin-left: 5px;">
+				{{$root.context.eco_points}}
+			</div>
+		</div>
+		<div>
+			<div style="float:left">
+				<span>Farmer-Luck: </span>
+			</div>
+			<div style="float:left;margin-left: 5px;">
+				{{($root.context.luck*100).toFixed(2)}}
+			</div>
+		</div>
+	</div>
+	<div style="float:left; margin-left: 40px">
+		<h3>Cumulative values</h3>
+		<div>
+			<div style="float:left">
+				<span>Cum. humidity:</span>
+			</div>
+			<div style="float:left">
+				<span>{{$root.context.cumulativeHumidity}} mm</span>
+			</div>
+		</div>
+		<div>
+			<div style="float:left">
+				<span>Cum. Leaf Humidity:</span>
+			</div>
+			<div style="float:left">
+				<span>{{$root.context.cumulativeLeafHumidity}} min</span>
+			</div>
+		</div>
+	</div>
+	<div style="float:left; margin-left: 40px;">
+		<h3>Diseases Info</h3>
+		<div ng-repeat="disease in diseases">
+			<span>{{disease.name}}</span>
+			<span>{{disease.probability.toFixed(1)}}</span>
+		</div>
+	</div>
+	<div style="float:left; margin-left: 40px;">
+		<h3>Day Info</h3>
+		<div>
+			<span>Weather Type:</span>
+			<span>{{$root.context.gameDate.weatherType}}</span>
+		</div>
+		<div>
+			<span>Temp Low:</span>
+			<span>{{$root.context.gameDate.tempLow.toFixed(0)}} C</span>
+		</div>
+		<div>
+			<span>Temp High:</span>
+			<span>{{$root.context.gameDate.tempHigh.toFixed(0)}} C</span>
+		</div>
+		<div>
+			<span>humidity:</span>
+			<span>{{$root.context.gameDate.humidity}}</span>
+		</div>
+		<div>
+			<span>humidityOfLeaf:</span>
+			<span>{{$root.context.gameDate.humidityOfLeaf}}</span>
+		</div>
+		<div>
+			<span>UV:</span>
+			<span>{{($root.context.gameDate.uvProb*10).toFixed(0)}}</span>
+		</div>
+		<div>
+			<span>iceProb:</span>
+			<span>{{$root.context.gameDate.iceProb.toFixed(2)}}</span>
+		</div>
+	</div>
+	<div style="float:left; margin-left: 40px;">
+		<span>{{report}}</span>
+		<!-- <div ng-repeat="diseaseinfo in $root.oneyearreport">
+			<span>{{diseaseinfo.FireBlight}}</span>
+		</div>	 -->	
+	</div>
+</div>

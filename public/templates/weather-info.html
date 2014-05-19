@@ -1,0 +1,12 @@
+<div class="weather_wrapper">
+	<div ng-class="{'past-future':'weather-div','today':'weather-div-bigger'}[w.type]" ng-repeat="w in weather">
+		<div>
+			<img ng-class="{'past-future':'div-weather-past-future','today':'div-weather-today'}[w.type]" src="/public/images/game/{{w.icon_url}}.png" />
+			<span>{{w.date}}</span>
+		</div>
+		<div ng-click="detailsWeather(w)" id="weather-details-info-more-less-{{w.id}}" class="weather-details-info-more-less animate">
+			<span class="weather-details-info-more-less-span"  id="weather-details-info-more-less-span-{{w.id}}" style="font-size: xx-small" >+</span>
+		</div>
+	</div>
+
+</div>

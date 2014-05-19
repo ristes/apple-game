@@ -34,11 +34,7 @@ public class DeseasesExpertSystem extends Controller {
 		renderJSON("null");
 	}
 	
-	public static void getDeseasePossibility() throws UnknownFunctionException, UnparsableExpressionException {
-		Farmer farmer = AuthController.getFarmer();
-		if (farmer==null) {
-			redirect("/login");
-		}
+	public static List<DiseaseOccurenceProb> getDP(Farmer farmer) {
 		List<DiseaseOccurenceProb> disProbs = new ArrayList<DiseaseOccurenceProb>();
 		List<Decease> deceases = Decease.findAll();
 		for (Decease disease : deceases) {
@@ -49,6 +45,15 @@ public class DeseasesExpertSystem extends Controller {
 			dis.probability = prob-prob*diminishingFactor;
 			disProbs.add(dis);
 		}
+		return disProbs;
+	}
+	
+	public static void getDeseasePossibility() throws UnknownFunctionException, UnparsableExpressionException {
+		Farmer farmer = AuthController.getFarmer();
+		if (farmer==null) {
+			redirect("crafty/login");
+		}
+		List<DiseaseOccurenceProb> disProbs = getDP(farmer);
 		renderJSON(disProbs);
 	}
 	

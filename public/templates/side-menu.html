@@ -1,9 +1,12 @@
+
 <div class="side-screen-bg" style='width:{{bgw}}px;height:{{bgh}}px' ng-click='hide()'></div>
 <div id="div-side-screen" ng-animate="slide"
 		ng-class="{true: 'slide-enter', false: 'slide-leave'}[visible]">
+
 	<span id="weather_title">ВРЕМЕНСКА ПРОГНОЗА</span>
 	<div id="home_arrow_main_menu" ng-click="onClick()" ng-animate="{enter: 'rotateCounterwise', leave: 'rotate'}"
 		ng-class="{false: 'rotate', true: 'rotateCounterwise'}[visible]"></div>
+
 
 	<div class="weather_wrapper" ng-if="weather">
 		<div class="weather-div" ng-repeat="w in weather">

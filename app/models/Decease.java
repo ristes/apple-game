@@ -124,6 +124,9 @@ public class Decease extends Model implements DeseaseRisk {
 			e.printStackTrace();
 		}
 		result = value.calculate();
+		if (result<0.0){
+			result = 0.0;
+		}
 		return result;
 	}
 	
