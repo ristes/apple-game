@@ -48,7 +48,7 @@ Game.controller('FertilizingController', [
         if (!hasItem) {
           $scope.$root.$emit('shop-show', {
             items: StoreItems[oper.requires],
-            showNext: false,
+            showNext: true,
             storeUrl: '/public/images/game/store-' + oper.requires + '.png',
             onItemClick: onBuyItem
           });

@@ -36,10 +36,11 @@ Game.controller('ShoppingController', [
       var showStoreItems = function(store) {
         $scope.$root.$emit('shop-hide');
         $scope.$root.$emit('item-bought');
+        $scope.store = store;
         $scope.$root.$emit('shop-show', {
           items: StoreItems[store.name],
           showNext: true,
-          storeUrl: '/public/images/game/store-' + store.name + '.png',
+          storeUrl: store.url,
           onItemClick: onBuyItem
 
         });
@@ -49,7 +50,7 @@ Game.controller('ShoppingController', [
         $scope.$root.$emit('shop-show', {
           items: StoreItems['stores'],
           showNext: true,
-          storeUrl: '/public/images/game/sadnici-icon.png',
+          storeUrl: '/public/images/game/operations/shop.png',
           onItemClick: showStoreItems
         });
       });

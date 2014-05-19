@@ -5,16 +5,16 @@
 	<div id="home_arrow_main_menu" ng-click="onClick()" ng-animate="{enter: 'rotateCounterwise', leave: 'rotate'}"
 		ng-class="{false: 'rotate', true: 'rotateCounterwise'}[visible]"></div>
 
-	<div class="weather_wrapper">
+	<div class="weather_wrapper" ng-if="weather">
 		<div class="weather-div" ng-repeat="w in weather">
 			<img class="weather_icon" src="/public/images/game/{{w.icon_url}}.png" />
 			<span>{{w.date}}</span>
 		</div>
 	</div>
 
-	<div id="{{a.ico}}"
-	class="side-icon-{{a.order}}"
-	ng-repeat="a in actions"
-	ng-click="itemClick(a)"></div>
+	<div class="side-icon-{{a.order}}" ng-if="a.ico"
+			style="background-image: url('{{a.ico}}')"
+			ng-repeat="a in actions"
+			ng-click="itemClick(a)"></div>
 
 </div>

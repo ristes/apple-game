@@ -13,8 +13,8 @@ Game.factory('$farmer', ['$rootScope', '$http', '$items', '$location',
           if ($rootScope.farmer) {
             return $rootScope.farmer;
           } else {
-//            var res = $http.get("/public/javascripts/ng/mock/farmer.json");
-            var res = $http.get("/AuthController/farmer");
+            var res = $http.get("/public/javascripts/ng/mock/farmer.json");
+//            var res = $http.get("/AuthController/farmer");
             res.success(function(data) {
               swap(data);
             });

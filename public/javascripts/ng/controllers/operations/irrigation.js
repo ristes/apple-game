@@ -12,4 +12,6 @@ Game.controller('IrrigationController', [
     function($scope, $translate, $http, Store, StoreItems, Operations, $farmer,
             $items, $plantation, $weather) {
 
+      $scope.visible = false;
+
     }]);

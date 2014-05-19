@@ -273,21 +273,8 @@ body {
 	background-size: 100% 100%;
 }
 
-#prodavnica_home_icon {
-	background-image: url("/public/images/home/prodavnica_icon.png");
-}
 
-#korisnik_home_icon {
-	background-image: url("/public/images/home/korisnik_icon.png");
-}
 
-#akcii_home_icon {
-	background-image: url("/public/images/home/akcii_icon.png");
-}
-
-#analiza_home_icon {
-	background-image: url("/public/images/home/analiza_icon.png");
-}
 
 .side-icon-1:hover {
 	cursor: pointer;
