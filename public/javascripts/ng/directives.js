@@ -223,13 +223,16 @@ angular.module(
     restrict: 'E',
     transclude: true,
     scope: {
-      w: '='
+      w: '=',
+      visible:'='
     },
     link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
+    	scope.visible = false;
       function hide() {
         // $(element).find("#weather-info-details").transition({
         // right : '-750px'
         // }, 700, 'ease');
+    	  scope.visible = false;
         $(element).find("#weather-info-details").animate({
           opacity: 0
         });
@@ -239,6 +242,7 @@ angular.module(
         // $(element).find("#weather-info-details").transition({
         // right : '350px'
         // }, 700, 'ease');
+    	scope.visible = true;
         $(element).find("#weather-info-details").css("top", position.top);
         $(element).find("#weather-info-details").css("left", position.left);
         $(element).find("#weather-info-details").animate({
@@ -249,9 +253,9 @@ angular.module(
       scope.$root.$on("weather-hide", function($scope) {
         hide();
       });
-      scope.$root.$on("weather-show", function($scope, w, right) {
+      scope.$root.$on("weather-show", function($scope, w, position) {
         scope.w = w;
-        show(right);
+        show(position);
       });
 
     },

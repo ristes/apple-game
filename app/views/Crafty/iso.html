@@ -78,14 +78,19 @@ body,html {
 </head>
 <body ng-app="Game">
 	<div class="div_wrapper">
+		<weather-info-details w='w' visible="visible"></weather-info-details>
+		<weather-info weather="weather"></weather-info>
 		
 		<div ng-view></div>
 		<shop-menu items="items"></shop-menu>
 		
 		<login ng-if="!$root.farmer.id"></login>
 		<user-info ng-if="$root.farmer.id"></user-info>
+			
+			
+		
 	</div>
 	<progress-dialog prefix="global"></progress-dialog>
-	<weather-info weather="weather"></weather-info>
+	
 </body>
 </html>
