@@ -111,51 +111,57 @@ angular.module(
     transclude: true,
     scope: {},
     link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
-      $.cssEase['bounce'] = 'cubic-bezier(0,1,0.5,1.3)';
       scope.showNext = true;
       scope.visible = false;
       scope.buying = false;
+
       scope.itemClick = function(item) {
         if (!scope.buying) {
           scope.buying = true;
           scope.$root.$emit('buy-item', item);
+          if (scope.onItemClick) {
+            scope.onItemClick(item);
+          }
         }
       };
 
-      scope.$root.$on("item-bought", function($scope) {
+      var unregBought = scope.$root.$on("item-bought", function($scope) {
         scope.buying = false;
       });
 
-      scope.$root.$on("shop-show", function($scope, cfg) {
+      var unregShow = scope.$root.$on("shop-show", function($scope, cfg) {
+        scope.$root.$emit('side-hide');
         scope.items = cfg.items;
         scope.storeUrl = cfg.storeUrl;
         if (cfg.showNext !== null) {
           scope.showNext = cfg.showNext;
+          if (cfg.onHide) {
+            scope.hideFn = cfg.onHide;
+          }
+        }
+        if (cfg.onItemClick) {
+          scope.onItemClick = cfg.onItemClick;
         }
         scope.visible = true;
-        show();
       });
 
-      scope.$root.$on("shop-hide", function($scope) {
-        scope.visible = false;
-        hide();
+      var unregHide = scope.$root.$on("shop-hide", function() {
+        scope.hide();
       });
 
-      function hide() {
-        $(element).find("#div-shop-manu").transition({
-          right: '-750px'
-        }, 700, 'ease');
+      scope.hide = function() {
         scope.visible = false;
+        scope.buying = false;
+        if (scope.hideFn) {
+          scope.hideFn();
+        }
       }
 
-      function show() {
-        $(element).find("#div-shop-manu").transition({
-          right: '350px'
-        }, 700, 'ease');
-        scope.visible = true;
-      }
-
-      $(element).find("#shop_arrow_main_menu").bind('click', hide);
+      scope.$on("$destroy", function() {
+        unregBought();
+        unregHide();
+        unregShow();
+      });
 
     },
     templateUrl: '/public/templates/shop-menu.html'
@@ -178,39 +184,28 @@ angular.module(
       scope.bgh = 0;
 
       scope.visible = false;
-      scope.$root.$on("shop-show", function(data) {
-        if (scope.visible) {
-          scope.hide();
-        }
-      });
 
-      scope.mainDiv = $(element).find("#div-side-screen");
-      scope.btn = $(element).find("#home_arrow_main_menu");
       scope.show = function() {
+        scope.$root.$emit("shop-hide");
         scope.bgw = 1366;
         scope.bgh = 768;
-        scope.mainDiv.transition({
-          right: '-10px'
-        }, 700, 'ease');
-
-        scope.btn.transition({
-          rotate: '0deg'
-        });
-        scope.$root.$emit("side-show");
         scope.visible = true;
       }
       scope.hide = function() {
         scope.bgw = 0;
         scope.bgh = 0;
-        scope.mainDiv.transition({
-          right: '-570px'
-        }, 700, 'ease');
-        scope.btn.transition({
-          rotate: '180deg'
-        });
-        scope.$root.$emit("side-hide");
         scope.visible = false;
       }
+
+      var un = scope.$root.$on("side-hide", function() {
+        scope.hide();
+      });
+
+      scope.$on('$destroy', function() {
+        if (un) {
+          un();
+        }
+      })
 
       scope.onClick = function() {
         if (scope.visible) {

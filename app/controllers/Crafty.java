@@ -16,11 +16,11 @@ public class Crafty extends Controller {
 		}
 		render();
 	}
-	
+
 	public static void shopwindow() {
 		render();
 	}
-	
+
 	public static void iso1() {
 		Farmer farmer = AuthController.getFarmer();
 		if (farmer == null) {
@@ -43,7 +43,6 @@ public class Crafty extends Controller {
 			System.out.println(ex);
 
 		}
-		System.out.println(farmer);
 		if (farmer == null) {
 			farmer = new Farmer();
 			Day start = Day.find("dayOrder", 0l).first();
@@ -56,9 +55,15 @@ public class Crafty extends Controller {
 		}
 		UUID id = UUID.randomUUID();
 		Cache.add(id.toString(), farmer.id);
-		Cache.add(farmer.username, id.toString());
 		session.put("farmer", id.toString());
 
 		iso();
+	}
+
+	public static void logout() {
+		String id = session.get("farmer");
+		Long fid = (Long) Cache.get(id);
+		Cache.delete(id);
+		session.clear();
 	}
 }

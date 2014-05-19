@@ -1,0 +1,24 @@
+<style>
+.rotate,.rotateCounterwise {
+	-webkit-transition: 300ms ease all;
+	-moz-transition: 300ms ease all;
+	-o-transition: 300ms ease all;
+	transition: 300ms ease all;
+}
+
+.rotate {
+	-webkit-transform: rotate(90deg);
+}
+
+.rotateCounterwise {
+	-webkit-transform: rotate(0deg);
+}
+</style>
+
+<div ng-controller="Main">
+	<div ng-click="rotate()"
+		style="width: 100px; margin: 10%; background: red;"
+		ng-animate="{enter: 'rotate', leave: 'rotateCounterwise'}"
+		ng-class="{true: 'rotate', false: 'rotateCounterwise'}[isActive]">I
+		am rotated!</div>
+</div>

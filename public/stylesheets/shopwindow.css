@@ -1,5 +1,59 @@
+.rotate,.rotateCounterwise {
+	-webkit-transition: 300ms ease all;
+	-moz-transition: 300ms ease all;
+	-o-transition: 300ms ease all;
+	transition: 300ms ease all;
+}
+
+.rotate {
+	-webkit-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+.rotateCounterwise {
+	-webkit-transform: rotate(0deg);
+	transform: rotate(0deg);
+}
+
 .modal-backdrop {
 	opacity: 0.7;
+}
+
+
+.slide-enter, 
+.slide-leave
+{ 
+  -webkit-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  -moz-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  -ms-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  -o-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+} 
+ 
+.slide-leave {
+  right: -570px;
+}
+ 
+.slide-enter {
+ right: -10px;
+}
+
+.shop-enter, 
+.shop-leave
+{ 
+  -webkit-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  -moz-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  -ms-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  -o-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+} 
+ 
+.shop-enter {
+  right: 350px;
+}
+ 
+.shop-leave {
+ right: -750px;
 }
 
 body {
@@ -109,7 +163,6 @@ body {
 	position: fixed;
 	width: 600px;
 	height: 500px;
-	right: -750px;
 	top: 130px;
 	background-image: url("/public/images/home/ploca.png");
 	background-size: 100% 100%;
@@ -140,7 +193,6 @@ body {
 	position: fixed;
 	width: 750px;
 	height: 700px;
-	right: -570px;
 	z-index: 1000;
 	top: 0px;
 	background-image: url("/public/images/home/ploca.png");
@@ -158,8 +210,6 @@ body {
 
 #home_arrow_main_menu {
 	position: relative;
-	transform: rotate(180deg);
-	-webkit-transform: rotate(180deg);
 	width: 60px;
 	height: 60px;
 	top: 0px;

@@ -187,32 +187,32 @@ Game.factory('Operations', ['$resource', '$rootScope',
           order: 1
         }, {
           ico: "korisnik_home_icon",
-          name: 'oranje',
+          name: 'plowing',
           price: 2000,
           duration: 20,
           order: 2
         }, {
           ico: "analiza_home_icon",
-          name: 'gjubrenje',
+          name: 'fertilizing',
           price: 1000,
           duration: 10,
           requires: 'fertilizer',
           order: 3
         }, {
           ico: "akcii_home_icon",
-          name: 'navodnuvanje',
+          name: 'irrigation',
           price: 100,
           duration: -1,
           order: 4
         }, {
           ico: "analiza_home_icon",
-          name: 'analiza',
+          name: 'terrainAnalysis',
           price: 3000,
           duration: 0,
           order: 5
         }, {
           ico: "analiza_home_icon",
-          name: 'sadenje',
+          name: 'planting',
           price: 0,
           duration: 0,
           requires: 'seedlings',

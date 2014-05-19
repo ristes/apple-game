@@ -13,6 +13,7 @@ Game.factory('$farmer', ['$rootScope', '$http', '$items', '$location',
           if ($rootScope.farmer) {
             return $rootScope.farmer;
           } else {
+//            var res = $http.get("/public/javascripts/ng/mock/farmer.json");
             var res = $http.get("/AuthController/farmer");
             res.success(function(data) {
               swap(data);
@@ -31,7 +32,7 @@ Game.factory('$items', ['$rootScope', '$http', function($rootScope, $http) {
   }
   return {
     load: function() {
-      var res = $http.get("/global/items");
+      var res = $http.get("/public/javascripts/ng/mock/items.json");
       res.success(function(data) {
         $rootScope.items = {};
         for (var i = 0; i < data.length; i++) {
@@ -75,10 +76,12 @@ Game.factory('$plantation', ['$rootScope', '$http',
     function($rootScope, $http) {
       return {
         load: function() {
-          var res = $http.get("/AuthController/plantation");
-          res.success(function(data) {
-            $rootScope.plantation = data;
-          });
+          if(!$rootScope.plantation) {
+            var res = $http.get("/AuthController/plantation");
+            res.success(function(data) {
+              $rootScope.plantation = data;
+            });
+          }
         }
       };
     }]);
