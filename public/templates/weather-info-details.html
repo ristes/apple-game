@@ -1,0 +1,19 @@
+<div id="weather-info-details" ng-class="{'past-future':'weather-info-details-small','today':'weather-info-details-big'}[w.type]" ng-animate='animate'>
+	<div>
+		<span>Мин. Т:</span>
+		<span>{{w.lowTemp.toFixed(0)}} C</span>
+	</div>
+	<div>
+		<span>Макс. Т:</span>
+		<span>{{w.highTemp.toFixed(0)}} C</span>
+	</div>
+	<div>
+		<span>UV индекс:</span>
+		<span>{{(w.uvProb*10).toFixed(0)}}</span>
+	</div>
+	<div>
+		<span>Влажност:</span>
+		<span>{{w.humidity}} %</span>
+	</div>
+
+</div>

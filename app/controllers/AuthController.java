@@ -26,6 +26,14 @@ public class AuthController extends Controller {
 		return null;
 	}
 	
+	public static void context() throws IOException{
+		Farmer farmer = getFarmer();
+		if (farmer==null) {
+			redirect("/login");
+		}
+		JsonController.toJson(farmer, "field","gameDate");
+	}
+	
 	protected static GameContext getContext() {
 		String id = session.get("farmer");
 		Long cid = (Long) Cache.get(id);

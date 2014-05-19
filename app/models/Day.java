@@ -29,6 +29,7 @@ public class Day extends Model{
 	
 	public Double iceProb;
 	
+	
 	public Long humidity;
 	
 	public Long dayOrder;

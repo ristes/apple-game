@@ -6,6 +6,8 @@ import models.WeatherType;
 
 public class DayWeatherDao {
 	
+	public int id;
+	
 	public Date date;
 
 	public Long weatherType;
@@ -17,6 +19,11 @@ public class DayWeatherDao {
 	
 	public Double highTemp;
 	
+	public Double uvProb;
 	
+	public Integer humidity;
+	
+	//past,today,future
+	public String type;
 	
 }

@@ -66,6 +66,11 @@ body,html {
 <body ng-app="Game">
 	<div class="div_wrapper">
 		<shop-menu items="items"></shop-menu>
+		<div ng-controller="WeatherController">
+			<weather-info-details w="w"></weather-info-details>
+			<weather-info weather="weather"></weather-info>
+			
+		</div>
 		<div ng-controller="UserInfoController" >
 			<user-info farmer="farmer" ng-if="$root.farmer.id"></user-info>
 		</div>
