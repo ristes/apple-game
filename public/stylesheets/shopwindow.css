@@ -191,8 +191,8 @@ body {
 
 #div-side-screen {
 	position: fixed;
-	width: 750px;
-	height: 700px;
+	width: 55%;
+	height: 100%;
 	z-index: 1000;
 	top: 0px;
 	background-image: url("/public/images/home/ploca.png");
