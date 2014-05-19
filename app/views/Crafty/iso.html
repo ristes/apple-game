@@ -2,9 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <link rel="stylesheet" type="text/css" href="/public/stylesheets/shopwindow.css"/>	
+<link href="/public/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="/public/bower_components/bootstrap/dist/css/font-awesome.min.css" rel="stylesheet">
 
 <script type="text/javascript" src="/public/javascripts/modelStore.js"></script>
 <script type="text/javascript" src="/public/javascripts/crafty.js"></script>
+<script type="text/javascript" src="/public/javascripts/callback-manager.js"></script>
+<script type="text/javascript" src="/public/javascripts/land.js"></script>
 
 <!-- <script type="text/javascript" src="/public/javascripts/shopwindow.js"></script>
 <script type="text/javascript" src="/public/javascripts/i18n.js"></script>
@@ -19,9 +23,7 @@
 <script type="text/javascript" src="/public/javascripts/scenes/seedlingShop.js"></script>
 <script type="text/javascript" src="/public/javascripts/scenes/shop.js"></script>
 <script type="text/javascript" src="/public/javascripts/operations.js"></script>
-<script type="text/javascript" src="/public/javascripts/land.js"></script>
 <script type="text/javascript" src="/public/javascripts/game.js"></script>
-<script type="text/javascript" src="/public/javascripts/callback-manager.js"></script>
 <script type="text/javascript" src="/public/javascripts/actions.js"></script>
 <script type="text/javascript" src="/public/javascripts/toolbar.js"></script>
 <script type="text/javascript" src="/public/javascripts/add-or-relpace-plant-callback.js"></script>
@@ -53,7 +55,18 @@
 <script src="/public/javascripts/ng/filters.js"></script>
 <script src="/public/javascripts/ng/directives.js"></script>
 <script src="/public/javascripts/ng/controllers.js"></script>
+<script src="/public/javascripts/ng/controllers/store.js"></script>
+<script src="/public/javascripts/ng/controllers/buy-terrain.js"></script>
+<script src="/public/javascripts/ng/controllers/buy-seedlings.js"></script>
+<script src="/public/javascripts/ng/controllers/planting.js"></script>
+<script src="/public/javascripts/ng/controllers/operations/fertilizing.js"></script>
+<script src="/public/javascripts/ng/controllers/operations/irrigation.js"></script>
+<script src="/public/javascripts/ng/controllers/operations/planting.js"></script>
+<script src="/public/javascripts/ng/controllers/operations/plowing.js"></script>
+<script src="/public/javascripts/ng/controllers/operations/shopping.js"></script>
+<script src="/public/javascripts/ng/controllers/operations/terrain-analyzis.js"></script>
 <script src="/public/javascripts/ng/router.js"></script>
+<script src="/public/javascripts/ng/global/services.js"></script>
 <title>Iso</title>
 <style>
 body,html {
@@ -65,18 +78,13 @@ body,html {
 </head>
 <body ng-app="Game">
 	<div class="div_wrapper">
-		<shop-menu items="items"></shop-menu>
-		<div ng-controller="WeatherController">
-			<weather-info-details w="w"></weather-info-details>
-			<weather-info weather="weather"></weather-info>
-			
-		</div>
-		<div ng-controller="UserInfoController" >
-			<user-info farmer="farmer" ng-if="$root.farmer.id"></user-info>
-		</div>
-		<login ng-if="!$root.farmer.id"></login>
+		<weather-info weather="weather"></weather-info>
 		<div ng-view></div>
+		<shop-menu items="items"></shop-menu>
 		
+		<login ng-if="!$root.farmer.id"></login>
+		<user-info ng-if="$root.farmer.id"></user-info>
 	</div>
+	<progress-dialog prefix="global"></progress-dialog>
 </body>
 </html>

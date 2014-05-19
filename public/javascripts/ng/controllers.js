@@ -5,181 +5,7 @@ Game.controller('LoginController', ['$scope', '$translate',
 
     }]);
 
-Game.controller('StoreController', ['$scope', '$translate', '$http', 'Store',
-    'StoreItems', function($scope, $translate, $http, Store, StoreItems) {
 
-      $scope.initStore = function(store, nextState, servMethod, shopIcon) {
-        $scope.nextState = nextState;
-        $scope.servMethod = servMethod || 'buy';
-
-        // load from service
-        $scope.items = StoreItems[store];
-
-        $scope.$root.$emit('shop-show', {
-          items: $scope.items,
-          showNext: false,
-          storeUrl: shopIcon
-        });
-      };
-
-      $scope.onBuyItem = function(_scope, item) {
-        Store[$scope.servMethod]({
-          itemid: item.id,
-          quantity: 1,
-          currentState: "/" + $scope.nextState
-        }, null, function(result) {
-          if (result.balans) {
-            $scope.$root.farmer = result;
-            $scope.$root.$emit('shop-hide');
-          } else {
-            alert("NEMA PARI!");
-          }
-        }).$promise['finally'](function() {
-          $scope.$root.$emit('item-bought');
-        });
-      };
-
-      var unreg = $scope.$root.$on('buy-item', $scope.onBuyItem);
-
-      $scope.$on("$destroy", function() {
-        unreg();
-      })
-
-    }]);
-
-Game.controller('BuyTerrainController', ['$scope', '$translate', '$http',
-    'Store', 'StoreItems',
-    function($scope, $translate, $http, Store, StoreItems) {
-
-      // load from service
-      $scope.items = StoreItems['terrain-size'];
-
-      $scope.$root.$emit('shop-show', {
-        items: $scope.items,
-        showNext: false,
-        storeUrl: '/public/images/game/pocva-prodavnica-icon.png'
-      });
-
-      $scope.onSelectSize = function(_scope, item) {
-        $scope.size = item.size;
-        $scope.unreg();
-        $scope.$root.$emit('shop-hide');
-        $scope.$root.$emit('item-bought');
-        $scope.items = StoreItems['terrain'];
-        $scope.$root.$emit('shop-show', {
-          items: $scope.items,
-          showNext: false,
-          storeUrl: '/public/images/game/pocva-prodavnica-icon.png'
-        });
-        $scope.unreg = $scope.$root.$on('buy-item', $scope.onBuyItem);
-
-      };
-
-      $scope.onBuyItem = function(_scope, item) {
-        Store['buyTerrain']({
-          terrainId: item.id,
-          size: $scope.size,
-          currentState: "/buy_base"
-        }, null, function(result) {
-          if (result.balans) {
-            $scope.$root.farmer = result;
-            $scope.$root.$emit('shop-hide');
-          } else {
-            alert("NEMA PARI!");
-          }
-        }).$promise['finally'](function() {
-          $scope.$root.$emit('item-bought');
-        });
-      };
-
-      $scope.unreg = $scope.$root.$on('buy-item', $scope.onSelectSize);
-
-      $scope.$on("$destroy", function() {
-        $scope.unreg();
-      })
-
-    }]);
-
-Game.controller('BuySeadlingsController', ['$scope', '$translate', '$http',
-    'Store', 'StoreItems',
-    function($scope, $translate, $http, Store, StoreItems) {
-
-      $scope.items = StoreItems['apple-type'];
-
-      $scope.$root.$emit('shop-show', {
-        items: $scope.items,
-        showNext: false,
-        storeUrl: '/public/images/game/jabolko.png'
-      });
-
-      $scope.onSelectSize = function(_scope, item) {
-        $scope.plantTypeId = item.id;
-        $scope.unreg();
-        $scope.$root.$emit('shop-hide');
-        $scope.$root.$emit('item-bought');
-        $scope.items = StoreItems['seedling-type'];
-        $scope.$root.$emit('shop-show', {
-          items: $scope.items,
-          showNext: false,
-          storeUrl: '/public/images/game/grance.png'
-        });
-        $scope.unreg = $scope.$root.$on('buy-item', $scope.onBuyItem);
-
-      };
-
-      $scope.onBuyItem = function(_scope, item) {
-        Store['buySeedling']({
-          seedlingTypeId: item.id,
-          plantTypeId: $scope.plantTypeId,
-          currentState: "/plantation"
-        }, null, function(result) {
-          if (result.balans) {
-            $scope.$root.farmer = result;
-            $scope.$root.$emit('shop-hide');
-          } else {
-            alert("NEMA PARI!");
-          }
-        }).$promise['finally'](function() {
-          $scope.$root.$emit('item-bought');
-        });
-      };
-
-      $scope.unreg = $scope.$root.$on('buy-item', $scope.onSelectSize);
-
-      $scope.$on("$destroy", function() {
-        $scope.unreg();
-      })
-
-    }]);
-
-Game.controller('PlantingController', ['$scope', '$translate',
-    function($scope, $translate) {
-
-    }]);
-
-Game.controller('UserInfoController', ['$scope', '$translate', '$http',
-    '$location', function($scope, $translate, $http, $location) {
-
-      $.post("/AuthController/farmer", function(data) {
-        $scope.$root.farmer = data;
-        $scope.farmer = data;
-        $scope.username = data.username;
-        $scope.balans = data.balans;
-
-        $scope.$root.$watch('farmer', function(n, o) {
-          if (o === n || n === null) return;
-          $location.path(n.currentState);
-        });
-        if (data.currentState === null) {
-          $location.path("/buy_tractor");
-        } else {
-          $location.path("/buy_tractor");
-          // $location.path(data.currentState);
-        }
-
-      });
-
-    }]);
 Game.controller('WeatherController', ['$scope', '$translate', 'Crafty',
     'ModelStore', 'jQuery',
     function($scope, $translate, Crafty, ModelStore, $) {
@@ -192,18 +18,14 @@ Game.controller('WeatherController', ['$scope', '$translate', 'Crafty',
       };
       
     }]);
-Game.controller('ShopController', ['$scope', '$translate', 'Crafty',
-    'ModelStore', 'jQuery',
-    function($scope, $translate, Crafty, ModelStore, $) {
-      $.post("/storecontroller/allNg", function(data) {
-        $scope.main_store = data;
-      });
-    }]);
+    
 Game.controller('PlantationController', [
     '$scope',
     '$translate',
     'Crafty',
-    'ModelStore',
+    '$day',
+    '$weather',
+    '$plantation',
     function($scope, $translate, Crafty, ModelStore) {
       Crafty.init(1000, 500, "target");
 

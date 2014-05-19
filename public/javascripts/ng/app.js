@@ -23,3 +23,9 @@ Game.config([
       $translateProvider.useCookieStorage();
 
     }]);
+
+Game.run(['$rootScope', '$location', '$farmer', '$items',
+    function($rootScope, $location, $farmer, $items) {
+      $farmer.load();
+      $location.path("/");
+    }]);

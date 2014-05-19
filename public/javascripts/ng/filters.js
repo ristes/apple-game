@@ -13,4 +13,8 @@ angular.module('Game.filters', []).filter('fileSize', function() {
 
     return Math.max(fileSizeInBytes, 0.1).toFixed(1) + byteUnits[i];
   };
+}).filter('integer', function() {
+  return function(number) {
+    return Math.round(number);
+  };
 });

@@ -16,11 +16,11 @@ public class Crafty extends Controller {
 		}
 		render();
 	}
-	
+
 	public static void shopwindow() {
 		render();
 	}
-	
+
 	public static void iso1() {
 		Farmer farmer = AuthController.getFarmer();
 		if (farmer == null) {
@@ -32,7 +32,7 @@ public class Crafty extends Controller {
 	public static void login() {
 		render();
 	}
-	
+
 	public static void test() {
 		render();
 	}
@@ -57,5 +57,12 @@ public class Crafty extends Controller {
 		session.put("farmer", id.toString());
 
 		iso();
+	}
+
+	public static void logout() {
+		String id = session.get("farmer");
+		Long fid = (Long) Cache.get(id);
+		Cache.delete(id);
+		session.clear();
 	}
 }

@@ -1,0 +1,25 @@
+<div id="plantation"
+	style="background: url('/public/images/niva.png'); z-index: 0; width: 1366px; height: 768px; position: absolute; top: 0; left: 0;"></div>
+<!-- <div id="plantation"
+	style="background: url('/public/images/predniva.png'); width: 1366px; height: 768px; position: absolute; top: 0; left: 0; margin-top: 29px;"></div>
+ -->
+<side-menu weather="weather" actions="actions"></side-menu>
+
+<div ng-controller="ShoppingController"></div>
+<div ng-controller="PlowingController"></div>
+<div ng-controller="FertilizingController"></div>
+<div ng-controller="IrrigationController">
+	<div id="div-shop-manu" ng-animate="shop"
+			ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
+		<div id="shop_icon_div_main_menu" style="background-image:url('')"></div>
+		<div id="shop_arrow_main_menu" ng-show="showNext" ng-click="hide()"></div>
+		<div class="shop_menu_grid">
+			<div class="shop_item_in_grid" ng-repeat="item in items">
+				<div class="shop_icon_in_grid" title="{{item.name}}" style="background-image:url('{{item.url}}')" ng-click="itemClick(item)"></div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<div ng-controller="TerrainAnalysisController"></div>
+<div ng-controller="PlantingController"></div>
