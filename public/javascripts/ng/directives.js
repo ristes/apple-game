@@ -218,4 +218,106 @@ angular.module(
     templateUrl: '/public/templates/side-menu.html'
   };
 
-}]);
+}]).directive('weatherInfoDetails', ['jQuery', function($) {
+  return {
+    restrict: 'E',
+    transclude: true,
+    scope: {
+      w: '='
+    },
+    link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
+      function hide() {
+        // $(element).find("#weather-info-details").transition({
+        // right : '-750px'
+        // }, 700, 'ease');
+        $(element).find("#weather-info-details").animate({
+          opacity: 0
+        });
+      }
+
+      function show(position) {
+        // $(element).find("#weather-info-details").transition({
+        // right : '350px'
+        // }, 700, 'ease');
+        $(element).find("#weather-info-details").css("top", position.top);
+        $(element).find("#weather-info-details").css("left", position.left);
+        $(element).find("#weather-info-details").animate({
+          opacity: 1
+        });
+      }
+
+      scope.$root.$on("weather-hide", function($scope) {
+        hide();
+      });
+      scope.$root.$on("weather-show", function($scope, w, right) {
+        scope.w = w;
+        show(right);
+      });
+
+    },
+    templateUrl: '/public/templates/weather-info-details.html'
+  };
+}]).directive(
+        'weatherInfo',
+        [
+            'jQuery',
+            function($) {
+              return {
+                restrict: 'E',
+                transclude: true,
+                scope: {
+                  weather: '=',
+                  detailWeather: '=',
+                },
+
+                link: function(scope, element, attrs, ctrl, transclude,
+                        formCtrl) {
+
+                  scope.$root.$emit("weather-hide");
+                  scope.visible = false;
+                  scope.detailsWeather = function(w) {
+                    scope.toggle(w);
+                    // scope.$root.$emit("weather-show", w);
+                  };
+                  scope.toggle = function(w) {
+                    if (scope.visible == false) {
+                      $(element).find(".weather-details-info-more-less").css(
+                              "visibility", "hidden");
+                      $(element)
+                              .find("#weather-details-info-more-less-" + w.id)
+                              .css("visibility", "visible");
+                      $(element).find(
+                              "#weather-details-info-more-less-span-" + w.id)
+                              .text("-");
+                      $(element)
+                              .find("#weather-details-info-more-less-" + w.id)
+                              .css("background-color", "cyan");
+                      var position = $(element).find(
+                              "#weather-details-info-more-less-" + w.id)
+                              .position();
+                      position.top = position.top
+                              + $('.weather_wrapper').position().top
+                              + $(element)
+                                      .find(
+                                              "#weather-details-info-more-less-"
+                                                      + w.id).height() + 5;
+                      position.left = $('.weather_wrapper').position().left
+                              + position.left;
+                      scope.$root.$emit("weather-show", w, position);
+                      scope.visible = true;
+                    } else {
+                      $(element).find(".weather-details-info-more-less").css(
+                              "visibility", "visible");
+                      $(element).find(".weather-details-info-more-less-span")
+                              .text("+");
+                      $(element)
+                              .find("#weather-details-info-more-less-" + w.id)
+                              .css("background-color", "white");
+                      scope.$root.$emit("weather-hide");
+                      scope.visible = false;
+                    }
+                  };
+                },
+                templateUrl: '/public/templates/weather-info.html'
+              };
+            }]);
