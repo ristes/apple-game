@@ -2,245 +2,220 @@
 
 /* Directives */
 
-angular.module('Game.directives', ['ngResource', 'ngRoute', 'ngAnimate', 'ngCookies', 'ui.bootstrap', 'toaster', 'pascalprecht.translate']).directive('appVersion', ['version',
-function(version) {
-	return function(scope, elm, attrs) {
-		elm.text(version);
-	};
-}]).directive('deleteDialog', function() {
-	return {
-		transclude : true,
-		scope : {
-			title : '=',
-			message : '=',
-			deleteFn : '&'
-		},
-		templateUrl : 'templates/test-dialog.html'
-	};
-}).directive('userInfo', ['jQuery',
-function($) {
+angular.module(
+        'Game.directives',
+        ['ngResource', 'ngRoute', 'ngAnimate', 'ngCookies', 'ui.bootstrap',
+            'toaster', 'mgcrea.ngStrap', 'pascalprecht.translate']).directive(
+        'appVersion', ['version', function(version) {
+          return function(scope, elm, attrs) {
+            elm.text(version);
+          };
+        }]).directive('deleteDialog', function() {
+  return {
+    transclude: true,
+    scope: {
+      title: '=',
+      message: '=',
+      deleteFn: '&'
+    },
+    templateUrl: 'templates/delete-dialog.html'
+  };
+}).directive('progressDialog', ['jQuery', '$modal', function($, $modal) {
+  return {
+    transclude: true,
+    restrict: 'E',
+    scope: {
+      prefix: '@'
+    },
+    link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
+      var listeners = [];
 
-	return {
-		restrict : 'E',
-		transclude : true,
-		scope : {
-		},
-		link : function(scope, element, attrs, ctrl, transclude, formCtrl) {
-			$.cssEase['bounce'] = 'cubic-bezier(0,1,0.5,1.3)';
-			$(element).find("#div_user_icon").transition({
-				left : '40px'
-			}, 1000, 'ease');
-			$(element).find("#div_apple_in_stock_info").transition({
-				top : '-20px'
-			}, 1000, 'bounce');
-			$(element).find("#div_money_in_stock_info").transition({
-				top : '-20px'
-			}, 1000, 'bounce');
-			$(element).find("#div_eco_points_info").transition({
-				top : '-20px'
-			}, 1000, 'bounce');
-		},
-		templateUrl : '/public/templates/user-info.html'
-	};
+      var dialog = $modal({
+        scope: scope,
+        backdrop: 'static',
+        template: '/public/templates/progress-dialog.html',
+        show: false
+      });
 
-}]).directive('shopMenu', ['jQuery',
-function($) {
+      function onProgress(_scope, v) {
+        scope.$apply(function() {
+          scope.status += v;
+        });
+        if (scope.status > 100) {
+          clearInterval(scope.timer);
+          onHide();
+        }
+      }
 
-	return {
-		restrict : 'E',
-		transclude : true,
-		scope : {},
-		link : function(scope, element, attrs, ctrl, transclude, formCtrl) {
-			$.cssEase['bounce'] = 'cubic-bezier(0,1,0.5,1.3)';
-			scope.showNext = true;
-			scope.visible = false;
-			scope.buying = false;
-			scope.itemClick = function(item) {
-				if (!scope.buying) {
-					scope.buying = true;
-					scope.$root.$emit('buy-item', item);
-				}
-			};
+      function onHide() {
+        dialog.hide();
+        scope.$root.$emit('hide-progress-' + scope.prefix);
+      }
 
-			scope.$root.$on("item-bought", function($scope) {
-				scope.buying = false;
-			});
+      function onShow(_scope, cfg) {
+        scope.status = 0;
+        scope.title = cfg.title;
 
-			scope.$root.$on("shop-show", function($scope, cfg) {
-				scope.items = cfg.items;
-				scope.storeUrl = cfg.storeUrl;
-				if (cfg.showNext !== null) {
-					scope.showNext = cfg.showNext;
-				}
-				scope.visible = true;
-				show();
-			});
+        if (cfg.waitProgress) {
+          var prog = scope.$root.$on('progress-' + scope.prefix, onProgress);
+          listeners.push(prog);
+        } else {
+          var step = 100 / cfg.duration;
+          scope.timer = setInterval(function() {
+            onProgress(scope, step);
+          }, 1000);
 
-			scope.$root.$on("shop-hide", function($scope) {
-				scope.visible = false;
-				hide();
-			});
+        }
+        dialog.show();
+      }
 
-			function hide() {
-				$(element).find("#div-shop-manu").transition({
-					right : '-750px'
-				}, 700, 'ease');
-				scope.visible = false;
-			}
+      var show = scope.$root.$on('show-progress-' + scope.prefix, onShow);
+      listeners.push(show);
 
-			function show() {
-				$(element).find("#div-shop-manu").transition({
-					right : '350px'
-				}, 700, 'ease');
-				scope.visible = true;
-			}
+      scope.$on("$destroy", function() {
+        for (var i = 0; i < listeners.length; i++) {
+          listeners[i]();
+        }
+      });
+    },
+    template: '<div></div>'
+  };
+}]).directive('userInfo', ['jQuery', function($) {
 
+  return {
+    restrict: 'E',
+    transclude: true,
+    scope: {},
+    link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
+      $.cssEase['bounce'] = 'cubic-bezier(0,1,0.5,1.3)';
+      $(element).find("#div_user_icon").transition({
+        left: '40px'
+      }, 1000, 'ease');
+      $(element).find("#div_apple_in_stock_info").transition({
+        top: '-20px'
+      }, 1000, 'bounce');
+      $(element).find("#div_money_in_stock_info").transition({
+        top: '-20px'
+      }, 1000, 'bounce');
+      $(element).find("#div_eco_points_info").transition({
+        top: '-20px'
+      }, 1000, 'bounce');
+    },
+    templateUrl: '/public/templates/user-info.html'
+  };
 
-			$(element).find("#shop_arrow_main_menu").bind('click', hide);
+}]).directive('shopMenu', ['jQuery', function($) {
 
-		},
-		templateUrl : '/public/templates/shop-menu.html'
-	};
+  return {
+    restrict: 'E',
+    transclude: true,
+    scope: {},
+    link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
+      scope.showNext = true;
+      scope.visible = false;
+      scope.buying = false;
 
-}]).directive('weatherInfoDetails', ['jQuery',
-function($) {
-	return {
-		restrict : 'E',
-		transclude : true,
-		scope : {
-			w : '='
-		},
-		link : function(scope, element, attrs, ctrl, transclude, formCtrl) {
-			function hide() {
-				// $(element).find("#weather-info-details").transition({
-				// right : '-750px'
-				// }, 700, 'ease');
-				$(element).find("#weather-info-details").animate({
-					opacity : 0
-				});
-			}
+      scope.itemClick = function(item) {
+        if (!scope.buying) {
+          scope.buying = true;
+          scope.$root.$emit('buy-item', item);
+          if (scope.onItemClick) {
+            scope.onItemClick(item);
+          }
+        }
+      };
 
-			function show(position) {
-				// $(element).find("#weather-info-details").transition({
-					// right : '350px'
-				// }, 700, 'ease');
-				$(element).find("#weather-info-details").css("top",position.top);
-				$(element).find("#weather-info-details").css("left",position.left);
-				$(element).find("#weather-info-details").animate({
-					opacity : 1
-				});
-			}
+      var unregBought = scope.$root.$on("item-bought", function($scope) {
+        scope.buying = false;
+      });
 
+      var unregShow = scope.$root.$on("shop-show", function($scope, cfg) {
+        scope.$root.$emit('side-hide');
+        scope.items = cfg.items;
+        scope.storeUrl = cfg.storeUrl;
+        if (cfg.showNext !== null) {
+          scope.showNext = cfg.showNext;
+          if (cfg.onHide) {
+            scope.hideFn = cfg.onHide;
+          }
+        }
+        if (cfg.onItemClick) {
+          scope.onItemClick = cfg.onItemClick;
+        }
+        scope.visible = true;
+      });
 
-			scope.$root.$on("weather-hide", function($scope) {
-				hide();
-			});
-			scope.$root.$on("weather-show", function($scope, w, right) {
-				scope.w = w;
-				show(right);
-			});
+      var unregHide = scope.$root.$on("shop-hide", function() {
+        scope.hide();
+      });
 
-		},
-		templateUrl : '/public/templates/weather-info-details.html'
-	};
-}]).directive('weatherInfo', ['jQuery',
-function($) {
-	return {
-		restrict : 'E',
-		transclude : true,
-		scope : {
-			weather : '=',
-			detailWeather : '=',
-		},
+      scope.hide = function() {
+        scope.visible = false;
+        scope.buying = false;
+        if (scope.hideFn) {
+          scope.hideFn();
+        }
+      }
 
-		link : function(scope, element, attrs, ctrl, transclude, formCtrl) {
+      scope.$on("$destroy", function() {
+        unregBought();
+        unregHide();
+        unregShow();
+      });
 
-			scope.$root.$emit("weather-hide");
-			scope.visible = false;
-			scope.detailsWeather = function(w) {
-				scope.toggle(w);
-				//scope.$root.$emit("weather-show", w);
-			};
-			scope.toggle = function(w) {
-				if (scope.visible == false) {
-					$(element).find(".weather-details-info-more-less").css("visibility", "hidden");
-					$(element).find("#weather-details-info-more-less-" + w.id).css("visibility", "visible");
-					$(element).find("#weather-details-info-more-less-span-" + w.id).text("-");
-					$(element).find("#weather-details-info-more-less-" + w.id).css("background-color","cyan");
-					var position = $(element).find("#weather-details-info-more-less-" + w.id).position();
-					position.top = position.top + $('.weather_wrapper').position().top + $(element).find("#weather-details-info-more-less-" + w.id).height()+5;
-					position.left = $('.weather_wrapper').position().left + position.left;
-					scope.$root.$emit("weather-show", w, position);
-					scope.visible = true;
-				} else {
-					$(element).find(".weather-details-info-more-less").css("visibility", "visible");
-					$(element).find(".weather-details-info-more-less-span").text("+");
-					$(element).find("#weather-details-info-more-less-" + w.id).css("background-color","white");
-					scope.$root.$emit("weather-hide");
-					scope.visible = false;
-				}
-			};
-			//scope.$root.$emit('detailsWeather', w);
-		},
-		templateUrl : '/public/templates/weather-info.html'
-	};
-}]).directive('sideMenu', ['jQuery',
-function($) {
+    },
+    templateUrl: '/public/templates/shop-menu.html'
+  };
 
-	return {
-		restrict : 'E',
-		transclude : true,
-		scope : {
-			weather : '=',
-			actions : '='
-		},
-		link : function(scope, element, attrs, ctrl, transclude, formCtrl) {
-			scope.itemClick = function(a) {
-				a.action();
-			};
+}]).directive('sideMenu', ['jQuery', function($) {
 
-			scope.visible = false;
-			scope.$root.$on("shop-show", function(data) {
-				if (scope.visible) {
-					hide();
-				}
-			});
+  return {
+    restrict: 'E',
+    transclude: true,
+    scope: {
+      weather: '=',
+      actions: '='
+    },
+    link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
+      scope.itemClick = function(a) {
+        scope.$root.$emit('operation-' + a.name, a);
+      }
+      scope.bgw = 0;
+      scope.bgh = 0;
 
-			function show() {
-				$(element).find("#div-side-screen").transition({
-					right : '-10px'
-				}, 700, 'ease');
-				$(element).find("#home_arrow_main_menu").transition({
-					rotate : '0deg'
-				});
-				scope.$root.$emit("side-show");
-				scope.visible = true;
-			}
+      scope.visible = false;
 
-			function hide() {
-				$(element).find("#div-side-screen").transition({
-					right : '-570px'
-				}, 700, 'ease');
-				$(element).find("#home_arrow_main_menu").transition({
-					rotate : '180deg'
-				});
-				scope.$root.$emit("side-hide");
-				scope.visible = false;
-			}
+      scope.show = function() {
+        scope.$root.$emit("shop-hide");
+        scope.bgw = 1366;
+        scope.bgh = 768;
+        scope.visible = true;
+      }
+      scope.hide = function() {
+        scope.bgw = 0;
+        scope.bgh = 0;
+        scope.visible = false;
+      }
 
-			function onClick() {
-				if (scope.visible) {
-					hide();
-				} else {
-					show();
-				}
-			}
+      var un = scope.$root.$on("side-hide", function() {
+        scope.hide();
+      });
 
+      scope.$on('$destroy', function() {
+        if (un) {
+          un();
+        }
+      })
 
-			$(element).find("#home_arrow_main_menu").bind('click', onClick);
-
-		},
-		templateUrl : '/public/templates/side-menu.html'
-	};
+      scope.onClick = function() {
+        if (scope.visible) {
+          scope.hide();
+        } else {
+          scope.show();
+        }
+      }
+    },
+    templateUrl: '/public/templates/side-menu.html'
+  };
 
 }]);
