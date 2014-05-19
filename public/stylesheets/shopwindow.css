@@ -1,3 +1,88 @@
+
+#weather_title {
+	position: relative;
+	color: #FFFFFF;
+	left: 40%;
+	top: 30px;
+	background: #333333;
+	padding-left: 10%;
+	padding-right: 10%;
+	padding-top: 0.5%;
+	padding-bottom: 0.5%;
+}
+
+.weather_wrapper {
+	width: 300px;
+	position: absolute;
+	right: 200px;
+	top: 5px;
+}
+.weather-div {
+	float: left;
+	width: 17%;
+	background-color: #FFFFFF;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #000000;
+	text-align: center;
+	font-size: x-small;
+}
+.weather-div-bigger {
+	float: left;
+	width: 25%;
+	background-color: #FFFFFF;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #000000;
+	text-align: center;
+	font-size: x-small;
+}
+.div-weather-past-future {
+	width: 50px;
+	height: 40px;
+}
+.div-weather-today {
+	width: 75px;
+	height: 65px;
+}
+.weather-info-details-small {
+	position: fixed;
+	width: 60px;
+	height: 60px;
+	top: 85px;
+	background-color: #FFFFFF;
+	padding: 5px;
+	font-size: xx-small;
+	z-index: 100;
+	border-style: solid;
+	border:1px;
+	border-color: 1px;
+}
+.weather-info-details-big {
+	position: fixed;
+	width: 80px;
+	height: 60px;
+	top: 110px;
+	right: 200px;
+	background-color: #FFFFFF;
+	padding: 5px;
+	font-size: xx-small;
+	z-index: 100;
+	border-style: solid;
+	border:1px;
+	border-color: 1px;
+}
+.weather-details-info-more-less {
+	border-top: 1px;
+	border-top-style: solid;
+	border-top-color: black;
+	text-align: center
+}
+.weather-details-info-more-less:hover {
+	cursor: pointer;
+	background-color: cyan;
+}
+
 .rotate,.rotateCounterwise {
 	-webkit-transition: 300ms ease all;
 	-moz-transition: 300ms ease all;
@@ -382,4 +467,3 @@ body {
 .shop_icon_in_grid:hover {
 	cursor: pointer;
 }
-
