@@ -3,6 +3,7 @@ package models;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -32,6 +33,10 @@ public class Farmer extends Model {
 	public String currentState;
 
 	public Double luck;
+
+	public Double luck_dev;
+
+	public Double luck_avg;
 
 	/**
 	 * How much money does the player have
@@ -69,15 +74,19 @@ public class Farmer extends Model {
 	 */
 	@OneToMany(mappedBy = "ownedBy")
 	public List<ItemInstance> boughtItems;
-	
 
 	public Double getLuck() {
 		return luck;
 	}
 
 	public Double generateLuck() {
-		luck = GameUtils.random(0.0, 1.0, 0.2);
-		
+		Random random = new Random();
+		Double stand_dev = luck_dev;
+		Double avg = luck_avg;
+		luck = (random.nextGaussian() * stand_dev + avg);
+		if (luck<(avg-stand_dev)) {
+			luck = avg-stand_dev;
+		}
 		return luck;
 	}
 
@@ -106,15 +115,16 @@ public class Farmer extends Model {
 		this.save();
 		return this;
 	}
+
 	public void calculateLuck(Day gameDate) {
-		if (gameDate.dayOrder%5==0) {
+		if (gameDate.dayOrder % 5 == 0) {
 			this.luck = generateLuck();
 		}
 	}
 
 	public void calculateCumulatives() {
 		Day today = gameDate;
-		cumulativeLeafHumidity =  gameDate.humidityOfLeaf.doubleValue();
+		cumulativeLeafHumidity = gameDate.humidityOfLeaf.doubleValue();
 		switch (today.weatherType.id.intValue()) {
 		case 1:
 			if (today.humidity > 50) {
@@ -122,31 +132,28 @@ public class Farmer extends Model {
 						- (cumulativeHumidity / 300) * today.tempHigh;
 			} else {
 				cumulativeHumidity = cumulativeHumidity
-						- (cumulativeHumidity / 300) * today.tempHigh + today.humidity/20;
+						- (cumulativeHumidity / 300) * today.tempHigh
+						+ today.humidity / 20;
 			}
-			
+
 			break;
 		case 2:
 			if (today.humidity > 50) {
-				cumulativeHumidity = cumulativeHumidity + today.humidity/25;
+				cumulativeHumidity = cumulativeHumidity + today.humidity / 25;
 			} else {
-				cumulativeHumidity = cumulativeHumidity - today.humidity/5;
+				cumulativeHumidity = cumulativeHumidity - today.humidity / 5;
 			}
 			break;
 		case 3:
-			cumulativeHumidity = cumulativeHumidity + today.humidity/8;
+			cumulativeHumidity = cumulativeHumidity + today.humidity / 8;
 			break;
 		case 4:
-			cumulativeHumidity = cumulativeHumidity + today.humidity/20;
+			cumulativeHumidity = cumulativeHumidity + today.humidity / 20;
 			break;
 		default:
 			break;
 		}
 		this.cumulativeHumidity = cumulativeHumidity;
-	}
-
-	private Farmer() {
-
 	}
 
 	public static Farmer buildInstance(String username, String password) {
@@ -159,6 +166,8 @@ public class Farmer extends Model {
 		farmer.eco_points = 100;
 		farmer.cumulativeHumidity = 20d;
 		farmer.cumulativeLeafHumidity = 15d;
+		farmer.luck_dev = 0.3;
+		farmer.luck_avg = 0.7;
 		Double luck = farmer.generateLuck();
 		farmer.luck = luck;
 		farmer.save();

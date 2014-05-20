@@ -6,18 +6,7 @@ Game.controller('LoginController', ['$scope', '$translate',
     }]);
 
 
-Game.controller('WeatherController', ['$scope', '$translate', 'Crafty',
-    'ModelStore', 'jQuery',
-    function($scope, $translate, Crafty, ModelStore, $) {
-      $.post("/WeatherController/weatherforecast?fordays=5", function(data) {
-        $scope.weather = data;
-      });
-      
-      $scope.detailsWeather = function(item) {
-      	alert(item);
-      };
-      
-    }]);
+
     
 Game.controller('PlantationController', [
     '$scope',

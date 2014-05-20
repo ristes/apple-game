@@ -43,21 +43,22 @@
 
 .weather-info-details-small {
 	position: fixed;
-	width: 6%;
-	height: 18%;
-	top: 85px;
+	width: 5%;
+	height: 10%;
+	top: 85px;	
 	background-color: #FFFFFF;
 	padding: 5px;
 	font-size: xx-small;
-	z-index: 100;
+	z-index: 200;
 	border-style: solid;
 	border:1px;
 	border-color: 1px;
+	text-align: center;
 }
 .weather-info-details-big {
 	position: fixed;
-	width: 8%;
-	height: 18%;
+	width: 6%;
+	height: 10%;
 	top: 110px;
 	right: 200px;
 	background-color: #FFFFFF;
@@ -67,6 +68,7 @@
 	border-style: solid;
 	border:1px;
 	border-color: 1px;
+	text-align: center;
 }
 .weather-details-info-more-less {
 	border-top: 1px;
@@ -422,9 +424,9 @@ body {
 	overflow: hidden;
 }
 .weather_wrapper {
-	width: 23%;
+	width: 25%;
 	position: absolute;
-	right: 15%;
+	right: 20%;
 	top: 2%;
 	z-index: 100;
 }
@@ -433,7 +435,7 @@ body {
 }
 .weather-div {
 	float: left;
-	width:19%;
+	width:17%;
 	background-color: #FFFFFF;
 	border-style: solid;
 	border-width: 1px;

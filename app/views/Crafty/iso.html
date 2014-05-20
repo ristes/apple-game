@@ -53,7 +53,7 @@
 <script src="/public/javascripts/ng/app.js"></script>
 <script src="/public/javascripts/ng/services.js"></script>
 <script src="/public/javascripts/ng/filters.js"></script>
-<script src="/public/javascripts/ng/directives.js"></script>
+<script src="/public/javascripts/ng/directives/directives.js"></script>
 <script src="/public/javascripts/ng/controllers.js"></script>
 <script src="/public/javascripts/ng/controllers/store.js"></script>
 <script src="/public/javascripts/ng/controllers/buy-terrain.js"></script>
@@ -65,6 +65,7 @@
 <script src="/public/javascripts/ng/controllers/operations/plowing.js"></script>
 <script src="/public/javascripts/ng/controllers/operations/shopping.js"></script>
 <script src="/public/javascripts/ng/controllers/operations/terrain-analyzis.js"></script>
+<script src="/public/javascripts/ng/controllers/weatherinfo.js"></script>
 <script src="/public/javascripts/ng/router.js"></script>
 <script src="/public/javascripts/ng/global/services.js"></script>
 <title>Iso</title>
@@ -78,8 +79,7 @@ body,html {
 </head>
 <body ng-app="Game">
 	<div class="div_wrapper">
-		<weather-info-details w='w' visible="visible"></weather-info-details>
-		<weather-info weather="weather"></weather-info>
+		
 		
 		<div ng-view></div>
 		<shop-menu items="items"></shop-menu>
@@ -90,6 +90,8 @@ body,html {
 			
 		
 	</div>
+	<weather-info-details w='w' visible="visible"></weather-info-details>
+	<weather-info weather="weather"></weather-info>
 	<progress-dialog prefix="global"></progress-dialog>
 	
 </body>
