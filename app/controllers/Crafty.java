@@ -65,4 +65,8 @@ public class Crafty extends Controller {
 		Cache.delete(id);
 		session.clear();
 	}
+	
+	public static void teststate() {
+		render();
+	}
 }

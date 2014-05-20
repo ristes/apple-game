@@ -2,7 +2,6 @@
 
 Game.controller('UserInfoController', ['$scope', '$translate', 'Crafty', 'ModelStore', 'jQuery',
 function($scope, $translate, Crafty, ModelStore, $) {
-	$scope.report = "koki";
 	$.post("/authcontroller/context", function(data) {
 		$scope.$root.context = data;
 	});
@@ -19,7 +18,6 @@ function($scope, $translate, Crafty, ModelStore, $) {
 	};
 	$scope.observeOneYear = function() {
 		$.post("/application/observeDiseasesForThisYear",function(data) {
-			//$scope.$root.report ="JSON.stringify(data);";
 			$scope.report= data;
 		});
 	};

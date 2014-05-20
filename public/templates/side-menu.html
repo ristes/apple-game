@@ -3,17 +3,11 @@
 <div id="div-side-screen" ng-animate="slide"
 		ng-class="{true: 'slide-enter', false: 'slide-leave'}[visible]">
 
-	<span id="weather_title">ВРЕМЕНСКА ПРОГНОЗА</span>
+	
 	<div id="home_arrow_main_menu" ng-click="onClick()" ng-animate="{enter: 'rotateCounterwise', leave: 'rotate'}"
 		ng-class="{false: 'rotate', true: 'rotateCounterwise'}[visible]"></div>
 
 
-	<div class="weather_wrapper" ng-if="weather">
-		<div class="weather-div" ng-repeat="w in weather">
-			<img class="weather_icon" src="/public/images/game/{{w.icon_url}}.png" />
-			<span>{{w.date}}</span>
-		</div>
-	</div>
 
 	<div class="side-icon-{{a.order}}" ng-if="a.ico"
 			style="background-image: url('{{a.ico}}')"

@@ -33,18 +33,18 @@
 	font-size: x-small;
 }
 .div-weather-past-future {
-	width: 50px;
-	height: 40px;
+	width: 80%;
+	height: 100%;
 }
 .div-weather-today {
-	width: 75px;
-	height: 65px;
+	width: 90%;
+	height: 100%;
 }
 
 .weather-info-details-small {
 	position: fixed;
-	width: 60px;
-	height: 60px;
+	width: 6%;
+	height: 18%;
 	top: 85px;
 	background-color: #FFFFFF;
 	padding: 5px;
@@ -56,8 +56,8 @@
 }
 .weather-info-details-big {
 	position: fixed;
-	width: 80px;
-	height: 60px;
+	width: 8%;
+	height: 18%;
 	top: 110px;
 	right: 200px;
 	background-color: #FFFFFF;
@@ -422,10 +422,10 @@ body {
 	overflow: hidden;
 }
 .weather_wrapper {
-	width: 300px;
+	width: 23%;
 	position: absolute;
-	right: 200px;
-	top: 5px;
+	right: 15%;
+	top: 2%;
 	z-index: 100;
 }
 #weather-info-details{
@@ -433,7 +433,7 @@ body {
 }
 .weather-div {
 	float: left;
-	width:17%;
+	width:19%;
 	background-color: #FFFFFF;
 	border-style: solid;
 	border-width: 1px;
