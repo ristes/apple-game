@@ -24,8 +24,13 @@ Game.config([
 
     }]);
 
-Game.run(['$rootScope', '$location', '$farmer', '$items',
-    function($rootScope, $location, $farmer, $items) {
+Game.run(['$rootScope', '$location', '$farmer', '$items','$day',
+    function($rootScope, $location, $farmer, $items, $day) {
       $farmer.load();
+      //$rootScope.next = $day.next;
+      $rootScope.next = function() {
+    	  $day.next();
+    	  $rootScope.$emit("weather-hide");
+      }
       $location.path("/");
     }]);

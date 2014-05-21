@@ -110,15 +110,30 @@ Game.factory('$plantation', ['$rootScope', '$http',
       };
     }]);
 
-Game.factory('$day', ['$rootScope', '$http', '$weather',
-    function($rootScope, $http, $weather) {
+Game.factory('$diseases',['$rootScope','$http',
+                          function($rootScope, $http) {
+                      		return {
+                      			load:function() {
+                      				var res = $http.get('/DeseasesExpertSystem/getDeseasePossibility');
+                      				res.success(function(data) {
+                      					$rootScope.diseases = data;
+                      				});
+                      			}
+                      		};
+                      } ]);
+
+Game.factory('$day', ['$rootScope', '$http', '$weather','$diseases',
+    function($rootScope, $http, $weather, $diseases) {
       return {
         next: function() {
-          var res = $http.get("/global/day/next");
+          var res = $http.get("/application/nextday");
           res.success(function(data) {
             $rootScope.day = data;
             $weather.load();
+            $diseases.load();
           });
         }
       };
     }]);
+
+

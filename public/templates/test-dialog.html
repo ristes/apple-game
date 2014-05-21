@@ -1,6 +1,6 @@
 <div>
 	<div style="text-align: center">
-		<span style="font-size: x-large">{{$root.context.gameDate.date}}</span>
+		<span style="font-size: x-large">{{$root.day.gameDate.date}}</span>
 	</div>
 	<div style="float:left">
 		<h3>Basic Farmer Info</h3>
@@ -9,7 +9,7 @@
 				<span>Username: </span>
 			</div>
 			<div style="float:left;margin-left: 5px;">
-				{{$root.context.username}}
+				{{$root.day.username}}
 			</div>
 		</div>
 		<div style="clear:both">
@@ -17,7 +17,7 @@
 				<span>Balance: </span>
 			</div>
 			<div style="float:left;margin-left: 5px;">
-				{{$root.context.balans}}
+				{{$root.day.balans}}
 			</div>
 		</div>
 		<div style="clear:both">
@@ -25,7 +25,7 @@
 				<span>Eco-points:</span>
 			</div>
 			<div style="float:left;margin-left: 5px;">
-				{{$root.context.eco_points}}
+				{{$root.day.eco_points}}
 			</div>
 		</div>
 		<div style="clear:both">
@@ -33,7 +33,7 @@
 				<span>Farmer-Luck: </span>
 			</div>
 			<div style="float:left;margin-left: 5px;">
-				{{($root.context.luck*100).toFixed(2)}}
+				{{($root.day.luck*100).toFixed(2)}}
 			</div>
 		</div>
 	</div>
@@ -44,7 +44,7 @@
 				<span>Cum. humidity:</span>
 			</div>
 			<div style="float:left">
-				<span>{{$root.context.cumulativeHumidity}} mm</span>
+				<span>{{$root.day.cumulativeHumidity}} mm</span>
 			</div>
 		</div>
 		<div>
@@ -52,7 +52,7 @@
 				<span>Cum. Leaf Humidity:</span>
 			</div>
 			<div style="float:left">
-				<span>{{$root.context.cumulativeLeafHumidity}} min</span>
+				<span>{{$root.day.cumulativeLeafHumidity}} min</span>
 			</div>
 		</div>
 	</div>
@@ -67,31 +67,31 @@
 		<h3>Day Info</h3>
 		<div>
 			<span>Weather Type:</span>
-			<span>{{$root.context.gameDate.weatherType}}</span>
+			<span>{{$root.day.gameDate.weatherType}}</span>
 		</div>
 		<div>
 			<span>Temp Low:</span>
-			<span>{{$root.context.gameDate.tempLow.toFixed(0)}} C</span>
+			<span>{{$root.day.gameDate.tempLow.toFixed(0)}} C</span>
 		</div>
 		<div>
 			<span>Temp High:</span>
-			<span>{{$root.context.gameDate.tempHigh.toFixed(0)}} C</span>
+			<span>{{$root.day.gameDate.tempHigh.toFixed(0)}} C</span>
 		</div>
 		<div>
 			<span>humidity:</span>
-			<span>{{$root.context.gameDate.humidity}}</span>
+			<span>{{$root.day.gameDate.humidity}}</span>
 		</div>
 		<div>
 			<span>humidityOfLeaf:</span>
-			<span>{{$root.context.gameDate.humidityOfLeaf}}</span>
+			<span>{{$root.day.gameDate.humidityOfLeaf}}</span>
 		</div>
 		<div>
 			<span>UV:</span>
-			<span>{{($root.context.gameDate.uvProb*10).toFixed(0)}}</span>
+			<span>{{($root.day.gameDate.uvProb*10).toFixed(0)}}</span>
 		</div>
 		<div>
 			<span>iceProb:</span>
-			<span>{{$root.context.gameDate.iceProb.toFixed(2)}}</span>
+			<span>{{$root.day.gameDate.iceProb.toFixed(2)}}</span>
 		</div>
 	</div>
 	<div style="float:left; margin-left: 40px;">

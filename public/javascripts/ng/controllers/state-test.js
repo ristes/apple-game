@@ -7,16 +7,22 @@ Game.controller('StateTestController',
 				'StoreItems',
 				'$items',
 				'$farmer',
+				'$day',
+				'$weather',
+				'$diseases',
 				function($scope, $translate, $http, Store, StoreItems, $items,
-						$farmer) {
-
-					$.post("/authcontroller/context", function(data) {
-						$scope.$root.context = data;
-					});
+						$farmer, $day, $weather, $diseases) {
+					
+					$scope.next =function() {
+						$day.next();
+						$scope.$root.context = $day;
+					}
+					/*
 					$.post("/DeseasesExpertSystem/getDeseasePossibility",
 							function(data) {
 								$scope.$root.diseases = data;
 							});
+					
 					$scope.nextDay = function() {
 						$.post("/application/nextday", function(data) {
 							$scope.$root.context = data;
@@ -32,5 +38,6 @@ Game.controller('StateTestController',
 									$scope.report = data;
 								});
 					};
+					*/
 
 				} ]);
