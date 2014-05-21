@@ -89,16 +89,16 @@ angular.module(
     link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
       $.cssEase['bounce'] = 'cubic-bezier(0,1,0.5,1.3)';
       $(element).find("#div_user_icon").transition({
-        left: '40px'
+        left: '15px'
       }, 1000, 'ease');
       $(element).find("#div_apple_in_stock_info").transition({
-        top: '-20px'
+        top: '-10px'
       }, 1000, 'bounce');
       $(element).find("#div_money_in_stock_info").transition({
-        top: '-20px'
+        top: '-10px'
       }, 1000, 'bounce');
       $(element).find("#div_eco_points_info").transition({
-        top: '-20px'
+        top: '-10px'
       }, 1000, 'bounce');
     },
     templateUrl: '/public/templates/user-info.html'
@@ -281,7 +281,6 @@ angular.module(
                   scope.visible = false;
                   scope.detailsWeather = function(w) {
                     scope.toggle(w);
-                    // scope.$root.$emit("weather-show", w);
                   };
                   scope.toggle = function(w) {
                     if (scope.visible == false) {
