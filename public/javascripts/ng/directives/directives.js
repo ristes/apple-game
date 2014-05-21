@@ -132,6 +132,7 @@ angular.module(
       var unregShow = scope.$root.$on("shop-show", function($scope, cfg) {
         scope.$root.$emit('side-hide');
         scope.items = cfg.items;
+        scope.shop = cfg.shop;
         scope.storeUrl = cfg.storeUrl;
         if (cfg.showNext !== null) {
           scope.showNext = cfg.showNext;
@@ -144,6 +145,14 @@ angular.module(
         }
         scope.visible = true;
       });
+      
+      scope.price = function(item) {
+        if(item.perHa && item.price && scope.$root.plantation) {
+          return item.price * scope.$root.plantation.area;
+        } else {
+          return item.price;
+        }
+      }
 
       var unregHide = scope.$root.$on("shop-hide", function() {
         scope.hide();
@@ -224,15 +233,15 @@ angular.module(
     transclude: true,
     scope: {
       w: '=',
-      visible:'='
+      visible: '='
     },
     link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
-    	scope.visible = false;
+      scope.visible = false;
       function hide() {
         // $(element).find("#weather-info-details").transition({
         // right : '-750px'
         // }, 700, 'ease');
-    	  scope.visible = false;
+        scope.visible = false;
         $(element).find("#weather-info-details").animate({
           opacity: 0
         });
@@ -242,7 +251,7 @@ angular.module(
         // $(element).find("#weather-info-details").transition({
         // right : '350px'
         // }, 700, 'ease');
-    	scope.visible = true;
+        scope.visible = true;
         $(element).find("#weather-info-details").css("top", position.top);
         $(element).find("#weather-info-details").css("left", position.left);
         $(element).find("#weather-info-details").animate({

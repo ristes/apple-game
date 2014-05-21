@@ -19,7 +19,6 @@ Game.controller('FertilizingController', [
         });
       };
 
-
       var onBuyItem = function(item) {
         Store['buyItem']({
           itemid: item.id,
@@ -30,11 +29,12 @@ Game.controller('FertilizingController', [
             $items.add(item.store, item);
             $farmer.swap(result);
             $scope.$root.$emit('shop-hide');
-            
+
             $scope.$root.$emit('show-progress-global', {
               title: 'progress.fertilization',
               duration: 20
             });
+            $items.use(item.store);
           } else {
             $scope.$root.$emit('insuficient-funds');
           }
@@ -58,6 +58,7 @@ Game.controller('FertilizingController', [
             title: 'progress.fertilization',
             duration: 20
           });
+          $items.use(oper.requires);
         }
 
       });

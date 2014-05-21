@@ -45,13 +45,15 @@ Game.factory('StoreItems', function($resource) {
     'tractor': [{
       id: 1,
       store: 'tractor',
-      name: 'ObicenTraktor',
-      url: '/public/images/game/TraktorStoreIcon.png'
+      name: 'ecoTractor',
+      price: 250000,
+      url: '/public/images/game/items/eco-tractor.png'
     }, {
       id: 2,
       store: 'tractor',
-      name: 'EkoTraktor',
-      url: '/public/images/game/TraktorStoreIcon.png'
+      name: 'tractor',
+      price: 150000,
+      url: '/public/images/game/items/tractor.png'
     }],
     'terrain': [{
       id: 1,
@@ -150,35 +152,35 @@ Game.factory('StoreItems', function($resource) {
       perHa: true,
       price: 100,
       name: 'npk',
-      url: '/public/images/game/items/npk.png'
+      url: '/public/images/game/items/fertilizer.png'
     }, {
       id: 2,
       store: 'fertilizer',
       perHa: true,
       price: 100,
       name: 'animal',
-      url: '/public/images/game/items/animal.png'
+      url: '/public/images/game/items/fertilizer.png'
     }, {
       id: 3,
       store: 'fertilizer',
       perHa: true,
       price: 100,
       name: 'ca',
-      url: '/public/images/game/items/ca.png'
+      url: '/public/images/game/items/fertilizer.png'
     }, {
       id: 4,
       store: 'fertilizer',
       perHa: true,
       price: 100,
       name: 'B',
-      url: '/public/images/game/items/b.png'
+      url: '/public/images/game/items/fertilizer.png'
     }, {
       id: 5,
       store: 'fertilizer',
       perHa: true,
       price: 100,
       name: 'mg',
-      url: '/public/images/game/items/mg.png'
+      url: '/public/images/game/items/fertilizer.png'
     }],
     'irrigation': [{
       id: 1,
@@ -217,12 +219,14 @@ Game.factory('StoreItems', function($resource) {
       id: 3,
       store: 'other',
       price: 100,
+      perHa: true,
       name: 'protecting-net',
       url: '/public/images/game/items/protecting-net.png'
     }, {
       id: 4,
       store: 'other',
       price: 100,
+      perHa: true,
       name: 'insurance',
       url: '/public/images/game/items/insurance.png'
     }],

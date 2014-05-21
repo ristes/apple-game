@@ -14,7 +14,7 @@ Game.factory('$farmer', ['$rootScope', '$http', '$items', '$location',
             return $rootScope.farmer;
           } else {
             var res = $http.get("/public/javascripts/ng/mock/farmer.json");
-//            var res = $http.get("/AuthController/farmer");
+            // var res = $http.get("/AuthController/farmer");
             res.success(function(data) {
               swap(data);
             });
@@ -35,6 +35,7 @@ Game.factory('$items', ['$rootScope', '$http', function($rootScope, $http) {
       var res = $http.get("/public/javascripts/ng/mock/items.json");
       res.success(function(data) {
         $rootScope.items = {};
+        $rootScope._items = data || [];
         for (var i = 0; i < data.length; i++) {
           var store = data[i].store;
           $rootScope.items[store] = $rootScope.items[store] || [];
@@ -47,12 +48,35 @@ Game.factory('$items', ['$rootScope', '$http', function($rootScope, $http) {
       var vals = $rootScope.items[key];
       // todo: check for duplicates
       vals.push(val);
+      $rootScope._items.push(val);
     },
     check: function(key) {
-      return $rootScope.items[key] != null;
+      return $rootScope.items[key] && $rootScope.items[key].length > 0;
     },
     use: function(key) {
       $rootScope.items[key].pop();
+      var results = [];
+      var removed = false;
+      angular.forEach($rootScope._items, function(val) {
+        if (val.store == key && !removed) {
+          removed = true;
+        } else {
+          results.push(val);
+        }
+      });
+      $rootScope._items = results;
+    },
+    all: function() {
+      var results = [];
+      angular.forEach($rootScope.items, function(val) {
+        angular.forEach(val, function(v) {
+          results.push(v);
+        });
+      });
+
+      console.log(results)
+      return results;
+
     }
 
   };
@@ -76,7 +100,7 @@ Game.factory('$plantation', ['$rootScope', '$http',
     function($rootScope, $http) {
       return {
         load: function() {
-          if(!$rootScope.plantation) {
+          if (!$rootScope.plantation) {
             var res = $http.get("/AuthController/plantation");
             res.success(function(data) {
               $rootScope.plantation = data;

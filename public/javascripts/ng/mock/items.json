@@ -1,0 +1,3 @@
+[{"id":1,"store":"tractor","perHa":true,"price":100,"name":"tractor","url":"/public/images/game/items/tractor.png"},
+{"id":2,"store":"fertilizer","perHa":true,"price":100,"name":"ca","url":"/public/images/game/items/fertilizer.png"},
+{"id":3,"store":"fertilizer","perHa":true,"price":100,"name":"npk","url":"/public/images/game/items/fertilizer.png"}]

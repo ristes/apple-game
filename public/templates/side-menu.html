@@ -1,17 +1,32 @@
 
 <div class="side-screen-bg" style='width:{{bgw}}px;height:{{bgh}}px' ng-click='hide()'></div>
-<div id="div-side-screen" ng-animate="slide"
+<div class="side-screen" ng-animate="slide"
 		ng-class="{true: 'slide-enter', false: 'slide-leave'}[visible]">
 
 	
-	<div id="home_arrow_main_menu" ng-click="onClick()" ng-animate="{enter: 'rotateCounterwise', leave: 'rotate'}"
+	<div class="side-arrow" ng-click="onClick()" ng-animate="{enter: 'rotateCounterwise', leave: 'rotate'}"
 		ng-class="{false: 'rotate', true: 'rotateCounterwise'}[visible]"></div>
-
-
-
-	<div class="side-icon-{{a.order}}" ng-if="a.ico"
-			style="background-image: url('{{a.ico}}')"
-			ng-repeat="a in actions"
-			ng-click="itemClick(a)"></div>
-
+		
+		
+		
+	<div class="side-items-grid">
+		<div class="side-items-grid-item" 
+				ng-repeat="a in $root._items"
+				style="background-image: url('{{a.url}}')">
+			<div class="side-item-top"></div>
+			<span class="side-item-label" translate="{{a.name}}"></span>	
+		</div>
+	</div>
+	<div class="side-operations-grid">
+		<div class="side-operations-grid-item" ng-if="a.ico"
+				style="background-image: url('{{a.ico}}')"
+				ng-repeat="a in actions"
+				ng-click="itemClick(a)">
+			<div class="side-operation-item-top"></div>
+			<span class="side-operation-item-label" translate="{{a.name}}" ng-click="itemClick(a)"></span>		
+		</div>
+	</div>
+		
+		
+	
 </div>
