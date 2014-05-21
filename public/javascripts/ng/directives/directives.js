@@ -2,7 +2,7 @@
 
 /* Directives */
 
-angular.module(
+var GameDirectives=angular.module(
         'Game.directives',
         ['ngResource', 'ngRoute', 'ngAnimate', 'ngCookies', 'ui.bootstrap',
             'toaster', 'mgcrea.ngStrap', 'pascalprecht.translate']).directive(
@@ -10,17 +10,7 @@ angular.module(
           return function(scope, elm, attrs) {
             elm.text(version);
           };
-        }]).directive('deleteDialog', function() {
-  return {
-    transclude: true,
-    scope: {
-      title: '=',
-      message: '=',
-      deleteFn: '&'
-    },
-    templateUrl: 'templates/delete-dialog.html'
-  };
-}).directive('progressDialog', ['jQuery', '$modal', function($, $modal) {
+        }]).directive('progressDialog', ['jQuery', '$modal', function($, $modal) {
   return {
     transclude: true,
     restrict: 'E',
@@ -102,129 +92,6 @@ angular.module(
       }, 1000, 'bounce');
     },
     templateUrl: '/public/templates/user-info.html'
-  };
-
-}]).directive('shopMenu', ['jQuery', function($) {
-
-  return {
-    restrict: 'E',
-    transclude: true,
-    scope: {},
-    link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
-      scope.showNext = true;
-      scope.visible = false;
-      scope.buying = false;
-
-      scope.itemClick = function(item) {
-        if (!scope.buying) {
-          scope.buying = true;
-          scope.$root.$emit('buy-item', item);
-          if (scope.onItemClick) {
-            scope.onItemClick(item);
-          }
-        }
-      };
-
-      var unregBought = scope.$root.$on("item-bought", function($scope) {
-        scope.buying = false;
-      });
-
-      var unregShow = scope.$root.$on("shop-show", function($scope, cfg) {
-        scope.$root.$emit('side-hide');
-        scope.items = cfg.items;
-        scope.shop = cfg.shop;
-        scope.storeUrl = cfg.storeUrl;
-        if (cfg.showNext !== null) {
-          scope.showNext = cfg.showNext;
-          if (cfg.onHide) {
-            scope.hideFn = cfg.onHide;
-          }
-        }
-        if (cfg.onItemClick) {
-          scope.onItemClick = cfg.onItemClick;
-        }
-        scope.visible = true;
-      });
-      
-      scope.price = function(item) {
-        if(item.perHa && item.price && scope.$root.plantation) {
-          return item.price * scope.$root.plantation.area;
-        } else {
-          return item.price;
-        }
-      }
-
-      var unregHide = scope.$root.$on("shop-hide", function() {
-        scope.hide();
-      });
-
-      scope.hide = function() {
-        scope.visible = false;
-        scope.buying = false;
-        if (scope.hideFn) {
-          scope.hideFn();
-        }
-      }
-
-      scope.$on("$destroy", function() {
-        unregBought();
-        unregHide();
-        unregShow();
-      });
-
-    },
-    templateUrl: '/public/templates/shop-menu.html'
-  };
-
-}]).directive('sideMenu', ['jQuery', function($) {
-
-  return {
-    restrict: 'E',
-    transclude: true,
-    scope: {
-      weather: '=',
-      actions: '='
-    },
-    link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
-      scope.itemClick = function(a) {
-        scope.$root.$emit('operation-' + a.name, a);
-      }
-      scope.bgw = 0;
-      scope.bgh = 0;
-
-      scope.visible = false;
-
-      scope.show = function() {
-        scope.$root.$emit("shop-hide");
-        scope.bgw = 1366;
-        scope.bgh = 768;
-        scope.visible = true;
-      }
-      scope.hide = function() {
-        scope.bgw = 0;
-        scope.bgh = 0;
-        scope.visible = false;
-      }
-
-      var un = scope.$root.$on("side-hide", function() {
-        scope.hide();
-      });
-
-      scope.$on('$destroy', function() {
-        if (un) {
-          un();
-        }
-      })
-
-      scope.onClick = function() {
-        if (scope.visible) {
-          scope.hide();
-        } else {
-          scope.show();
-        }
-      }
-    },
-    templateUrl: '/public/templates/side-menu.html'
   };
 
 }]).directive('weatherInfoDetails', ['jQuery', function($) {
