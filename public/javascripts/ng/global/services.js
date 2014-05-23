@@ -13,8 +13,8 @@ Game.factory('$farmer', ['$rootScope', '$http', '$items', '$location',
           if ($rootScope.farmer) {
             return $rootScope.farmer;
           } else {
-            var res = $http.get("/public/javascripts/ng/mock/farmer.json");
-            // var res = $http.get("/AuthController/farmer");
+            // var res = $http.get("/public/javascripts/ng/mock/farmer.json");
+            var res = $http.get("/AuthController/farmer");
             res.success(function(data) {
               swap(data);
             });
@@ -39,7 +39,7 @@ Game.factory('$items', ['$rootScope', '$http', function($rootScope, $http) {
         for (var i = 0; i < data.length; i++) {
           var store = data[i].store;
           $rootScope.items[store] = $rootScope.items[store] || [];
-          $rootScope.items[store].push(data);
+          $rootScope.items[store].push(data[i]);
         }
       });
     },
@@ -53,18 +53,31 @@ Game.factory('$items', ['$rootScope', '$http', function($rootScope, $http) {
     check: function(key) {
       return $rootScope.items[key] && $rootScope.items[key].length > 0;
     },
-    use: function(key) {
+    get: function(key) {
+      return $rootScope.items[key];
+    },
+    use: function(key, item) {
       $rootScope.items[key].pop();
-      var results = [];
-      var removed = false;
-      angular.forEach($rootScope._items, function(val) {
-        if (val.store == key && !removed) {
-          removed = true;
-        } else {
-          results.push(val);
-        }
-      });
-      $rootScope._items = results;
+
+      function remove(arr) {
+        var results = [];
+        var removed = false;
+        angular.forEach(arr, function(val) {
+
+          if (!removed && val.store == key) {
+            if (!item || val.id == item.id) {
+              removed = true;
+            } else {
+              results.push(val);
+            }
+          } else {
+            results.push(val);
+          }
+        });
+        return results;
+      }
+      $rootScope._items = remove($rootScope._items);
+      $rootScope.items[key] = remove($rootScope.items[key]);
     },
     all: function() {
       var results = [];
@@ -110,19 +123,18 @@ Game.factory('$plantation', ['$rootScope', '$http',
       };
     }]);
 
-Game.factory('$diseases',['$rootScope','$http',
-                          function($rootScope, $http) {
-                      		return {
-                      			load:function() {
-                      				var res = $http.get('/DeseasesExpertSystem/getDeseasePossibility');
-                      				res.success(function(data) {
-                      					$rootScope.diseases = data;
-                      				});
-                      			}
-                      		};
-                      } ]);
+Game.factory('$diseases', ['$rootScope', '$http', function($rootScope, $http) {
+  return {
+    load: function() {
+      var res = $http.get('/DeseasesExpertSystem/getDeseasePossibility');
+      res.success(function(data) {
+        $rootScope.diseases = data;
+      });
+    }
+  };
+}]);
 
-Game.factory('$day', ['$rootScope', '$http', '$weather','$diseases',
+Game.factory('$day', ['$rootScope', '$http', '$weather', '$diseases',
     function($rootScope, $http, $weather, $diseases) {
       return {
         next: function() {
@@ -135,5 +147,3 @@ Game.factory('$day', ['$rootScope', '$http', '$weather','$diseases',
         }
       };
     }]);
-
-

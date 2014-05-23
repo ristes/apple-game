@@ -316,7 +316,7 @@ Game.factory('Operations', ['$resource', '$rootScope',
           order: 5
         }, {
           ico: "/public/images/game/operations/planting.png",
-          name: 'planting',
+          name: 'planting-done',
           price: 0,
           duration: 0,
           requires: 'seedlings',

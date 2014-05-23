@@ -19,6 +19,8 @@ Game.controller('FertilizingController', [
         });
       };
 
+      $scope.quantity = 1;
+
       var onBuyItem = function(item) {
         Store['buyItem']({
           itemid: item.id,
@@ -49,16 +51,38 @@ Game.controller('FertilizingController', [
           $scope.$root.$emit('shop-show', {
             items: StoreItems[oper.requires],
             showNext: true,
-            storeUrl: '/public/images/game/store-' + oper.requires + '.png',
+            storeUrl: oper.ico,
             onItemClick: onBuyItem
           });
 
         } else {
-          $scope.$root.$emit('show-progress-global', {
-            title: 'progress.fertilization',
-            duration: 20
-          });
-          $items.use(oper.requires);
+          var types = $items.get(oper.requires);
+          if (types.length > 1) {
+            $scope.$root.$emit('shop-show', {
+              items: types,
+              showNext: true,
+              storeUrl: oper.ico,
+              shop: {
+                name: oper.requires
+              },
+              onItemClick: function(t) {
+                $scope.type = t;
+                $scope.$root.$emit('shop-hide');
+                $scope.$root.$emit('show-progress-global', {
+                  title: 'progress.fertilization',
+                  duration: 20
+                });
+                $items.use(oper.requires, $scope.type);
+              }
+            });
+          } else {
+            $scope.type = types[0];
+            $scope.$root.$emit('show-progress-global', {
+              title: 'progress.fertilization',
+              duration: 20
+            });
+            $items.use(oper.requires, $scope.type);
+          }
         }
 
       });

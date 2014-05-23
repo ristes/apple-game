@@ -1,9 +1,7 @@
-<div id="plantation"
-	style="background: url('/public/images/niva.png'); z-index: 0; width: 1366px; height: 768px; position: absolute; top: 0; left: 0;"></div>
-<!-- <div id="plantation"
-	style="background: url('/public/images/predniva.png'); width: 1366px; height: 768px; position: absolute; top: 0; left: 0; margin-top: 29px;"></div>
- -->
+
 <side-menu weather="weather" actions="actions"></side-menu>
+
+
 
 <div ng-controller="ShoppingController"></div>
 <div ng-controller="PlowingController"></div>
@@ -12,11 +10,23 @@
 	<div id="div-shop-manu" ng-animate="shop"
 			ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
 		<div id="shop_icon_div_main_menu" style="background-image:url('{{irrigationUrl}}')"></div>
-		<div id="shop_arrow_main_menu" ng-show="showNext" ng-click="hide()"></div>
-		<div class="shop_menu_grid" ng-show="enableOther">
-			<div class="shop_item_in_grid" ng-repeat="item in items">
-				<div class="shop_icon_in_grid" title="{{item.name}}" style="background-image:url('{{item.url}}')" ng-click="itemClick(item)"></div>
+		<div id="shop_arrow_main_menu" ng-show="showNext" ng-click="hide()" ></div>
+		<div class="shop_menu_grid fa-stack-2x fa-inverse" ng-show="enableOther">
+			<div>
+				<rating value="holder.duration" max="max"
+						on-hover="td=value" 
+						on-leave="td = null" 
+						state-on="'fa fa-check-circle-o'" 
+						state-off="'fa fa-clock-o'"></rating>
 			</div>
+			<div>
+				<span ng-show="td" >{{td}} h</span>
+				<span ng-show="!td" >{{holder.duration}} h</span>
+				<button class="btn btn-xs" ng-click="itemClick()">irrigate</button>
+			</div>
+			<!-- <div class="shop_item_in_grid" ng-repeat="item in items">
+				<div class="shop_icon_in_grid" title="{{item.name}}" style="background-image:url('{{item.url}}')" ng-click="itemClick(item)"></div>
+			</div> -->
 		</div>
 		<div class="shop_menu_grid" ng-show="!enableOther">
 			<div class="progress progress-striped active">
@@ -26,5 +36,52 @@
 	</div>
 
 </div>
-<div ng-controller="TerrainAnalysisController"></div>
+<div ng-controller="TerrainAnalysisController">
+<div id="div-shop-manu" ng-animate="shop"
+			ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
+		<div id="shop_icon_div_main_menu" style="background-image:url('{{url}}')"></div>
+		<div id="shop_arrow_main_menu" ng-click="hide()" ></div>
+		<div class="shop_menu_grid fa-stack-2x fa-inverse" ng-show="!haveAnalysis">
+			<div>
+				<span class="text-info">
+					Price: 1000
+				</span>
+			</div>
+			<div>
+				<button class="btn btn-xs" ng-click="analyse()">Analyse</button>
+			</div>
+			
+		</div>
+		<div class="shop_menu_grid" ng-show="haveAnalysis">
+			<div class="text-info">
+				N: 100
+			</div>
+			<div class="text-info">
+				P: 10
+			</div>
+			<div class="text-info">
+				K: 5
+			</div>
+			<div class="text-info">
+				pH: 6
+			</div>
+		</div>
+	</div>
+</div>
 <div ng-controller="PlantingController"></div>
+
+<div class="ground">
+</div>
+<img src="/public/images/dole.png" class="ground-dole"/>
+<div class="container field">
+	<div class="row" ng-repeat="r in rows">
+		<div class="pocva"ng-repeat="c in r.cols">
+			<img ng-show="c.tree"  src="{{c.tree}}" class="{{c.treeCls}}" ng-click="portionClick(c)"/>
+			<img ng-show="c.show"  src="{{c.terrain}}" class="{{c.cls}}" ng-click="portionClick(c)"/>
+		</div>
+			
+	</div>
+
+</div>
+
+
