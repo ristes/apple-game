@@ -15,6 +15,7 @@ Game.controller('PlantingStateController', [
 
       $weather.load();
       $plantation.load();
+      $farmer.load();
 
       $scope.actions = Operations['planting'];
 
@@ -36,7 +37,8 @@ Game.controller('PlantingStateController', [
 
       $scope.portionClick = function(p) {
         if (p.active && !p.tree) {
-          p.tree = "/public/images/game/plant.png";
+          //p.tree = "/public/images/game/plant.png";
+          p.tree = $scope.$root.farmer.plant_url;
           p.treeCls = 'seedling';
           $scope.seedling++;
         }
@@ -51,6 +53,7 @@ Game.controller('PlantingStateController', [
       for (var i = 0; i < N; i++) {
         r.cols.push({
           show: i >= M,
+          staticV: true,
           x: i,
           y: j,
           terrain: '/public/images/ograda.png',
@@ -68,9 +71,11 @@ Game.controller('PlantingStateController', [
           r.cols.push({
             show: (i + j >= M && i + j < N),
             active: (i + j >= M && i + j < N),
+            staticV: false,
             x: i,
             y: j,
-            terrain: '/public/images/pocva-riste.png',
+            //terrain: '/public/images/pocva-riste.png',
+            terrain: $scope.$root.farmer.soil_url,
             cls: 'pocva'
           })
 
@@ -85,6 +90,7 @@ Game.controller('PlantingStateController', [
       for (var i = 0; i < N - M; i++) {
         r.cols.push({
           show: true,
+          staticV: true,
           x: i,
           y: j,
           terrain: '/public/images/ograda.png',

@@ -27,7 +27,7 @@ Game.config([
 Game.run(['$rootScope', '$location', '$farmer', '$items','$day',
     function($rootScope, $location, $farmer, $items, $day) {
       $farmer.load();
-      //$rootScope.next = $day.next;
+      $day.load($farmer);
       $rootScope.next = function() {
     	  $day.next();
     	  $rootScope.$emit("weather-hide");

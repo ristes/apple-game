@@ -11,8 +11,9 @@ Game.controller('IrrigationController', [
     '$weather',
     '$interval',
     '$timeout',
+    '$irrigate',
     function($scope, $translate, $http, Store, StoreItems, Operations, $farmer,
-            $items, $plantation, $weather, $interval, $timeout) {
+            $items, $plantation, $weather, $interval, $timeout,$irrigate) {
 
       $scope.visible = false;
       $scope.irrigationUrl = '/public/images/game/operations/irrigation.png';
@@ -38,6 +39,7 @@ Game.controller('IrrigationController', [
 
           $timeout(function() {
             $scope.enableOther = true;
+            $irrigate.irrigate("BrazdiNavodnuvanje",time);
           }, 1000 * (time + 1));
 
         }

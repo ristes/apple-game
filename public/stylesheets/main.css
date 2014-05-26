@@ -192,6 +192,7 @@
 	position: fixed;
 	bottom: 0px;
 	left: 30%;
+	z-index:50;
 }
 
 .ground {
@@ -217,7 +218,9 @@
 }
 
 .pocva:hover img.pocva {
-	border: 1px solid black;
+	/*border: 1px solid black; */
+	-webkit-transform:  translate3d(-2px,-5px,2px);
+	transform:  translate3d(0,0,0);
 }
 
 img.pocva {
@@ -244,7 +247,8 @@ img.ograda-gore {
 	width: 50%;
 	height: 200%;
 	margin-left: -75%;
-	margin-top: -60%
+	margin-top: -60%;
+	z-index:1000;
 }
 
 .text-info {
