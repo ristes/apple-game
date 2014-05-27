@@ -14,7 +14,8 @@
 				ng-repeat="a in $root._items"
 				style="background-image: url('{{a.url}}')">
 			<div class="side-item-top"></div>
-			<span class="side-item-label" translate="{{a.name}}"></span>	
+			<div class="item-bought trapezoid" ><span class="title-text" translate="{{a.name}}"></span></div>
+			<!-- <span class="side-item-label" ></span>	  -->
 		</div>
 	</div>
 	<div class="side-operations-grid">
@@ -23,7 +24,8 @@
 				ng-repeat="a in actions"
 				ng-click="itemClick(a)">
 			<div class="side-operation-item-top"></div>
-			<span class="side-operation-item-label" translate="{{a.name}}" ng-click="itemClick(a)"></span>		
+			<div class="item-bought trapezoid-bigger" ><span class="title-text-larger" translate="{{a.name}}" ng-click="itemClick(a)"></span></div>
+			<!-- <span class="side-operation-item-label" translate="{{a.name}}" ng-click="itemClick(a)"></span>	 -->	
 		</div>
 	</div>
 		

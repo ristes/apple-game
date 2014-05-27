@@ -2,6 +2,7 @@ package models;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -11,11 +12,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.swing.text.Position.Bias;
 
+import org.apache.commons.collections.map.HashedMap;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import controllers.IrrigationController;
 import controllers.LandTreatmanController;
 import dto.C;
+import dto.FertilizationItem;
 import play.db.jpa.Model;
 import utils.GameUtils;
 
@@ -93,6 +97,7 @@ public class Farmer extends Model {
 	 * 3 - (high) lot of grass
 	 */
 	public Double digging_coef;
+	
 	
 	/**
 	 * The items he owns

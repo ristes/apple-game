@@ -1,4 +1,3 @@
-
 #weather_title {
 	position: relative;
 	color: #FFFFFF;
@@ -11,7 +10,6 @@
 	padding-bottom: 0.5%;
 }
 
-
 .weather-div {
 	float: left;
 	width: 15%;
@@ -22,6 +20,7 @@
 	text-align: center;
 	font-size: x-small;
 }
+
 .weather-div-bigger {
 	float: left;
 	width: 25%;
@@ -32,15 +31,17 @@
 	text-align: center;
 	font-size: x-small;
 }
+
 .div-weather-past-future {
 	width: 85%;
-	min-width:50px;
-	min-height:50px;
+	min-width: 50px;
+	min-height: 50px;
 	height: 100%;
 }
+
 .div-weather-today {
 	width: 90%;
-	min-width:60px;
+	min-width: 60px;
 	height: 100%;
 }
 
@@ -48,22 +49,23 @@
 	position: fixed;
 	width: 6%;
 	height: 10%;
-	min-height:60px;
-	top: 85px;	
+	min-height: 60px;
+	top: 85px;
 	background-color: #FFFFFF;
 	padding: 5px;
 	font-size: xx-small;
 	z-index: 200;
 	border-style: solid;
-	border:1px;
+	border: 1px;
 	border-color: 1px;
 	text-align: center;
 }
+
 .weather-info-details-big {
 	position: fixed;
 	width: 6%;
 	height: 10%;
-	min-height:60px;
+	min-height: 60px;
 	top: 110px;
 	right: 200px;
 	background-color: #FFFFFF;
@@ -71,38 +73,37 @@
 	font-size: xx-small;
 	z-index: 100;
 	border-style: solid;
-	border:1px;
+	border: 1px;
 	border-color: 1px;
 	text-align: center;
 }
+
 .weather-details-info-more-less {
 	border-top: 1px;
 	border-top-style: solid;
 	border-top-color: black;
 	text-align: center;
 }
+
 .weather-details-info-more-less:hover {
 	cursor: pointer;
 	background-color: cyan;
 }
 
-
-.shop-enter, 
-.shop-leave
-{ 
-  -webkit-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-  -moz-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-  -ms-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-  -o-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-  transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-} 
- 
-.shop-enter {
-  right: 350px;
+.shop-enter,.shop-leave {
+	-webkit-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-moz-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-ms-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-o-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
 }
- 
+
+.shop-enter {
+	right: 350px;
+}
+
 .shop-leave {
- right: -750px;
+	right: -750px;
 }
 
 body {
@@ -114,12 +115,62 @@ body {
 	width: 100%;
 	height: 100%;
 }
-.user_icons_info{
-	position:absolute;
-	top:20px;
-	left:25px;
-	width:40px;
-	height:50px;
+
+.user_icons_info {
+	position: absolute;
+	top: 20px;
+	left: 25px;
+	width: 40px;
+	height: 50px;
+}
+
+.trapezoid {
+	border-top: 20px solid #79551a;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	-webkit-filter: drop-shadow(0 1px 5px rgba(0, 0, 0, .5));
+	-moz-filter: drop-shadow(0 1px 5px rgba(0, 0, 0, .5));
+	filter: drop-shadow(0 1px 5px rgba(0, 0, 0, .5));
+	width: 80px;
+}
+
+.trapezoid-bigger{
+	border-top: 25px solid #79551a;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	-webkit-filter: drop-shadow(0 1px 5px rgba(0, 0, 0, .5));
+	-moz-filter: drop-shadow(0 1px 5px rgba(0, 0, 0, .5));
+	filter: drop-shadow(0 1px 5px rgba(0, 0, 0, .5));
+	width: 80px;
+
+}
+
+.item-bought {
+	text-align: center;
+	min-width: 100%;
+	min-height: 30px;
+	color: white;
+}
+.item-bought:hover {
+	margin-top:7px;
+}
+
+.title-text {
+	position: relative;
+	top: -23px;
+	font-family: ag-font;
+	font-size: large;
+}
+
+.title-text-larger {
+	position: relative;
+	top: -30px;
+	font-family: ag-font;
+	font-size: x-large;
 }
 
 #div_user_icon {
@@ -153,17 +204,17 @@ body {
 
 #span_icon_apples_in_stock {
 	position: absolute;
-	top:35px;
-	left:20px;
+	top: 35px;
+	left: 20px;
 	z-index: 10;
 }
 
 #span_apples_in_stock_info {
-	position:relative;
-	top:35px;
+	position: relative;
+	top: 35px;
 	text-align: center;
-	color:#FFFFFF;
-	font-size:x-large;
+	color: #FFFFFF;
+	font-size: x-large;
 	font-weight: bold;
 }
 
@@ -179,11 +230,11 @@ body {
 }
 
 #span_money_in_stock_info {
-	position:relative;
-	top:35px;
+	position: relative;
+	top: 35px;
 	text-align: center;
-	color:#FFFFFF;
-	font-size:x-large;
+	color: #FFFFFF;
+	font-size: x-large;
 	font-weight: bold;
 }
 
@@ -199,11 +250,11 @@ body {
 }
 
 #span_eco_point_info {
-	position:relative;
-	top:35px;
+	position: relative;
+	top: 35px;
 	text-align: center;
-	color:#FFFFFF;
-	font-size:x-large;
+	color: #FFFFFF;
+	font-size: x-large;
 	font-weight: bold;
 }
 
@@ -214,7 +265,7 @@ body {
 	top: 130px;
 	background-image: url("/public/images/home/ploca.png");
 	background-size: 100% 100%;
-	z-index:20
+	z-index: 20
 }
 
 #shop_icon_div_main_menu {
@@ -237,7 +288,6 @@ body {
 	background-size: 100% 100%;
 }
 
-
 .side-icon-1:hover {
 	cursor: pointer;
 	width: 200px;
@@ -253,7 +303,6 @@ body {
 	top: 150px;
 	left: 360px;
 }
-
 
 .side-icon-3:hover {
 	cursor: pointer;
@@ -302,6 +351,7 @@ body {
 #div-shop-wrapper {
 	overflow: hidden;
 }
+
 .weather_wrapper {
 	width: 25%;
 	position: absolute;
@@ -309,12 +359,14 @@ body {
 	top: 2%;
 	z-index: 100;
 }
-#weather-info-details{
-	opacity:0;
+
+#weather-info-details {
+	opacity: 0;
 }
+
 .weather-div {
 	float: left;
-	width:17%;
+	width: 17%;
 	background-color: #FFFFFF;
 	border-style: solid;
 	border-width: 1px;
@@ -322,41 +374,48 @@ body {
 	text-align: center;
 	font-size: x-small;
 }
+
 .weather_icon {
-	width:80px;
-	height:70px;
+	width: 80px;
+	height: 70px;
 }
+
 .shop_menu_grid {
-	position:absolute;
-	width:400px;
-	height:300px;
-	top:50px;
-	left:150px;
+	position: absolute;
+	width: 400px;
+	height: 300px;
+	top: 50px;
+	left: 150px;
 }
+
 .shop_item_in_grid {
-	padding-right:40px;
-	width:33%;
-	float:left;
+	padding-right: 40px;
+	width: 33%;
+	float: left;
 	text-align: center;
 	background-size: cover;
 	z-index: 300
 }
+
 .shop_icon_in_grid {
-	width:120px;
-	height:110px;
+	width: 120px;
+	height: 110px;
 	background-size: cover;
 }
+
 .shop_icon_in_grid:hover {
 	cursor: pointer;
 }
-#div_next_day{
-	padding:10px;
+
+#div_next_day {
+	padding: 10px;
 	background-color: white;
 	position: absolute;
 	top: 150px;
-	left:20px;
+	left: 20px;
 	z-index: 100;
 }
+
 #div_next_day:hover {
-	cursor:pointer;
+	cursor: pointer;
 }

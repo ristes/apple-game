@@ -1,5 +1,11 @@
 package controllers;
 
-public class FertilizationController {
+import play.mvc.Controller;
+
+public class FertilizationController extends Controller{
+	
+	public static void fertilize() {
+		
+	}
 
 }
