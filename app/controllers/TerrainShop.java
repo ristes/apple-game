@@ -57,7 +57,7 @@ public class TerrainShop extends Controller {
 		Farmer farmer = AuthController.getFarmer();
 		Field field = Field.find("owner.id", farmer.id).first();
 
-		Plantation plantation = new Plantation();
+		Plantation plantation = Plantation.buildInstance();
 		plantation.base = Base.findById(itemid);
 
 		field.plantation = plantation;

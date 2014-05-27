@@ -17,6 +17,13 @@ public class Plantation extends Model {
 	 * actions
 	 */
 	public int currentQuantity;
+	
+	
+	/**
+	 * JSON Array representing (x,y) values of every tree positioned on the plantation in form of String (javascript parsing)
+	 * ex: "[{0,0},{0,1},{1,1},{2,2}]
+	 */
+	public String treePositions;
 
 	/**
 	 * Used for visual representation of the trees
@@ -51,5 +58,12 @@ public class Plantation extends Model {
 	 */
 	@OneToMany(mappedBy = "plantation")
 	public List<OccurredDecease> deseases;
+	
+	public static Plantation buildInstance() {
+		Plantation p = new Plantation();
+		p.treePositions = "[]";
+		p.save();
+		return p;
+	}
 
 }

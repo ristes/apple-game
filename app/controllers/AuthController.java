@@ -21,6 +21,7 @@ public class AuthController extends Controller {
 	public static class PlantationDto {
 		public String base;
 		public double area;
+		public String treePositions;
 	}
 
 	public static void plantation() throws JsonGenerationException,
@@ -30,6 +31,7 @@ public class AuthController extends Controller {
 			PlantationDto dto = new PlantationDto();
 			dto.area = farmer.field.area;
 			dto.base = farmer.field.plantation.base.name;
+			dto.treePositions = farmer.field.plantation.treePositions;
 			JsonController.toJson(dto);
 		} else {
 			response.status = 401;

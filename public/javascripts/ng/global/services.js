@@ -129,6 +129,12 @@ Game.factory('$plantation', [ '$rootScope', '$http',
 							$rootScope.plantation = data;
 						});
 					}
+				},
+				save : function(array,fn) {
+					var res = $http.post("/PlantationController/savePlanting?array="+array);
+					res.success(function(data) {
+						$rootScope.$emit(fn);
+					})
 				}
 			};
 		} ]);
