@@ -162,6 +162,7 @@ Game.factory('$day', [ '$rootScope', '$http', '$weather', '$diseases',
 						$rootScope.day = data;
 						$weather.load();
 						$diseases.load();
+						
 					});
 				}
 			};
@@ -194,9 +195,9 @@ Game.factory('$plowing', [
                    					var res = $http.get("/LandTreatmanController/plowing");
                    					res.success(function(data) {
                    						$day.load(data);
-//                   						$weather.load();
-//                   						$diseases.load();
                    					});
                    				}
                    			};
                    		} ]);
+
+

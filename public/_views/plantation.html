@@ -70,15 +70,21 @@
 </div>
 <div ng-controller="PlantingController"></div>
 
+
+
 <div class="ground">
 </div>
+
 <img src="/public/images/dole.png" class="ground-dole"/>
-<div class="container field">
+<div class="field">
+<img src="/public/images/backgrounds/kukarka.png" class="kukja"/>
+<img src="/public/images/backgrounds/pozadinski-drva.png" class="pozadinski-drva"/>
+
 	<div class="row" ng-repeat="r in rows">
-		<div class="pocva"ng-repeat="c in r.cols">
+		<div class="pocva-bg" style="width: {{atom}}px; height: {{atom}}px" ng-repeat="c in r.cols">
 			<img ng-show="c.tree"  src="{{c.tree}}" class="{{c.treeCls}}" ng-click="portionClick(c)"/>
-			<img ng-show="c.show"  ng-if="!c.staticV" src="{{$root.day.soil_url}}" class="{{c.cls}}" ng-click="portionClick(c)"/>
-			<img ng-show="c.show"  ng-if="c.staticV" src="{{c.terrain}}" class="{{c.cls}}" ng-click="portionClick(c)"/>
+			 <img ng-show="c.show"  ng-if="!c.staticV" src="{{$root.day.soil_url}}" class="{{c.cls}}" ng-click="portionClick(c)"/>
+			 <img ng-show="c.show"  ng-if="c.staticV" src="{{c.terrain}}" class="{{c.cls}}"/>
 		</div>
 			
 	</div>

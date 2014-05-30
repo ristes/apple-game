@@ -45,7 +45,6 @@ public class LandTreatmanController extends Controller{
 		Integer expense;
 		Item plowing = (Item)Item.find("byName", "PlowingItem").fetch().get(0);
 		String image = "";
-		//the price depends on humidity of soil
 		if (farmer.cumulativeHumidity>=1500) {
 			expense = 3 * plowing.price * (int)farmer.field.area;
 			
@@ -58,9 +57,9 @@ public class LandTreatmanController extends Controller{
 		}
 		farmer.balans -= expense;
 		farmer.grass_growth = 0.0;
+		farmer.evaluateState();
 		farmer.save();
-		
-		JsonController.toJson(farmer, "field", "gameDate");
+		JsonController.toJson(farmer, "field", "gameDate","weatherType");
 		
 	}
 

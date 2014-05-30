@@ -3,6 +3,12 @@
 	src: url("ag.otf");
 }
 
+.body-scale-background {
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+}
+
 .shop-label {
 	position: absolute;
 	top: 2px;
@@ -132,6 +138,10 @@
 	display: block;
 }
 
+.side-item-top:hover {
+	cursor: pointer;
+}
+
 .side-item-label {
 	text-align: center;
 	font-family: ag-font;
@@ -190,16 +200,20 @@
 }
 
 .field {
-	width: 300px;
+	width: 80%;
 	position: fixed;
-	bottom: 0px;
-	left: 30%;
-	z-index:50;
+	bottom: 3%;
+	right: 10%;
+	z-index: 5;
+}
+
+@media screen(max:1206px) {
+	
 }
 
 .ground {
 	width: 100%;
-	height: 50%;
+	height: 60%;
 	background-image: url("/public/images/ground-bg.png");
 	position: fixed;
 	bottom: 0px;
@@ -212,45 +226,69 @@
 	bottom: 0px;
 }
 
-.pocva {
-	width: 100px;
-	height: 50px;
-	margin-left: -51px;
-	float: left;
+.kukja {
+	width: 20%;
+	position: fixed;
+	margin-left:-15%;
+	margin-top:-10%;
+}
+.pozadinski-drva {
+	width: 60%;
+	position: fixed;
+	margin-top:-10%;
+	z-index:-10;
+	margin-left: 10%;
 }
 
+
+
+.pocva-bg {
+	float: left;
+	-webkit-transform: skew(-45deg);
+	   -moz-transform: skew(-45deg);
+	     -o-transform: skew(-45deg);
+	border: 0px solid red;
+}
+
+.pocva-bg:hover {
+	border: 1px solid black;
+}
 .pocva:hover img.pocva {
 	/*border: 1px solid black; */
-	-webkit-transform:  translate3d(-2px,-5px,2px);
-	transform:  translate3d(0,0,0);
+	-webkit-transform: translate3d(-2px, -5px, 2px);
+	transform: translate3d(0, 0, 0);
 }
 
 img.pocva {
-	width: 100%;
-	height: 100%;
+	width: 110%;
+	height: 110%;
 	cursor: pointer;
 }
 
-img.ograda-dole {
-	width: 50%;
-	height: 100%;
-	margin-top: -50px;
-	overflow: hidden;
-}
 
 img.ograda-gore {
-	width: 50%;
+	width: 110%;
 	height: 100%;
-	margin-top: 8px;
-	overflow: hidden;
+	position: absolute;
+	top: 5%;
+	left: -50%;
+	
+	-webkit-transform: skew(45deg);
+	   -moz-transform: skew(45deg);
+	     -o-transform: skew(45deg);
 }
 
 .seedling {
-	width: 50%;
+	width: 100%;
 	height: 200%;
-	margin-left: -75%;
-	margin-top: -60%;
-	z-index:1000;
+	
+	-webkit-transform: skew(45deg);
+	   -moz-transform: skew(45deg);
+	     -o-transform: skew(45deg);
+	z-index: 6;
+	position: absolute;
+	top: -125%;
+	left: -75%;
 }
 
 .text-info {

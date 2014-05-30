@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import play.db.jpa.Model;
 
 /**
@@ -22,11 +24,14 @@ public class WeatherType extends Model {
 	 */
 	public String name;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="weatherType")
 	public List<Day> days;
 	
 	@ManyToOne
 	public SpriteImage icon;
+	
+	public String background_url;
 	
 
 }

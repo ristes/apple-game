@@ -140,11 +140,7 @@ public class Farmer extends Model {
 		List<Day> gameDates = Day.find("byDayOrder", gameDate.dayOrder + 1)
 				.fetch();
 		gameDate = gameDates.get(0);
-		calculateCumulatives();
-		calculateLuck(gameDate);
-		calculateGrassGrowth();
-		evaluateSoilImage(gameDate.date);
-		calculateDiggingCoefficient();
+		evaluateState();
 		this.save();
 		return this;
 	}
@@ -237,11 +233,19 @@ public class Farmer extends Model {
 		}
 	}
 
+	public void evaluateState() {
+		calculateCumulatives();
+		calculateLuck(gameDate);
+		calculateGrassGrowth();
+		evaluateSoilImage(gameDate.date);
+		calculateDiggingCoefficient();
+	}
+	
 	public static Farmer buildInstance(String username, String password) {
 		Farmer farmer = new Farmer();
 		farmer.username = username;
 		farmer.password = password;
-		Day start = Day.find("dayOrder", 0l).first();
+		Day start = Day.find("dayOrder", 243l).first();
 		farmer.gameDate = start;
 		farmer.balans = 1000000;
 		farmer.eco_points = 100;

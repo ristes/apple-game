@@ -78,11 +78,12 @@
 body,html {
 	margin: 0;
 	padding: 0;
-	background: url("/public/images/sky.png");
+	/* background: url("/public/images/sky.png"); */
+
 }
 </style>
 </head>
-<body ng-app="Game">
+<body ng-app="Game" style="background: url('{{$root.day.gameDate.weatherType.background_url}}'); -webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover; background-size: cover;">
 	<div class="div_wrapper">
 		
 		

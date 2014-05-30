@@ -10,8 +10,21 @@ Game.controller('PlantingStateController', [
 		'$plantation',
 		'$weather',
 		'toaster',
+		'$window',
 		function($scope, $location, $http, Store, StoreItems, Operations,
-				$farmer, $items, $plantation, $weather, toaster) {
+				$farmer, $items, $plantation, $weather, toaster,$window) {
+
+			$scope.onResizeFunction = function() {
+				$scope.atom = $window.innerWidth * 0.8 /20;
+			};
+
+			// Call to the function when the page is first loaded
+			$scope.onResizeFunction();
+
+			angular.element($window).bind('resize', function() {
+				$scope.onResizeFunction();
+				$scope.$apply();
+			});
 
 			$weather.load();
 			$farmer.load();
@@ -79,14 +92,15 @@ Game.controller('PlantingStateController', [
 			}
 
 			$scope.rows = [];
-			var N = 15, M = 5;
+			// var N = 15, M = 5;
+			var N = 20, M = 5;
 			var r = {
 				cols : []
 			};
 			$scope.rows.push(r);
-			for (var i = 0; i < N; i++) {
+			for (var i = 0; i <= N; i++) {
 				r.cols.push({
-					show : i >= M,
+					show : i > M,
 					staticV : true,
 					x : i,
 					y : j,
@@ -127,15 +141,5 @@ Game.controller('PlantingStateController', [
 				cols : []
 			};
 			$scope.rows.push(r);
-			for (var i = 0; i < N - M; i++) {
-				r.cols.push({
-					show : true,
-					staticV : true,
-					x : i,
-					y : j,
-					terrain : '/public/images/ograda.png',
-					cls : 'ograda-dole'
-				})
-			}
 
 		} ]);

@@ -8,6 +8,7 @@ import models.GameContext;
 import models.ItemInstance;
 import play.cache.Cache;
 import play.mvc.Controller;
+import play.mvc.Http;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -15,7 +16,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 public class AuthController extends Controller {
 
 	public static void farmer() throws Exception {
-		JsonController.toJson(getFarmer(), "gameDate", "field");
+		JsonController.toJson(getFarmer(), "gameDate", "field","weatherType");
 	}
 
 	public static class PlantationDto {
@@ -65,7 +66,7 @@ public class AuthController extends Controller {
 		if (farmer == null) {
 			redirect("/login");
 		}
-		JsonController.toJson(farmer, "field", "gameDate");
+		JsonController.toJson(farmer, "field", "gameDate","weatherType");
 	}
 
 	protected static GameContext getContext() {
