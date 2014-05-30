@@ -11,7 +11,10 @@ Game.controller('StoreController', ['$scope', '$translate', '$http', 'Store',
         $scope.$root.$emit('shop-show', {
           items: $scope.items,
           showNext: false,
-          storeUrl: shopIcon
+          storeUrl: shopIcon,
+          shop: {
+            name: store
+          }
         });
       };
 

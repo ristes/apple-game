@@ -14,7 +14,10 @@ Game.controller('BuyTerrainController',
               $scope.$root.$emit('shop-show', {
                 items: $scope.items,
                 showNext: false,
-                storeUrl: '/public/images/game/pocva-prodavnica-icon.png'
+                shop: {
+                  name: 'terrainSize'
+                },
+                storeUrl: '/public/images/game/stores/terrain.png'
               });
 
               $scope.onSelectSize = function(_scope, item) {
@@ -26,7 +29,10 @@ Game.controller('BuyTerrainController',
                 $scope.$root.$emit('shop-show', {
                   items: $scope.items,
                   showNext: false,
-                  storeUrl: '/public/images/game/pocva-prodavnica-icon.png'
+                  shop: {
+                    name: 'terrainType'
+                  },
+                  storeUrl: '/public/images/game/stores/terrain.png'
                 });
                 $scope.unreg = $scope.$root.$on('buy-item', $scope.onBuyItem);
 

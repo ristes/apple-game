@@ -43,6 +43,10 @@
 	display: inline-block;
 }
 
+.shop_icon img {
+	width: 100%;
+}
+
 .shop_arrow {
 	position: absolute;
 	width: 50px;
@@ -258,12 +262,68 @@
 	padding: 7%;
 }
 
-.field {
-	width: 80%;
+.scene {
 	position: fixed;
-	bottom: 3%;
+	bottom: 0;
 	right: 10%;
 	z-index: 5;
+	width: 62%;
+}
+
+.kukja {
+	position: fixed;
+	left: -30%;
+	top: -4%;
+	z-index: 0;
+	width: 26%;
+	-webkit-transform: skew(45deg);
+	-moz-transform: skew(45deg);
+	-o-transform: skew(45deg);
+	-webkit-transform: skew(45deg);
+}
+
+.back-trees {
+	width: 110%;
+	z-index: -10;
+	margin-bottom: -3%;
+	margin-left: -9%;
+	-webkit-transform: skew(45deg);
+	-moz-transform: skew(45deg);
+	-o-transform: skew(45deg);
+	-webkit-transform: skew(45deg);
+}
+
+.side-trees {
+	position: fixed;
+	bottom: 0;
+	z-index: 10;
+	width: 25%;
+}
+
+.field-terrain {
+	width: 160%;
+	position: fixed;
+	z-index: -10;
+	margin-left: -30%;
+}
+
+.lake {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	width: 20%;
+	z-index: 20;
+}
+
+.field {
+	-webkit-transform: skew(-45deg);
+	-moz-transform: skew(-45deg);
+	-o-transform: skew(-45deg);
+	margin-top: -5%;
+}
+
+.field-row {
+	clear: both;
 }
 
 @media screen (max:1206px) {
@@ -284,26 +344,8 @@
 	bottom: 0px;
 }
 
-.kukja {
-	width: 20%;
-	position: fixed;
-	margin-left: -15%;
-	margin-top: -10%;
-}
-
-.pozadinski-drva {
-	width: 60%;
-	position: fixed;
-	margin-top: -10%;
-	z-index: -10;
-	margin-left: 10%;
-}
-
 .pocva-bg {
 	float: left;
-	-webkit-transform: skew(-45deg);
-	-moz-transform: skew(-45deg);
-	-o-transform: skew(-45deg);
 	border: 0px solid red;
 }
 
@@ -325,13 +367,12 @@ img.pocva {
 
 img.ograda-gore {
 	width: 110%;
-	height: 100%;
-	position: absolute;
-	top: 5%;
-	left: -50%;
+	height: 110%;
+	margin-left: -50%;
 	-webkit-transform: skew(45deg);
 	-moz-transform: skew(45deg);
 	-o-transform: skew(45deg);
+	-webkit-transform: skew(45deg);
 }
 
 .seedling {
@@ -341,9 +382,9 @@ img.ograda-gore {
 	-moz-transform: skew(45deg);
 	-o-transform: skew(45deg);
 	z-index: 6;
-	position: absolute;
-	top: -125%;
-	left: -75%;
+	margin-top: -225%;
+	margin-left: -75%;
+	float: left;
 }
 
 .text-info {

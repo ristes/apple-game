@@ -110,28 +110,28 @@ Game.factory('StoreItems', function($resource) {
     }],
     'apple-type': [{
       id: 1,
-      name: 'Ajdaret',
-      url: '/public/images/game/jabolko.png'
+      name: 'Ajdared',
+      url: '/public/images/game/appletypes/ajdared.png'
     }, {
       id: 2,
       name: 'CrvenDelises',
-      url: '/public/images/game/jabolko.png'
+      url: '/public/images/game/appletypes/crven-delishes.png'
     }, {
       id: 3,
       name: 'ZlatenDelises',
-      url: '/public/images/game/jabolko.png'
+      url: '/public/images/game/appletypes/zlaten-delishes.png'
     }, {
       id: 4,
       name: 'Jonagold',
-      url: '/public/images/game/jabolko.png'
+      url: '/public/images/game/appletypes/jonagold.png'
     }, {
       id: 5,
       name: 'Mucu',
-      url: '/public/images/game/jabolko.png'
+      url: '/public/images/game/appletypes/mucu.png'
     }, {
       id: 6,
       name: 'GreniSmit',
-      url: '/public/images/game/jabolko.png'
+      url: '/public/images/game/appletypes/greni-smit.png'
     }],
     'seedling-type': [{
       id: 1,
