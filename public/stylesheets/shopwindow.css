@@ -90,21 +90,6 @@
 	background-color: cyan;
 }
 
-.shop-enter,.shop-leave {
-	-webkit-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-	-moz-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-	-ms-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-	-o-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-	transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-}
-
-.shop-enter {
-	right: 350px;
-}
-
-.shop-leave {
-	right: -750px;
-}
 
 body {
 	font-family: "Trebuchet MS";
@@ -155,9 +140,7 @@ body {
 	min-height: 30px;
 	color: white;
 }
-.item-bought:hover {
-	margin-top: 7px;
-	}
+
 
 .title-text {
 	position: relative;
@@ -258,83 +241,6 @@ body {
 	font-weight: bold;
 }
 
-#div-shop-manu {
-	position: fixed;
-	width: 600px;
-	height: 500px;
-	top: 130px;
-	background-image: url("/public/images/home/ploca.png");
-	background-size: 100% 100%;
-	z-index: 20
-}
-
-#shop_icon_div_main_menu {
-	position: absolute;
-	width: 180px;
-	height: 170px;
-	top: -110px;
-	background-image: url("/public/images/home/prodavnica-icon-gore.png");
-	background-size: 100% 100%;
-}
-
-#shop_arrow_main_menu {
-	position: absolute;
-	width: 90px;
-	height: 90px;
-	top: 400px;
-	left: 500px;
-	cursor: pointer;
-	background-image: url("/public/images/home/prodavnica_strelka.png");
-	background-size: 100% 100%;
-}
-
-.side-icon-1:hover {
-	cursor: pointer;
-	width: 200px;
-	height: 200px;
-	top: 150px;
-	left: 160px;
-}
-
-.side-icon-2:hover {
-	cursor: pointer;
-	width: 200px;
-	height: 200px;
-	top: 150px;
-	left: 360px;
-}
-
-.side-icon-3:hover {
-	cursor: pointer;
-	width: 200px;
-	height: 200px;
-	top: 150px;
-	left: 560px;
-}
-
-.side-icon-4:hover {
-	cursor: pointer;
-	width: 200px;
-	height: 200px;
-	top: 310px;
-	left: 160px;
-}
-
-.side-icon-5:hover {
-	cursor: pointer;
-	width: 200px;
-	height: 200px;
-	top: 310px;
-	left: 360px;
-}
-
-.side-icon-6:hover {
-	cursor: pointer;
-	width: 200px;
-	height: 200px;
-	top: 310px;
-	left: 560px;
-}
 
 #weather_title {
 	position: relative;
@@ -380,32 +286,8 @@ body {
 	height: 70px;
 }
 
-.shop_menu_grid {
-	position: absolute;
-	width: 400px;
-	height: 300px;
-	top: 50px;
-	left: 150px;
-}
 
-.shop_item_in_grid {
-	padding-right: 40px;
-	width: 33%;
-	float: left;
-	text-align: center;
-	background-size: cover;
-	z-index: 300
-}
 
-.shop_icon_in_grid {
-	width: 120px;
-	height: 110px;
-	background-size: cover;
-}
-
-.shop_icon_in_grid:hover {
-	cursor: pointer;
-}
 
 #div_next_day {
 	padding: 10px;

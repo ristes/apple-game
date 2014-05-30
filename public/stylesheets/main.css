@@ -9,33 +9,99 @@
 	-o-background-size: cover;
 }
 
-.shop-label {
+.shop-enter,.shop-leave {
+	-webkit-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-moz-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-ms-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-o-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+}
+
+.shop-enter {
+	right: 350px;
+}
+
+.shop-leave {
+	right: -750px;
+}
+
+.shop-menu {
+	position: fixed;
+	width: 40%;
+	height: 70%;
+	top: 20%;
+	background-image: url("/public/images/home/ploca.png");
+	background-size: 100% 100%;
+	z-index: 20
+}
+
+.shop_icon {
 	position: absolute;
-	top: 2px;
-	display: block;
-	width: 130px;
+	width: 180px;
+	height: 170px;
+	top: -110px;
+	display: inline-block;
+}
+
+.shop_arrow {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	bottom: 2%;
+	right: 2%;
+	cursor: pointer;
+	background-image: url("/public/images/home/prodavnica_strelka.png");
+	background-size: 100% 100%;
+	z-index: 1000;
+}
+
+.shop_menu_grid {
+	position: absolute;
+	width: 70%;
+	height: 80%;
+	top: 10%;
+	left: 25%;
+}
+
+.shop-label {
 	text-align: center;
-	margin-left: 27px;
+	min-width: 100%;
+	min-height: 30px;
+}
+
+.shop-label-text {
+	position: relative;
+	top: -33px;
 	font-family: ag-font;
 	color: white;
 	font-size: 28px;
 }
 
-.shop-item-label {
-	display: block;
-	margin-top: -38px;
-	width: 105px;
+.shop_item_in_grid {
+	width: 33%;
+	padding-right: 5px;
+	float: left;
 	text-align: center;
-	margin-left: 10px;
-	font-family: ag-font;
-	color: white;
-	font-size: 20px;
+	z-index: 300;
 	cursor: pointer;
+	float: left;
+}
+
+.shop_item_in_grid img {
+	width: 100%;
+	height: 100%;
+}
+
+.shop-item-label {
+	text-align: center;
+	min-width: 100%;
+	min-height: 30px;
+	color: white;
 }
 
 .shop-item-price {
 	display: block;
-	margin-top: 5px;
+	margin-top: -20px;
 	background-image: url("/public/images/game/pricetag.png");
 	width: 120px;
 	height: 50px;
@@ -125,21 +191,20 @@
 
 .side-items-grid-item {
 	width: 20%;
-	height: 30%;
+	height: 20%;
 	margin: 3px;
 	float: left;
-	background-size: 100% 100%;
 	text-align: center;
 }
 
 .side-item-top {
 	width: 100%;
-	height: 68%;
 	display: block;
 }
 
-.side-item-top:hover {
-	cursor: pointer;
+.side-item-top img {
+	width: 100%;
+	height: 100%;
 }
 
 .side-item-label {
@@ -165,22 +230,16 @@
 	height: 48%;
 	cursor: pointer;
 	float: left;
-	background-size: 100% 100%;
-}
-
-.side-operations-grid-item:hover {
-	background-size: 100% 105%;
 }
 
 .side-operation-item-top {
 	width: 100%;
-	height: 68%;
 	display: block;
-	margin-bottom: 3px;
 }
 
-.side-operation-item-top:hover {
-	margin-bottom: 7px;
+.side-operation-item-top img {
+	width: 100%;
+	height: 100%;
 }
 
 .side-operation-item-label {
@@ -207,8 +266,7 @@
 	z-index: 5;
 }
 
-@media screen(max:1206px) {
-	
+@media screen (max:1206px) {
 }
 
 .ground {
@@ -229,30 +287,30 @@
 .kukja {
 	width: 20%;
 	position: fixed;
-	margin-left:-15%;
-	margin-top:-10%;
+	margin-left: -15%;
+	margin-top: -10%;
 }
+
 .pozadinski-drva {
 	width: 60%;
 	position: fixed;
-	margin-top:-10%;
-	z-index:-10;
+	margin-top: -10%;
+	z-index: -10;
 	margin-left: 10%;
 }
-
-
 
 .pocva-bg {
 	float: left;
 	-webkit-transform: skew(-45deg);
-	   -moz-transform: skew(-45deg);
-	     -o-transform: skew(-45deg);
+	-moz-transform: skew(-45deg);
+	-o-transform: skew(-45deg);
 	border: 0px solid red;
 }
 
 .pocva-bg:hover {
 	border: 1px solid black;
 }
+
 .pocva:hover img.pocva {
 	/*border: 1px solid black; */
 	-webkit-transform: translate3d(-2px, -5px, 2px);
@@ -265,26 +323,23 @@ img.pocva {
 	cursor: pointer;
 }
 
-
 img.ograda-gore {
 	width: 110%;
 	height: 100%;
 	position: absolute;
 	top: 5%;
 	left: -50%;
-	
 	-webkit-transform: skew(45deg);
-	   -moz-transform: skew(45deg);
-	     -o-transform: skew(45deg);
+	-moz-transform: skew(45deg);
+	-o-transform: skew(45deg);
 }
 
 .seedling {
 	width: 100%;
 	height: 200%;
-	
 	-webkit-transform: skew(45deg);
-	   -moz-transform: skew(45deg);
-	     -o-transform: skew(45deg);
+	-moz-transform: skew(45deg);
+	-o-transform: skew(45deg);
 	z-index: 6;
 	position: absolute;
 	top: -125%;

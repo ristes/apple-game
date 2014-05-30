@@ -1,0 +1,39 @@
+<div ng-controller="IrrigationController">
+	<div class="shop-menu" ng-animate="shop"
+			ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
+		
+		
+		<div class="shop_icon">
+			<img src="{{irrigationUrl}}"></img>
+			<div class="shop-label trapezoid-bigger">
+				<span class="shop-label-text" translate="irrigation"></span> 
+			</div>
+		</div>
+		
+		<div class="shop_arrow" ng-show="showNext" ng-click="hide()"></div>
+		
+		<div class="shop_menu_grid fa-stack-2x fa-inverse" ng-show="enableOther">
+			<div>
+				<rating value="holder.duration" max="max"
+						on-hover="td=value" 
+						on-leave="td = null" 
+						state-on="'fa fa-check-circle-o'" 
+						state-off="'fa fa-clock-o'"></rating>
+			</div>
+			<div>
+				<span ng-show="td" >{{td}} h</span>
+				<span ng-show="!td" >{{holder.duration}} h</span>
+				<button class="btn btn-xs" ng-click="itemClick()">irrigate</button>
+			</div>
+			<!-- <div class="shop_item_in_grid" ng-repeat="item in items">
+				<div class="shop_icon_in_grid" title="{{item.name}}" style="background-image:url('{{item.url}}')" ng-click="itemClick(item)"></div>
+			</div> -->
+		</div>
+		<div class="shop_menu_grid" ng-show="!enableOther">
+			<div class="progress progress-striped active">
+				<progressbar class="progress-striped active" value="status"> {{status | integer}} %</progressbar>
+			</div>
+		</div>
+	</div>
+	
+</div>

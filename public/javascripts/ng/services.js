@@ -57,20 +57,20 @@ Game.factory('StoreItems', function($resource) {
     }],
     'terrain': [{
       id: 1,
-      name: 'Glinesta',
-      url: '/public/images/game/pocva-prodavnica-icon.png'
+      name: 'aglesta',
+      url: '/public/images/game/terrain/aglesta.png'
     }, {
       id: 2,
-      name: 'Humusna',
-      url: '/public/images/game/pocva-prodavnica-icon.png'
+      name: 'lisesta',
+      url: '/public/images/game/terrain/lisesta.png'
     }, {
       id: 3,
-      name: 'Pesokliva',
-      url: '/public/images/game/pocva-prodavnica-icon.png'
+      name: 'prashkasta',
+      url: '/public/images/game/terrain/prashkasta.png'
     }, {
       id: 4,
-      name: 'Obicna',
-      url: '/public/images/game/pocva-prodavnica-icon.png'
+      name: 'prizmaticna',
+      url: '/public/images/game/terrain/prizmaticna.png'
     }],
     'terrain-size': [{
       size: 2,

@@ -1,14 +1,22 @@
-<div id="div-shop-manu" ng-animate="shop"
+<div class="shop-menu" ng-animate="shop"
 		ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
-	<div id="shop_icon_div_main_menu" style="background-image:url('{{storeUrl}}')"></div>
-	<span class="shop-label"> {{shop.name | translate}}</span>
-	<div id="shop_arrow_main_menu" ng-show="showNext" ng-click="hide()"></div>
+		
+	<div class="shop_icon">
+		<img src="{{storeUrl}}"></img>
+		<div class="shop-label trapezoid-bigger">
+			<span class="shop-label-text" translate="{{shop.name}}"></span> 
+		</div>
+	</div>
+	
+	<div class="shop_arrow" ng-show="showNext" ng-click="hide()"></div>
+	
 	<div class="shop_menu_grid">
-		<div class="shop_item_in_grid" ng-repeat="item in items">
-			<div class="shop_icon_in_grid" style="background-image:url('{{item.url}}')" ng-click="itemClick(item)">
+		<div class="shop_item_in_grid" ng-repeat="item in items" ng-click="itemClick(item)">
+			<img src="{{item.url}}"></img>
+			<div class="shop-item-label trapezoid"  ng-click="itemClick(item)">
+				<span class="title-text" translate="{{item.name}}"></span>
 			</div>
-			<span class="shop-item-label" translate="{{item.name}}" ng-click="itemClick(item)"></span>
-			<span class="shop-item-price" ng-show="item.price" ng-click="itemClick(item)">{{price(item)}}</span>
+			<span class="shop-item-price" ng-show="item.price">{{price(item)}}</span>
 		</div>
 	</div>
 </div>

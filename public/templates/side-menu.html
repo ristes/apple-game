@@ -11,19 +11,21 @@
 		
 	<div class="side-items-grid">
 		<div class="side-items-grid-item" 
-				ng-repeat="a in $root._items"
-				style="background-image: url('{{a.url}}')">
-			<div class="side-item-top"></div>
+				ng-repeat="a in $root._items">
+			<div class="side-item-top">
+				<img src="{{a.url}}"></img>
+			</div>
 			<div class="item-bought trapezoid" ><span class="title-text" translate="{{a.name}}"></span></div>
 			<!-- <span class="side-item-label" ></span>	  -->
 		</div>
 	</div>
 	<div class="side-operations-grid">
 		<div class="side-operations-grid-item" ng-if="a.ico"
-				style="background-image: url('{{a.ico}}')"
 				ng-repeat="a in actions"
 				ng-click="itemClick(a)">
-			<div class="side-operation-item-top"></div>
+			<div class="side-operation-item-top">
+				<img src="{{a.ico}}"></img>
+			</div>
 			<div class="item-bought trapezoid-bigger" ><span class="title-text-larger" translate="{{a.name}}" ng-click="itemClick(a)"></span></div>
 			<!-- <span class="side-operation-item-label" translate="{{a.name}}" ng-click="itemClick(a)"></span>	 -->	
 		</div>
