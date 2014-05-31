@@ -315,18 +315,18 @@ body {
    }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
   .weather-info-text {
 	font-size:0.8em;
    }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .weather-info-text {
 	font-size:0.6em;
    }
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .weather-info-text {
 	font-size:0.4em;
    }
