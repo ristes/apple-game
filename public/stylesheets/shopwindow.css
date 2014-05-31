@@ -112,10 +112,10 @@ body {
 
 .user_icons_info {
 	position: absolute;
-	top: 10%;
+	top: 30%;
 	left: 10%;
-	width: 30%;
-	height:80%;
+	width: 27%;
+	height: 60%;
 }
 .trapezoid {
 	border-top: 20px solid #79551a;
@@ -180,12 +180,12 @@ body {
 
 .img-user-info-ramka {
 	position: relative;
-	top: -2%; background : url("/public/images/home/ramka.png");
+	top: -2%; 
+	background : url("/public/images/home/ramka.png");
 	background-size: 100% 100%;
 	height: 25px;
 	text-align: center;
 	font-size: 1.3em;
-	background: url("/public/images/home/ramka.png");
 }
 
 #span_user_name {
@@ -197,7 +197,8 @@ body {
 	position: absolute;
 	height: 80px;
 	background-size: 100% 100%;
-	text-align: center;
+	text-align: right;
+	padding-right:3%;
 	z-index: 100;
 }
 
@@ -214,28 +215,20 @@ body {
 	z-index: 10;
 }
 
-#span_apples_in_stock_info {
+.span-user-info-details {
 	position: relative;
-	top: 35px;
+	top: 42%;
 	text-align: center;
 	color: #FFFFFF;
-	font-size: x-large;
+	font-size: large;
 	font-weight: bold;
 }
+
 
 #div_money_in_stock_info {
 	left: 23%;
 	top: -100px;
 	background-image: url("/public/images/home/drven_el.png");
-}
-
-#span_money_in_stock_info {
-	position: relative;
-	top: 35px;
-	text-align: center;
-	color: #FFFFFF;
-	font-size: x-large;
-	font-weight: bold;
 }
 
 #div_eco_points_info {
@@ -244,14 +237,6 @@ body {
 	background-image: url("/public/images/home/drven_el.png");
 }
 
-#span_eco_point_info {
-	position: relative;
-	top: 35px;
-	text-align: center;
-	color: #FFFFFF;
-	font-size: x-large;
-	font-weight: bold;
-}
 
 #weather_title {
 	position: relative;
@@ -335,7 +320,18 @@ body {
 		height: 20px;
 	}
 	.div-user-info-general {
-		height: 70px;
+		height: 60px;
+	}
+	.span-user-info-details {
+		font-size: 1em;
+		top: 47%;
+	}
+}
+
+@media ( max-width : 800px) {
+	.span-user-info-details {
+		font-size: 0.8em;
+		top: 47%;
 	}
 }
 
@@ -350,6 +346,23 @@ body {
 	.div-user-info-general {
 		height: 60px;
 	}
+	.span-user-info-details {
+		font-size: 0.7em;
+		top: 47%;
+	}
+}
+
+@media ( max-width : 600px) {
+	.div-user-info-general {
+		height: 50px;
+	}
+	.span-user-info-details {
+		font-size: 0.6em;
+		top: 38%;
+	}
+}
+
+@media ( max-width : 580px) {
 }
 
 @media ( max-width : 400px) {
