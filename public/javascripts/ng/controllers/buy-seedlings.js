@@ -7,7 +7,10 @@ Game.controller('BuySeadlingsController', ['$scope', '$translate', '$http',
       $scope.$root.$emit('shop-show', {
         items: $scope.items,
         showNext: false,
-        storeUrl: '/public/images/game/sadnici-icon.png'
+        shop: {
+          name: 'appleType'
+        },
+        storeUrl: '/public/images/game/stores/seedlings.png'
       });
 
       $scope.onSelectSize = function(_scope, item) {
@@ -19,7 +22,10 @@ Game.controller('BuySeadlingsController', ['$scope', '$translate', '$http',
         $scope.$root.$emit('shop-show', {
           items: $scope.items,
           showNext: false,
-          storeUrl: '/public/images/game/sadnici-icon.png'
+          shop: {
+            name: 'seedlingType'
+          },
+          storeUrl: '/public/images/game/stores/seedlings.png'
         });
         $scope.unreg = $scope.$root.$on('buy-item', $scope.onBuyItem);
 
