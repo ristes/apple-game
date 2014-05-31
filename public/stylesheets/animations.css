@@ -1,0 +1,34 @@
+@-webkit-keyframes progress-bar-flow {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 400px 0;
+  }
+}
+@keyframes progress-bar-flow {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 400px 0;
+  }
+}
+
+.progress-bar-irrigation {
+	-webkit-animation: progress-bar-flow 10s linear infinite;
+	animation: progress-bar-flow 10s linear infinite;
+	background-size: 400px 26px;
+	background-image: url("/public/images/elems/progress-bar-irrigation.png");
+	float: left;
+	width: 0;
+	height: 100%;
+	font-size: 12px;
+	line-height: 20px;
+	color: #fff;
+	text-align: center;
+	-webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+	box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+	-webkit-transition: width .6s ease;
+	transition: width .6s ease;
+}

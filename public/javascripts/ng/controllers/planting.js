@@ -14,7 +14,6 @@ Game.controller('PlantingStateController', [
     function($scope, $location, $http, Store, StoreItems, Operations, $farmer,
             $items, $plantation, $weather, toaster, $window) {
 
-      $scope.status = 35;
 
       $scope.onResizeFunction = function() {
         $scope.atom = $window.innerWidth * 0.8 / 20;

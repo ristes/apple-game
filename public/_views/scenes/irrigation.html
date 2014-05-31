@@ -29,11 +29,14 @@
 				<div class="shop_icon_in_grid" title="{{item.name}}" style="background-image:url('{{item.url}}')" ng-click="itemClick(item)"></div>
 			</div> -->
 		</div>
-		<div class="shop_menu_grid" ng-show="!enableOther">
-			<div class="progress progress-striped active">
-				<progressbar class="progress-striped active" value="status"> {{status | integer}} %</progressbar>
-			</div>
-		</div>
 	</div>
 	
+	<div ng-show="!enableOther" style="position: fixed; left: 10%; bottom: 0; z-index: 10000; width:60%"> 
+		<div class="progress-bar-irrigation" style="width: {{status}}%;">
+			<span class="ng-scope ng-binding">
+					
+				{{status | integer}} %
+			</span>
+		</div>
+	</div>
 </div>

@@ -13,7 +13,7 @@ Game.controller('IrrigationController', [
     '$timeout',
     '$irrigate',
     function($scope, $translate, $http, Store, StoreItems, Operations, $farmer,
-            $items, $plantation, $weather, $interval, $timeout,$irrigate) {
+            $items, $plantation, $weather, $interval, $timeout, $irrigate) {
 
       $scope.visible = false;
       $scope.irrigationUrl = '/public/images/game/operations/irrigation.png';
@@ -29,18 +29,24 @@ Game.controller('IrrigationController', [
       }
 
       $scope.itemClick = function() {
-        var time = $scope.holder.duration;
+        var interval = 200;
+        var time = $scope.holder.duration * 5;
+
         if ($scope.enableOther) {
           $scope.status = 0;
           $scope.enableOther = false;
           $interval(function() {
             $scope.status += Math.round(100 / time);
-          }, 1000, time);
+            if ($scope.status > 100) {
+              $scope.status = 100;
+            }
+
+          }, interval, time);
 
           $timeout(function() {
             $scope.enableOther = true;
-            $irrigate.irrigate("BrazdiNavodnuvanje",time);
-          }, 1000 * (time + 1));
+            $irrigate.irrigate("BrazdiNavodnuvanje", time);
+          }, interval * (time + 1));
 
         }
       }
