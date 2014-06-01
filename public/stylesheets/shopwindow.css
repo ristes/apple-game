@@ -129,7 +129,6 @@ body {
 	width: 80px;
 }
 .ramka {
-	width: 80px;
 	background: url("/public/images/home/ramka.png");
 	background-size:100% 100%;
 }
@@ -310,6 +309,268 @@ body {
 	font-size: 1em;
 }
 
+
+.shop-enter,.shop-leave {
+	-webkit-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-moz-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-ms-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-o-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+}
+
+.shop-enter {
+	right: 35%;
+}
+
+.shop-leave {
+	right: -750px;
+}
+
+.shop-menu {
+	position: fixed;
+	width: 40%;
+	height: 70%;
+	top: 20%;
+	background-image: url("/public/images/home/ploca.png");
+	background-size: 100% 100%;
+	z-index: 20
+}
+
+.shop_icon {
+	position: absolute;
+	width: 34%;
+	height: 100%;
+	top: 0%;
+	display: inline-block;
+	z-index:900;
+	margin-top:-14%;
+}
+
+.shop_icon-img {
+	width:75%;
+}
+
+
+
+.shop_arrow {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	bottom: 2%;
+	right: 2%;
+	cursor: pointer;
+	background-image: url("/public/images/home/prodavnica_strelka.png");
+	background-size: 100% 100%;
+	z-index: 1000;
+}
+
+.shop_menu_grid {
+	position: absolute;
+	width: 70%;
+	height: 80%;
+	top: 10%;
+	left: 25%;
+}
+
+.shop-label {
+	text-align: center;
+	width: 75%;
+	height: 8%;
+	min-height: 25px;
+	padding-bottom: 15%;
+}
+
+.shop-label-text {
+	position: relative;
+	font-family: ag-font;
+	color: white;
+	font-size: 1.7em;
+}
+
+.shop_item_in_grid {
+	width: 33%;
+	padding-right: 5px;
+	float: left;
+	text-align: center;
+	z-index: 300;
+	cursor: pointer;
+	float: left;
+}
+
+.shop_item_in_grid img {
+	width: 100%;
+	height: 100%;
+}
+
+.shop-item-label {
+	text-align: center;
+	min-width: 100%;
+	min-height: 25px;
+	color: white;
+}
+
+.shop-item-price {
+	display: block;
+	margin-top: -20px;
+	background-image: url("/public/images/game/pricetag.png");
+	width: 120px;
+	height: 50px;
+	background-size: 100% 120%;
+	background-position: 0px -15px;
+	background-repeat: no-repeat;
+	text-align: right;
+	font-family: ag-font;
+	color: white;
+	font-size: 20px;
+	padding-right: 25px;
+}
+
+.rotate,.rotateCounterwise {
+	-webkit-transition: 300ms ease all;
+	-moz-transition: 300ms ease all;
+	-o-transition: 300ms ease all;
+	transition: 300ms ease all;
+}
+
+.rotate {
+	-webkit-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+.rotateCounterwise {
+	-webkit-transform: rotate(0deg);
+	transform: rotate(0deg);
+}
+
+.modal-backdrop {
+	opacity: 0.7;
+}
+
+.slide-enter,.slide-leave {
+	-webkit-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-moz-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-ms-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-o-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+}
+
+.slide-leave {
+	right: -43%;
+}
+
+.slide-enter {
+	right: -1%;
+}
+
+.side-screen {
+	position: fixed;
+	width: 55%;
+	height: 100%;
+	z-index: 1000;
+	top: 0px;
+	background-image: url("/public/images/home/ploca.png");
+	background-size: 100% 100%;
+}
+
+.side-screen-bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 999;
+	opacity: 0;
+}
+
+.side-arrow {
+	position: relative;
+	width: 8%;
+	height: 8%;
+	top: 3%;
+	left: 4%;
+	cursor: pointer;
+	background-image: url("/public/images/home/prodavnica_strelka.png");
+	background-size: 100% 100%;
+}
+
+.side-items-grid {
+	position: absolute;
+	width: 75%;
+	height: 40%;
+	top: 10%;
+	left: 23%;
+}
+
+.side-items-grid-item {
+	width: 20%;
+	height: 17%;
+	margin: 3px;
+	float: left;
+	text-align: center;
+}
+
+.side-item-top {
+	width: 100%;
+	display: block;
+}
+
+.side-item-top img {
+	width: 100%;
+	height: 100%;
+}
+
+.side-item-label {
+	text-align: center;
+	font-family: ag-font;
+	color: white;
+	font-size: 100%;
+	display: block;
+	margin: -3%;
+	padding: 3%;
+}
+
+.side-operations-grid {
+	position: absolute;
+	width: 75%;
+	height: 50%;
+	top: 45%;
+	left: 23%;
+}
+
+.side-operations-grid-item {
+	width: 32%;
+	height: 48%;
+	cursor: pointer;
+	float: left;
+	margin-bottom: 3%;
+}
+
+.side-operation-item-top {
+	width: 100%;
+	display: block;
+}
+
+.side-operation-item-top img {
+	width: 100%;
+	height: 100%;
+}
+
+.side-operation-item-label {
+	text-align: center;
+	font-family: ag-font;
+	color: white;
+	font-size: 160%;
+	cursor: pointer;
+	display: block;
+	margin: -3%;
+	padding: 3%;
+}
+
+.side-operation-item-label:hover {
+	margin: -3%;
+	padding: 7%;
+}
+
+
+
 @media ( max-width : 1200px) {
 	.weather-info-text {
 		font-size: 0.9em;
@@ -322,6 +583,9 @@ body {
 @media ( max-width : 1100px) {
 	.weather-info-text {
 		font-size: 0.8em;
+	}
+	.shop-label-text {
+		font-size: 1.4em;
 	}
 }
 
@@ -343,6 +607,9 @@ body {
 	.title-text {
 		font-size: 1em;
 	}
+	.shop-label-text {
+		font-size: 1.2em;
+	}
 	
 }
 
@@ -354,6 +621,12 @@ body {
 	.title-text-larger {
 		font-size:1.3em;
 	}
+	.shop-label-text {
+		font-size: 1.1em;
+	}
+	.shop-label {
+		height:7%;
+	} 
 }
 
 @media ( max-width : 700px) {
@@ -389,11 +662,17 @@ body {
 	.title-text-larger {
 		font-size:1em;
 	}
+	.shop-item-label {
+		min-height: 20px;
+	}
+	.item-store {
+		min-height: 20px;
+	}
 }
 
 @media ( max-width : 580px) {
 	.item-bought {
-		min-height:20px;
+		min-height:15px;
 	}
 }
 
