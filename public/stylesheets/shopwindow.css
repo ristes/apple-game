@@ -504,6 +504,10 @@ body {
 	text-align: center;
 }
 
+.side-items-grid-item:HOVER {
+	cursor: pointer;
+}
+
 .side-item-top {
 	width: 100%;
 	display: block;

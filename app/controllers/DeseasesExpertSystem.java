@@ -18,11 +18,7 @@ import play.mvc.Controller;
 
 public class DeseasesExpertSystem extends Controller {
 	
-	public static void test() throws UnknownFunctionException, UnparsableExpressionException {
-		Calculable calc = new ExpressionBuilder("3*sin(y)-2/(x-2)").withVariable("x", 3).withVariable("y", 30).build();
-		Double result = calc.calculate();
-		renderJSON(result);
-	}
+
 
 	public static void getUserLuck() {
 		Farmer f = AuthController.getFarmer();

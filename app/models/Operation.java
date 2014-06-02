@@ -66,6 +66,8 @@ public class Operation extends Model {
 	public SpriteImage effect;
 
 	public String action;
+	
+	public String icon_url;
 
 	public double rank;
 

@@ -124,10 +124,11 @@ public class Farmer extends Model {
 		Calendar c = Calendar.getInstance();
 		c.setTime(gameDate.date);
 		c.set(Calendar.DAY_OF_MONTH, 1);
-		c.set(Calendar.MONTH, 1);
+		c.set(Calendar.MONTH, 9);
 		if (date.after(c.getTime())) {
-			c.set(Calendar.DAY_OF_MONTH, 31);
-			c.set(Calendar.MONTH, 12);
+			c.add(Calendar.YEAR, 1);
+			c.set(Calendar.DAY_OF_MONTH, 1);
+			c.set(Calendar.MONTH, 9);
 			if (c.before(date)) {
 				return true;
 			}

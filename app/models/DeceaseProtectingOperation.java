@@ -56,5 +56,9 @@ public class DeceaseProtectingOperation extends Model {
 		return false;
 	}
 	
+	public String toString() {
+		return decease.name+" "+operation.name;
+	}
+	
 
 }

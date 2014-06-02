@@ -11,7 +11,7 @@
 		
 	<div class="side-items-grid">
 		<div class="side-items-grid-item" 
-				ng-repeat="a in $root._items">
+				ng-repeat="a in $root._items" ng-click="executeItem(item)">
 			<div class="side-item-top">
 				<img src="{{a.url}}"></img>
 			</div>
