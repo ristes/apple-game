@@ -28,6 +28,8 @@ var GameDirectives = angular
                         link: function(scope, element, attrs, ctrl, transclude,
                                 formCtrl) {
                           var listeners = [];
+                          
+                         
 
                           var dialog = $modal({
                             scope: scope,
@@ -89,6 +91,7 @@ var GameDirectives = angular
             transclude: true,
             scope: {},
             link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
+            	
               $.cssEase['bounce'] = 'cubic-bezier(0,1,0.5,1.3)';
               $(element).find("#div_user_icon").transition({
                 left: '15px'
@@ -102,6 +105,8 @@ var GameDirectives = angular
               $(element).find("#div_eco_points_info").transition({
                 top: '-10px'
               }, 1000, 'bounce');
+              
+             
             },
             templateUrl: '/public/templates/user-info.html'
           };

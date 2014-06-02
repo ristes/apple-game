@@ -1,5 +1,5 @@
-Game.factory('$farmer', [ '$rootScope', '$http', '$items', '$location','$day',
-		function($rootScope, $http, $items, $location,$day) {
+Game.factory('$farmer', [ '$rootScope', '$http', '$items', '$location', '$day',
+		function($rootScope, $http, $items, $location, $day) {
 			function swap(farmer) {
 				if (!$rootScope.farmer) {
 					$items.load();
@@ -7,6 +7,7 @@ Game.factory('$farmer', [ '$rootScope', '$http', '$items', '$location','$day',
 				if ($rootScope.farmer === farmer)
 					return;
 				$rootScope.farmer = farmer;
+
 				$location.path(farmer.currentState || '/buy_tractor');
 			}
 			return {
@@ -35,7 +36,7 @@ Game.factory('$items', [ '$rootScope', '$http', function($rootScope, $http) {
 	}
 	return {
 		load : function() {
-			var res = $http.get("/public/javascripts/ng/mock/items.json");
+			var res = $http.get("/storecontroller/myitems");
 			res.success(function(data) {
 				$rootScope.items = {};
 				$rootScope._items = data || [];
@@ -119,7 +120,9 @@ Game
 							};
 						} ]);
 
-Game.factory('$plantation', [ '$rootScope', '$http',
+Game.factory('$plantation', [
+		'$rootScope',
+		'$http',
 		function($rootScope, $http) {
 			return {
 				load : function() {
@@ -130,8 +133,10 @@ Game.factory('$plantation', [ '$rootScope', '$http',
 						});
 					}
 				},
-				save : function(array,fn) {
-					var res = $http.post("/PlantationController/savePlanting?array="+array);
+				save : function(array, fn) {
+					var res = $http
+							.post("/PlantationController/savePlanting?array="
+									+ array);
 					res.success(function(data) {
 						$rootScope.$emit(fn);
 					})
@@ -150,23 +155,30 @@ Game.factory('$diseases', [ '$rootScope', '$http', function($rootScope, $http) {
 	};
 } ]);
 
-Game.factory('$day', [ '$rootScope', '$http', '$weather', '$diseases',
-		function($rootScope, $http, $weather, $diseases) {
-			return {
-				load : function(farmer) {
-					$rootScope.day = farmer;
-				},
-				next : function() {
-					var res = $http.get("/application/nextday");
-					res.success(function(data) {
-						$rootScope.day = data;
-						$weather.load();
-						$diseases.load();
-						
-					});
-				}
-			};
-		} ]);
+Game
+		.factory(
+				'$day',
+				[
+						'$rootScope',
+						'$http',
+						'$weather',
+						'$diseases',
+						function($rootScope, $http, $weather, $diseases) {
+							return {
+								load : function(farmer) {
+									$rootScope.day = farmer;
+									
+								},
+								next : function() {
+									var res = $http.get("/application/nextday");
+									res.success(function(data) {
+										$rootScope.day = data;
+										$weather.load();
+										$diseases.load();
+									});
+								}
+							};
+						} ]);
 
 Game.factory('$irrigate', [
 		'$rootScope',
@@ -175,29 +187,25 @@ Game.factory('$irrigate', [
 		function($rootScope, $http, $day) {
 			return {
 				irrigate : function(name, time) {
-					var res = $http.get("/IrrigationController/irrigation?name="
-							+ name + "&time=" + time);
+					var res = $http
+							.get("/IrrigationController/irrigation?name="
+									+ name + "&time=" + time);
 					res.success(function(data) {
 						$day.load(data);
-//						$weather.load();
-//						$diseases.load();
+						// $weather.load();
+						// $diseases.load();
 					});
 				}
 			};
 		} ]);
-Game.factory('$plowing', [
-                   		'$rootScope',
-                   		'$http',
-                   		'$day',
-                   		function($rootScope, $http, $day) {
-                   			return {
-                   				plowing : function() {
-                   					var res = $http.get("/LandTreatmanController/plowing");
-                   					res.success(function(data) {
-                   						$day.load(data);
-                   					});
-                   				}
-                   			};
-                   		} ]);
-
-
+Game.factory('$plowing', [ '$rootScope', '$http', '$day',
+		function($rootScope, $http, $day) {
+			return {
+				plowing : function() {
+					var res = $http.get("/LandTreatmanController/plowing");
+					res.success(function(data) {
+						$day.load(data);
+					});
+				}
+			};
+		} ]);

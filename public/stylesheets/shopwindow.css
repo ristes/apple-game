@@ -112,12 +112,11 @@ body {
 
 .user_icons_info {
 	position: absolute;
-	top: 20px;
-	left: 25px;
-	width: 40px;
-	height: 50px;
+	top: 30%;
+	left: 10%;
+	width: 27%;
+	height: 60%;
 }
-
 .trapezoid {
 	border-top: 20px solid #79551a;
 	border-left: 8px solid transparent;
@@ -128,6 +127,10 @@ body {
 	-moz-filter: drop-shadow(0 1px 5px rgba(0, 0, 0, .5));
 	filter: drop-shadow(0 1px 5px rgba(0, 0, 0, .5));
 	width: 80px;
+}
+.ramka {
+	background: url("/public/images/home/ramka.png");
+	background-size:100% 100%;
 }
 
 .trapezoid-bigger {
@@ -144,52 +147,75 @@ body {
 
 .item-bought {
 	text-align: center;
-	min-width: 100%;
-	min-height: 30px;
+	width: 100%;
+	height: 60%;
+	min-height:25px;
+	color: white;
+}
+.item-store {
+	text-align: center;
+	width: 100%;
+	height: 20%;
+	min-height:25px;
 	color: white;
 }
 
 .title-text {
-	position: relative;
-	top: -23px;
 	font-family: ag-font;
 	font-size: large;
 }
 
 .title-text-larger {
 	position: relative;
-	top: -30px;
+	top: -2px;
 	font-family: ag-font;
 	font-size: x-large;
 }
 
 #div_user_icon {
 	position: absolute;
-	width: 100px;
-	height: 100px;
+	width: 7%;
+	height: 100%;
 	left: -35px;
 	top: 7px;
-	background-image: url("/public/images/home/igrac.png");
-	background-size: 100% 100%;
+	/*background-image: url("/public/images/home/igrac.png");
+	background-size: 100% 100%;*/
 	text-align: center;
+	z-index: 100;
+}
+
+.img-user-info {
+	width: 100%;
+}
+
+.img-user-info-ramka {
+	position: relative;
+	top: -2%; 
+	background : url("/public/images/home/ramka.png");
+	background-size: 100% 100%;
+	height: 25px;
+	text-align: center;
+	font-size: 1.3em;
 }
 
 #span_user_name {
-	position: relative;
-	top: 75px;
-	font-size: large;
 	color: #FFFFFF;
 }
 
-#div_apple_in_stock_info {
+.div-user-info-general {
+	width: 13%;
 	position: absolute;
-	width: 175px;
 	height: 80px;
-	left: 125px;
+	background-size: 100% 100%;
+	text-align: right;
+	padding-right:3%;
+	z-index: 100;
+}
+
+#div_apple_in_stock_info {
+	left: 9%;
 	top: -100px;
 	background-image: url("/public/images/home/drven_el.png");
-	background-size: 100% 100%;
-	text-align: center;
 }
 
 #span_icon_apples_in_stock {
@@ -199,54 +225,28 @@ body {
 	z-index: 10;
 }
 
-#span_apples_in_stock_info {
+.span-user-info-details {
 	position: relative;
-	top: 35px;
+	top: 42%;
 	text-align: center;
 	color: #FFFFFF;
-	font-size: x-large;
+	font-size: large;
 	font-weight: bold;
 }
+
 
 #div_money_in_stock_info {
-	position: absolute;
-	width: 175px;
-	height: 80px;
-	left: 330px;
+	left: 23%;
 	top: -100px;
 	background-image: url("/public/images/home/drven_el.png");
-	background-size: 100% 100%;
-	text-align: center;
-}
-
-#span_money_in_stock_info {
-	position: relative;
-	top: 35px;
-	text-align: center;
-	color: #FFFFFF;
-	font-size: x-large;
-	font-weight: bold;
 }
 
 #div_eco_points_info {
-	position: absolute;
-	width: 175px;
-	height: 80px;
-	left: 540px;
+	left: 37%;
 	top: -100px;
 	background-image: url("/public/images/home/drven_el.png");
-	background-size: 100% 100%;
-	text-align: center;
 }
 
-#span_eco_point_info {
-	position: relative;
-	top: 35px;
-	text-align: center;
-	color: #FFFFFF;
-	font-size: x-large;
-	font-weight: bold;
-}
 
 #weather_title {
 	position: relative;
@@ -306,34 +306,407 @@ body {
 }
 
 .weather-info-text {
-	font-size:1em;
+	font-size: 1em;
 }
 
-@media (max-width: 1200px) {
-  .weather-info-text {
-	font-size:0.9em;
-   }
+
+.shop-enter,.shop-leave {
+	-webkit-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-moz-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-ms-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-o-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
 }
 
-@media (max-width: 1100px) {
-  .weather-info-text {
-	font-size:0.8em;
-   }
+.shop-enter {
+	right: 35%;
 }
 
-@media (max-width: 1000px) {
-  .weather-info-text {
-	font-size:0.6em;
-   }
-}
-@media (max-width: 700px) {
-  .weather-info-text {
-	font-size:0.4em;
-   }
+.shop-leave {
+	right: -750px;
 }
 
-@media (max-width: 400px) {
-  .weather-info-text {
-	font-size:0.2em;
-   }
+.shop-menu {
+	position: fixed;
+	width: 40%;
+	height: 70%;
+	top: 20%;
+	background-image: url("/public/images/home/ploca.png");
+	background-size: 100% 100%;
+	z-index: 20
+}
+
+.shop_icon {
+	position: absolute;
+	width: 34%;
+	height: 100%;
+	top: 0%;
+	display: inline-block;
+	z-index:900;
+	margin-top:-14%;
+}
+
+.shop_icon-img {
+	width:75%;
+}
+
+
+
+.shop_arrow {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	bottom: 2%;
+	right: 2%;
+	cursor: pointer;
+	background-image: url("/public/images/home/prodavnica_strelka.png");
+	background-size: 100% 100%;
+	z-index: 1000;
+}
+
+.shop_menu_grid {
+	position: absolute;
+	width: 70%;
+	height: 80%;
+	top: 10%;
+	left: 25%;
+}
+
+.shop-label {
+	text-align: center;
+	width: 75%;
+	height: 8%;
+	min-height: 25px;
+	padding-bottom: 15%;
+}
+
+.shop-label-text {
+	position: relative;
+	font-family: ag-font;
+	color: white;
+	font-size: 1.7em;
+}
+
+.shop_item_in_grid {
+	width: 33%;
+	padding-right: 5px;
+	float: left;
+	text-align: center;
+	z-index: 300;
+	cursor: pointer;
+	float: left;
+}
+
+.shop_item_in_grid img {
+	width: 100%;
+	height: 100%;
+}
+
+.shop-item-label {
+	text-align: center;
+	min-width: 100%;
+	min-height: 25px;
+	color: white;
+}
+
+.shop-item-price {
+	background-image: url("/public/images/game/pricetag.png");
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	text-align: right;
+	font-family: ag-font;
+	color: white;
+	font-size: 1.5em;
+	padding-right: 15%;
+	padding-top:8%;
+	margin-top: -8%;
+}
+
+.rotate,.rotateCounterwise {
+	-webkit-transition: 300ms ease all;
+	-moz-transition: 300ms ease all;
+	-o-transition: 300ms ease all;
+	transition: 300ms ease all;
+}
+
+.rotate {
+	-webkit-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+.rotateCounterwise {
+	-webkit-transform: rotate(0deg);
+	transform: rotate(0deg);
+}
+
+.modal-backdrop {
+	opacity: 0.7;
+}
+
+.slide-enter,.slide-leave {
+	-webkit-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-moz-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-ms-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-o-transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	transition: 700ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+}
+
+.slide-leave {
+	right: -43%;
+}
+
+.slide-enter {
+	right: -1%;
+}
+
+.side-screen {
+	position: fixed;
+	width: 55%;
+	height: 100%;
+	z-index: 1000;
+	top: 0px;
+	background-image: url("/public/images/home/ploca.png");
+	background-size: 100% 100%;
+}
+
+.side-screen-bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 999;
+	opacity: 0;
+}
+
+.side-arrow {
+	position: relative;
+	width: 8%;
+	height: 8%;
+	top: 3%;
+	left: 4%;
+	cursor: pointer;
+	background-image: url("/public/images/home/prodavnica_strelka.png");
+	background-size: 100% 100%;
+}
+
+.side-items-grid {
+	position: absolute;
+	width: 75%;
+	height: 40%;
+	top: 10%;
+	left: 23%;
+}
+
+.side-items-grid-item {
+	width: 20%;
+	margin: 3px;
+	float: left;
+	text-align: center;
+}
+
+.side-item-top {
+	width: 100%;
+	display: block;
+}
+
+.side-item-top img {
+	width: 100%;
+	height: 100%;
+}
+
+.side-item-label {
+	text-align: center;
+	font-family: ag-font;
+	color: white;
+	font-size: 100%;
+	display: block;
+	margin: -3%;
+	padding: 3%;
+}
+
+.side-operations-grid {
+	position: absolute;
+	width: 75%;
+	height: 50%;
+	top: 45%;
+	left: 23%;
+}
+
+.side-operations-grid-item {
+	width: 32%;
+	height: 48%;
+	cursor: pointer;
+	float: left;
+	margin-bottom: 3%;
+}
+
+.side-operation-item-top {
+	width: 100%;
+	display: block;
+}
+
+.side-operation-item-top img {
+	width: 100%;
+	height: 100%;
+}
+
+.side-operation-item-label {
+	text-align: center;
+	font-family: ag-font;
+	color: white;
+	font-size: 160%;
+	cursor: pointer;
+	display: block;
+	margin: -3%;
+	padding: 3%;
+}
+
+.side-operation-item-label:hover {
+	margin: -3%;
+	padding: 7%;
+}
+
+
+
+@media ( max-width : 1200px) {
+	.weather-info-text {
+		font-size: 0.9em;
+	}
+	.title-text-larger {
+		font-size:1.5em;
+	}
+	.shop-item-price {
+		font-size: 1.3em;
+	}
+}
+
+@media ( max-width : 1100px) {
+	.weather-info-text {
+		font-size: 0.8em;
+	}
+	.shop-label-text {
+		font-size: 1.4em;
+	}
+	.shop-item-price {
+		font-size: 1.2em;
+	}
+}
+
+@media ( max-width : 1000px) {
+	.weather-info-text {
+		font-size: 0.6em;
+	}
+	.img-user-info-ramka {
+		font-size: 1em;
+		height: 20px;
+	}
+	.div-user-info-general {
+		height: 60px;
+	}
+	.span-user-info-details {
+		font-size: 1em;
+		top: 47%;
+	}
+	.title-text {
+		font-size: 1em;
+	}
+	.shop-label-text {
+		font-size: 1.2em;
+	}
+	.shop-item-price {
+		font-size: 1.0em;
+	}
+	
+}
+
+@media ( max-width : 800px) {
+	.span-user-info-details {
+		font-size: 0.8em;
+		top: 47%;
+	}
+	.title-text-larger {
+		font-size:1.3em;
+	}
+	.shop-label-text {
+		font-size: 1.1em;
+	}
+	.shop-item-price {
+		font-size: 0.8em;
+	}
+	.shop-label {
+		height:7%;
+	} 
+}
+
+@media ( max-width : 700px) {
+	.weather-info-text {
+		font-size: 0.4em;
+	}
+	.img-user-info-ramka {
+		font-size: 0.8em;
+		height: 18px;
+	}
+	.div-user-info-general {
+		height: 60px;
+	}
+	.span-user-info-details {
+		font-size: 0.7em;
+		top: 47%;
+	}
+}
+
+@media ( max-width : 600px) {
+	.div-user-info-general {
+		height: 45px;
+	}
+	.span-user-info-details {
+		font-size: 0.6em;
+		top: 38%;
+	}
+	
+	.title-text {
+		font-size: 0.7em;
+	}
+	
+	.title-text-larger {
+		font-size:1em;
+	}
+	.shop-item-label {
+		min-height: 20px;
+	}
+	.item-store {
+		min-height: 20px;
+	}
+	.shop-item-price {
+		font-size: 0.5em;
+	}
+}
+
+@media ( max-width : 580px) {
+	.item-bought {
+		min-height:15px;
+	}
+}
+
+@media ( max-width : 400px) {
+	.weather-info-text {
+		font-size: 0.6em;
+	}
+	.img-user-info-ramka {
+		font-size: 0.6em;
+		height: 15px;
+	}
+	.div-user-info-general {
+		height: 40px;
+	}
+	.weather-div {
+		display: none;
+	}
+	.weather-div-bigger {
+		float: none;
+		width: 60%;
+	}
+	.shop-item-price {
+		font-size: 0.4em;
+	}
 }

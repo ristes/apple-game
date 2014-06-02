@@ -1,6 +1,8 @@
 package controllers;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,8 +14,8 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import dto.FarmerTransactionDao;
+import dto.ItemBoughtDto;
 import dto.StoreDto;
-
 import models.Farmer;
 import models.Item;
 import models.ItemInstance;
@@ -21,6 +23,7 @@ import models.Operation;
 import models.OperationDuration;
 import models.Store;
 import play.cache.Cache;
+import play.db.jpa.JPA;
 import play.mvc.Controller;
 
 public class StoreController extends Controller {
@@ -54,11 +57,11 @@ public class StoreController extends Controller {
 		
 	}
 
-	public static void buyItem(String itemid, Integer quantity,
+	public static void buyItem(String itemName, Integer quantity,
 			String currentState) throws IOException {
 		Farmer farmer = AuthController.getFarmer();
 		if (farmer != null) {
-			Item item = Item.findById(Long.parseLong(itemid));
+			Item item = Item.find("byName",itemName).first();
 			Long cost = (long) item.price * quantity;
 			Boolean successTransaction = triggerBuyingItem(farmer, item,
 					quantity);
@@ -129,6 +132,27 @@ public class StoreController extends Controller {
 		}
 		JsonController.toJson(result);
 
+	}
+	
+	public static void myitems() throws JsonGenerationException, JsonMappingException, IOException {
+		Farmer farmer = AuthController.getFarmer();
+		if (farmer==null) {
+			renderJSON("");
+		}
+		List<ItemBoughtDto> result = new ArrayList<ItemBoughtDto>();
+		String sql = "SELECT ItemInstance.id,type_id,name,imageurl,count(type_id) as count FROM ItemInstance,Item where ItemInstance.type_id=Item.id and ownedBy_id=:1 GROUP BY type_id order by ItemInstance.id";
+		List<Object[]> resultSql = JPA.em().createNativeQuery(sql).setParameter("1", farmer.id).getResultList();
+		for (Object[] obj:resultSql) {
+			ItemBoughtDto item = new ItemBoughtDto();
+			item.id = ((BigInteger)obj[0]).longValue();
+			item.type_id = ((BigInteger)obj[1]).longValue();
+			item.name = (String)obj[2];
+			item.url = (String)obj[3];
+			item.count = ((BigInteger)obj[4]).intValue();
+			result.add(item);
+			
+		}
+		renderJSON(result);
 	}
 
 }

@@ -1,5 +1,6 @@
 
-<img src="/public/images/backgrounds/lake-1.png" class="lake"/>
+<img ng-show="$root.day.eco_points>50" src="/public/images/backgrounds/lake-2.png" class="lake"/>
+<img ng-show="$root.day.eco_points<=50" src="/public/images/backgrounds/lake-1.png" class="lake"/>
 <img src="/public/images/backgrounds/side-trees.png" class="side-trees"/>
 <!-- <img src="/public/images/backgrounds/side-terrain.png" class="side-terrain"/> -->
 <div class="scene">

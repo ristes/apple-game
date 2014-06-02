@@ -45,13 +45,13 @@ Game.factory('StoreItems', function($resource) {
     'tractor': [{
       id: 1,
       store: 'tractor',
-      name: 'ecoTractor',
+      name: 'EkoTraktor',
       price: 250000,
       url: '/public/images/game/items/eco-tractor.png'
     }, {
       id: 2,
       store: 'tractor',
-      name: 'tractor',
+      name: 'ObicenTraktor',
       price: 150000,
       url: '/public/images/game/items/tractor.png'
     }],
@@ -110,7 +110,7 @@ Game.factory('StoreItems', function($resource) {
     }],
     'apple-type': [{
       id: 1,
-      name: 'Ajdared',
+      name: 'Ajdaret',
       url: '/public/images/game/appletypes/ajdared.png'
     }, {
       id: 2,
@@ -151,21 +151,21 @@ Game.factory('StoreItems', function($resource) {
       store: 'fertilizer',
       perHa: true,
       price: 100,
-      name: 'npk',
+      name: 'NPK',
       url: '/public/images/game/items/fertilizer.png'
     }, {
       id: 2,
       store: 'fertilizer',
       perHa: true,
       price: 100,
-      name: 'animal',
+      name: 'ArskoGjubrivo',
       url: '/public/images/game/items/fertilizer.png'
     }, {
       id: 3,
       store: 'fertilizer',
       perHa: true,
       price: 100,
-      name: 'ca',
+      name: 'Ca',
       url: '/public/images/game/items/fertilizer.png'
     }, {
       id: 4,
@@ -179,21 +179,21 @@ Game.factory('StoreItems', function($resource) {
       store: 'fertilizer',
       perHa: true,
       price: 100,
-      name: 'mg',
+      name: 'Mg',
       url: '/public/images/game/items/fertilizer.png'
     }],
     'irrigation': [{
       id: 1,
       store: 'irrigation',
       price: 100,
-      name: 'grooves',
+      name: 'BrazdiNavodnuvanje',
       url: '/public/images/game/items/grooves.png'
     }, {
       id: 2,
       store: 'irrigation',
       price: 100,
       perHa: true,
-      name: 'drop',
+      name: 'KapkovoNavodnuvanje',
       url: '/public/images/game/items/drop.png'
     }, {
       id: 3,
@@ -242,21 +242,21 @@ Game.factory('StoreItems', function($resource) {
       store: 'spraying',
       price: 100,
       perHa: true,
-      name: 'pheromone',
+      name: 'Insekticid',
       url: '/public/images/game/items/pheromone.png'
     }, {
       id: 3,
       store: 'spraying',
       price: 100,
       perHa: true,
-      name: 'copper-fungicide',
+      name: 'BakarenFugicid',
       url: '/public/images/game/items/copper-fungicide.png'
     }, {
       id: 4,
       store: 'spraying',
       price: 100,
       perHa: true,
-      name: 'white-oil',
+      name: 'BeloMaslo',
       url: '/public/images/game/items/white-oil.png'
     }],
     'stores': [{
