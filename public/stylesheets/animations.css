@@ -32,3 +32,78 @@
 	-webkit-transition: width .6s ease;
 	transition: width .6s ease;
 }
+
+
+.progress-bar-tensiometer {
+	-webkit-animation: progress-bar-flow 10s linear infinite;
+	animation: progress-bar-flow 10s linear infinite;
+	background-size: 400px 26px;
+	background-image: url("/public/images/elems/progress-bar-irrigation.png");
+	float: left;
+	width: 0;
+	height: 100%;
+	font-size: 12px;
+	line-height: 20px;
+	color: #fff;
+	text-align: center;
+	-webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+	box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+	-webkit-transition: width .6s ease;
+	transition: width .6s ease;
+}
+
+
+.wrapper {
+  width: 250px;
+  height: 250px;
+  position: relative;
+  background: white;
+}
+
+.pie {
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  background: #08C;
+  border: 10px solid rgba(0,0,0,0.4);
+}
+
+.spinner {
+  border-radius: 125px 0 0 125px;
+  z-index: 2000;
+  border-right: none;
+  -webkit-animation: rota 10s linear infinite;
+}
+
+.filler {
+  border-radius: 0 125px 125px 0;
+  z-index: 10;
+  border-left: none;
+  -webkit-animation: fill 10s steps(1, end) infinite;
+  left: 50%;
+  opacity: 0;
+}
+
+.mask {
+  height: 100%;
+  position: absolute;
+  z-index: 10;
+  opacity: 1;
+  background: inherit;
+  -webkit-animation: mask 10s steps(1, end) infinite;
+}
+
+@keyframes rota {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fill {
+  0%        { opacity: 0; }
+  50%, 100% { opacity: 1; }
+}
+
+@keyframes mask {
+  0%        { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}

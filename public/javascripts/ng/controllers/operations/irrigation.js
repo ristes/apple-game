@@ -24,6 +24,8 @@ Game.controller('IrrigationController', [
       $scope.holder.duration = 1;
       $scope.max = 12;
 
+      $scope.showTensiometer = true;
+
       $scope.hide = function() {
         $scope.visible = false;
       }

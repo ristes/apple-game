@@ -31,12 +31,23 @@
 		</div>
 	</div>
 	
-	<div ng-show="!enableOther" style="position: fixed; left: 10%; bottom: 0; z-index: 10000; width:60%"> 
+	<div ng-show="!enableOther" class="irrigation-progress"> 
 		<div class="progress-bar-irrigation" style="width: {{status}}%;">
-			<span class="ng-scope ng-binding">
-					
+			<span>
 				{{status | integer}} %
 			</span>
 		</div>
+	</div>
+	
+	<div ng-show="showTensiometer" class="tensiometer-progress">
+		<div class="progress-bar-tensiometer" style="height: {{status}}%;">
+			
+		</div>
+	</div>
+	
+	<div class="wrapper">
+		<div class="spinner pie"></div>
+		<div class="filler pie"></div>
+		<div class="mask" style="width: {{status}}%"></div>
 	</div>
 </div>
