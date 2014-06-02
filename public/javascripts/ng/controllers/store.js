@@ -20,7 +20,7 @@ Game.controller('StoreController', ['$scope', '$translate', '$http', 'Store',
 
       $scope.onBuyItem = function(_scope, item) {
         Store[$scope.servMethod]({
-          itemid: item.id,
+          itemName: item.name,
           quantity: 1,
           currentState: "/" + $scope.nextState
         }, null, function(result) {

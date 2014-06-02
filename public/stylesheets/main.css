@@ -9,6 +9,20 @@
 	-o-background-size: cover;
 }
 
+.body-transition-bkg {
+	-webkit-transition: background 0.5s linear;
+	-moz-transition: background 0.5s linear;
+	transition: background 0.5s linear;
+}
+
+.weather-div-transition {
+	 -webkit-transition: all 1s linear; 
+	 -moz-transition: all 1s linear; 
+	 -ms-transition: all 1s linear; 
+	 -o-transition: all 1s linear; 
+	 transition: all 1s linear;
+}
+
 
 .scene {
 	position: fixed;

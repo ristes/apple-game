@@ -53,7 +53,7 @@ Game.controller('IrrigationController', [
 
       var onBuyItem = function(item) {
         Store['buyItem']({
-          itemid: item.id,
+          itemName: item.name,
           quantity: item.perHa ? $scope.plantation.area : 1,
           currentState: $scope.$root.farmer.currentState
         }, null, function(result) {
