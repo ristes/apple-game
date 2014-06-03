@@ -48,30 +48,31 @@ public class HumidityController extends Controller {
 		Calendar c = Calendar.getInstance();
 		c.setTime(farmer.gameDate.date);
 
-		Double coef_eva = coefs.get(C.KEY_DROPS_EVAP).get(
-				c.get(Calendar.MONTH));
-		Double coef_hum = coefs.get(C.KEY_DROPS_HUM).get(
-				c.get(Calendar.MONTH));
+		Double coef_eva = coefs.get(C.KEY_DROPS_EVAP)
+				.get(c.get(Calendar.MONTH));
+		Double coef_hum = coefs.get(C.KEY_DROPS_HUM).get(c.get(Calendar.MONTH));
 
-		double impact = farmer.cumulativeHumidity * 100 / coef_hum - 100;
-		return looses_q(farmer.productQuantity,impact);
+		if (coef_hum > 0.0) {
+			double impact = farmer.deltaCumulative * 100 / coef_hum - 100;
+			return looses_q(farmer.productQuantity, impact);
+		}
+		return farmer.productQuantity;
 	}
-	
+
 	public static double drops_irrigation_delta_impact_eco_point(Farmer farmer) {
 		HashMap<String, ArrayList<Double>> coefs = load_hash();
 
 		Calendar c = Calendar.getInstance();
 		c.setTime(farmer.gameDate.date);
 
-		Double coef_eva = coefs.get(C.KEY_DROPS_EVAP).get(
-				c.get(Calendar.MONTH));
-		Double coef_hum = coefs.get(C.KEY_DROPS_HUM).get(
-				c.get(Calendar.MONTH));
+		Double coef_eva = coefs.get(C.KEY_DROPS_EVAP)
+				.get(c.get(Calendar.MONTH));
+		Double coef_hum = coefs.get(C.KEY_DROPS_HUM).get(c.get(Calendar.MONTH));
 
 		double impact = farmer.cumulativeHumidity * 100 / coef_hum - 100;
 		return looses_eco(farmer.eco_points, impact);
 	}
-	
+
 	public static int brazdi_irrigation_delta_impact_quantity(Farmer farmer) {
 		HashMap<String, ArrayList<Double>> coefs = load_hash();
 
@@ -82,11 +83,13 @@ public class HumidityController extends Controller {
 				c.get(Calendar.MONTH));
 		Double coef_hum = coefs.get(C.KEY_GROOVES_HUM).get(
 				c.get(Calendar.MONTH));
-
-		double impact = farmer.cumulativeHumidity * 100 / coef_hum - 100;
-		return looses_q(farmer.productQuantity,impact);
+		if (coef_hum > 0.0) {
+			double impact = farmer.deltaCumulative * 100 / coef_hum - 100;
+			return looses_q(farmer.productQuantity, impact);
+		}
+		return farmer.productQuantity;
 	}
-	
+
 	public static double brazdi_irrigation_delta_impact_eco_point(Farmer farmer) {
 		HashMap<String, ArrayList<Double>> coefs = load_hash();
 
@@ -97,9 +100,11 @@ public class HumidityController extends Controller {
 				c.get(Calendar.MONTH));
 		Double coef_hum = coefs.get(C.KEY_GROOVES_HUM).get(
 				c.get(Calendar.MONTH));
-
-		double impact = farmer.cumulativeHumidity * 100 / coef_hum - 100;
-		return looses_eco(farmer.eco_points, impact);
+		if (coef_hum > 0.0) {
+			double impact = farmer.deltaCumulative * 100 / coef_hum - 100;
+			return looses_eco(farmer.eco_points, impact);
+		}
+		return farmer.eco_points;
 	}
 
 	public static int looses_q(int value, Double variation) {
@@ -117,10 +122,10 @@ public class HumidityController extends Controller {
 				loose_q = -50.0;
 			}
 			// divide with the number of milestones every 8 days
-			return (int)(value + ((value * loose_q) / (365.0 / 8)));
+			return (int) (value + ((value * loose_q) / (365.0 / 8)));
 		}
-		
-		return (int)(value - (value * variation*1.2) / (365.0 / 8));
+
+		return (int) (value + (value * (variation / 100) * 1.2) / (365.0 / 8));
 
 	}
 
@@ -140,7 +145,7 @@ public class HumidityController extends Controller {
 		} else if (variation >= 50) {
 			loose_eco = -15.0;
 		}
-		return (double)(value + value *loose_eco / (365.0/8));
+		return (double) (value + value * loose_eco / (365.0 / 8));
 	}
 
 	/**

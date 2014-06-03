@@ -59,7 +59,7 @@ public class Farmer extends Model {
 	/**
 	 * The quantity of the product he has gained, and haven't sold yet
 	 */
-	@JsonIgnore
+	//@JsonIgnore
 	public int productQuantity;
 
 	/**
@@ -159,7 +159,7 @@ public class Farmer extends Model {
 	
 	public void calculateHumidityLooses() {
 		
-		if (!field.hasDropSystem()) {
+		if (!field.hasDropSystem(Farmer.this)) {
 			productQuantity = HumidityController.brazdi_irrigation_delta_impact_quantity(Farmer.this);
 			eco_points = HumidityController.brazdi_irrigation_delta_impact_eco_point(Farmer.this);
 		} else {
@@ -180,7 +180,7 @@ public class Farmer extends Model {
 		
 		if (gameDate.dayOrder%8==0) {
 			calculateHumidityLooses();
-			cumulativeHumidity = deltaCumulative;
+			cumulativeHumidity += deltaCumulative;
 			deltaCumulative = 0.0;
 		}
 	
@@ -263,7 +263,7 @@ public class Farmer extends Model {
 		farmer.coef_soil_type = 1;
 		farmer.grass_growth = 5.0;
 		farmer.digging_coef = 1.0;
-		farmer.productQuantity = 0;
+		farmer.productQuantity = 1000;
 		farmer.save();
 		return farmer;
 	}

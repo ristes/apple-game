@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import controllers.AuthController;
 import play.db.jpa.Model;
 
 /**
@@ -56,8 +57,8 @@ public class Field extends Model {
 	public List<ExecutedOperation> executedOperations;
 	
 	
-	public Boolean hasDropSystem() {
-		ItemInstance dropsystem = ItemInstance.find("byType.name", "KapkovoNavodnuvanje").first();
+	public Boolean hasDropSystem(Farmer farmer) {
+		ItemInstance dropsystem = ItemInstance.find("byType.nameAndownedBy", "KapkovoNavodnuvanje",farmer).first();
 		if (dropsystem==null) {
 			return false;
 		}
