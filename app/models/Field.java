@@ -17,6 +17,8 @@ import play.db.jpa.Model;
  */
 @Entity
 public class Field extends Model {
+	
+	
 
 	/**
 	 * The price of the field (for buying)
@@ -52,4 +54,13 @@ public class Field extends Model {
 	 */
 	@OneToMany(mappedBy = "field")
 	public List<ExecutedOperation> executedOperations;
+	
+	
+	public Boolean hasDropSystem() {
+		ItemInstance dropsystem = ItemInstance.find("byType.name", "KapkovoNavodnuvanje").first();
+		if (dropsystem==null) {
+			return false;
+		}
+		return true;
+	}
 }

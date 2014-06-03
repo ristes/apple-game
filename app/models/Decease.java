@@ -39,7 +39,7 @@ public class Decease extends Model implements DeseaseRisk {
 	/**
 	 * math expr for desease occurrence
 	 */
-	@Column(length=65535) 
+	@Column(length = 65535)
 	public String expression;
 
 	/**
@@ -87,13 +87,12 @@ public class Decease extends Model implements DeseaseRisk {
 	public List<DeceaseImpact> thresholds;
 
 	/**
-	 * The operations that prevent decease occurrence
-	 * MAYBE THIS MAY BE REMOVED
+	 * The operations that prevent decease occurrence MAYBE THIS MAY BE REMOVED
 	 */
 	@ManyToMany
 	public List<Operation> preventingOperations;
-	
-	@OneToMany(mappedBy="decease")
+
+	@OneToMany(mappedBy = "decease")
 	public List<DeceaseProtectingOperation> protections;
 
 	/**
@@ -101,7 +100,6 @@ public class Decease extends Model implements DeseaseRisk {
 	 */
 	@ManyToMany
 	public List<Operation> healingOperation;
-	
 
 	public Double getRisk(Farmer context) {
 		Double result = 0.0;
@@ -124,17 +122,16 @@ public class Decease extends Model implements DeseaseRisk {
 			e.printStackTrace();
 		}
 		result = value.calculate();
-		if (result<0.0){
+		if (result < 0.0) {
 			result = 0.0;
 		}
 		return result;
 	}
-	
+
 	/**
-	 * if the farmer threats properly the field with protecting operations,
-	 * the probability of disease is diminishing by the coefficient
-	 * obtained by this method.
-	 * The default value in this case is 0.4 t.e. 40%
+	 * if the farmer threats properly the field with protecting operations, the
+	 * probability of disease is diminishing by the coefficient obtained by this
+	 * method. The default value in this case is 0.4 t.e. 40%
 	 */
 
 	public Double getOperationsDiminushing(Farmer context) {
@@ -148,7 +145,7 @@ public class Decease extends Model implements DeseaseRisk {
 		}
 		for (ExecutedOperation operation : operations) {
 			DeceaseProtectingOperation protection = null;
-			if ((protection = isOperationInProtections(operation))!=null) {
+			if ((protection = isOperationInProtections(operation)) != null) {
 				if (context.isSameYear(operation.startDate)) {
 					if (protection.isInInterval(operation.startDate)) {
 						result = 0.4;
@@ -156,12 +153,13 @@ public class Decease extends Model implements DeseaseRisk {
 				}
 			}
 		}
-		
+
 		return result;
-		
+
 	}
-	
-	private DeceaseProtectingOperation isOperationInProtections(ExecutedOperation operation) {
+
+	private DeceaseProtectingOperation isOperationInProtections(
+			ExecutedOperation operation) {
 		for (DeceaseProtectingOperation protection : protections) {
 			if (protection.operation.id == operation.operation.id) {
 				return protection;
@@ -169,7 +167,7 @@ public class Decease extends Model implements DeseaseRisk {
 		}
 		return null;
 	}
-	
+
 	public String toString() {
 		return name;
 	}
