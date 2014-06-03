@@ -32,5 +32,9 @@ public class OperationBestTimeInterval extends Model{
 		}
 		return false;
 	}
+	
+	public String toString() {
+		return operation.toString()+" "+startFrom.getTime()+" "+endTo.getTime();
+	}
 
 }

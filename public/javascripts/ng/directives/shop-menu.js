@@ -18,6 +18,10 @@ GameDirectives.directive('shopMenu', ['jQuery','$items', function($,$items) {
           }
         }
       };
+      
+      scope.executeItem = function(item) {
+    	 
+      }
 
       var unregBought = scope.$root.$on("item-bought", function($scope) {
     	 $items.load();
