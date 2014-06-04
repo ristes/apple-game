@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import controllers.AuthController;
 import play.db.jpa.Model;
 
 /**
@@ -17,6 +18,8 @@ import play.db.jpa.Model;
  */
 @Entity
 public class Field extends Model {
+	
+	
 
 	/**
 	 * The price of the field (for buying)
@@ -52,4 +55,13 @@ public class Field extends Model {
 	 */
 	@OneToMany(mappedBy = "field")
 	public List<ExecutedOperation> executedOperations;
+	
+	
+	public Boolean hasDropSystem(Farmer farmer) {
+		ItemInstance dropsystem = ItemInstance.find("byType.nameAndownedBy", "KapkovoNavodnuvanje",farmer).first();
+		if (dropsystem==null) {
+			return false;
+		}
+		return true;
+	}
 }

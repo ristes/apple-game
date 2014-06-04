@@ -19,7 +19,6 @@ import play.mvc.Controller;
 public class DeseasesExpertSystem extends Controller {
 	
 
-
 	public static void getUserLuck() {
 		Farmer f = AuthController.getFarmer();
 		if (f != null) {
@@ -27,7 +26,7 @@ public class DeseasesExpertSystem extends Controller {
 			Double luck = f.getLuck();
 			renderJSON(luck);
 		}
-		renderJSON("null");
+		renderJSON("");
 	}
 	
 	public static List<DiseaseOccurenceProb> getDP(Farmer farmer) {

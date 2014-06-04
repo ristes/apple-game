@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,6 +17,7 @@ import org.apache.commons.collections.map.HashedMap;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import controllers.HumidityController;
 import controllers.IrrigationController;
 import controllers.LandTreatmanController;
 import dto.C;
@@ -50,15 +52,15 @@ public class Farmer extends Model {
 	 */
 	public int balans;
 
-	public int eco_points = 100;
+	public double eco_points = 100;
 
 	public int apples_in_stock = 0;
 
 	/**
 	 * The quantity of the product he has gained, and haven't sold yet
 	 */
-	@JsonIgnore
-	public int producatQuantity;
+	//@JsonIgnore
+	public int productQuantity;
 
 	/**
 	 * The date for the player in the game
@@ -73,8 +75,11 @@ public class Farmer extends Model {
 	@OneToOne
 	public Field field;
 
+	public Double deltaCumulative;
+	
 	public Double cumulativeHumidity;
 	public Double cumulativeLeafHumidity;
+	
 
 	public String soil_url;
 	public String plant_url;
@@ -151,40 +156,36 @@ public class Farmer extends Model {
 			this.luck = generateLuck();
 		}
 	}
+	
+	public void calculateHumidityLooses() {
+		
+		if (!field.hasDropSystem(Farmer.this)) {
+			productQuantity = HumidityController.brazdi_irrigation_delta_impact_quantity(Farmer.this);
+			eco_points = HumidityController.brazdi_irrigation_delta_impact_eco_point(Farmer.this);
+		} else {
+			productQuantity = HumidityController.drops_irrigation_delta_impact_quantity(Farmer.this);
+			eco_points = HumidityController.drops_irrigation_delta_impact_eco_point(Farmer.this);
+		}
+	}
 
 	public void calculateCumulatives() {
+		HashMap<String, ArrayList<Double>> coefs = HumidityController.load_hash();
+		Calendar c = Calendar.getInstance();
+		c.setTime(gameDate.date);
 		Day today = gameDate;
-		cumulativeLeafHumidity = gameDate.humidityOfLeaf.doubleValue();
-		switch (today.weatherType.id.intValue()) {
-		case 1:
-			if (today.humidity > 50) {
-				cumulativeHumidity = cumulativeHumidity
-						- (cumulativeHumidity / 300) * today.tempHigh;
-			} else {
-				cumulativeHumidity = cumulativeHumidity
-						- (cumulativeHumidity / 300) * today.tempHigh
-						+ today.humidity / 20;
-			}
-
-			break;
-		case 2:
-			if (today.humidity > 50) {
-				cumulativeHumidity = cumulativeHumidity + today.humidity / 25;
-			} else {
-				cumulativeHumidity = cumulativeHumidity - today.humidity / 5;
-			}
-			break;
-		case 3:
-			cumulativeHumidity = cumulativeHumidity + today.humidity / 8;
-			break;
-		case 4:
-			cumulativeHumidity = cumulativeHumidity + today.humidity / 20;
-			break;
-		default:
-			break;
+		if (today.weatherType.id==C.WEATHER_TYPE_RAINY) {
+			double avg_rain = coefs.get(C.KEY_RAIN_COEFS).get(c.get(Calendar.MONTH));
+			deltaCumulative += coefs.get(C.KEY_DROPS_EVAP).get(c.get(Calendar.MONTH))*avg_rain;
 		}
-		this.cumulativeHumidity = cumulativeHumidity;
+		
+		if (gameDate.dayOrder%8==0) {
+			calculateHumidityLooses();
+			cumulativeHumidity += deltaCumulative;
+			deltaCumulative = 0.0;
+		}
+	
 	}
+	
 
 	public void calculateGrassGrowth() {
 		grass_growth += 0.2;
@@ -210,7 +211,7 @@ public class Farmer extends Model {
 			return;
 		}
 		
-		int hum_level = IrrigationController.humidityLevel(this);
+		int hum_level = HumidityController.humidityLevel(this);
 		int plowing_level = LandTreatmanController.plowingLevel(this);
 		int digging_level = LandTreatmanController.diggingLevel(this);
 		if (hum_level == 3 && plowing_level == 3) {
@@ -250,7 +251,8 @@ public class Farmer extends Model {
 		farmer.gameDate = start;
 		farmer.balans = 1000000;
 		farmer.eco_points = 100;
-		farmer.cumulativeHumidity = 20d;
+		farmer.deltaCumulative = 0.0;
+		farmer.cumulativeHumidity = 0.0;
 		farmer.cumulativeLeafHumidity = 15d;
 		farmer.luck_dev = 0.3;
 		farmer.luck_avg = 0.7;
@@ -261,6 +263,7 @@ public class Farmer extends Model {
 		farmer.coef_soil_type = 1;
 		farmer.grass_growth = 5.0;
 		farmer.digging_coef = 1.0;
+		farmer.productQuantity = 1000;
 		farmer.save();
 		return farmer;
 	}

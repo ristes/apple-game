@@ -1,7 +1,16 @@
 package controllers;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+
+import org.yaml.snakeyaml.Yaml;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -10,40 +19,17 @@ import dto.C;
 import models.Farmer;
 import models.Item;
 import models.Store;
+import play.Play;
+import play.cache.Cache;
 import play.mvc.Controller;
 
 public class IrrigationController extends Controller {
 
-	/**
-	 * determinates humidity level of soil 1 - low 2 - medium 3 - high
-	 * 
-	 * @param farmer
-	 * @return
-	 */
-	public static int humidityLevel(Farmer farmer) {
-		Double cumVal = farmer.cumulativeHumidity;
-		if (cumVal < 1000) {
-			return 1;
-		}
-		if (cumVal >= 1000 && cumVal < 2000) {
-			return 2;
-		}
-		return 3;
-	}
+	
+	
+	
 
-	public static Farmer humiditySetAppUrls(Farmer farmer) {
-		int level = humidityLevel(farmer);
-		if (level == 1) {
-			farmer.soil_url = C.soil_urls[C.soil_irrigated_brazdi_low];
-		}
-		if (level == 2) {
-			farmer.soil_url = C.soil_urls[C.soil_irrigated_brazdi_normal];
-		}
-		if (level == 3) {
-			farmer.soil_url = C.soil_urls[C.soil_irrigated_brazdi_high];
-		}
-		return farmer;
-	}
+	
 
 	public static void irrigation(String name, String time,
 			Boolean hasTensiometers) {
@@ -74,7 +60,7 @@ public class IrrigationController extends Controller {
 		if (!hasTensiometers) {
 			farmer.cumulativeHumidity += Integer.parseInt(time)
 					* farmer.coef_soil_type * 100.0;
-			humiditySetAppUrls(farmer);
+			HumidityController.humiditySetAppUrls(farmer);
 
 		} else {
 			//TODO: optimalna vrednost
@@ -82,5 +68,6 @@ public class IrrigationController extends Controller {
 		farmer.save();
 		JsonController.toJson(farmer, "field", "gameDate");
 	}
-
+	
+	
 }

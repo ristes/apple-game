@@ -2,6 +2,21 @@ package dto;
 
 public class C {
 	
+	public static final String COEF_YML = "/data/coefs_irrigation.yml";
+	
+	public static final String KEY_RAIN_COEFS = "coef_rain_avgs";
+	
+	public static final String KEY_GROOVES_EVAP = "coef_grooves_evaporation";
+	public static final String KEY_GROOVES_HUM = "coef_grooves_humidity";
+	
+	public static final String KEY_DROPS_EVAP = "coef_drops_evaporation";
+	public static final String KEY_DROPS_HUM = "coef_drops_humidity";
+	
+	public static final long WEATHER_TYPE_SUNNY = 1;
+	public static final long WEATHER_TYPE_CLOUDY = 2;
+	public static final long WEATHER_TYPE_RAINY = 3;
+	public static final long WEATHER_TYPE_ICY = 4;
+
 	public static String root_folder = "/public/images/";
 	public static String irrigation_folder = "/public/images/game/soil/irrigation/";
 	public static String landtreatman_folder = "/public/images/game/soil/landtreatman/";
@@ -28,5 +43,16 @@ public class C {
 		landtreatman_folder+"soil-izorana-humidity_high.png",
 		root_folder + "soil-snow.png"
 	};
+	
+//	public static Double[] coef_drops_evaporation = {0.0,0.0,0.0,0.8,0.7,0.6,0.5,0.5,0.6,0.0,0.0,0.0};
+//	
+//	public static Double[] coef_drops_humidity = {0.0,0.0,0.0,3.76,11.12,19.2,21.0,19.6,14.4,0.0,0.0,0.0};
+//	
+//	public static Double[] coef_grooves_evaporation = {0.0,0.0,0.0,0.8,0.7,0.6,0.5,0.5,0.6,0.0,0.0,0.0};
+//		
+//	public static Double[] coef_grooves_humidity = {0.0, 0.0,0.0,6.5,19.8,34.0,37.0,35.0,25.6,0.0,0.0,0.0};
+	
+	
+	
 	
 }
