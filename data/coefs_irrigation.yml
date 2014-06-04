@@ -1,16 +1,28 @@
+coef_mm_one_hour_irrigation:
+ - 1.0
+ - 0.75
+
+coef_price_one_ar_irrigation:
+ - 150.0
+ - 100.0
+ 
+coef_humidity_level:
+ - 5.0
+ - 15.0
+ 
 coef_rain_avgs :
- - 0.0
- - 0.0
- - 0.0
+ - 2.25
+ - 2.2
+ - 1.9
  - 1.88
  - 1.97
- - 1.12
+ - 1.17
  - 0.92
  - 0.6
  - 1.65
- - 0.0
- - 0.0
- - 0.0
+ - 2.73
+ - 2.45
+ - 2.57
  
 coef_grooves_evaporation :
  - 0.0

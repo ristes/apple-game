@@ -157,15 +157,19 @@ public class Farmer extends Model {
 		}
 	}
 	
-	public void calculateHumidityLooses() {
-		
+	public double calculateHumidityLooses() {
+		double result = 0.0;
 		if (!field.hasDropSystem(Farmer.this)) {
+			
 			productQuantity = HumidityController.brazdi_irrigation_delta_impact_quantity(Farmer.this);
 			eco_points = HumidityController.brazdi_irrigation_delta_impact_eco_point(Farmer.this);
+			result = HumidityController.varianceBrazdi(Farmer.this);
 		} else {
 			productQuantity = HumidityController.drops_irrigation_delta_impact_quantity(Farmer.this);
 			eco_points = HumidityController.drops_irrigation_delta_impact_eco_point(Farmer.this);
+			result = HumidityController.varianceDrops(Farmer.this);
 		}
+		return result;
 	}
 
 	public void calculateCumulatives() {
@@ -179,9 +183,10 @@ public class Farmer extends Model {
 		}
 		
 		if (gameDate.dayOrder%8==0) {
-			calculateHumidityLooses();
-			cumulativeHumidity += deltaCumulative;
-			deltaCumulative = 0.0;
+			double variance = calculateHumidityLooses();
+			//Double variance = deltaCumulative - coefs.get(C.KEY_DROPS_HUM)
+			cumulativeHumidity += variance;
+			deltaCumulative = variance;
 		}
 	
 	}

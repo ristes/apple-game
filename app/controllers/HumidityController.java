@@ -69,7 +69,7 @@ public class HumidityController extends Controller {
 				.get(c.get(Calendar.MONTH));
 		Double coef_hum = coefs.get(C.KEY_DROPS_HUM).get(c.get(Calendar.MONTH));
 
-		double impact = farmer.cumulativeHumidity * 100 / coef_hum - 100;
+		double impact = farmer.deltaCumulative * 100 / coef_hum - 100;
 		return looses_eco(farmer.eco_points, impact);
 	}
 
@@ -145,7 +145,7 @@ public class HumidityController extends Controller {
 		} else if (variation >= 50) {
 			loose_eco = -15.0;
 		}
-		return (double) (value + value * loose_eco / (365.0 / 8));
+		return (double) (value + (value * (loose_eco/100)) / (365.0 / 8));
 	}
 
 	/**
@@ -156,11 +156,14 @@ public class HumidityController extends Controller {
 	 */
 
 	public static int humidityLevel(Farmer farmer) {
-		Double cumVal = farmer.cumulativeHumidity;
-		if (cumVal < 1000) {
+		HashMap<String, ArrayList<Double>> coefs = load_hash();
+		Double lmt1 = coefs.get(C.KEY_HUMIDITY_LEVEL).get(0);
+		Double lmt2 = coefs.get(C.KEY_HUMIDITY_LEVEL).get(1);
+		Double cumVal = farmer.deltaCumulative;
+		if (cumVal < lmt1) {
 			return 1;
 		}
-		if (cumVal >= 1000 && cumVal < 2000) {
+		if (cumVal >= lmt1 && cumVal < lmt2) {
 			return 2;
 		}
 		return 3;
@@ -178,5 +181,19 @@ public class HumidityController extends Controller {
 			farmer.soil_url = C.soil_urls[C.soil_irrigated_brazdi_high];
 		}
 		return farmer;
+	}
+	
+	public static double varianceBrazdi(Farmer farmer) {
+		HashMap<String, ArrayList<Double>> coefs = load_hash();
+		Calendar c = Calendar.getInstance();
+		c.setTime(farmer.gameDate.date);
+		return  (farmer.deltaCumulative - coefs.get(C.KEY_GROOVES_HUM).get(c.get(Calendar.MONTH)));
+	}
+	
+	public static double varianceDrops(Farmer farmer) {
+		HashMap<String, ArrayList<Double>> coefs = load_hash();
+		Calendar c = Calendar.getInstance();
+		c.setTime(farmer.gameDate.date);
+		return  (farmer.deltaCumulative - coefs.get(C.KEY_DROPS_HUM).get(c.get(Calendar.MONTH)));
 	}
 }

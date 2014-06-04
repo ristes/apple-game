@@ -173,6 +173,7 @@ Game
 									var res = $http.get("/application/nextday");
 									res.success(function(data) {
 										$rootScope.day = data;
+										
 										$weather.load();
 										$diseases.load();
 									});
@@ -189,7 +190,7 @@ Game.factory('$irrigate', [
 				irrigate : function(name, time) {
 					var res = $http
 							.get("/IrrigationController/irrigation?name="
-									+ name + "&time=" + time);
+									+ name + "&time=" + time + "&hasTensiometers=false");
 					res.success(function(data) {
 						$day.load(data);
 						// $weather.load();

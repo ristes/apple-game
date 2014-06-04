@@ -2,20 +2,20 @@
 	<div id="div_user_icon">
 		<img src="/public/images/home/igrac.png" class="img-user-info"/>
 		<div class="img-user-info-ramka">
-		<span id="span_user_name">{{$root.farmer.username}}</span>
+		<span id="span_user_name">{{$root.day.username}}</span>
 		</div>
 	</div>
 	<div id="div_apple_in_stock_info" class="div-user-info-general">
 		<img class="user_icons_info" src="/public/images/home/apple_icon_in_stock.png"/>
-		<span class="span-user-info-details">{{$root.farmer.productQuantity}}</span>
+		<span class="span-user-info-details">{{$root.day.productQuantity}}</span>
 	</div>
 	<div id="div_money_in_stock_info" class="div-user-info-general">
 		<img class="user_icons_info" src="/public/images/home/money_in_stock.png"/>
-		<span class="span-user-info-details">{{$root.farmer.balans}}</span>
+		<span class="span-user-info-details">{{$root.day.balans}}</span>
 	</div>
 	<div id="div_eco_points_info" class="div-user-info-general">
 		<img class="user_icons_info" src="/public/images/home/eco_points_in_stock.png"/>
-		<span class="span-user-info-details">{{$root.farmer.eco_points}}</span>
+		<span class="span-user-info-details">{{$root.day.eco_points | integer}}</span>
 	</div>
 	<div id="div_next_day" ng-click="$root.next()">
 		<span id="span_next_day">Next day</span>
