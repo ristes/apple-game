@@ -5,6 +5,7 @@ import java.util.UUID;
 import models.Day;
 import models.Farmer;
 import play.cache.Cache;
+import play.i18n.Lang;
 import play.mvc.Controller;
 
 public class Crafty extends Controller {
@@ -12,7 +13,7 @@ public class Crafty extends Controller {
 	public static void iso() {
 		Farmer farmer = AuthController.getFarmer();
 		if (farmer == null) {
-			login();
+			login("mk");
 		}
 		render();
 	}
@@ -24,12 +25,17 @@ public class Crafty extends Controller {
 	public static void iso1() {
 		Farmer farmer = AuthController.getFarmer();
 		if (farmer == null) {
-			login();
+			login("mk");
 		}
-		render();
+		render("mk");
 	}
 
-	public static void login() {
+	public static void login(String locale) {
+		if (null == locale) {
+			Lang.setDefaultLocale();
+		} else {
+			Lang.change(locale);
+		}
 		render();
 	}
 
@@ -65,7 +71,7 @@ public class Crafty extends Controller {
 		Cache.delete(id);
 		session.clear();
 	}
-	
+
 	public static void teststate() {
 		render();
 	}

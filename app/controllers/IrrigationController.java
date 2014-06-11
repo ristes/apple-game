@@ -1,28 +1,19 @@
 package controllers;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-import org.yaml.snakeyaml.Yaml;
+import models.Farmer;
+import models.Item;
+import play.mvc.Controller;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import dto.C;
 import exceptions.NotEnoughMoneyException;
-import models.Farmer;
-import models.Item;
-import models.Store;
-import play.Play;
-import play.cache.Cache;
-import play.mvc.Controller;
 
 public class IrrigationController extends Controller {
 

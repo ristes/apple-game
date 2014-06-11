@@ -12,18 +12,16 @@ Game.factory('$farmer', [ '$rootScope', '$http', '$items', '$location', '$day',
 			}
 			return {
 				load : function() {
-					if ($rootScope.farmer) {
-						return $rootScope.farmer;
-					} else {
-						// var res =
-						// $http.get("/public/javascripts/ng/mock/farmer.json");
-						var res = $http.get("/AuthController/farmer");
-						res.success(function(data) {
-							swap(data);
-							$day.load(data);
-						});
-						return res;
-					}
+					/*
+					 * if ($rootScope.farmer) { return $rootScope.farmer; } else {
+					 */
+					var res = $http.get("/AuthController/farmer");
+					res.success(function(data) {
+						swap(data);
+						$day.load(data);
+					});
+					return res;
+					// }
 				},
 				swap : swap
 			};
@@ -155,31 +153,24 @@ Game.factory('$diseases', [ '$rootScope', '$http', function($rootScope, $http) {
 	};
 } ]);
 
-Game
-		.factory(
-				'$day',
-				[
-						'$rootScope',
-						'$http',
-						'$weather',
-						'$diseases',
-						function($rootScope, $http, $weather, $diseases) {
-							return {
-								load : function(farmer) {
-									$rootScope.day = farmer;
-									
-								},
-								next : function() {
-									var res = $http.get("/application/nextday");
-									res.success(function(data) {
-										$rootScope.day = data;
-										
-										$weather.load();
-										$diseases.load();
-									});
-								}
-							};
-						} ]);
+Game.factory('$day', [ '$rootScope', '$http', '$weather', '$diseases',
+		function($rootScope, $http, $weather, $diseases) {
+			return {
+				load : function(farmer) {
+					$rootScope.day = farmer;
+
+				},
+				next : function() {
+					var res = $http.get("/application/nextday");
+					res.success(function(data) {
+						$rootScope.day = data;
+
+						$weather.load();
+						$diseases.load();
+					});
+				}
+			};
+		} ]);
 
 Game.factory('$irrigate', [
 		'$rootScope',
@@ -190,7 +181,8 @@ Game.factory('$irrigate', [
 				irrigate : function(name, time) {
 					var res = $http
 							.get("/IrrigationController/irrigation?name="
-									+ name + "&time=" + time + "&hasTensiometers=false");
+									+ name + "&time=" + time
+									+ "&hasTensiometers=false");
 					res.success(function(data) {
 						$day.load(data);
 						// $weather.load();
@@ -205,7 +197,10 @@ Game.factory('$plowing', [ '$rootScope', '$http', '$day',
 				plowing : function() {
 					var res = $http.get("/LandTreatmanController/plowing");
 					res.success(function(data) {
-						$day.load(data);
+						$day.load(data.farmer);
+						if (data.status == false) {
+							alert(data.message);
+						}
 					});
 				}
 			};

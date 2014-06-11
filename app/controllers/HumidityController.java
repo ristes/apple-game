@@ -29,7 +29,7 @@ public class HumidityController extends Controller {
 		HashMap<String, ArrayList<Double>> coefs = (HashMap<String, ArrayList<Double>>) Cache
 				.get(key);
 		if (coefs == null) {
-			File securityFile = Play.getFile(C.COEF_YML);
+			File securityFile = Play.getFile(C.COEF_HUMIDITY_YML);
 			InputStream input = null;
 			try {
 				input = new FileInputStream(securityFile);
@@ -149,24 +149,38 @@ public class HumidityController extends Controller {
 	}
 
 	/**
-	 * determinates humidity level of soil 1 - low 2 - medium 3 - high
-	 * 
+	 * determinate humidity level of soil  
+	 * 0 - dry 
+	 * 1 - normal 
+	 * 2 - low 
+	 * 3 - medium 
+	 * 4 - high
+	 * 0, 1 and 2 have same visual component
+	 * 3 and 4 different
 	 * @param farmer
-	 * @return
+	 * @return level coef
 	 */
 
 	public static int humidityLevel(Farmer farmer) {
 		HashMap<String, ArrayList<Double>> coefs = load_hash();
-		Double lmt1 = coefs.get(C.KEY_HUMIDITY_LEVEL).get(0);
-		Double lmt2 = coefs.get(C.KEY_HUMIDITY_LEVEL).get(1);
+		Double lmtM1 = coefs.get(C.KEY_HUMIDITY_LEVEL).get(0);
+		Double lmt0 = coefs.get(C.KEY_HUMIDITY_LEVEL).get(1);
+		Double lmt1 = coefs.get(C.KEY_HUMIDITY_LEVEL).get(2);
+		Double lmt2 = coefs.get(C.KEY_HUMIDITY_LEVEL).get(3);
 		Double cumVal = farmer.deltaCumulative;
-		if (cumVal < lmt1) {
+		if (cumVal < lmtM1) {
+			return 0;
+		}
+		else if (cumVal < lmt0 && cumVal > lmtM1) {
 			return 1;
 		}
-		if (cumVal >= lmt1 && cumVal < lmt2) {
+		else if (cumVal < lmt1 && cumVal > lmt0) {
 			return 2;
 		}
-		return 3;
+		else if (cumVal >= lmt1 && cumVal < lmt2) {
+			return 3;
+		}
+		return 4;
 	}
 
 	public static Farmer humiditySetAppUrls(Farmer farmer) {

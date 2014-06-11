@@ -7,8 +7,16 @@ coef_price_one_ar_irrigation:
  - 100.0
  
 coef_humidity_level:
- - 5.0
- - 15.0
+ - -20.0
+ - 0.0
+ - 12.0
+ - 30.0
+
+coef_digging_coef:
+ - 0.0
+ - 0.05
+ - 0.1
+ - 0.15
  
 coef_rain_avgs :
  - 2.25
@@ -79,3 +87,6 @@ coef_drops_humidity :
  - 0.0
  - 0.0
  - 0.0
+ 
+min_humidity :
+ - -25.0

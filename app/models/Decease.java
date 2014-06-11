@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -12,13 +13,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import controllers.DeseasesExpertSystem;
 import dao.DeceasesDao;
 import dao.DeseaseRisk;
 import de.congrace.exp4j.Calculable;
 import de.congrace.exp4j.ExpressionBuilder;
 import de.congrace.exp4j.UnknownFunctionException;
 import de.congrace.exp4j.UnparsableExpressionException;
-
+import dto.DiseaseProtectingOperationDto;
 import play.data.validation.Range;
 import play.db.jpa.Model;
 
@@ -134,29 +136,35 @@ public class Decease extends Model implements DeseaseRisk {
 	 * method. The default value in this case is 0.4 t.e. 40%
 	 */
 
-	public Double getOperationsDiminushing(Farmer context) {
+	public int getOperationsDiminushingFactor(Farmer context) {
 		Double result = 0.0;
+		int minN = 0;
+		int maxN = 9;
+		int minM = 0;
+		int matches = 0;
 		List<ExecutedOperation> operations = context.field.executedOperations;
 		List<ExecutedOperation> operationsThisYear = new ArrayList<ExecutedOperation>();
 		for (ExecutedOperation operation : operations) {
 			if (context.isSameYear(operation.startDate)) {
-				operationsThisYear.add(operation);
+				operationsThisYear.add(changeYear(operation));
 			}
 		}
-		for (ExecutedOperation operation : operations) {
-			DeceaseProtectingOperation protection = null;
-			if ((protection = isOperationInProtections(operation)) != null) {
-				if (context.isSameYear(operation.startDate)) {
-					if (protection.isInInterval(operation.startDate)) {
-						result = 0.4;
-					}
-				}
+		List<DiseaseProtectingOperationDto> protections = DeseasesExpertSystem.getMmax(context, Decease.this);
+		for (DiseaseProtectingOperationDto protection: protections) {
+			if (protection.isMatched(operationsThisYear)) {
+				matches++;
 			}
 		}
-
-		return result;
+		int maxM = protections.size();
+		if (maxM==0) {
+			return 0;
+		}
+		int n = Math.round((maxN-minN)*((float)((matches-minM))/(maxM-minM)));
+		
+		return n;
 
 	}
+	
 
 	private DeceaseProtectingOperation isOperationInProtections(
 			ExecutedOperation operation) {
@@ -172,4 +180,15 @@ public class Decease extends Model implements DeseaseRisk {
 		return name;
 	}
 
+	public static ExecutedOperation changeYear(ExecutedOperation operation) {
+		ExecutedOperation result = operation.clone();
+		Calendar c = Calendar.getInstance();
+		c.setTime(result.startDate);
+		c.set(Calendar.YEAR, 1970);
+		if (DeseasesExpertSystem.isAfterNewYear(c.getTime())) {
+			c.add(Calendar.YEAR, 1);
+		}
+		result.startDate = c.getTime();
+		return result;
+	}
 }

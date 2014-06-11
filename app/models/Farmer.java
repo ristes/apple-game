@@ -17,6 +17,7 @@ import org.apache.commons.collections.map.HashedMap;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import controllers.DeseasesExpertSystem;
 import controllers.HumidityController;
 import controllers.IrrigationController;
 import controllers.LandTreatmanController;
@@ -126,15 +127,20 @@ public class Farmer extends Model {
 	}
 
 	public Boolean isSameYear(Date date) {
+		
 		Calendar c = Calendar.getInstance();
 		c.setTime(gameDate.date);
+		if (DeseasesExpertSystem.isAfterNewYear(c.getTime())) {
+			c.add(Calendar.YEAR, -1);
+		}
 		c.set(Calendar.DAY_OF_MONTH, 1);
 		c.set(Calendar.MONTH, 9);
+		
 		if (date.after(c.getTime())) {
 			c.add(Calendar.YEAR, 1);
 			c.set(Calendar.DAY_OF_MONTH, 1);
 			c.set(Calendar.MONTH, 9);
-			if (c.before(date)) {
+			if (date.before(c.getTime())) {
 				return true;
 			}
 		}
@@ -187,6 +193,10 @@ public class Farmer extends Model {
 			//Double variance = deltaCumulative - coefs.get(C.KEY_DROPS_HUM)
 			cumulativeHumidity += variance;
 			deltaCumulative = variance;
+			Double min_hum = coefs.get(C.KEY_MIN_HUMIDITY).get(0);
+			if (deltaCumulative < min_hum) {
+				deltaCumulative = min_hum;
+			}
 		}
 	
 	}
@@ -197,12 +207,17 @@ public class Farmer extends Model {
 	}
 	
 	public void calculateDiggingCoefficient() {
-		if (cumulativeHumidity>1500) {
-			digging_coef += 0.2;
-		} else if (cumulativeHumidity >= 1000) {
-			digging_coef += 0.1;
-		} else if (cumulativeHumidity < 1000) {
-			digging_coef += 0.05;
+		HashMap<String, ArrayList<Double>> coefs = HumidityController.load_hash();
+		
+		int level = HumidityController.humidityLevel(Farmer.this);
+		if (level >=  3) {
+			digging_coef += coefs.get(C.KEY_DIGGING_COEF).get(3);
+		} else if (level == 2) {
+			digging_coef += coefs.get(C.KEY_DIGGING_COEF).get(2);
+		} else if (level == 1) {
+			digging_coef += coefs.get(C.KEY_DIGGING_COEF).get(1);
+		} else if (level == 0) {
+			digging_coef += coefs.get(C.KEY_DIGGING_COEF).get(0);
 		}
 	}
 

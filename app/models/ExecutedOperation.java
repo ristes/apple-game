@@ -33,5 +33,13 @@ public class ExecutedOperation extends Model {
 	 * When is it executed
 	 */
 	public Date startDate;
+	
+	public ExecutedOperation clone() {
+		ExecutedOperation result = new ExecutedOperation();
+		result.field = field;
+		result.operation = operation;
+		result.startDate = (Date)startDate.clone();
+		return result;
+	}
 
 }

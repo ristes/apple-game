@@ -73,19 +73,19 @@ Game.factory('StoreItems', function($resource) {
       url: '/public/images/game/terrain/prizmaticna.png'
     }],
     'terrain-size': [{
-      size: 2,
+      size: 20,
       name: '2 Ha',
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }, {
-      size: 1,
+      size: 10,
       name: '1 Ha',
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }, {
-      size: 0.5,
+      size: 5,
       name: '0.5 Ha',
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }, {
-      size: 0.25,
+      size: 2.5,
       name: '0.25 Ha',
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }],
