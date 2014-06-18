@@ -10,19 +10,15 @@ import java.util.List;
 
 import javax.persistence.Query;
 
-import de.congrace.exp4j.Calculable;
-import de.congrace.exp4j.ExpressionBuilder;
+import models.Decease;
+import models.ExecutedOperation;
+import models.Farmer;
+import play.db.jpa.JPA;
+import play.mvc.Controller;
 import de.congrace.exp4j.UnknownFunctionException;
 import de.congrace.exp4j.UnparsableExpressionException;
 import dto.DiseaseOccurenceProb;
 import dto.DiseaseProtectingOperationDto;
-import models.Decease;
-import models.DeceaseProtectingOperation;
-import models.ExecutedOperation;
-import models.Farmer;
-import models.GameContext;
-import play.db.jpa.JPA;
-import play.mvc.Controller;
 
 public class DeseasesExpertSystem extends Controller {
 	

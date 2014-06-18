@@ -68,8 +68,10 @@ public class HumidityController extends Controller {
 		Double coef_eva = coefs.get(C.KEY_DROPS_EVAP)
 				.get(c.get(Calendar.MONTH));
 		Double coef_hum = coefs.get(C.KEY_DROPS_HUM).get(c.get(Calendar.MONTH));
-
-		double impact = farmer.deltaCumulative * 100 / coef_hum - 100;
+		double impact = 0.0;
+		if (coef_hum > 0.0) {
+			impact = farmer.deltaCumulative * 100 / coef_hum - 100;
+		}
 		return looses_eco(farmer.eco_points, impact);
 	}
 
@@ -122,7 +124,7 @@ public class HumidityController extends Controller {
 				loose_q = -50.0;
 			}
 			// divide with the number of milestones every 8 days
-			return (int) (value + ((value * loose_q) / (365.0 / 8)));
+			return (int) (value + ((value * (loose_q/100.0)) / (365.0 / 8)));
 		}
 
 		return (int) (value + (value * (variation / 100) * 1.2) / (365.0 / 8));
@@ -209,5 +211,15 @@ public class HumidityController extends Controller {
 		Calendar c = Calendar.getInstance();
 		c.setTime(farmer.gameDate.date);
 		return  (farmer.deltaCumulative - coefs.get(C.KEY_DROPS_HUM).get(c.get(Calendar.MONTH)));
+	}
+
+	public static int humidityLevelForSoil(int humidityLevel) {
+		if (humidityLevel==0 || humidityLevel==1 || humidityLevel==2) {
+			return 1;
+		}
+		else if (humidityLevel==3) {
+			return 2;
+		} 
+		return 3;
 	}
 }

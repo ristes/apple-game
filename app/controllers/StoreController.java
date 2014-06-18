@@ -54,15 +54,14 @@ public class StoreController extends Controller {
 	public static void showitems(Long storeId) throws IOException {
 		Store store = Store.findById(storeId);
 		JsonController.toJson(store.items);
-		
+
 	}
 
-	public static void buyItem(String itemName, Integer quantity,
+	public static void buyItem(String itemName, Double quantity,
 			String currentState) throws IOException {
 		Farmer farmer = AuthController.getFarmer();
 		if (farmer != null) {
-			Item item = Item.find("byName",itemName).first();
-			Long cost = (long) item.price * quantity;
+			Item item = Item.find("byName", itemName).first();
 			Boolean successTransaction = triggerBuyingItem(farmer, item,
 					quantity);
 
@@ -77,20 +76,19 @@ public class StoreController extends Controller {
 	}
 
 	public static Boolean triggerBuyingItem(Farmer farmer, Item item,
-			int quantity) {
-		long value = item.price * quantity;
+			double quantity) {
+		double value = item.price * quantity;
 
 		if (farmer.balans < value) {
 			return false;
 		}
 		farmer.balans -= value;
-		for (int i = 0; i < quantity; i++) {
-			ItemInstance instance = new ItemInstance();
-			instance.ownedBy = farmer;
-			instance.type = item;
-			instance.save();
+		ItemInstance instance = new ItemInstance();
+		instance.ownedBy = farmer;
+		instance.type = item;
+		instance.quantity = quantity;
+		instance.save();
 
-		}
 		farmer.save();
 		return true;
 	}
@@ -133,24 +131,34 @@ public class StoreController extends Controller {
 		JsonController.toJson(result);
 
 	}
-	
-	public static void myitems() throws JsonGenerationException, JsonMappingException, IOException {
+
+	public static void myitems() throws JsonGenerationException,
+			JsonMappingException, IOException {
 		Farmer farmer = AuthController.getFarmer();
-		if (farmer==null) {
+		if (farmer == null) {
 			renderJSON("");
 		}
 		List<ItemBoughtDto> result = new ArrayList<ItemBoughtDto>();
-		String sql = "SELECT ItemInstance.id,type_id,name,imageurl,count(type_id) as count FROM ItemInstance,Item where ItemInstance.type_id=Item.id and ownedBy_id=:1 GROUP BY type_id order by ItemInstance.id";
-		List<Object[]> resultSql = JPA.em().createNativeQuery(sql).setParameter("1", farmer.id).getResultList();
-		for (Object[] obj:resultSql) {
+		String sql = "SELECT ItemInstance.id,type_id,name,imageurl,count(type_id) as count,ItemInstance.quantity  FROM ItemInstance,Item where ItemInstance.type_id=Item.id and ownedBy_id=:farmer_id and ItemInstance.id NOT IN (select DISTINCT(itemInstance_id) FROM ExecutedOperation where field_id=:field_id and  not(isnull(ItemInstance_id))) GROUP BY type_id order by ItemInstance.id";
+		// String sqlSelect =
+		// "select * from ItemInstance  where ownedBy_id=:farmer_id and id NOT IN (select DISTINCT(itemInstance_id) FROM ExecutedOperation where field_id=:field_id and  not(isnull(ItemInstance_id)))";
+		List<Object[]> resultSql = JPA.em().createNativeQuery(sql)
+				.setParameter("farmer_id", farmer.id)
+				.setParameter("field_id", farmer.field.id).getResultList();
+		for (Object[] obj : resultSql) {
 			ItemBoughtDto item = new ItemBoughtDto();
-			item.id = ((BigInteger)obj[0]).longValue();
-			item.type_id = ((BigInteger)obj[1]).longValue();
-			item.name = (String)obj[2];
-			item.url = (String)obj[3];
-			item.count = ((BigInteger)obj[4]).intValue();
+			item.id = ((BigInteger) obj[0]).longValue();
+			item.type_id = ((BigInteger) obj[1]).longValue();
+			item.name = (String) obj[2];
+			item.url = (String) obj[3];
+			item.count = ((BigInteger) obj[4]).intValue();
+			if (obj[5]!=null) {
+				item.quantity =((Double)obj[5]).doubleValue();
+			} else {
+				item.quantity = null;
+			}
 			result.add(item);
-			
+
 		}
 		renderJSON(result);
 	}

@@ -69,8 +69,10 @@ public class IrrigationController extends Controller {
 				e.printStackTrace();
 			}
 		}
-		HumidityController.humiditySetAppUrls(farmer);
 		farmer.save();
+		farmer.evaluateState();
+//		HumidityController.humiditySetAppUrls(farmer);
+		
 		JsonController.toJson(farmer, "field", "gameDate","weatherType");
 
 	}

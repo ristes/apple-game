@@ -53,7 +53,8 @@ public class LandTreatmanController extends Controller {
 	
 	public static int diggingLevel(Farmer farmer) {
 		Double coef = farmer.digging_coef;
-		return coef.intValue();
+		coef = (coef)/3.0;
+		return coef.intValue()+1;
 	}
 
 	/**

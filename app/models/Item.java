@@ -44,6 +44,9 @@ public class Item extends Model {
 	 */
 	@ManyToOne
 	public Store store;
+	
+	@OneToMany(mappedBy="fertilizer")
+	public List<FertilizationOperation> fertilizationOperations;
 
 	/**
 	 * If the item function as attachment of other item. If the other item is

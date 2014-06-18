@@ -15,6 +15,11 @@ public class OperationBestTimeInterval extends Model{
 	
 	public Date endTo;
 	
+	public Double quantity;
+	
+	@ManyToOne
+	public FertilizationOperation fertilizationBestTime;
+	
 	@ManyToOne
 	public DeceaseProtectingOperation operation;
 	
@@ -34,7 +39,10 @@ public class OperationBestTimeInterval extends Model{
 	}
 	
 	public String toString() {
-		return operation.toString()+" "+startFrom.getTime()+" "+endTo.getTime();
+		if (operation!=null) {
+			return operation.toString()+" "+startFrom.getTime()+" "+endTo.getTime();
+		}
+		return fertilizationBestTime.toString()+" "+startFrom.getTime()+" "+endTo.getTime();
 	}
 
 }
