@@ -90,3 +90,6 @@ coef_drops_humidity :
  
 min_humidity :
  - -25.0
+ 
+max_humidity :
+ - 45.0

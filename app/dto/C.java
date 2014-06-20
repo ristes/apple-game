@@ -25,6 +25,8 @@ public class C {
 	
 	public static final String KEY_MIN_HUMIDITY = "min_humidity";
 	
+	public static final String KEY_MAX_HUMIDITY = "max_humidity";
+	
 	public static final String KEY_SALES_APPLES_PER_MONTH = "apple_sale_per_month";
 	
 	public static final String KEY_YIELD_BY_BASE = "coef_yield_by_base";

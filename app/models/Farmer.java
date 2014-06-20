@@ -189,9 +189,10 @@ public class Farmer extends Model {
 		if (today.weatherType.id == C.WEATHER_TYPE_RAINY) {
 			double avg_rain = coefs.get(C.KEY_RAIN_COEFS).get(
 					c.get(Calendar.MONTH));
-			deltaCumulative += coefs.get(C.KEY_DROPS_EVAP).get(
-					c.get(Calendar.MONTH))
-					* avg_rain;
+//			deltaCumulative += coefs.get(C.KEY_DROPS_EVAP).get(
+//					c.get(Calendar.MONTH))
+//					* avg_rain;
+			deltaCumulative += avg_rain;
 		}
 
 		if (gameDate.dayOrder % 8 == 0) {
@@ -203,7 +204,11 @@ public class Farmer extends Model {
 				deltaCumulative = min_hum;
 			}
 		}
-
+		//do not allow humidity above the max
+		double max_humidity = coefs.get(C.KEY_MAX_HUMIDITY).get(0);
+		if (deltaCumulative>max_humidity) {
+			deltaCumulative = max_humidity;
+		}
 	}
 
 	public void calculateGrassGrowth() {
