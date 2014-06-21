@@ -17,9 +17,12 @@ import org.apache.commons.collections.map.HashedMap;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import controllers.DeseasesExpertSystem;
+import controllers.FertilizationController;
 import controllers.HumidityController;
 import controllers.IrrigationController;
 import controllers.LandTreatmanController;
+import controllers.WeatherController;
 import dto.C;
 import dto.FertilizationItem;
 import play.db.jpa.Model;
@@ -59,7 +62,7 @@ public class Farmer extends Model {
 	/**
 	 * The quantity of the product he has gained, and haven't sold yet
 	 */
-	//@JsonIgnore
+	// @JsonIgnore
 	public int productQuantity;
 
 	/**
@@ -76,10 +79,9 @@ public class Farmer extends Model {
 	public Field field;
 
 	public Double deltaCumulative;
-	
+
 	public Double cumulativeHumidity;
 	public Double cumulativeLeafHumidity;
-	
 
 	public String soil_url;
 	public String plant_url;
@@ -94,16 +96,13 @@ public class Farmer extends Model {
 	 * coefficient of grass growth in the field represents the need of plowing
 	 */
 	public Double grass_growth;
-	
+
 	/**
-	 * digging coefficient represents the need of digging of the plantation
-	 * 1 - (not need) it's clear
-	 * 2 - (medium) little grass
-	 * 3 - (high) lot of grass
+	 * digging coefficient represents the need of digging of the plantation 1 -
+	 * (not need) it's clear 2 - (medium) little grass 3 - (high) lot of grass
 	 */
 	public Double digging_coef;
-	
-	
+
 	/**
 	 * The items he owns
 	 */
@@ -126,15 +125,20 @@ public class Farmer extends Model {
 	}
 
 	public Boolean isSameYear(Date date) {
+
 		Calendar c = Calendar.getInstance();
 		c.setTime(gameDate.date);
+		if (DeseasesExpertSystem.isAfterNewYear(c.getTime())) {
+			c.add(Calendar.YEAR, -1);
+		}
 		c.set(Calendar.DAY_OF_MONTH, 1);
 		c.set(Calendar.MONTH, 9);
+
 		if (date.after(c.getTime())) {
 			c.add(Calendar.YEAR, 1);
 			c.set(Calendar.DAY_OF_MONTH, 1);
 			c.set(Calendar.MONTH, 9);
-			if (c.before(date)) {
+			if (date.before(c.getTime())) {
 				return true;
 			}
 		}
@@ -156,93 +160,146 @@ public class Farmer extends Model {
 			this.luck = generateLuck();
 		}
 	}
-	
-	public void calculateHumidityLooses() {
-		
+
+	public double calculateHumidityLooses() {
+		double result = 0.0;
 		if (!field.hasDropSystem(Farmer.this)) {
-			productQuantity = HumidityController.brazdi_irrigation_delta_impact_quantity(Farmer.this);
-			eco_points = HumidityController.brazdi_irrigation_delta_impact_eco_point(Farmer.this);
+
+			productQuantity = HumidityController
+					.brazdi_irrigation_delta_impact_quantity(Farmer.this);
+			eco_points = HumidityController
+					.brazdi_irrigation_delta_impact_eco_point(Farmer.this);
+			result = HumidityController.varianceBrazdi(Farmer.this);
 		} else {
-			productQuantity = HumidityController.drops_irrigation_delta_impact_quantity(Farmer.this);
-			eco_points = HumidityController.drops_irrigation_delta_impact_eco_point(Farmer.this);
+			productQuantity = HumidityController
+					.drops_irrigation_delta_impact_quantity(Farmer.this);
+			eco_points = HumidityController
+					.drops_irrigation_delta_impact_eco_point(Farmer.this);
+			result = HumidityController.varianceDrops(Farmer.this);
 		}
+		return result;
 	}
 
 	public void calculateCumulatives() {
-		HashMap<String, ArrayList<Double>> coefs = HumidityController.load_hash();
+		HashMap<String, ArrayList<Double>> coefs = HumidityController
+				.load_hash();
 		Calendar c = Calendar.getInstance();
 		c.setTime(gameDate.date);
 		Day today = gameDate;
-		if (today.weatherType.id==C.WEATHER_TYPE_RAINY) {
-			double avg_rain = coefs.get(C.KEY_RAIN_COEFS).get(c.get(Calendar.MONTH));
-			deltaCumulative += coefs.get(C.KEY_DROPS_EVAP).get(c.get(Calendar.MONTH))*avg_rain;
+		if (today.weatherType.id == C.WEATHER_TYPE_RAINY) {
+			double avg_rain = coefs.get(C.KEY_RAIN_COEFS).get(
+					c.get(Calendar.MONTH));
+//			deltaCumulative += coefs.get(C.KEY_DROPS_EVAP).get(
+//					c.get(Calendar.MONTH))
+//					* avg_rain;
+			deltaCumulative += avg_rain;
 		}
-		
-		if (gameDate.dayOrder%8==0) {
-			calculateHumidityLooses();
-			cumulativeHumidity += deltaCumulative;
-			deltaCumulative = 0.0;
+
+		if (gameDate.dayOrder % 8 == 0) {
+			double variance = calculateHumidityLooses();
+			cumulativeHumidity += variance;
+			deltaCumulative = variance;
+			Double min_hum = coefs.get(C.KEY_MIN_HUMIDITY).get(0);
+			if (deltaCumulative < min_hum) {
+				deltaCumulative = min_hum;
+			}
 		}
-	
+		//do not allow humidity above the max
+		double max_humidity = coefs.get(C.KEY_MAX_HUMIDITY).get(0);
+		if (deltaCumulative>max_humidity) {
+			deltaCumulative = max_humidity;
+		}
 	}
-	
 
 	public void calculateGrassGrowth() {
 		grass_growth += 0.2;
 	}
-	
+
 	public void calculateDiggingCoefficient() {
-		if (cumulativeHumidity>1500) {
-			digging_coef += 0.2;
-		} else if (cumulativeHumidity >= 1000) {
-			digging_coef += 0.1;
-		} else if (cumulativeHumidity < 1000) {
-			digging_coef += 0.05;
+		HashMap<String, ArrayList<Double>> coefs = HumidityController
+				.load_hash();
+
+		int level = HumidityController.humidityLevel(Farmer.this);
+		if (level >= 3) {
+			digging_coef += coefs.get(C.KEY_DIGGING_COEF).get(3);
+		} else if (level == 2) {
+			digging_coef += coefs.get(C.KEY_DIGGING_COEF).get(2);
+		} else if (level == 1) {
+			digging_coef += coefs.get(C.KEY_DIGGING_COEF).get(1);
+		} else if (level == 0) {
+			digging_coef += coefs.get(C.KEY_DIGGING_COEF).get(0);
 		}
 	}
 
 	public void evaluateSoilImage(Date date) {
+		String folder_path = "/public/images/game/soil_types/";
+		String name_prefix = "";
+		String separator = "";
+		String extension = ".png";
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
-		if (c.get(Calendar.MONTH) == 11 || (c.get(Calendar.MONTH) < 3 && c.get(Calendar.DAY_OF_MONTH) <= 31)) {
-			soil_url = C.soil_urls[C.soil_with_snow];
+		if (c.get(Calendar.MONTH) == 11
+				|| (c.get(Calendar.MONTH) < 3 && c.get(Calendar.DAY_OF_MONTH) <= 31)) {
+			soil_url = "/public/images/game/soil_types/soil-snow.png";
 			grass_growth = 0.0;
 			digging_coef = 0.0;
 			return;
 		}
-		
-		int hum_level = HumidityController.humidityLevel(this);
+
+		int hum_level = HumidityController
+				.humidityLevelForSoil(HumidityController.humidityLevel(this));
 		int plowing_level = LandTreatmanController.plowingLevel(this);
 		int digging_level = LandTreatmanController.diggingLevel(this);
-		if (hum_level == 3 && plowing_level == 3) {
-			soil_url = C.soil_urls[C.soil_irrigated_brazdi_high_grass_high];
-		} else if (hum_level == 3 && plowing_level == 2) {
-			soil_url = C.soil_urls[C.soil_irrigated_brazdi_high_grass_medium];
-		} else if (hum_level == 3 && plowing_level == 1) {
-			soil_url = C.soil_urls[C.soil_irrigated_high_plowing_normal];
-		} else if (hum_level == 2 && plowing_level == 3) {
-			soil_url = C.soil_urls[C.soil_irrigated_brazdi_high_grass_high];
-		} else if (hum_level == 2 && plowing_level == 2) {
-			soil_url = C.soil_urls[C.soil_irrigated_brazdi_normal];
-		} else if (hum_level == 2 && plowing_level == 1) {
-			soil_url = C.soil_urls[C.soil_irrigated_brazdi_normal];
-		} else if (hum_level == 1 && plowing_level == 3) {
-			soil_url = C.soil_urls[C.soil_irrigated_brazdi_high_grass_high];
-		} else if (hum_level == 1 && plowing_level == 2) {
-			soil_url = C.soil_urls[C.soil_irrigated_brazdi_high_grass_medium];
-		} else if (hum_level == 1 && plowing_level == 1) {
-			soil_url = C.soil_urls[C.soil_normal];
-		}
+		int season_level = WeatherController
+				.seasionLevelSoilImage(WeatherController
+						.season_level(Farmer.this));
+		String tile_name = folder_path + name_prefix + separator + hum_level
+				+ separator + plowing_level + separator + digging_level
+				+ separator + season_level + extension;
+
+		soil_url = tile_name;
+		// if (hum_level == 3 && plowing_level == 3) {
+		// soil_url = C.soil_urls[C.soil_irrigated_brazdi_high_grass_high];
+		// } else if (hum_level == 3 && plowing_level == 2) {
+		// soil_url = C.soil_urls[C.soil_irrigated_brazdi_high_grass_medium];
+		// } else if (hum_level == 3 && plowing_level == 1) {
+		// soil_url = C.soil_urls[C.soil_irrigated_high_plowing_normal];
+		// } else if (hum_level == 2 && plowing_level == 3) {
+		// soil_url = C.soil_urls[C.soil_irrigated_brazdi_high_grass_high];
+		// } else if (hum_level == 2 && plowing_level == 2) {
+		// soil_url = C.soil_urls[C.soil_irrigated_brazdi_normal];
+		// } else if (hum_level == 2 && plowing_level == 1) {
+		// soil_url = C.soil_urls[C.soil_irrigated_brazdi_normal];
+		// } else if (hum_level == 1 && plowing_level == 3) {
+		// soil_url = C.soil_urls[C.soil_irrigated_brazdi_high_grass_high];
+		// } else if (hum_level == 1 && plowing_level == 2) {
+		// soil_url = C.soil_urls[C.soil_irrigated_brazdi_high_grass_medium];
+		// } else if (hum_level == 1 && plowing_level == 1) {
+		// soil_url = C.soil_urls[C.soil_normal];
+		// }
 	}
 
 	public void evaluateState() {
 		calculateCumulatives();
+		calculateFertalizing();
 		calculateLuck(gameDate);
 		calculateGrassGrowth();
 		evaluateSoilImage(gameDate.date);
 		calculateDiggingCoefficient();
 	}
-	
+
+	public void calculateFertalizing() {
+		if ((gameDate.dayOrder % 8) == 0) {
+			field.plantation.needN = FertilizationController
+					.checkNeedOfN(Farmer.this);
+			field.plantation.needP = FertilizationController
+					.checkNeedOfP(Farmer.this);
+			field.plantation.needK = FertilizationController
+					.checkNeedOfK(Farmer.this);
+			field.plantation.save();
+		}
+	}
+
 	public static Farmer buildInstance(String username, String password) {
 		Farmer farmer = new Farmer();
 		farmer.username = username;
@@ -263,7 +320,7 @@ public class Farmer extends Model {
 		farmer.coef_soil_type = 1;
 		farmer.grass_growth = 5.0;
 		farmer.digging_coef = 1.0;
-		farmer.productQuantity = 1000;
+
 		farmer.save();
 		return farmer;
 	}

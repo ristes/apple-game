@@ -20,7 +20,7 @@ GameDirectives.directive('shopMenu', ['jQuery','$items', function($,$items) {
       };
       
       scope.executeItem = function(item) {
-    	 
+    	 console.log("Item bought");
       }
 
       var unregBought = scope.$root.$on("item-bought", function($scope) {

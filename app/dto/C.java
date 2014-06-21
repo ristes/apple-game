@@ -2,7 +2,9 @@ package dto;
 
 public class C {
 	
-	public static final String COEF_YML = "/data/coefs_irrigation.yml";
+	public static final String COEF_HUMIDITY_YML = "/data/coefs_irrigation.yml";
+	
+	public static final String COEF_SALES_YML = "/data/coefs_sale.yml";
 	
 	public static final String KEY_RAIN_COEFS = "coef_rain_avgs";
 	
@@ -11,6 +13,26 @@ public class C {
 	
 	public static final String KEY_DROPS_EVAP = "coef_drops_evaporation";
 	public static final String KEY_DROPS_HUM = "coef_drops_humidity";
+	
+	public static final String KEY_DIGGING_COEF = "coef_digging_coef";
+	
+	public static final String KEY_ONE_HOUR_IRRIGATION_VALUES = "coef_mm_one_hour_irrigation";
+	public static final String KEY_PRICE_IRRIGATION_VALUES = "coef_price_one_ar_irrigation";
+	
+	public static final String KEY_SALE_PRICES = "apple_sale_per_month";
+	
+	public static final String KEY_HUMIDITY_LEVEL = "coef_humidity_level";
+	
+	public static final String KEY_MIN_HUMIDITY = "min_humidity";
+	
+	public static final String KEY_MAX_HUMIDITY = "max_humidity";
+	
+	public static final String KEY_SALES_APPLES_PER_MONTH = "apple_sale_per_month";
+	
+	public static final String KEY_YIELD_BY_BASE = "coef_yield_by_base";
+	
+	public static final int ENUM_GROOVES = 0;
+	public static final int ENUM_DROPS = 1;
 	
 	public static final long WEATHER_TYPE_SUNNY = 1;
 	public static final long WEATHER_TYPE_CLOUDY = 2;

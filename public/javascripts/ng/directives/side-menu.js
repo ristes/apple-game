@@ -16,6 +16,10 @@ GameDirectives.directive('sideMenu', ['jQuery', '$window',
           scope.bgh = 0;
 
           scope.visible = false;
+          
+          scope.executeItem = function(item) {
+        	  console.log(item);
+          }
 
           scope.show = function() {
             scope.$root.$emit("shop-hide");

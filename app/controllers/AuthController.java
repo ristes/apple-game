@@ -3,10 +3,13 @@ package controllers;
 import java.io.IOException;
 import java.util.List;
 
+import javax.persistence.Query;
+
 import models.Farmer;
 import models.GameContext;
 import models.ItemInstance;
 import play.cache.Cache;
+import play.db.jpa.JPA;
 import play.mvc.Controller;
 import play.mvc.Http;
 
@@ -16,7 +19,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 public class AuthController extends Controller {
 
 	public static void farmer() throws Exception {
-		JsonController.toJson(getFarmer(), "gameDate", "field","weatherType");
+		JsonController.toJson(getFarmer(), "field","gameDate","weatherType","plantation");
 	}
 
 	public static class PlantationDto {
@@ -44,7 +47,12 @@ public class AuthController extends Controller {
 			JsonMappingException, IOException {
 		Farmer farmer = getFarmer();
 		if (farmer != null) {
-			List<ItemInstance> items = farmer.boughtItems;
+			String sqlSelect = "select * from ItemInstance  where ownedBy_id=:farmer_id and id NOT IN (select DISTINCT(itemInstance_id) FROM ExecutedOperation where field_id=:field_id and  not(isnull(ItemInstance_id)))";
+			Query query = JPA.em().createNativeQuery(sqlSelect,ItemInstance.class);
+			query.setParameter("farmer_id", farmer.id);
+			query.setParameter("field_id", farmer.field.id);
+			List<ItemInstance> items = query.getResultList();
+			renderJSON(items);
 		} else {
 			response.status = 401;
 			renderJSON(null);
@@ -66,7 +74,7 @@ public class AuthController extends Controller {
 		if (farmer == null) {
 			redirect("/login");
 		}
-		JsonController.toJson(farmer, "field", "gameDate","weatherType");
+		JsonController.toJson(farmer, "field","gameDate","weatherType","plantation");
 	}
 
 	protected static GameContext getContext() {

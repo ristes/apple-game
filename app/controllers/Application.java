@@ -27,8 +27,9 @@ public class Application extends Controller {
 			renderJSON("");
 		}
 		farmer = farmer.gotoNextDay();
-		JsonController.toJson(farmer, "field","gameDate","weatherType");
+		JsonController.toJson(farmer, "field","gameDate","weatherType","plantation");
 	}
+
 	
 	public static void observeDiseasesForThisYear() {
 		Farmer farmer = AuthController.getFarmer();

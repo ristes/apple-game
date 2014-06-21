@@ -25,7 +25,7 @@ public class Field extends Model {
 	 * The price of the field (for buying)
 	 */
 	public int price;
-
+	
 	/**
 	 * The units of area of the field (everywhere referred to as units of
 	 * plantation)

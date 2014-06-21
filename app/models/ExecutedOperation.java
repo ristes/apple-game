@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import play.db.jpa.Model;
 
@@ -28,10 +29,21 @@ public class ExecutedOperation extends Model {
 	 */
 	@ManyToOne
 	public Operation operation;
+	
+	@OneToOne
+	public ItemInstance itemInstance;
 
 	/**
 	 * When is it executed
 	 */
 	public Date startDate;
+	
+	public ExecutedOperation clone() {
+		ExecutedOperation result = new ExecutedOperation();
+		result.field = field;
+		result.operation = operation;
+		result.startDate = (Date)startDate.clone();
+		return result;
+	}
 
 }

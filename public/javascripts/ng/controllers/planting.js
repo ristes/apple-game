@@ -11,8 +11,9 @@ Game.controller('PlantingStateController', [
     '$weather',
     'toaster',
     '$window',
+    '$day',
     function($scope, $location, $http, Store, StoreItems, Operations, $farmer,
-            $items, $plantation, $weather, toaster, $window) {
+            $items, $plantation, $weather, toaster, $window, $day) {
 
 
       $scope.onResizeFunction = function() {
@@ -26,10 +27,8 @@ Game.controller('PlantingStateController', [
         $scope.onResizeFunction();
         $scope.$apply();
       });
-
       $weather.load();
       $farmer.load();
-
       $scope.actions = Operations['planting'];
 
       if ($scope.$root.plantation == null) {

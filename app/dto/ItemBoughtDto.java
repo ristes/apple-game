@@ -11,4 +11,6 @@ public class ItemBoughtDto {
 	public String url;
 	
 	public Integer count;
+	
+	public Double quantity;
 }

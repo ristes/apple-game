@@ -1,3 +1,13 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
+
+controller.sale.success = Successfully sold %s kg apples. You received %s coins.
+controller.sale.fail = Not enough apples in store.
+
+controller.plowing.success = Successful plowing
+controller.plowing.fail.notenoughmoney = Not enough money for plowing.
+controller.plowing.fail.toowater = Too much soil humidity.
+controller.plowing.fail.toodry = The soil is too dry. First irrigate it please.
+
+controller.digging.fail.notenoughmoney = Not enough money for digging.

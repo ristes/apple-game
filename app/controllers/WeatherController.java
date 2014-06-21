@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
 import dto.DayWeatherDao;
-
 import models.Day;
 import models.Farmer;
 import models.WeatherType;
@@ -76,6 +76,53 @@ public class WeatherController extends Controller {
 		}
 		JsonController.toJson(result);
 
+	}
+
+	/**
+	 * describes the weather season depending of gamedate of the farmer state 1.
+	 * Autumn - 01.10 - 30.11 2. Winter - 01.12 - 28.02 3. Spring - 01.03 -
+	 * 30.04 4. Summer - 01.05 - 30.09
+	 * 
+	 * @param farmer
+	 */
+	public static int season_level(Farmer farmer) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(farmer.gameDate.date);
+		int month = c.get(Calendar.MONTH);
+		switch (month) {
+		case 0:
+			return 1;
+		case 1:
+			return 1;
+		case 2:
+			return 3;
+		case 3:
+			return 3;
+		case 4:
+			return 4;
+		case 5:
+			return 4;
+		case 6:
+			return 4;
+		case 7:
+			return 4;
+		case 8:
+			return 4;
+		case 9:
+			return 2;
+		case 10:
+			return 2;
+		case 11:
+			return 1;
+		}
+		return -1;
+	}
+
+	public static int seasionLevelSoilImage(int season_level) {
+		if (season_level==3 || season_level == 4) {
+			return 1;
+		}
+		return season_level;
 	}
 
 }

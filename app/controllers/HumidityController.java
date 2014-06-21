@@ -29,7 +29,7 @@ public class HumidityController extends Controller {
 		HashMap<String, ArrayList<Double>> coefs = (HashMap<String, ArrayList<Double>>) Cache
 				.get(key);
 		if (coefs == null) {
-			File securityFile = Play.getFile(C.COEF_YML);
+			File securityFile = Play.getFile(C.COEF_HUMIDITY_YML);
 			InputStream input = null;
 			try {
 				input = new FileInputStream(securityFile);
@@ -68,8 +68,10 @@ public class HumidityController extends Controller {
 		Double coef_eva = coefs.get(C.KEY_DROPS_EVAP)
 				.get(c.get(Calendar.MONTH));
 		Double coef_hum = coefs.get(C.KEY_DROPS_HUM).get(c.get(Calendar.MONTH));
-
-		double impact = farmer.cumulativeHumidity * 100 / coef_hum - 100;
+		double impact = 0.0;
+		if (coef_hum > 0.0) {
+			impact = farmer.deltaCumulative * 100 / coef_hum - 100;
+		}
 		return looses_eco(farmer.eco_points, impact);
 	}
 
@@ -122,7 +124,7 @@ public class HumidityController extends Controller {
 				loose_q = -50.0;
 			}
 			// divide with the number of milestones every 8 days
-			return (int) (value + ((value * loose_q) / (365.0 / 8)));
+			return (int) (value + ((value * (loose_q/100.0)) / (365.0 / 8)));
 		}
 
 		return (int) (value + (value * (variation / 100) * 1.2) / (365.0 / 8));
@@ -145,25 +147,42 @@ public class HumidityController extends Controller {
 		} else if (variation >= 50) {
 			loose_eco = -15.0;
 		}
-		return (double) (value + value * loose_eco / (365.0 / 8));
+		return (double) (value + (value * (loose_eco/100)) / (365.0 / 8));
 	}
 
 	/**
-	 * determinates humidity level of soil 1 - low 2 - medium 3 - high
-	 * 
+	 * determinate humidity level of soil  
+	 * 0 - dry 
+	 * 1 - normal 
+	 * 2 - low 
+	 * 3 - medium 
+	 * 4 - high
+	 * 0, 1 and 2 have same visual component
+	 * 3 and 4 different
 	 * @param farmer
-	 * @return
+	 * @return level coef
 	 */
 
 	public static int humidityLevel(Farmer farmer) {
-		Double cumVal = farmer.cumulativeHumidity;
-		if (cumVal < 1000) {
+		HashMap<String, ArrayList<Double>> coefs = load_hash();
+		Double lmtM1 = coefs.get(C.KEY_HUMIDITY_LEVEL).get(0);
+		Double lmt0 = coefs.get(C.KEY_HUMIDITY_LEVEL).get(1);
+		Double lmt1 = coefs.get(C.KEY_HUMIDITY_LEVEL).get(2);
+		Double lmt2 = coefs.get(C.KEY_HUMIDITY_LEVEL).get(3);
+		Double cumVal = farmer.deltaCumulative;
+		if (cumVal < lmtM1) {
+			return 0;
+		}
+		else if (cumVal < lmt0 && cumVal > lmtM1) {
 			return 1;
 		}
-		if (cumVal >= 1000 && cumVal < 2000) {
+		else if (cumVal < lmt1 && cumVal > lmt0) {
 			return 2;
 		}
-		return 3;
+		else if (cumVal >= lmt1 && cumVal < lmt2) {
+			return 3;
+		}
+		return 4;
 	}
 
 	public static Farmer humiditySetAppUrls(Farmer farmer) {
@@ -178,5 +197,29 @@ public class HumidityController extends Controller {
 			farmer.soil_url = C.soil_urls[C.soil_irrigated_brazdi_high];
 		}
 		return farmer;
+	}
+	
+	public static double varianceBrazdi(Farmer farmer) {
+		HashMap<String, ArrayList<Double>> coefs = load_hash();
+		Calendar c = Calendar.getInstance();
+		c.setTime(farmer.gameDate.date);
+		return  (farmer.deltaCumulative - coefs.get(C.KEY_GROOVES_HUM).get(c.get(Calendar.MONTH)));
+	}
+	
+	public static double varianceDrops(Farmer farmer) {
+		HashMap<String, ArrayList<Double>> coefs = load_hash();
+		Calendar c = Calendar.getInstance();
+		c.setTime(farmer.gameDate.date);
+		return  (farmer.deltaCumulative - coefs.get(C.KEY_DROPS_HUM).get(c.get(Calendar.MONTH)));
+	}
+
+	public static int humidityLevelForSoil(int humidityLevel) {
+		if (humidityLevel==0 || humidityLevel==1 || humidityLevel==2) {
+			return 1;
+		}
+		else if (humidityLevel==3) {
+			return 2;
+		} 
+		return 3;
 	}
 }

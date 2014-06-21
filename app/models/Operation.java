@@ -51,6 +51,9 @@ public class Operation extends Model {
 	@OneToMany(mappedBy = "operation")
 	public List<Item> itemsCapableToPerform;
 	
+	@OneToMany(mappedBy="operation")
+	public List<FertilizationOperation> fertilizationOperations;
+	
 
 
 	@ManyToOne
