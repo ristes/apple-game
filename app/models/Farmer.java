@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import controllers.DeseasesExpertSystem;
 import controllers.FertilizationController;
+import controllers.GrowController;
 import controllers.HumidityController;
 import controllers.IrrigationController;
 import controllers.LandTreatmanController;
@@ -259,6 +260,10 @@ public class Farmer extends Model {
 
 		soil_url = tile_name;
 	}
+	
+	public void evaluatePlantImage() {
+		plant_url = GrowController.evaluatePlantImage(Farmer.this);
+	}
 
 	public void evaluateState() {
 		calculateCumulatives();
@@ -266,6 +271,7 @@ public class Farmer extends Model {
 		calculateLuck(gameDate);
 		calculateGrassGrowth();
 		evaluateSoilImage(gameDate.date);
+		evaluatePlantImage();
 		calculateDiggingCoefficient();
 	}
 

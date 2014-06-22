@@ -125,7 +125,7 @@ Game.controller('PlantingStateController', [
         for (var i = 0; i < N; i++) {
           var p = r.cols[i];
           if (p.active && isInCoords(p)) {
-            r.cols[i].tree = "/public/images/game/plant.png";
+            r.cols[i].tree = $scope.$root.farmer.plant_url;
             r.cols[i].treeCls = 'seedling';
           }
         }
