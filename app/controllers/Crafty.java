@@ -12,9 +12,12 @@ public class Crafty extends Controller {
 
 	public static void iso() {
 		Farmer farmer = AuthController.getFarmer();
+
 		if (farmer == null) {
 			login("mk");
 		}
+		farmer.evaluateState();
+		farmer.save();
 		render();
 	}
 

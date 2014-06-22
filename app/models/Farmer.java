@@ -296,6 +296,10 @@ public class Farmer extends Model {
 					.checkNeedOfP(Farmer.this);
 			field.plantation.needK = FertilizationController
 					.checkNeedOfK(Farmer.this);
+			field.plantation.needCa = FertilizationController.checkNeedOfCa(Farmer.this);
+			field.plantation.needB = FertilizationController.checkNeedOfB(Farmer.this);
+			field.plantation.needMg = FertilizationController.checkNeedOfMg(Farmer.this);
+			field.plantation.needZn = FertilizationController.checkNeedOfZn(Farmer.this);
 			field.plantation.save();
 		}
 	}

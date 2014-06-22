@@ -50,16 +50,7 @@ public class FertilizationController extends Controller{
 		if (item==null) {
 			error("not such item");
 		}
-		List<FertilizerOperationDto> all = getFertilizationOper(farmer, item);
-		if (all.size()==0) {
-			return false;
-		}
-		List<FertilizerOperationDto> executed = getExecFertOper(farmer,all.get(0).operation_id);
-		double percentOfElement = FertilizerOperationDto.sumOfQuantity(executed)/FertilizerOperationDto.sumOfQuantity(all);
-		if (percentOfElement<0.33) {
-			return true;
-		}
-		return false;
+		return checkNeedOfFertilizerType(farmer, item);
 	}
 	
 	public static Boolean checkNeedOfP(Farmer farmer) {
@@ -67,16 +58,7 @@ public class FertilizationController extends Controller{
 		if (item==null) {
 			error("not such item");
 		}
-		List<FertilizerOperationDto> all = getFertilizationOper(farmer, item);
-		if (all.size()==0) {
-			return false;
-		}
-		List<FertilizerOperationDto> executed = getExecFertOper(farmer,all.get(0).operation_id);
-		double percentOfElement = FertilizerOperationDto.sumOfQuantity(executed)/FertilizerOperationDto.sumOfQuantity(all);
-		if (percentOfElement<0.33) {
-			return true;
-		}
-		return false;
+		return checkNeedOfFertilizerType(farmer, item);
 	}
 	
 	public static Boolean checkNeedOfK(Farmer farmer) {
@@ -84,6 +66,43 @@ public class FertilizationController extends Controller{
 		if (item==null) {
 			error("not such item");
 		}
+		return checkNeedOfFertilizerType(farmer, item);
+	}
+	
+	public static Boolean checkNeedOfCa(Farmer farmer) {
+		Item item = Item.find("byName", "Ca").first();
+		if (item==null) {
+			error("not such item");
+		}
+		return checkNeedOfFertilizerType(farmer, item);
+	}
+	
+	public static Boolean checkNeedOfB(Farmer farmer) {
+		Item item = Item.find("byName", "B").first();
+		if (item==null) {
+			error("not such item");
+		}
+		return checkNeedOfFertilizerType(farmer, item);
+	}
+	
+	public static Boolean checkNeedOfZn(Farmer farmer) {
+		Item item = Item.find("byName", "Zn").first();
+		if (item==null) {
+			error("not such item");
+		}
+		return checkNeedOfFertilizerType(farmer, item);
+	}
+	
+	
+	public static Boolean checkNeedOfMg(Farmer farmer) {
+		Item item = Item.find("byName", "Mg").first();
+		if (item==null) {
+			error("not such item");
+		}
+		return checkNeedOfFertilizerType(farmer, item);
+	}
+	
+	public static Boolean checkNeedOfFertilizerType(Farmer farmer, Item item) {
 		List<FertilizerOperationDto> all = getFertilizationOper(farmer, item);
 		if (all.size()==0) {
 			return false;
