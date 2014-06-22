@@ -13,4 +13,6 @@ public class ItemBoughtDto {
 	public Integer count;
 	
 	public Double quantity;
+	
+	public String store;
 }

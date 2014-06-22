@@ -333,7 +333,7 @@ body {
 	top: 20%;
 	background-image: url("/public/images/home/ploca.png");
 	background-size: 100% 100%;
-	z-index: 20
+	z-index: 1000
 }
 
 .shop_icon {

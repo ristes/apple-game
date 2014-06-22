@@ -12,9 +12,21 @@ Game.controller('IrrigationController', [
     '$interval',
     '$timeout',
     '$irrigate',
+    'jQuery',
     function($scope, $translate, $http, Store, StoreItems, Operations, $farmer,
-            $items, $plantation, $weather, $interval, $timeout, $irrigate) {
+            $items, $plantation, $weather, $interval, $timeout, $irrigate, $) {
 
+      $("#irrigation-slider").slider({
+        range: "max",
+        min: 1,
+        max: 12,
+        value: 2,
+        slide: function( event, ui ) {
+          $scope.$apply(function(){
+            $scope.holder.duration = ui.value;
+          });
+        }
+      });
       $scope.visible = false;
       $scope.irrigationUrl = '/public/images/game/operations/irrigation.png';
       $scope.showNext = true;
@@ -72,24 +84,6 @@ Game.controller('IrrigationController', [
 
         });
       };
-
-      $scope.items = [{
-        name: '1hour',
-        time: 1,
-        url: '/public/images/game/items/grooves.png'
-      }, {
-        name: '5hour',
-        time: 5,
-        url: '/public/images/game/items/grooves.png'
-      }, {
-        name: '10hour',
-        time: 10,
-        url: '/public/images/game/items/grooves.png'
-      }, {
-        name: '12hour',
-        time: 12,
-        url: '/public/images/game/items/grooves.png'
-      }];
 
       var unreg = $scope.$root.$on('operation-irrigation', function(_s, oper) {
         $scope.$root.$emit("side-hide");

@@ -13,12 +13,15 @@
 		<div class="shop_arrow" ng-show="showNext" ng-click="hide()"></div>
 		
 		<div class="shop_menu_grid fa-stack-2x fa-inverse" ng-show="enableOther">
-			<div>
+			<!-- <div>
 				<rating value="holder.duration" max="max"
 						on-hover="td=value" 
 						on-leave="td = null" 
 						state-on="'fa fa-check-circle-o'" 
 						state-off="'fa fa-clock-o'"></rating>
+			</div> -->
+			<div id="irrigation-slider-container">
+				<div id="irrigation-slider"></div>
 			</div>
 			<div>
 				<span ng-show="td" >{{td}} h</span>
@@ -38,16 +41,6 @@
 			</span>
 		</div>
 	</div>
+	<div id="irrigation-slider" style="width:300px"></div>
 	
-	<div ng-show="showTensiometer" class="tensiometer-progress">
-		<div class="progress-bar-tensiometer" style="height: {{status}}%;">
-			
-		</div>
-	</div>
-	
-	<div class="wrapper">
-		<div class="spinner pie"></div>
-		<div class="filler pie"></div>
-		<div class="mask" style="width: {{status}}%"></div>
-	</div>
 </div>

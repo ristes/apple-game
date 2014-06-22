@@ -1,3 +1,4 @@
+
 @font-face {
 	font-family: "ag-font";
 	src: url("ag.otf");
@@ -16,13 +17,12 @@
 }
 
 .weather-div-transition {
-	 -webkit-transition: all 1s linear; 
-	 -moz-transition: all 1s linear; 
-	 -ms-transition: all 1s linear; 
-	 -o-transition: all 1s linear; 
-	 transition: all 1s linear;
+	-webkit-transition: all 1s linear;
+	-moz-transition: all 1s linear;
+	-ms-transition: all 1s linear;
+	-o-transition: all 1s linear;
+	transition: all 1s linear;
 }
-
 
 .scene {
 	position: fixed;
@@ -36,7 +36,7 @@
 	position: fixed;
 	left: -30%;
 	top: -4%;
-	z-index: 0;
+	z-index: -1;
 	width: 26%;
 	-webkit-transform: skew(45deg);
 	-moz-transform: skew(45deg);
@@ -65,7 +65,7 @@
 .field-terrain {
 	width: 160%;
 	position: fixed;
-	z-index: -10;
+	z-index: -20;
 	margin-left: -30%;
 }
 
@@ -74,7 +74,7 @@
 	bottom: 0;
 	right: 0;
 	width: 20%;
-	z-index: 20;
+	z-index: 0;
 }
 
 .field {
@@ -87,8 +87,6 @@
 .field-row {
 	clear: both;
 }
-
-
 
 .ground {
 	width: 100%;
@@ -173,3 +171,26 @@ img.ograda-gore {
 	background-image: url("/public/images/elems/tensiometer.png");
 	background-size: 100% 100%;
 }
+
+#irrigation-slider {
+	height: 10px;
+	z-index: 1000;
+}
+
+#irrigation-slider-container {
+	margin: 30px 30px 30px 130px;
+}
+
+.ui-slider-horizontal .ui-slider-handle {
+top: -3px;
+margin-left: -6px;
+}
+
+.ui-slider .ui-slider-handle {
+position: absolute;
+z-index: 2;
+width: 16px;
+height: 16px;
+cursor: default;
+}
+

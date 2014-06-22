@@ -139,7 +139,11 @@ public class StoreController extends Controller {
 			renderJSON("");
 		}
 		List<ItemBoughtDto> result = new ArrayList<ItemBoughtDto>();
-		String sql = "SELECT ItemInstance.id,type_id,name,imageurl,count(type_id) as count,ItemInstance.quantity  FROM ItemInstance,Item where ItemInstance.type_id=Item.id and ownedBy_id=:farmer_id and ItemInstance.id NOT IN (select DISTINCT(itemInstance_id) FROM ExecutedOperation where field_id=:field_id and  not(isnull(ItemInstance_id))) GROUP BY type_id order by ItemInstance.id";
+		String sql = "SELECT ItemInstance.id, ItemInstance.type_id, Item.name, Item.imageurl, count(ItemInstance.type_id) as count, "
+				+ "ItemInstance.quantity, Store.name as store  FROM ItemInstance, Item, Store where ItemInstance.type_id=Item.id "
+				+ "and ItemInstance.ownedBy_id=:farmer_id and Store.id=Item.store_id and ItemInstance.id NOT IN "
+				+ "(select DISTINCT(itemInstance_id) FROM ExecutedOperation where field_id=:field_id and "
+				+ "not(isnull(ItemInstance_id))) GROUP BY type_id order by ItemInstance.id";
 		// String sqlSelect =
 		// "select * from ItemInstance  where ownedBy_id=:farmer_id and id NOT IN (select DISTINCT(itemInstance_id) FROM ExecutedOperation where field_id=:field_id and  not(isnull(ItemInstance_id)))";
 		List<Object[]> resultSql = JPA.em().createNativeQuery(sql)
@@ -157,6 +161,7 @@ public class StoreController extends Controller {
 			} else {
 				item.quantity = null;
 			}
+			item.store=(String) obj[6];
 			result.add(item);
 
 		}

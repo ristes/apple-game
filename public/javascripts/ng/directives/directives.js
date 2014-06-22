@@ -7,7 +7,7 @@ var GameDirectives = angular
                 'Game.directives',
                 ['ngResource', 'ngRoute', 'ngAnimate', 'ngCookies',
                     'ui.bootstrap', 'toaster', 'mgcrea.ngStrap',
-                    'pascalprecht.translate', 'ngSlider'])
+                    'pascalprecht.translate'])
         .directive('appVersion', ['version', function(version) {
           return function(scope, elm, attrs) {
             elm.text(version);
