@@ -80,15 +80,16 @@ Game.controller('IrrigationController', [
       }
 
       $scope.irrigate = function() {
-        var interval = 200;
-        var time = $scope.holder.duration * 5;
-        $scope.visible=false;
+        var interval = 100;
+        var time = $scope.holder.duration * 50;
+        $scope.visible = false;
 
         if ($scope.enableOther) {
           $scope.status = 0;
           $scope.enableOther = false;
           $interval(function() {
-            $scope.status += Math.round(100 / time);
+            $scope.status += 100 / time;
+            $scope.showStatus = Math.round($scope.status);
             if ($scope.status > 100) {
               $scope.status = 100;
             }
@@ -163,7 +164,7 @@ Game.controller('IrrigationController', [
       $("#irrigation-slider").slider({
         range: "max",
         min: 0,
-        max: 12,
+        max: 25,
         slide: function(event, ui) {
           $scope.$apply(function() {
             $scope.holder.duration = ui.value;
