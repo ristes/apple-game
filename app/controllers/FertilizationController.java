@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
@@ -11,6 +12,9 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
 import dto.FertilizerOperationDto;
 import models.ExecutedOperation;
 import models.Farmer;
@@ -21,6 +25,59 @@ import play.db.jpa.JPA;
 import play.mvc.Controller;
 
 public class FertilizationController extends Controller {
+
+	public static void fertilize(Double n, Double p, Double k, Double ca,
+			Double b, Double mg) throws JsonGenerationException,
+			JsonMappingException, IOException {
+
+		System.out.println(params);
+		Farmer farmer = AuthController.getFarmer();
+		if (farmer == null) {
+			error("Not logged in.");
+		}
+
+		Item N = Item.find("byName", "N").first();
+		Item P = Item.find("byName", "P").first();
+		Item K = Item.find("byName", "K").first();
+		Item Ca = Item.find("byName", "Ca").first();
+		Item B = Item.find("byName", "B").first();
+		Item Mg = Item.find("byName", "Mg").first();
+
+		double value = N.price * n + P.price * p + K.price * k + Ca.price * ca
+				+ B.price * b + Mg.price * mg;
+
+		value *= farmer.field.area;
+		if (farmer.balans < value) {
+			JsonController.toJson("");
+		}
+
+		farmer.balans -= value;
+		farmer.eco_points += N.pollutionCoefficient + P.pollutionCoefficient
+				+ K.pollutionCoefficient + Ca.pollutionCoefficient
+				+ B.pollutionCoefficient + Mg.pollutionCoefficient;
+		saveItem(N, farmer, n);
+		saveItem(P, farmer, p);
+		saveItem(K, farmer, k);
+		saveItem(Ca, farmer, ca);
+		saveItem(B, farmer, b);
+		saveItem(Mg, farmer, mg);
+		farmer.save();
+		JsonController.toJson(farmer);
+	}
+
+	private static void saveItem(Item item, Farmer farmer, Double quantity) {
+		ItemInstance instance = new ItemInstance();
+		instance.ownedBy = farmer;
+		instance.type = item;
+		instance.quantity = quantity;
+		instance.save();
+		ExecutedOperation executed = new ExecutedOperation();
+		executed.field = farmer.field;
+		executed.startDate = farmer.gameDate.date;
+		executed.operation = instance.type.operation;
+		executed.itemInstance = instance;
+		executed.save();
+	}
 
 	/**
 	 * 

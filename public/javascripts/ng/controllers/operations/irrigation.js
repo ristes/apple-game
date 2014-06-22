@@ -157,21 +157,6 @@ Game.controller('IrrigationController', [
 
       }
 
-      // $scope.$watch('holder.duration', function(n, o) {
-      // if (n == o) { return; }
-      // $("#irrigation-slider").slider("value", n);
-      // })
-      // $("#irrigation-slider").slider({
-      // range: "max",
-      // min: 0,
-      // max: 25,
-      // slide: function(event, ui) {
-      // $scope.$apply(function() {
-      // $scope.holder.duration = ui.value;
-      // });
-      // }
-      // });
-
       $scope.cfg = {
         range: "max",
         min: 0,

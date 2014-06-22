@@ -205,3 +205,24 @@ Game.factory('$plowing', ['$rootScope', '$http', '$day',
         }
       };
     }]);
+
+Game.factory('$fertilize', ['$day', '$http', 'jQuery',
+    function($day, $http, $) {
+
+      return {
+        fertilize: function(fertilizer) {
+          $http({
+            method: 'POST',
+            url: "/fertilizationcontroller/fertilize",
+            data: $.param(fertilizer),
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+          }).then(function(res) {
+            if(res.data && res.data.balans) {
+              $day.load(res.data);
+            }
+          });
+        }
+      }
+    }]);

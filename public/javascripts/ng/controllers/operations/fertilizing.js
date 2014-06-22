@@ -9,83 +9,147 @@ Game.controller('FertilizingController', [
     '$items',
     '$plantation',
     '$weather',
+    '$fertilize',
+    '$timeout',
+    '$interval',
+    '$window',
     function($scope, $translate, $http, Store, StoreItems, Operations, $farmer,
-            $items, $plantation, $weather) {
+            $items, $plantation, $weather, $fertilize, $timeout, $interval,
+            $window) {
 
-      var showProgress = function(_scope, oper) {
-        $scope.$root.$emit('show-progress-global', {
-          title: 'progress.' + oper.name,
-          duration: oper.duration
-        });
+      $scope.fertilizer = {
+        n: 40,
+        p: 40,
+        k: 40,
+        ca: 9,
+        mg: 3,
+        b: 0.35
       };
 
-      $scope.quantity = 1;
+      function calculatePrice() {
+        var n = $scope.fertilizer;
+        var p = $scope.prices;
+        $scope.price = n.n * p.n + n.p * p.p + n.k * p.k + n.ca * p.ca + n.b
+                * p.b + n.mg * p.mg;
+      }
 
-      var onBuyItem = function(item) {
-        Store['buyItem']({
-          itemName: item.name,
-          quantity: item.perHa ? $scope.plantation.area : 1,
-          currentState: $scope.$root.farmer.currentState
-        }, null, function(result) {
-          if (result.balans) {
-            $items.add(item.store, item);
-            $farmer.swap(result);
-            $scope.$root.$emit('shop-hide');
-
-            $scope.$root.$emit('show-progress-global', {
-              title: 'progress.fertilization',
-              duration: 20
-            });
-            $items.use(item.store);
-          } else {
-            $scope.$root.$emit('insuficient-funds');
-          }
-        }).$promise['finally'](function() {
-          $scope.$root.$emit('item-bought');
-
-        });
-      };
-      var unreg = $scope.$root.$on('operation-fertilizing', function(_s, oper) {
-        var hasItem = $items.check('fertilizer');
-        if (!hasItem) {
-          $scope.$root.$emit('shop-show', {
-            items: StoreItems[oper.requires],
-            showNext: true,
-            storeUrl: oper.ico,
-            onItemClick: onBuyItem
-          });
-
-        } else {
-          var types = $items.get(oper.requires);
-          if (types.length > 1) {
-            $scope.$root.$emit('shop-show', {
-              items: types,
-              showNext: true,
-              storeUrl: oper.ico,
-              shop: {
-                name: oper.requires
-              },
-              onItemClick: function(t) {
-                $scope.type = t;
-                $scope.$root.$emit('shop-hide');
-                $scope.$root.$emit('show-progress-global', {
-                  title: 'progress.fertilization',
-                  duration: 20
-                });
-                $items.use(oper.requires, $scope.type);
-              }
-            });
-          } else {
-            $scope.type = types[0];
-            $scope.$root.$emit('show-progress-global', {
-              title: 'progress.fertilization',
-              duration: 20
-            });
-            $items.use(oper.requires, $scope.type);
-          }
+      $scope.nCfg = {
+        range: "max",
+        min: 0,
+        max: 60,
+        onChange: function(n) {
+          $scope.fertilizer.n = n;
+          calculatePrice();
         }
+      };
 
+      $scope.pCfg = {
+        range: "max",
+        min: 0,
+        max: 60,
+        onChange: function(n) {
+          $scope.fertilizer.p = n;
+          calculatePrice();
+        }
+      };
+
+      $scope.kCfg = {
+        range: "max",
+        min: 0,
+        max: 60,
+        onChange: function(n) {
+          $scope.fertilizer.k = n;
+          calculatePrice();
+        }
+      };
+
+      $scope.caCfg = {
+        range: "max",
+        min: 0,
+        max: 18,
+        onChange: function(n) {
+          $scope.fertilizer.ca = n;
+          calculatePrice();
+        }
+      };
+
+      $scope.bCfg = {
+        range: "max",
+        min: 0,
+        max: 1,
+        step: 0.05,
+        onChange: function(n) {
+          $scope.fertilizer.b = n;
+          calculatePrice();
+        }
+      };
+
+      $scope.mgCfg = {
+        range: "max",
+        min: 0,
+        max: 10,
+        onChange: function(n) {
+          $scope.fertilizer.mg = n;
+          calculatePrice();
+        }
+      };
+
+      $scope.fertilize = function() {
+
+        var interval = 100;
+        var time = 10 * 50;
+
+        if (!$scope.fertilizeProgress) {
+          $fertilize.fertilize($scope.fertilizer);
+
+          $scope.status = 0;
+          $scope.fertilizeProgress = true;
+
+          $interval(function() {
+            $scope.status += 100 / time;
+            $scope.showStatus = Math.round($scope.status);
+            if ($scope.status > 100) {
+              $scope.status = 100;
+            }
+
+          }, interval, time);
+
+          $timeout(function() {
+            $scope.fertilizeProgress = false;
+            $scope.hide();
+          }, interval * (time + 1));
+
+        }
+      }
+
+      $scope.fertilizationUrl = '/public/images/game/'
+              + 'operations/fertilizing.png';
+
+      var unreg = $scope.$root.$on('operation-fertilizing', function(_s, oper) {
+        $scope.$root.$emit("side-hide");
+        $scope.visible = true;
+
+        var size = $scope.$root.day.field.area;
+        $scope.prices = {
+          n: 35 * size,
+          p: 35 * size,
+          k: 35 * size,
+          ca: 3000 * size,
+          mg: 3000 * size,
+          b: 3000 * size
+        }
+        calculatePrice();
+
+        $scope.bgw = $window.innerWidth;
+        $scope.bgh = $window.innerHeight;
       });
+
+      $scope.hide = function() {
+        $scope.visible = false;
+
+        $scope.bgw = 0;
+        $scope.bgh = 0;
+      }
 
       $scope.$on("$destroy", function() {
         if (unreg) {

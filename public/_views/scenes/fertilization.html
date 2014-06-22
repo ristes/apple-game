@@ -1,1 +1,142 @@
-<div ng-controller="FertilizingController"></div>
+<div ng-controller="FertilizingController">
+	<div class="side-screen-bg" style='width:{{bgw}}px;height:{{bgh}}px;z-index:1000;cursor:no-drop'></div>
+
+	<div class="shop-menu" ng-animate="shop"
+			ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
+		
+		
+		<div class="shop_icon">
+			<img src="{{fertilizationUrl}}" style="width:75%;"></img>
+			<div class="shop-label ramka">
+				<span class="shop-label-text" translate="fertilizing"></span> 
+			</div>
+		</div>
+		
+		<div class="shop_arrow" ng-show="!fertilizeProgress" ng-click="hide()"></div>
+		
+		<div class="shop_menu_grid fa-stack-2x fa-inverse">
+		
+			
+			<div id="irrigation-slider-container" ng-show="fertilizeProgress">
+				<div id="fertilization-info">
+					{{ 'fertilization.progress' | translate }}
+				</div>
+				<div class="progress progress-striped active">
+					<div class="progress-bar" style="width: {{status}}%;">
+						<span>
+							{{showStatus | integer}} %
+						</span>
+					</div>
+				</div>
+			</div>
+			
+			<div id="irrigation-slider-container" ng-show="!fertilizeProgress">
+				<div id="fertilization-info">
+					{{ 'fertilization.quantity' | translate }}
+				</div>
+				<table width="100%">
+					<tr>
+						<td width="25%">
+							N({{fertilizer.n}} kg/Ha):
+						</td>
+						<td width="55%">
+							<div slider class="slider" cfg="nCfg" value="fertilizer.n"></div>
+						</td>
+						<td width="20%" class="fertilizer-price">
+							<span><img style="height:20px" src="/public/images/home/money_in_stock.png"> {{fertilizer.n * prices.n}}</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							P({{fertilizer.p}} kg/Ha):
+						</td>
+						<td>
+							<div slider class="slider" cfg="pCfg" value="fertilizer.p"></div>
+						</td>
+						<td class="fertilizer-price">
+							<span>
+								<img style="height:20px" src="/public/images/home/money_in_stock.png"> 
+								{{fertilizer.p * prices.p}}
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							K({{fertilizer.k}} kg/Ha):
+						</td>
+						<td>
+							<div slider class="slider" cfg="kCfg" value="fertilizer.k"></div>
+						</td>
+						<td class="fertilizer-price">
+							<span>
+								<img style="height:20px" src="/public/images/home/money_in_stock.png"> 
+								{{fertilizer.k * prices.k}}
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Ca({{fertilizer.ca}} kg/Ha):
+						</td>
+						<td>
+							<div slider class="slider" cfg="caCfg" value="fertilizer.ca"></div>
+						</td>
+						<td class="fertilizer-price">
+							<span>
+								<img style="height:20px" src="/public/images/home/money_in_stock.png"> 
+								{{fertilizer.ca * prices.ca}}
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							B({{fertilizer.b}} kg/Ha):
+						</td>
+						<td>
+							<div slider class="slider" cfg="bCfg" value="fertilizer.b"></div>
+						</td>
+						<td class="fertilizer-price">
+							<span>
+								<img style="height:20px" src="/public/images/home/money_in_stock.png"> 
+								{{fertilizer.b * prices.b}}
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Mg({{fertilizer.mg}} kg/Ha):
+						</td>
+						<td>
+							<div slider class="slider" cfg="mgCfg" value="fertilizer.mg"></div>
+						</td>
+						<td class="fertilizer-price">
+							<span>
+								<img style="height:20px" src="/public/images/home/money_in_stock.png"> 
+								{{fertilizer.mg * prices.mg}}
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							{{ 'Total' | translate}}:
+						</td>
+						<td colspan="2" class="fertilizer-price" style="font-size:0.8em">
+							<span>
+								<img style="height:30px" src="/public/images/home/money_in_stock.png"> 
+								{{price}}
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+						</td>
+						<td colspan="2" class="fertilizer-price" style="font-size:0.8em">
+							<button class="btn btn-xs" ng-click="fertilize()">fertilize</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+</div>
