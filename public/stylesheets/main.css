@@ -172,7 +172,7 @@ img.ograda-gore {
 	background-size: 100% 100%;
 }
 
-#irrigation-slider {
+.slider {
 	height: 10px;
 	z-index: 1000;
 }
@@ -191,6 +191,17 @@ position: absolute;
 z-index: 2;
 width: 16px;
 height: 16px;
-cursor: default;
+cursor: pointer;
 }
 
+.shop-left {
+	margin-left: 50px;
+}
+
+#irrigation-slider-container td {
+	font-size: 0.5em;
+}
+
+.fertilizer-price {
+	text-align: right;
+}
