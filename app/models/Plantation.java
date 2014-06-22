@@ -2,6 +2,7 @@ package models;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -38,6 +39,7 @@ public class Plantation extends Model {
 	 * JSON Array representing (x,y) values of every tree positioned on the plantation in form of String (javascript parsing)
 	 * ex: "[{0,0},{0,1},{1,1},{2,2}]
 	 */
+	@Column(length=5000)
 	public String treePositions;
 
 	/**

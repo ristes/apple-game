@@ -33,7 +33,6 @@ public class IrrigationController extends Controller {
 		if (farmer.deltaCumulative > 50) {
 			farmer.deltaCumulative = 50d;
 		}
-		farmer.cumulativeHumidity = 0.0;
 		farmer.evaluateState();
 		farmer.save();
 

@@ -1,6 +1,6 @@
 Game.controller('StoreController', ['$scope', '$translate', '$http', 'Store',
-    'StoreItems', '$items', '$farmer',
-    function($scope, $translate, $http, Store, StoreItems, $items, $farmer) {
+    'StoreItems', '$items', '$farmer','$day',
+    function($scope, $translate, $http, Store, StoreItems, $items, $farmer, $day) {
 
       $scope.initStore = function(store, nextState, servMethod, shopIcon) {
         $scope.nextState = nextState;
@@ -27,6 +27,7 @@ Game.controller('StoreController', ['$scope', '$translate', '$http', 'Store',
         }, null, function(result) {
           if (result.balans) {
             $farmer.swap(result);
+            $day.load(result);
             $items.add($scope.store, item);
             $scope.$root.$emit('shop-hide');
           } else {

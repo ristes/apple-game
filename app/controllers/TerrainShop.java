@@ -69,6 +69,7 @@ public class TerrainShop extends Controller {
 			farmer.productQuantity = (int)Math.round(calculateYield(farmer));
 			plantation.save();
 			field.save();
+			farmer.evaluateState();
 			farmer.save();
 		}
 		JsonController.toJson(farmer, "field", "plantation");

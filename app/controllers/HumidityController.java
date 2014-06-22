@@ -173,10 +173,10 @@ public class HumidityController extends Controller {
 		if (cumVal < lmtM1) {
 			return 0;
 		}
-		else if (cumVal < lmt0 && cumVal > lmtM1) {
+		else if (cumVal <= lmt0 && cumVal > lmtM1) {
 			return 1;
 		}
-		else if (cumVal < lmt1 && cumVal > lmt0) {
+		else if (cumVal <= lmt1 && cumVal > lmt0) {
 			return 2;
 		}
 		else if (cumVal >= lmt1 && cumVal < lmt2) {

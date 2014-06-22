@@ -258,25 +258,6 @@ public class Farmer extends Model {
 				+ separator + season_level + extension;
 
 		soil_url = tile_name;
-		// if (hum_level == 3 && plowing_level == 3) {
-		// soil_url = C.soil_urls[C.soil_irrigated_brazdi_high_grass_high];
-		// } else if (hum_level == 3 && plowing_level == 2) {
-		// soil_url = C.soil_urls[C.soil_irrigated_brazdi_high_grass_medium];
-		// } else if (hum_level == 3 && plowing_level == 1) {
-		// soil_url = C.soil_urls[C.soil_irrigated_high_plowing_normal];
-		// } else if (hum_level == 2 && plowing_level == 3) {
-		// soil_url = C.soil_urls[C.soil_irrigated_brazdi_high_grass_high];
-		// } else if (hum_level == 2 && plowing_level == 2) {
-		// soil_url = C.soil_urls[C.soil_irrigated_brazdi_normal];
-		// } else if (hum_level == 2 && plowing_level == 1) {
-		// soil_url = C.soil_urls[C.soil_irrigated_brazdi_normal];
-		// } else if (hum_level == 1 && plowing_level == 3) {
-		// soil_url = C.soil_urls[C.soil_irrigated_brazdi_high_grass_high];
-		// } else if (hum_level == 1 && plowing_level == 2) {
-		// soil_url = C.soil_urls[C.soil_irrigated_brazdi_high_grass_medium];
-		// } else if (hum_level == 1 && plowing_level == 1) {
-		// soil_url = C.soil_urls[C.soil_normal];
-		// }
 	}
 
 	public void evaluateState() {
