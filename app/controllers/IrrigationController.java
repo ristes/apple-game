@@ -115,9 +115,7 @@ public class IrrigationController extends Controller {
 			}
 			if (time > 0) {
 				time = 0;
-			} else if (time < -12) {
-				time = -12;
-			}
+			} 
 			renderJSON(Math.abs(time));
 		}
 	}
