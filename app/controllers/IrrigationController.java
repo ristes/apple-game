@@ -34,12 +34,11 @@ public class IrrigationController extends Controller {
 			farmer.deltaCumulative = 50d;
 		}
 		farmer.cumulativeHumidity = 0.0;
-
-		farmer.save();
 		farmer.evaluateState();
-		// HumidityController.humiditySetAppUrls(farmer);
+		farmer.save();
 
-		JsonController.toJson(farmer, "field", "gameDate", "weatherType");
+
+		JsonController.toJson(farmer, "field", "gameDate", "weatherType","plantation");
 	}
 
 	public static void dropsIrrigation(String time)
