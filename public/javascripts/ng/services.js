@@ -242,7 +242,7 @@ Game.factory('StoreItems', function($resource) {
       store: 'spraying',
       price: 100,
       perHa: true,
-      name: 'Insekticid',
+      name: 'pheromone',
       url: '/public/images/game/items/pheromone.png'
     }, {
       id: 3,

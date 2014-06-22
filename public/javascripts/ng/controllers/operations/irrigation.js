@@ -16,35 +16,73 @@ Game.controller('IrrigationController', [
     function($scope, $translate, $http, Store, StoreItems, Operations, $farmer,
             $items, $plantation, $weather, $interval, $timeout, $irrigate, $) {
 
-      $("#irrigation-slider").slider({
-        range: "max",
-        min: 1,
-        max: 12,
-        value: 2,
-        slide: function( event, ui ) {
-          $scope.$apply(function(){
-            $scope.holder.duration = ui.value;
-          });
-        }
-      });
       $scope.visible = false;
       $scope.irrigationUrl = '/public/images/game/operations/irrigation.png';
       $scope.showNext = true;
       $scope.enableOther = true;
 
       $scope.holder = {};
-      $scope.holder.duration = 1;
-      $scope.max = 12;
+      $scope.holder.duration = 0;
 
-      $scope.showTensiometer = true;
+      function onIrrigation(_s, oper) {
+        $scope.$root.$emit("side-hide");
+        var hasItem = $items.check('irrigation');
+        if (!hasItem) {
+          $scope.$root.$emit('shop-show', {
+            items: StoreItems['irrigation'],
+            showNext: true,
+            storeUrl: oper.ico,
+            shop: {
+              name: 'irrigation'
+            },
+            onItemClick: onBuyItem
+          });
+
+        } else {
+          var types = extractIrrigationItems();
+
+          if (types.length > 1) {
+
+            // select which irrigation to start
+            $scope.$root.$emit('shop-show', {
+              items: types,
+              showNext: true,
+              storeUrl: oper.ico,
+              shop: {
+                name: 'irrigation'
+              },
+              onItemClick: showIrrigation
+            });
+          } else {
+            showIrrigation(types[0]);
+          }
+        }
+      }
+
+      function showIrrigation(type) {
+        $scope.$root.$emit('shop-hide');
+        if ($scope.hasTensiometer) {
+          var t = (type.name == 'KapkovoNavodnuvanje' ? 1 : 0);
+          $scope.startIrrigate = $irrigate[t ? 'groovesIrritagion'
+                  : 'dropsIrrigation'];
+          var res = $irrigate.tensiometerTime(t ? 1 : 0);
+          res.success(function(data) {
+            $scope.holder.duration = data;
+            $scope.holder.best = data;
+          });
+        }
+        $scope.type = type;
+        $scope.visible = true;
+      }
 
       $scope.hide = function() {
         $scope.visible = false;
       }
 
-      $scope.itemClick = function() {
+      $scope.irrigate = function() {
         var interval = 200;
         var time = $scope.holder.duration * 5;
+        $scope.visible=false;
 
         if ($scope.enableOther) {
           $scope.status = 0;
@@ -59,13 +97,13 @@ Game.controller('IrrigationController', [
 
           $timeout(function() {
             $scope.enableOther = true;
-            $irrigate.irrigate("BrazdiNavodnuvanje", time);
+            $scope.startIrrigate($scope.holder.duration);
           }, interval * (time + 1));
 
         }
       }
 
-      var onBuyItem = function(item) {
+      function onBuyItem(item) {
         Store['buyItem']({
           itemName: item.name,
           quantity: item.perHa ? $scope.plantation.area : 1,
@@ -83,44 +121,10 @@ Game.controller('IrrigationController', [
           $scope.$root.$emit('item-bought');
 
         });
-      };
+      }
+      ;
 
-      var unreg = $scope.$root.$on('operation-irrigation', function(_s, oper) {
-        $scope.$root.$emit("side-hide");
-        var hasItem = $items.check('irrigation');
-        if (!hasItem) {
-          $scope.$root.$emit('shop-show', {
-            items: StoreItems['irrigation'],
-            showNext: true,
-            storeUrl: oper.ico,
-            shop: {
-              name: 'irrigation'
-            },
-            onItemClick: onBuyItem
-          });
-
-        } else {
-          var types = $items.get('irrigation');
-          if (types.length > 1) {
-            $scope.$root.$emit('shop-show', {
-              items: types,
-              showNext: true,
-              storeUrl: oper.ico,
-              shop: {
-                name: 'irrigation'
-              },
-              onItemClick: function(t) {
-                $scope.type = t;
-                $scope.$root.$emit('shop-hide');
-                $scope.visible = true;
-              }
-            });
-          } else {
-            $scope.type = types[0];
-            $scope.visible = true;
-          }
-        }
-      });
+      var unreg = $scope.$root.$on('operation-irrigation', onIrrigation);
 
       var unregHide = $scope.$root.$on('shop-hide', function() {
         $scope.visible = false;
@@ -132,6 +136,38 @@ Game.controller('IrrigationController', [
         }
         if (unregHide) {
           unregHide();
+        }
+      });
+
+      function extractIrrigationItems() {
+        var types = $items.get('irrigation');
+
+        var result = [];
+
+        for (var i = 0; i < types.length; i++) {
+          if (types[i].name != 'tensiometer') {
+            $scope.hasTensiometer = true;
+          } else {
+            result.push(types[i]);
+          }
+        }
+
+        return result;
+
+      }
+
+      $scope.$watch('holder.duration', function(n, o) {
+        if (n == o) { return; }
+        $("#irrigation-slider").slider("value", n);
+      })
+      $("#irrigation-slider").slider({
+        range: "max",
+        min: 0,
+        max: 12,
+        slide: function(event, ui) {
+          $scope.$apply(function() {
+            $scope.holder.duration = ui.value;
+          });
         }
       });
 

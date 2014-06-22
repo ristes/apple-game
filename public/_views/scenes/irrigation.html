@@ -13,20 +13,20 @@
 		<div class="shop_arrow" ng-show="showNext" ng-click="hide()"></div>
 		
 		<div class="shop_menu_grid fa-stack-2x fa-inverse" ng-show="enableOther">
-			<!-- <div>
-				<rating value="holder.duration" max="max"
-						on-hover="td=value" 
-						on-leave="td = null" 
-						state-on="'fa fa-check-circle-o'" 
-						state-off="'fa fa-clock-o'"></rating>
-			</div> -->
+		
+			<div id="irrigation-info" ng-show="holder.best!=null">
+				{{ 'tensiometer.recomended' | translate }} {{holder.best}} {{ 'hours' | translate }}
+			</div>
+			<div id="irrigation-info" ng-show="!hasTensiometer">
+				{{ 'irrigation.choose_duration' | translate }}
+			</div>
 			<div id="irrigation-slider-container">
 				<div id="irrigation-slider"></div>
 			</div>
 			<div>
 				<span ng-show="td" >{{td}} h</span>
-				<span ng-show="!td" >{{holder.duration}} h</span>
-				<button class="btn btn-xs" ng-click="itemClick()">irrigate</button>
+				<span ng-show="!td" > {{holder.duration}} h</span>
+				<button class="btn btn-xs" ng-click="irrigate()">irrigate</button>
 			</div>
 			<!-- <div class="shop_item_in_grid" ng-repeat="item in items">
 				<div class="shop_icon_in_grid" title="{{item.name}}" style="background-image:url('{{item.url}}')" ng-click="itemClick(item)"></div>

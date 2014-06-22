@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.junit.Before;
+
 import models.Farmer;
 import models.Item;
 import play.mvc.Controller;
@@ -17,126 +19,107 @@ import exceptions.NotEnoughMoneyException;
 
 public class IrrigationController extends Controller {
 
-	public static void irrigation(String name, String time,
-			Boolean hasTensiometers) throws JsonGenerationException,
-			JsonMappingException, IOException {
-		String storeName = "IrrigationStore";
+	private static Farmer checkFarmer() {
 		Farmer farmer = AuthController.getFarmer();
 		if (farmer == null) {
 			error("Not logged in");
 		}
-		List<Item> irrigationTypes = Item.find("byName", name).fetch();
-		if (irrigationTypes.size() == 0) {
-			error("No such irrigation type");
-		}
-		Item irrType = irrigationTypes.get(0);
-		if (irrType.store.name.equals(storeName)) {
-			error("Not exact store");
-		}
-		if (name.equals("BrazdiNavodnuvanje")) {
-			try {
-				if (!hasTensiometers) {
-					try {
-						Double deltaCul = 0.0;
-						deltaCul = brazdiNavodnuvanje(farmer, time);
-						farmer.deltaCumulative += deltaCul;
-					} catch (NotEnoughMoneyException ex) {
-						JsonController.toJson(farmer, "field", "gameDate");
-						ex.printStackTrace();
-					} finally {
-						farmer.save();
-					}
-				} else {
-					double quantity = irrigateTensiometers(farmer);
-					farmer.deltaCumulative = quantity;
-					farmer.cumulativeHumidity = 0.0;
-				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else {
-			try {
-				if (!hasTensiometers) {
-					Double deltaCul = dropsNavodnuvanje(farmer, time);
-					farmer.deltaCumulative += deltaCul;
-				} else {
-					farmer.deltaCumulative = 0.0;
-					farmer.cumulativeHumidity = 0.0;
-				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		farmer.save();
-		farmer.evaluateState();
-//		HumidityController.humiditySetAppUrls(farmer);
-		
-		JsonController.toJson(farmer, "field", "gameDate","weatherType");
-
+		return farmer;
 	}
 
-	public static double dropsNavodnuvanje(Farmer farmer, String time) throws NotEnoughMoneyException {
+	private static void returnFarmer(Farmer farmer, double deltaCul)
+			throws JsonGenerationException, JsonMappingException, IOException {
+		farmer.deltaCumulative += deltaCul;
+		if (farmer.deltaCumulative > 50) {
+			farmer.deltaCumulative = 50d;
+		}
+		farmer.cumulativeHumidity = 0.0;
+
+		farmer.save();
+		farmer.evaluateState();
+		// HumidityController.humiditySetAppUrls(farmer);
+
+		JsonController.toJson(farmer, "field", "gameDate", "weatherType");
+	}
+
+	public static void dropsIrrigation(String time)
+			throws NotEnoughMoneyException, JsonGenerationException,
+			JsonMappingException, IOException {
+
+		Farmer farmer = checkFarmer();
+		double result = 0.0;
+
 		HashMap<String, ArrayList<Double>> coefs = HumidityController
 				.load_hash();
-		double result = 0.0;
 		if (farmer.field.hasDropSystem(farmer)) {
 			int timeInt = Integer.parseInt(time);
 			int coefSoil = farmer.coef_soil_type;
-			double parH = coefs.get(C.KEY_ONE_HOUR_IRRIGATION_VALUES).get(C.ENUM_DROPS);
+			double parH = coefs.get(C.KEY_ONE_HOUR_IRRIGATION_VALUES).get(
+					C.ENUM_DROPS);
 			result = timeInt * coefSoil * parH;
-			Double price = coefs.get(C.KEY_PRICE_IRRIGATION_VALUES).get(C.ENUM_DROPS)*farmer.field.area*timeInt;
-			if (price<=farmer.balans) {
+			Double price = coefs.get(C.KEY_PRICE_IRRIGATION_VALUES).get(
+					C.ENUM_DROPS)
+					* farmer.field.area * timeInt;
+			if (price <= farmer.balans) {
 				farmer.balans -= price;
 			} else {
-				throw new NotEnoughMoneyException("Not enough money to irrigate.");
+				throw new NotEnoughMoneyException(
+						"Not enough money to irrigate.");
 			}
-		} 
-		/*
-		else {
-			result = Integer.parseInt(time)
-					* farmer.coef_soil_type
-					* coefs.get(C.KEY_ONE_HOUR_IRRIGATION_VALUES).get(
-							C.ENUM_GROOVES);
 		}
-		*/
-		return result;
+
+		returnFarmer(farmer, result);
 	}
-	
-	public static double brazdiNavodnuvanje(Farmer farmer, String time) throws NotEnoughMoneyException{
+
+	public static void groovesIrrigation(String time)
+			throws NotEnoughMoneyException, JsonGenerationException,
+			JsonMappingException, IOException {
+		Farmer farmer = checkFarmer();
+		double result = 0.0;
+
 		HashMap<String, ArrayList<Double>> coefs = HumidityController
 				.load_hash();
-		double result = 0.0;
+
 		result = Integer.parseInt(time)
-					* farmer.coef_soil_type
-					* coefs.get(C.KEY_ONE_HOUR_IRRIGATION_VALUES).get(
-							C.ENUM_GROOVES);
+				* farmer.coef_soil_type
+				* coefs.get(C.KEY_ONE_HOUR_IRRIGATION_VALUES).get(
+						C.ENUM_GROOVES);
+
 		Double area_size = farmer.field.area;
-		Double irr_value = coefs.get(C.KEY_PRICE_IRRIGATION_VALUES).get(C.ENUM_DROPS).doubleValue();
-		Double price = coefs.get(C.KEY_PRICE_IRRIGATION_VALUES).get(C.ENUM_DROPS).doubleValue()*area_size*Integer.parseInt(time);
-		if (price<=farmer.balans) {
+		Double price = coefs.get(C.KEY_PRICE_IRRIGATION_VALUES)
+				.get(C.ENUM_DROPS).doubleValue()
+				* area_size * Integer.parseInt(time);
+		if (price <= farmer.balans) {
 			farmer.balans -= price;
 		} else {
 			throw new NotEnoughMoneyException("Not enough money to irrigate.");
 		}
-		
-		
-		return result;
+
+		returnFarmer(farmer, result);
 	}
-	
-	public static double irrigateTensiometers(Farmer farmer) throws NotEnoughMoneyException {
-		HashMap<String,ArrayList<Double>> coefs = HumidityController.load_hash();
-		double delta = farmer.deltaCumulative;
-		double quantity = 0.0;
-		if (farmer.field.hasDropSystem(farmer)) {
-			int time = (int) (delta/coefs.get(C.KEY_ONE_HOUR_IRRIGATION_VALUES).get(C.ENUM_DROPS));
-			quantity = dropsNavodnuvanje(farmer,String.valueOf(time));
-		} else {
-			int time = (int) (delta/coefs.get(C.KEY_ONE_HOUR_IRRIGATION_VALUES).get(C.ENUM_GROOVES));
-			quantity = dropsNavodnuvanje(farmer,String.valueOf(time));
+
+	public static void tensiometerTime(int irrigationType) {
+		Farmer farmer = checkFarmer();
+		if (farmer.field.hasTensiometerSystem(farmer)) {
+
+			double delta = farmer.deltaCumulative;
+			HashMap<String, ArrayList<Double>> coefs = HumidityController
+					.load_hash();
+			int time = 0;
+			if (C.ENUM_DROPS == irrigationType) {
+				time = (int) (delta / coefs.get(
+						C.KEY_ONE_HOUR_IRRIGATION_VALUES).get(C.ENUM_DROPS));
+			} else if (C.ENUM_GROOVES == irrigationType) {
+				time = (int) (delta / coefs.get(
+						C.KEY_ONE_HOUR_IRRIGATION_VALUES).get(C.ENUM_GROOVES));
+			}
+			if (time > 0) {
+				time = 0;
+			} else if (time < -12) {
+				time = -12;
+			}
+			renderJSON(Math.abs(time));
 		}
-		return quantity;
 	}
 
 }
