@@ -73,19 +73,19 @@ Game.factory('StoreItems', function($resource) {
       url: '/public/images/game/terrain/prizmaticna.png'
     }],
     'terrain-size': [{
-      size: 20,
+      size: 2,
       name: '2 Ha',
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }, {
-      size: 10,
+      size: 1,
       name: '1 Ha',
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }, {
-      size: 5,
+      size: 0.5,
       name: '0.5 Ha',
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }, {
-      size: 2.5,
+      size: 0.25,
       name: '0.25 Ha',
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }],
@@ -290,9 +290,8 @@ Game.factory('Operations', ['$resource', '$rootScope',
           requires: [],
           order: 1
         }, {
-          ico: "/public/images/game/operations/spraying.png",
-          name: 'spraying',
-          requires: 'spraying',
+          ico: "/public/images/game/operations/plowing.png",
+          name: 'plowing',
           price: 2000,
           duration: 20,
           order: 2

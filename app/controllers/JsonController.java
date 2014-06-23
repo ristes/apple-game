@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 
 import javax.persistence.OneToMany;
 
+import models.Farmer;
 import json.AnnotationAndIngoreFieldsFilter;
 import json.CollaseAnnotationAndExpandFieldsFilter;
 import play.mvc.Controller;
@@ -24,6 +25,11 @@ public abstract class JsonController extends Controller {
 	class PropertyFilterMixIn {
 	}
 
+	
+	protected static void farmerJson(Farmer farmer) throws JsonGenerationException, JsonMappingException, IOException {
+		toJson(farmer, "field", "gameDate", "weatherType","plantation");
+	}
+	
 	protected static void toJson(Object o, String... expandFields)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		String encoding = Http.Response.current().encoding;

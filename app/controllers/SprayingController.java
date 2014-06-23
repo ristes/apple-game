@@ -28,7 +28,7 @@ public class SprayingController extends Controller {
 		executed.operation = instance.type.operation;
 		executed.itemInstance = instance;
 		executed.save();
-		JsonController.toJson(farmer);
+		JsonController.farmerJson(farmer);
 	}
 
 }

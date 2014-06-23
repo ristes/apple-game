@@ -36,7 +36,7 @@ public class ExecutedOperationController extends Controller {
 		Long storeId = item.store.id;
 
 		if (storeId == 2) {
-			FertilizationController.fertilize(instance.id, quantity);
+			FertilizationController.fertilize1(instance.id, quantity);
 		} else if (storeId == 3) {
 			SprayingController.spray(instance.id);
 		}

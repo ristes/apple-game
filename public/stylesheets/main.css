@@ -107,6 +107,11 @@
 	border: 0px solid red;
 }
 
+.ograda-bg {
+	float: left;
+	border: 0px solid red;
+}
+
 .pocva-bg:hover {
 	border: 1px solid black;
 }

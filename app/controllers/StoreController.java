@@ -68,7 +68,7 @@ public class StoreController extends Controller {
 			if (successTransaction) {
 				farmer.currentState = currentState;
 				farmer.save();
-				JsonController.toJson(farmer);
+				JsonController.farmerJson(farmer);
 			}
 		}
 
@@ -156,12 +156,12 @@ public class StoreController extends Controller {
 			item.name = (String) obj[2];
 			item.url = (String) obj[3];
 			item.count = ((BigInteger) obj[4]).intValue();
-			if (obj[5]!=null) {
-				item.quantity =((Double)obj[5]).doubleValue();
+			if (obj[5] != null) {
+				item.quantity = ((Double) obj[5]).doubleValue();
 			} else {
 				item.quantity = null;
 			}
-			item.store=(String) obj[6];
+			item.store = (String) obj[6];
 			result.add(item);
 
 		}

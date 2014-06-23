@@ -15,7 +15,6 @@ Game.controller('PlantingStateController', [
     function($scope, $location, $http, Store, StoreItems, Operations, $farmer,
             $items, $plantation, $weather, toaster, $window, $day) {
 
-
       $scope.onResizeFunction = function() {
         $scope.atom = $window.innerWidth * 0.8 / 20;
       };
@@ -51,21 +50,25 @@ Game.controller('PlantingStateController', [
 
       var unreg = $scope.$root.$on('operation-planting-done',
               function(_s, oper) {
-                var percent = ($scope.seedling * 100) / $scope.totalSeedling;
-                console.log(percent);
-                // if (percent < 50) {
-                // percent = percent * 2;
-                // toaster.pop('warn', 'Not done yet', percent.toFixed(0)
-                // + '% od sadenjeto e zavrseno');
-                // } else {
+                $scope.$root.$emit("side-hide");
 
-                var data = $plantation.save(JSON.stringify($scope.coords),
-                        'successPlanting');
-                if (data.status == true) {
-                  toaster.pop('success', 'Done :)', 'sadenjeto e zavrseno'
-                          + JSON.stringify($scope.coords));
+                if ($scope.planting) {
+                  var percent = ($scope.seedling * 100) / $scope.totalSeedling;
+                  console.log(percent);
+
+                  function successPlanting(data) {
+                    if (data.status == true) {
+                      toaster.pop('success', 'Done :)', 'sadenjeto e zavrseno'
+                              + JSON.stringify($scope.coords));
+                    }
+                  }
+
+                  var data = $plantation.save(JSON.stringify($scope.coords),
+                          successPlanting);
+                  $scope.planting = false;
+                } else {
+                  $scope.planting = true;
                 }
-                // }
 
               });
 
@@ -73,17 +76,36 @@ Game.controller('PlantingStateController', [
         toaster.pop('success', 'Done :)', 'sadenjeto e zavrseno');
       });
 
+      $scope.planting = false;
+
       $scope.portionClick = function(p) {
-        if (p.active && !p.tree) {
-          // p.tree = "/public/images/game/plant.png";
-          p.tree = $scope.$root.farmer.plant_url;
-          p.treeCls = 'seedling';
-          $scope.seedling++;
-          $scope.coords.push({
-            x: p.x,
-            y: p.y
-          });
+        if ($scope.planting) {
+          if (p.active && !p.tree) {
+            // p.tree = "/public/images/game/plant.png";
+            p.tree = $scope.$root.farmer.plant_url;
+            p.treeCls = 'seedling';
+            $scope.seedling++;
+            $scope.coords.push({
+              x: p.x,
+              y: p.y
+            });
+          } else if (p.tree) {
+            delete p.tree;
+            delete p.treeCls;
+            $scope.seedling--;
+            var oldCoords = $scope.coords;
+            $scope.coords = [];
+            for (var i = 0; i < oldCoords.length; i++) {
+              var el = oldCoords[i];
+              if (el.x == p.x && el.y == p.y) {
+                
+              } else {
+                $scope.coords.push(el);
+              }
+            }
+          }
         }
+
       }
 
       $scope.rows = [];

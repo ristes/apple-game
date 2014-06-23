@@ -119,7 +119,7 @@ public class WeatherController extends Controller {
 	}
 
 	public static int seasionLevelSoilImage(int season_level) {
-		if (season_level==3 || season_level == 4) {
+		if (season_level == 3 || season_level == 4) {
 			return 1;
 		}
 		return season_level;
