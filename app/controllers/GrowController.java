@@ -14,6 +14,7 @@ public class GrowController extends Controller {
 		calendar.setTime(farmer.gameDate.date);
 		int year_level = 1;
 		int year = calendar.get(Calendar.YEAR);
+		int month = calendar.get(Calendar.MONTH);
 		switch (year) {
 		case 2020:
 			year_level = 1;
@@ -23,6 +24,11 @@ public class GrowController extends Controller {
 			break;
 		default:
 			year_level = 3;
+		}
+		if (year_level == 3) {
+			if (season == 4) {
+				
+			}
 		}
 		return image_path+String.valueOf(year_level)+String.valueOf(season)+".png";
 	}

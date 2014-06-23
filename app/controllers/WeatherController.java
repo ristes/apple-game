@@ -79,9 +79,11 @@ public class WeatherController extends Controller {
 	}
 
 	/**
-	 * describes the weather season depending of gamedate of the farmer state 1.
-	 * Autumn - 01.10 - 30.11 2. Winter - 01.12 - 28.02 3. Spring - 01.03 -
-	 * 30.04 4. Summer - 01.05 - 30.09
+	 * describes the weather season depending of gamedate of the farmer state 
+	 * 1. Autumn - 01.10 - 30.11 
+	 * 2. Winter - 01.12 - 28.02 
+	 * 3. Spring - 01.03 - 30.04 
+	 * 4. Summer - 01.05 - 30.09
 	 * 
 	 * @param farmer
 	 */

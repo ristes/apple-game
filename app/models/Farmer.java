@@ -55,6 +55,11 @@ public class Farmer extends Model {
 	 * How much money does the player have
 	 */
 	public int balans;
+	
+	/**
+	 * season labeled in  WeatherController
+	 */
+	public int season_level;
 
 	public double eco_points = 100;
 
@@ -264,6 +269,10 @@ public class Farmer extends Model {
 	public void evaluatePlantImage() {
 		plant_url = GrowController.evaluatePlantImage(Farmer.this);
 	}
+	
+	public void evaluateSeason() {
+		season_level = WeatherController.season_level(Farmer.this);
+	}
 
 	public void evaluateState() {
 		calculateCumulatives();
@@ -271,6 +280,7 @@ public class Farmer extends Model {
 		calculateLuck(gameDate);
 		calculateGrassGrowth();
 		evaluateSoilImage(gameDate.date);
+		evaluateSeason();
 		evaluatePlantImage();
 		calculateDiggingCoefficient();
 	}
