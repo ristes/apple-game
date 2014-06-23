@@ -290,8 +290,9 @@ Game.factory('Operations', ['$resource', '$rootScope',
           requires: [],
           order: 1
         }, {
-          ico: "/public/images/game/operations/plowing.png",
-          name: 'plowing',
+          ico: "/public/images/game/operations/spraying.png",
+          name: 'spraying',
+          requires: 'spraying',
           price: 2000,
           duration: 20,
           order: 2
@@ -321,6 +322,26 @@ Game.factory('Operations', ['$resource', '$rootScope',
           duration: 0,
           requires: 'seedlings',
           order: 6
+        }],
+        'prolet': [{
+          ico: "/public/images/game/operations/irrigation.png",
+          name: 'irrigation',
+          price: 100,
+          duration: -1,
+          order: 4
+        }, {
+          ico: "/public/images/game/operations/spraying.png",
+          name: 'spraying',
+          price: 2000,
+          duration: 20,
+          order: 2
+        }, {
+          ico: "/public/images/game/operations/fertilizing.png",
+          name: 'fertilizing',
+          price: 1000,
+          duration: 10,
+          requires: 'fertilizer',
+          order: 3
         }]
       };
     }]);

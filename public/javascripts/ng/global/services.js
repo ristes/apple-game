@@ -198,9 +198,6 @@ Game.factory('$plowing', ['$rootScope', '$http', '$day',
           var res = $http.get("/LandTreatmanController/plowing");
           res.success(function(data) {
             $day.load(data.farmer);
-            if (data.status == false) {
-              alert(data.message);
-            }
           });
         }
       };
@@ -219,10 +216,30 @@ Game.factory('$fertilize', ['$day', '$http', 'jQuery',
               'Content-Type': 'application/x-www-form-urlencoded'
             }
           }).then(function(res) {
-            if(res.data && res.data.balans) {
+            if (res.data && res.data.balans) {
               $day.load(res.data);
             }
           });
         }
       }
     }]);
+Game.factory('$spraying', ['$items','$day', '$http', 'jQuery', function($items, $day, $http, $) {
+
+  return {
+    spray: function(item) {
+      $http({
+        method: 'POST',
+        url: "/sprayingcontroller/spray",
+        data: $.param({itemid: item.id}),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(function(res) {
+        if (res.data && res.data.balans) {
+          $day.load(res.data);
+        }
+        $items.load();
+      });
+    }
+  }
+}]);

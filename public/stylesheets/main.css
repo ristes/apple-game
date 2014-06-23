@@ -1,4 +1,3 @@
-
 @font-face {
 	font-family: "ag-font";
 	src: url("ag.otf");
@@ -182,16 +181,16 @@ img.ograda-gore {
 }
 
 .ui-slider-horizontal .ui-slider-handle {
-top: -3px;
-margin-left: -6px;
+	top: -3px;
+	margin-left: -6px;
 }
 
 .ui-slider .ui-slider-handle {
-position: absolute;
-z-index: 2;
-width: 16px;
-height: 16px;
-cursor: pointer;
+	position: absolute;
+	z-index: 2;
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
 }
 
 .shop-left {
@@ -204,4 +203,12 @@ cursor: pointer;
 
 .fertilizer-price {
 	text-align: right;
+}
+
+.game-dialog {
+	background-image: url('/public/images/home/drven_el.png');
+	background-size: 100% 100%;
+	background-color: transparent;
+	border: none;
+	padding-bottom: 40px;
 }
