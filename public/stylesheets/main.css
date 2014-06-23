@@ -41,6 +41,7 @@
 	-moz-transform: skew(45deg);
 	-o-transform: skew(45deg);
 	-webkit-transform: skew(45deg);
+	cursor: pointer;
 }
 
 .back-trees {

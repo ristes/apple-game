@@ -61,10 +61,10 @@ Game.controller('IrrigationController', [
 
       function showIrrigation(type) {
         $scope.$root.$emit('shop-hide');
+        var t = (type.name == 'KapkovoNavodnuvanje' ? 1 : 0);
+        $scope.startIrrigate = $irrigate[t ? 'dropsIrrigation'
+                : 'groovesIrrigation'];
         if ($scope.hasTensiometer) {
-          var t = (type.name == 'KapkovoNavodnuvanje' ? 1 : 0);
-          $scope.startIrrigate = $irrigate[t ? 'groovesIrritagion'
-                  : 'dropsIrrigation'];
           var res = $irrigate.tensiometerTime(t ? 1 : 0);
           res.success(function(data) {
             $scope.holder.duration = data;
@@ -146,7 +146,7 @@ Game.controller('IrrigationController', [
         var result = [];
 
         for (var i = 0; i < types.length; i++) {
-          if (types[i].name != 'tensiometer') {
+          if (types[i].name == 'tensiometer') {
             $scope.hasTensiometer = true;
           } else {
             result.push(types[i]);

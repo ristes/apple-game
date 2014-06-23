@@ -7,7 +7,7 @@
 		<img src="/public/images/backgrounds/pozadinski-drva.png" class="back-trees"/>
 		<img src="/public/images/backgrounds/field-terrain.png" class="field-terrain"/>
 		<div class="field-row" ng-repeat="r in rows">
-			<div ng-class="{false: 'pocva-bg', true: 'ograda-bg'}[c.staticV]" style="width: {{atom}}px; height: {{atom}}px" ng-repeat="c in r.cols">
+			<div ng-class="{false: 'pocva-bg', true: 'ograda-bg'}[c.staticV || !planting]" style="width: {{atom}}px; height: {{atom}}px" ng-repeat="c in r.cols">
 				<img ng-show="c.show"  ng-if="!c.staticV" src="{{$root.day.soil_url}}" class="{{c.cls}}" ng-click="portionClick(c)"/>
 				<img ng-show="c.show"  ng-if="c.staticV" src="{{c.terrain}}" class="{{c.cls}}"/>
 				<!-- <img ng-show="c.tree"  src="{{c.tree}}" class="{{c.treeCls}}" ng-click="portionClick(c)"/> -->
