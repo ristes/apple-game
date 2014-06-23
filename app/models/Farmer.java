@@ -240,7 +240,7 @@ public class Farmer extends Model {
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
 		if (c.get(Calendar.MONTH) == 11
-				|| (c.get(Calendar.MONTH) < 3 && c.get(Calendar.DAY_OF_MONTH) <= 31)) {
+				|| (c.get(Calendar.MONTH) < 2 && c.get(Calendar.DAY_OF_MONTH) <= 31)) {
 			soil_url = "/public/images/game/soil_types/soil-snow.png";
 			grass_growth = 0.0;
 			digging_coef = 0.0;
