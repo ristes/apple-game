@@ -62,6 +62,21 @@ public class DeseasesExpertSystem extends Controller {
 	public static void getOperations(Farmer farmer) {
 
 	}
+	
+	public static void diseases() {
+		Farmer farmer = AuthController.getFarmer();
+		if (farmer==null) {
+			redirect("crafty/login");
+		}
+		List<String> result = new ArrayList<String>();
+		List<DiseaseOccurenceProb> probs = getDP(farmer);
+		for (DiseaseOccurenceProb prob: probs) {
+			if (prob.probability>farmer.luck) {
+				result.add(prob.name);
+			}
+		}
+		renderJSON(result);
+	}
 
 	public static List<DiseaseProtectingOperationDto> getMmax(Farmer farmer,
 			Decease disease) {

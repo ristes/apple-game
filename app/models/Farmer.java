@@ -25,6 +25,8 @@ import controllers.IrrigationController;
 import controllers.LandTreatmanController;
 import controllers.WeatherController;
 import dto.C;
+import dto.DiseaseOccurenceProb;
+import dto.DiseasesOccured;
 import dto.FertilizationItem;
 import play.db.jpa.Model;
 import utils.GameUtils;
@@ -50,6 +52,9 @@ public class Farmer extends Model {
 	public Double luck_dev;
 
 	public Double luck_avg;
+	
+	@OneToMany(mappedBy="farmer")
+	public List<Yield> yields;
 
 	/**
 	 * How much money does the player have
@@ -274,6 +279,21 @@ public class Farmer extends Model {
 		season_level = WeatherController.season_level(Farmer.this);
 	}
 
+	public void evaluateDisease()  {
+		List<DiseasesOccured> list = new ArrayList<DiseasesOccured>();
+		List<DiseaseOccurenceProb> disProbs = DeseasesExpertSystem.getDP(Farmer.this); 
+		for (DiseaseOccurenceProb dis: disProbs) {
+			DiseasesOccured doc = new DiseasesOccured();
+			doc.disease = dis;
+			if (dis.probability > luck) {
+				doc.isOccured = true;
+			}
+			doc.isOccured = false;
+			list.add(doc);
+		}
+		
+		
+	}
 	public void evaluateState() {
 		calculateCumulatives();
 		calculateFertalizing();
@@ -281,6 +301,7 @@ public class Farmer extends Model {
 		calculateGrassGrowth();
 		evaluateSoilImage(gameDate.date);
 		evaluateSeason();
+		evaluateDisease();
 		evaluatePlantImage();
 		calculateDiggingCoefficient();
 	}

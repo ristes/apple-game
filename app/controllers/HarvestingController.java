@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import org.yaml.snakeyaml.Yaml;
@@ -17,6 +18,7 @@ import dto.C;
 import dto.StatusDto;
 import exceptions.NotEnoughMoneyException;
 import models.Farmer;
+import models.Yield;
 import play.Play;
 import play.cache.Cache;
 import play.mvc.Controller;
@@ -33,10 +35,18 @@ public class HarvestingController extends Controller{
 		if (expense > farmer.balans) {
 			throw new NotEnoughMoneyException();
 		}
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(farmer.gameDate.date);
+		int year = cal.get(Calendar.YEAR);
 		int q = farmer.productQuantity;
 		farmer.apples_in_stock += q;
 		farmer.productQuantity = 0;
 		farmer.save();
+		Yield yield = new Yield();
+		yield.farmer = farmer;
+		yield.quantity = q;
+		yield.year = year;
+		yield.save();
 		StatusDto status = new StatusDto(true, "Успешна берба", String.valueOf(farmer.productQuantity), farmer);
 		JsonController.toJson(status, "gameDate", "field", "weatherType","plantation");
 	}

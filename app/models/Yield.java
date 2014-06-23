@@ -19,6 +19,11 @@ public class Yield extends Model {
 	 * The maximum expected quantity, obtained with perfect care and conditions
 	 */
 	public int quantity;
+	
+	@ManyToOne
+	public Farmer farmer;
+	
+	public Integer year;
 
 	/**
 	 * The apple base

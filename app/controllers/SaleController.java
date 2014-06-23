@@ -66,7 +66,7 @@ public class SaleController extends Controller {
 					.toJson(statusDto, "gameDate", "field", "weatherType");
 		}
 		StatusDto statusDto = new StatusDto(status, Messages.get("controller.sale.success",String.valueOf(quantity),afterBalanse-prevBalanse),String.valueOf(afterBalanse-prevBalanse), farmer);
-		JsonController.toJson(statusDto, "gameDate", "field", "weatherType");
+		JsonController.toJson(statusDto, "gameDate", "field", "weatherType","plantation");
 
 	}
 

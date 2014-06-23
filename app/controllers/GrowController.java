@@ -3,6 +3,7 @@ package controllers;
 import java.util.Calendar;
 
 import models.Farmer;
+import models.Yield;
 import play.mvc.Controller;
 
 public class GrowController extends Controller {
@@ -28,12 +29,16 @@ public class GrowController extends Controller {
 		}
 		if (year_level == 3) {
 			if (season == 4) {
-				if (month==8) {
-					additional="a";
+				if (month == 8) {
+					if (Yield.find("byFarmerAndYear", farmer, year).fetch()
+							.size() == 0) {
+						additional = "a";
+					}
 				}
 			}
 		}
-		return image_path+String.valueOf(year_level)+String.valueOf(season)+additional+".png";
+		return image_path + String.valueOf(year_level) + String.valueOf(season)
+				+ additional + ".png";
 	}
 
 }
