@@ -313,7 +313,7 @@ Game.factory('Operations', ['$resource', '$rootScope',
           ico: "/public/images/game/operations/harvest.png",
           name: 'harvest',
           price: 100,
-          duration: -1,
+          duration: 100,
           order: 5
         }, {
           ico: "/public/images/game/operations/planting.png",
@@ -352,7 +352,7 @@ Game.factory('Operations', ['$resource', '$rootScope',
           ico: "/public/images/game/operations/harvest.png",
           name: 'harvest',
           price: 100,
-          duration: -1,
+          duration: 100,
           order: 5
         }, {
           ico: "/public/images/game/operations/desease-analysis.png",
