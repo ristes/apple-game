@@ -11,6 +11,7 @@ public class PlantationController extends Controller{
 		if (farmer==null) {
 			error("Not logged in");
 		}
+		farmer.currentState="growing";
 		farmer.save();
 		farmer.field.plantation.treePositions = array;
 		farmer.field.plantation.save();

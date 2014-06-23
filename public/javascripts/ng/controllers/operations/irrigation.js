@@ -146,7 +146,7 @@ Game.controller('IrrigationController', [
         var result = [];
 
         for (var i = 0; i < types.length; i++) {
-          if (types[i].name != 'tensiometer') {
+          if (types[i].name == 'tensiometer') {
             $scope.hasTensiometer = true;
           } else {
             result.push(types[i]);
