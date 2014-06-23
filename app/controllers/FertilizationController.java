@@ -62,7 +62,7 @@ public class FertilizationController extends Controller {
 		saveItem(B, farmer, b);
 		saveItem(Mg, farmer, mg);
 		farmer.save();
-		JsonController.toJson(farmer);
+		JsonController.farmerJson(farmer);
 	}
 
 	private static void saveItem(Item item, Farmer farmer, Double quantity) {
@@ -74,7 +74,7 @@ public class FertilizationController extends Controller {
 		ExecutedOperation executed = new ExecutedOperation();
 		executed.field = farmer.field;
 		executed.startDate = farmer.gameDate.date;
-		executed.operation = instance.type.operation;
+		executed.operation = instance.type.fertilizationOperations.get(0).operation;
 		executed.itemInstance = instance;
 		executed.save();
 	}

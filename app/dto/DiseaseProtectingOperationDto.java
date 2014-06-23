@@ -29,10 +29,12 @@ public class DiseaseProtectingOperationDto {
 
 	public Boolean isMatched(List<ExecutedOperation> operations) {
 		for (ExecutedOperation operation : operations) {
-			if (operation_id == operation.operation.id) {
-				if (operation.startDate.after(startFrom)) {
-					if (operation.startDate.before(endTo)) {
-						return true;
+			if (operation.operation != null) {
+				if (operation_id == operation.operation.id) {
+					if (operation.startDate.after(startFrom)) {
+						if (operation.startDate.before(endTo)) {
+							return true;
+						}
 					}
 				}
 			}

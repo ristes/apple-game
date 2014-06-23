@@ -38,6 +38,16 @@ public class C {
 	public static final long WEATHER_TYPE_CLOUDY = 2;
 	public static final long WEATHER_TYPE_RAINY = 3;
 	public static final long WEATHER_TYPE_ICY = 4;
+	/**
+	 * 2. Autumn - 01.10 - 30.11 
+	 * 1. Winter - 01.12 - 28.02 
+	 * 3. Spring - 01.03 - 30.04 
+	 * 4. Summer - 01.05 - 30.09
+	*/
+	public static final long SEASON_AUTUMN = 2;
+	public static final long SEASON_WINTER = 1;
+	public static final long SEASON_SPRING = 3;
+	public static final long SEASON_SUMMER = 4;
 
 	public static String root_folder = "/public/images/";
 	public static String irrigation_folder = "/public/images/game/soil/irrigation/";

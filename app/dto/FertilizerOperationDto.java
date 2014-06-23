@@ -11,11 +11,11 @@ public class FertilizerOperationDto {
 	public Date startFrom;
 	public Date endTo;
 	public Double quantity;
-	
+
 	public static int sumOfQuantity(List<FertilizerOperationDto> list) {
 		int sum = 0;
-		for (FertilizerOperationDto fo:list) {
-			sum+=fo.quantity;
+		for (FertilizerOperationDto fo : list) {
+			sum += fo.quantity;
 		}
 		return sum;
 	}
