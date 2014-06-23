@@ -9,6 +9,7 @@ public class GrowController extends Controller {
 
 	public static String evaluatePlantImage(Farmer farmer) {
 		String image_path = "/public/images/game/apple_tree/";
+		String additional = "";
 		int season = WeatherController.season_level(farmer);
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(farmer.gameDate.date);
@@ -27,10 +28,12 @@ public class GrowController extends Controller {
 		}
 		if (year_level == 3) {
 			if (season == 4) {
-				
+				if (month==8) {
+					additional="a";
+				}
 			}
 		}
-		return image_path+String.valueOf(year_level)+String.valueOf(season)+".png";
+		return image_path+String.valueOf(year_level)+String.valueOf(season)+additional+".png";
 	}
 
 }

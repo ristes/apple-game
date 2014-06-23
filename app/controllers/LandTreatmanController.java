@@ -34,6 +34,7 @@ public class LandTreatmanController extends Controller {
 			StatusDto status = new StatusDto(false, ex.getMessage(), String.valueOf(ex.getPrice()), farmer);
 			JsonController.farmerJson(farmer);;
 		}
+		farmer.evaluateState();
 		farmer.save();
 		StatusDto status = new StatusDto(true,null,null,farmer);
 		JsonController.toJson(status, "field", "gameDate","weatherType");
@@ -110,6 +111,8 @@ public class LandTreatmanController extends Controller {
 		int level = HumidityController.humidityLevel(farmer);
 		Item plowing = (Item) Item.find("byName", "PlowingItem").fetch().get(0);
 		Integer price = 0;
+		//TODO: delete the next line, it's only for testing
+		level = 3;
 		switch (level) {
 		case 0:
 			throw new SoilTooDryException(Messages.get("controller.plowing.fail.toodry"));
