@@ -19,7 +19,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 public class AuthController extends Controller {
 
 	public static void farmer() throws Exception {
-		JsonController.toJson(getFarmer(), "field","gameDate","weatherType","plantation");
+		JsonController.farmerJson(getFarmer());
 	}
 
 	public static class PlantationDto {
@@ -48,7 +48,8 @@ public class AuthController extends Controller {
 		Farmer farmer = getFarmer();
 		if (farmer != null) {
 			String sqlSelect = "select * from ItemInstance  where ownedBy_id=:farmer_id and id NOT IN (select DISTINCT(itemInstance_id) FROM ExecutedOperation where field_id=:field_id and  not(isnull(ItemInstance_id)))";
-			Query query = JPA.em().createNativeQuery(sqlSelect,ItemInstance.class);
+			Query query = JPA.em().createNativeQuery(sqlSelect,
+					ItemInstance.class);
 			query.setParameter("farmer_id", farmer.id);
 			query.setParameter("field_id", farmer.field.id);
 			List<ItemInstance> items = query.getResultList();
@@ -74,7 +75,7 @@ public class AuthController extends Controller {
 		if (farmer == null) {
 			redirect("/login");
 		}
-		JsonController.toJson(farmer, "field","gameDate","weatherType","plantation");
+		JsonController.farmerJson(farmer);
 	}
 
 	protected static GameContext getContext() {

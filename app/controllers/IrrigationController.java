@@ -37,7 +37,7 @@ public class IrrigationController extends Controller {
 		farmer.save();
 
 
-		JsonController.toJson(farmer, "field", "gameDate", "weatherType","plantation");
+		JsonController.farmerJson(farmer);
 	}
 
 	public static void dropsIrrigation(String time)

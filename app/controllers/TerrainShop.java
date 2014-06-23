@@ -42,10 +42,11 @@ public class TerrainShop extends Controller {
 		farmer.balans -= field.terrain.analysis.unitPrice * size;
 
 		if (farmer.balans > 0) {
+			field.owner = farmer;
 			field.save();
 			farmer.save();
 		}
-		JsonController.toJson(farmer, "field");
+		JsonController.farmerJson(farmer);
 	}
 
 	public static void allBases() throws Exception {
@@ -66,24 +67,25 @@ public class TerrainShop extends Controller {
 		farmer.balans -= plantation.base.price;
 
 		if (farmer.balans > 0) {
-			farmer.productQuantity = (int)Math.round(calculateYield(farmer));
+			farmer.productQuantity = (int) Math.round(calculateYield(farmer));
 			plantation.save();
 			field.save();
 			farmer.evaluateState();
 			farmer.save();
 		}
-		JsonController.toJson(farmer, "field", "plantation");
+		JsonController.farmerJson(farmer);
 	}
-	
+
 	/**
 	 * calculate the maximum yield that the farmer could receive
+	 * 
 	 * @param farmer
 	 * @return kg of apples for that season
 	 */
 	public static Double calculateYield(Farmer farmer) {
-		double applesPerA = farmer.field.plantation.base.maxApplesPerHa/10.0;
-		return applesPerA * farmer.field.area*1000;
-		
+		double applesPerA = farmer.field.plantation.base.maxApplesPerHa / 10.0;
+		return applesPerA * farmer.field.area * 1000;
+
 	}
 
 	public static void allSeedlings() throws Exception {
@@ -97,7 +99,8 @@ public class TerrainShop extends Controller {
 		Plantation plantation = Plantation.find("field.owner.id", farmer.id)
 				.first();
 
-		plantation.seadlings = Seedling.find("type.id=:t and seedlingType.id=:st")
+		plantation.seadlings = Seedling
+				.find("type.id=:t and seedlingType.id=:st")
 				.setParameter("t", plantTypeId)
 				.setParameter("st", seedlingTypeId).first();
 
@@ -108,7 +111,7 @@ public class TerrainShop extends Controller {
 			plantation.save();
 			farmer.save();
 		}
-		JsonController.toJson(farmer, "seedlingType", "type");
+		JsonController.farmerJson(farmer);
 	}
 
 	public static void generateAllSeedlings() {

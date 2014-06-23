@@ -24,7 +24,9 @@ GameDirectives.directive('shopMenu', ['jQuery','$items', function($,$items) {
       }
 
       var unregBought = scope.$root.$on("item-bought", function($scope) {
-    	 $items.load();
+        if(scope.$root.day.field) {
+          $items.load();
+        }
         scope.buying = false;
       });
 

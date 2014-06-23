@@ -47,7 +47,7 @@ Game.controller('BuyTerrainController',
                   if (result.balans) {
                     $scope.$root.$emit('shop-hide');
                     $farmer.swap(result);
-                    $plantation.load();
+//                    $plantation.load();
                   } else {
                     $scope.$root.$emit('insuficient-funds');
                   }

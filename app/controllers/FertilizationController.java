@@ -85,7 +85,7 @@ public class FertilizationController extends Controller {
 	 *            , id in database for fertilization
 	 * @param quantity
 	 */
-	public static void fertilize(Long itemid, Double quantity) {
+	public static void fertilize1(Long itemid, Double quantity) {
 		ItemInstance instance = ItemInstance.findById(itemid);
 		if (instance == null) {
 			error("Not such item.");

@@ -32,11 +32,13 @@ Game.controller('SprayingController', [
           currentState: $scope.$root.farmer.currentState
         }, null, function(result) {
           if (result.balans) {
-            $items.add(item.store, item);
             $day.load(result);
-            $scope.$root.$emit('shop-hide');
+            $items.load(function(){
+              $scope.$root.$emit('shop-hide');
+              var boughtItem=$items.get($scope.sprayingOper.requires)[0];
+              showProgress($scope, $scope.sprayingOper, boughtItem);              
+            });
 
-            showProgress($scope, $scope.sprayingOper, item);
           } else {
             $scope.$root.$emit('insuficient-funds');
           }

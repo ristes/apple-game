@@ -32,7 +32,7 @@ public class LandTreatmanController extends Controller {
 			farmer = executeDigging(farmer);
 		} catch (NotEnoughMoneyException ex) {
 			StatusDto status = new StatusDto(false, ex.getMessage(), String.valueOf(ex.getPrice()), farmer);
-			JsonController.toJson(status, "field", "gameDate","weatherType");
+			JsonController.farmerJson(farmer);;
 		}
 		farmer.save();
 		StatusDto status = new StatusDto(true,null,null,farmer);
