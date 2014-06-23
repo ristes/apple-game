@@ -142,6 +142,9 @@ public class Decease extends Model implements DeseaseRisk {
 		int maxN = 9;
 		int minM = 0;
 		int matches = 0;
+		if ( context.field==null) {
+			return 0;
+		}
 		List<ExecutedOperation> operations = context.field.executedOperations;
 		List<ExecutedOperation> operationsThisYear = new ArrayList<ExecutedOperation>();
 		for (ExecutedOperation operation : operations) {
