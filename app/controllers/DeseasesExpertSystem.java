@@ -68,11 +68,13 @@ public class DeseasesExpertSystem extends Controller {
 		if (farmer==null) {
 			redirect("crafty/login");
 		}
+		String images_url = "/public/images/diseases/";
+		String extension = ".png";
 		List<String> result = new ArrayList<String>();
 		List<DiseaseOccurenceProb> probs = getDP(farmer);
 		for (DiseaseOccurenceProb prob: probs) {
 			if (prob.probability>farmer.luck) {
-				result.add(prob.name);
+				result.add(images_url+prob.name+extension);
 			}
 		}
 		renderJSON(result);
