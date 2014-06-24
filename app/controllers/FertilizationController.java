@@ -179,7 +179,7 @@ public class FertilizationController extends Controller {
 
 	public static List<FertilizerOperationDto> getExecFertOper(Farmer farmer,
 			Long operation_id) {
-		String sqlSelect = "select * from ExecutedOperation where field_id=:field_id and operation_id=:operation_id";
+		String sqlSelect = "select * from ExecutedOperation,ItemInstance where field_id=:field_id and itemInstance_id=ItemInstance.id and ExecutedOperation.operation_id=:operation_id";
 		List<FertilizerOperationDto> resultEnd = new ArrayList<FertilizerOperationDto>();
 		Query query = JPA.em().createNativeQuery(sqlSelect);
 		query.setParameter("field_id", farmer.field.id);
@@ -187,12 +187,14 @@ public class FertilizationController extends Controller {
 		List<Object[]> result = query.getResultList();
 		for (Object[] obj : result) {
 			FertilizerOperationDto fo = new FertilizerOperationDto();
-			fo.id = ((BigDecimal) obj[0]).longValue();
+			fo.id = ((BigInteger) obj[0]).longValue();
 			fo.startFrom = ((Timestamp) obj[1]);
-			fo.operation_id = ((BigDecimal) obj[2]).longValue();
+			fo.operation_id = ((BigInteger) obj[2]).longValue();
 			if (isSameYear(farmer, fo.startFrom)) {
+				fo.quantity = ((Double) obj[8]).doubleValue();
 				resultEnd.add(fo);
 			}
+			
 		}
 		return resultEnd;
 	}
