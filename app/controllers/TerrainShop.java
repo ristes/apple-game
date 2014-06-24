@@ -67,7 +67,7 @@ public class TerrainShop extends Controller {
 		farmer.balans -= plantation.base.price;
 
 		if (farmer.balans > 0) {
-			farmer.productQuantity = (int) Math.round(calculateYield(farmer));
+			farmer.productQuantity = (int) Math.round(YieldController.calculateYield());
 			plantation.save();
 			field.save();
 			farmer.evaluateState();
@@ -82,11 +82,7 @@ public class TerrainShop extends Controller {
 	 * @param farmer
 	 * @return kg of apples for that season
 	 */
-	public static Double calculateYield(Farmer farmer) {
-		double applesPerA = farmer.field.plantation.base.maxApplesPerHa / 10.0;
-		return applesPerA * farmer.field.area * 1000;
 
-	}
 
 	public static void allSeedlings() throws Exception {
 		JsonController.toJson(Seedling.findAll(), "seedlingType", "type");

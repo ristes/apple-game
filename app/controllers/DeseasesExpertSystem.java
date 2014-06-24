@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -10,9 +11,13 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
 import models.Decease;
 import models.ExecutedOperation;
 import models.Farmer;
+import models.OccurredDecease;
 import play.db.jpa.JPA;
 import play.mvc.Controller;
 import de.congrace.exp4j.UnknownFunctionException;
@@ -63,7 +68,7 @@ public class DeseasesExpertSystem extends Controller {
 
 	}
 	
-	public static void diseases() {
+	public static int diseases() {
 		Farmer farmer = AuthController.getFarmer();
 		if (farmer==null) {
 			redirect("crafty/login");
@@ -73,9 +78,34 @@ public class DeseasesExpertSystem extends Controller {
 		List<String> result = new ArrayList<String>();
 		List<DiseaseOccurenceProb> probs = getDP(farmer);
 		for (DiseaseOccurenceProb prob: probs) {
-			if (prob.probability>farmer.luck) {
-				result.add(images_url+prob.name+extension);
+			if (prob.probability>(farmer.luck*100)) {
+				OccurredDecease od = new OccurredDecease();
+				Decease d = Decease.find("byName", prob.name).first();
+				od.desease = d;
+				od.plantation = farmer.field.plantation;
+				od.date = farmer.gameDate.date;
+				od.save();
+				farmer.productQuantity -= farmer.productQuantity*(d.defaultDiminishingFactor/100.0);
+				farmer.save();
 			}
+		}
+		return 1;
+	}
+	//get diseases for previous 15 days
+	public static void getOccurredDiseases() {
+		Farmer farmer = AuthController.getFarmer();
+		if (farmer==null) {
+			error("Not logged in");
+		}
+		List<String> result = new ArrayList<String>();
+		String sql = "select DISTINCT(name) from occurreddecease,Decease where plantation_id=:plantation_id and desease_id=Decease.id and date > DATE_SUB(date(:date), INTERVAL 15 DAY)";
+		Query q = JPA.em().createNativeQuery(sql);
+		q.setParameter("plantation_id", farmer.field.plantation.id);
+		q.setParameter("date", farmer.gameDate.date);
+		List<Object> res = q.getResultList();
+		for (Object r: res) {
+			String d_name = ((String)r);
+			result.add(d_name);
 		}
 		renderJSON(result);
 	}

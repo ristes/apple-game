@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -29,4 +30,6 @@ public class OccurredDecease extends Model {
 	 */
 	@ManyToOne
 	public Plantation plantation;
+	
+	public Date date;
 }

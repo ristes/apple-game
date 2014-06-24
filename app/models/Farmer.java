@@ -1,5 +1,6 @@
 package models;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,6 +17,8 @@ import javax.swing.text.Position.Bias;
 import org.apache.commons.collections.map.HashedMap;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 import controllers.DeseasesExpertSystem;
 import controllers.FertilizationController;
@@ -24,6 +27,7 @@ import controllers.HumidityController;
 import controllers.IrrigationController;
 import controllers.LandTreatmanController;
 import controllers.WeatherController;
+import controllers.YieldController;
 import dto.C;
 import dto.DiseaseOccurenceProb;
 import dto.DiseasesOccured;
@@ -279,26 +283,29 @@ public class Farmer extends Model {
 		season_level = WeatherController.season_level(Farmer.this);
 	}
 
-	public void evaluateDisease()  {
-		List<DiseasesOccured> list = new ArrayList<DiseasesOccured>();
-		List<DiseaseOccurenceProb> disProbs = DeseasesExpertSystem.getDP(Farmer.this); 
-		for (DiseaseOccurenceProb dis: disProbs) {
-			DiseasesOccured doc = new DiseasesOccured();
-			doc.disease = dis;
-			if (dis.probability > luck) {
-				doc.isOccured = true;
-			}
-			doc.isOccured = false;
-			list.add(doc);
+	public void evaluateDisease() {
+		//check for diseases every 5 days triggered by the farmer luck
+		if (gameDate.dayOrder%5==0) {
+			DeseasesExpertSystem.diseases();
 		}
-		
-		
 	}
+	
+	public void evaluateRestartState() {
+		Calendar c = Calendar.getInstance();
+		c.setTime(gameDate.date);
+		int month = c.get(Calendar.MONTH);
+		int day = c.get(Calendar.DAY_OF_MONTH);
+		if (month==9 && day == 1) {
+			productQuantity = (int) Math.round(YieldController.calculateYield());
+		}
+	}
+	
 	public void evaluateState() {
 		calculateCumulatives();
 		calculateFertalizing();
 		calculateLuck(gameDate);
 		calculateGrassGrowth();
+		evaluateRestartState();
 		evaluateSoilImage(gameDate.date);
 		evaluateSeason();
 		evaluateDisease();
