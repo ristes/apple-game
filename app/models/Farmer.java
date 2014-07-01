@@ -28,6 +28,7 @@ import controllers.IrrigationController;
 import controllers.LandTreatmanController;
 import controllers.WeatherController;
 import controllers.YieldController;
+import dao.DateDao;
 import dto.C;
 import dto.DiseaseOccurenceProb;
 import dto.DiseasesOccured;
@@ -56,17 +57,17 @@ public class Farmer extends Model {
 	public Double luck_dev;
 
 	public Double luck_avg;
-	
-	@OneToMany(mappedBy="farmer")
+
+	@OneToMany(mappedBy = "farmer")
 	public List<Yield> yields;
 
 	/**
 	 * How much money does the player have
 	 */
 	public int balans;
-	
+
 	/**
-	 * season labeled in  WeatherController
+	 * season labeled in WeatherController
 	 */
 	public int season_level;
 
@@ -117,6 +118,15 @@ public class Farmer extends Model {
 	 * (not need) it's clear 2 - (medium) little grass 3 - (high) lot of grass
 	 */
 	public Double digging_coef;
+	
+	
+	public double subtractEcoPoints(double points) {
+		eco_points -= points;
+		if (eco_points<0) {
+			eco_points = 0;
+		}
+		return eco_points;
+	}
 
 	/**
 	 * The items he owns
@@ -143,7 +153,7 @@ public class Farmer extends Model {
 
 		Calendar c = Calendar.getInstance();
 		c.setTime(gameDate.date);
-		if (DeseasesExpertSystem.isAfterNewYear(c.getTime())) {
+		if (DateDao.isAfterNewYear(c.getTime())) {
 			c.add(Calendar.YEAR, -1);
 		}
 		c.set(Calendar.DAY_OF_MONTH, 1);
@@ -204,9 +214,9 @@ public class Farmer extends Model {
 		if (today.weatherType.id == C.WEATHER_TYPE_RAINY) {
 			double avg_rain = coefs.get(C.KEY_RAIN_COEFS).get(
 					c.get(Calendar.MONTH));
-//			deltaCumulative += coefs.get(C.KEY_DROPS_EVAP).get(
-//					c.get(Calendar.MONTH))
-//					* avg_rain;
+			// deltaCumulative += coefs.get(C.KEY_DROPS_EVAP).get(
+			// c.get(Calendar.MONTH))
+			// * avg_rain;
 			deltaCumulative += avg_rain;
 		}
 
@@ -219,9 +229,9 @@ public class Farmer extends Model {
 				deltaCumulative = min_hum;
 			}
 		}
-		//do not allow humidity above the max
+		// do not allow humidity above the max
 		double max_humidity = coefs.get(C.KEY_MAX_HUMIDITY).get(0);
-		if (deltaCumulative>max_humidity) {
+		if (deltaCumulative > max_humidity) {
 			deltaCumulative = max_humidity;
 		}
 	}
@@ -274,38 +284,54 @@ public class Farmer extends Model {
 
 		soil_url = tile_name;
 	}
-	
+
 	public void evaluatePlantImage() {
 		plant_url = GrowController.evaluatePlantImage(Farmer.this);
 	}
-	
+
 	public void evaluateSeason() {
 		season_level = WeatherController.season_level(Farmer.this);
 	}
 
 	public void evaluateDisease() {
-		//check for diseases every 5 days triggered by the farmer luck
-		if (gameDate.dayOrder%5==0) {
+		// check for diseases every 5 days triggered by the farmer luck
+		if (gameDate.dayOrder % 5 == 0) {
 			DeseasesExpertSystem.diseases();
 		}
 	}
-	
+
 	public void evaluateRestartState() {
 		Calendar c = Calendar.getInstance();
 		c.setTime(gameDate.date);
 		int month = c.get(Calendar.MONTH);
 		int day = c.get(Calendar.DAY_OF_MONTH);
-		if (month==9 && day == 1) {
-			productQuantity = (int) Math.round(YieldController.calculateYield());
+		int year = c.get(Calendar.YEAR);
+		if (WeatherController.evaluateYearLevel(year) >= 2) {
+			if (month == 9 && day == 1) {
+				productQuantity = (int) Math.round(YieldController.calculateYield());
+				eco_points = 100;
+			}
 		}
 	}
 	
+	public void evaluateFertilizingState() {
+		Calendar c = Calendar.getInstance();
+		c.setTime(gameDate.date);
+		int year = c.get(Calendar.YEAR);
+		int month = c.get(Calendar.MONTH);
+		int day = c.get(Calendar.DAY_OF_MONTH);
+		if (month == Calendar.SEPTEMBER && day==1 && WeatherController.evaluateYearLevel(year)>1) {
+			FertilizationController.finalEvaluationFertilizer();
+		}
+	}
+
 	public void evaluateState() {
 		calculateCumulatives();
 		calculateFertalizing();
 		calculateLuck(gameDate);
 		calculateGrassGrowth();
 		evaluateRestartState();
+		evaluateFertilizingState();
 		evaluateSoilImage(gameDate.date);
 		evaluateSeason();
 		evaluateDisease();
@@ -321,10 +347,14 @@ public class Farmer extends Model {
 					.checkNeedOfP(Farmer.this);
 			field.plantation.needK = FertilizationController
 					.checkNeedOfK(Farmer.this);
-			field.plantation.needCa = FertilizationController.checkNeedOfCa(Farmer.this);
-			field.plantation.needB = FertilizationController.checkNeedOfB(Farmer.this);
-			field.plantation.needMg = FertilizationController.checkNeedOfMg(Farmer.this);
-			field.plantation.needZn = FertilizationController.checkNeedOfZn(Farmer.this);
+			field.plantation.needCa = FertilizationController
+					.checkNeedOfCa(Farmer.this);
+			field.plantation.needB = FertilizationController
+					.checkNeedOfB(Farmer.this);
+			field.plantation.needMg = FertilizationController
+					.checkNeedOfMg(Farmer.this);
+			field.plantation.needZn = FertilizationController
+					.checkNeedOfZn(Farmer.this);
 			field.plantation.save();
 		}
 	}

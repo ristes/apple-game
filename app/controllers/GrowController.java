@@ -22,18 +22,10 @@ public class GrowController extends Controller {
 		int year_level = 1;
 		int year = calendar.get(Calendar.YEAR);
 		int month = calendar.get(Calendar.MONTH);
-		switch (year) {
-		case 2020:
-			year_level = 1;
-			break;
-		case 2021:
-			year_level = 2;
-			break;
-		default:
-			year_level = 3;
-		}
+		year_level = WeatherController.evaluateYearLevel(year);
+		
 		additional = checkToPutApplesOnTree(farmer, year, year_level,month,season);
-		additional = checkWhiteSprayed(farmer, year_level,season);
+		additional += checkWhiteSprayed(farmer, year_level,season);
 		return image_path + String.valueOf(year_level) + String.valueOf(season)
 				+ additional + ".png";
 	}

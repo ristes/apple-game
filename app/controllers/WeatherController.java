@@ -127,4 +127,20 @@ public class WeatherController extends Controller {
 		return season_level;
 	}
 
+	public static int evaluateYearLevel(Integer year) {
+		int year_level = 0;
+		switch (year) {
+		case 2020:
+			year_level = 1;
+			break;
+		case 2021:
+			year_level = 2;
+			break;
+		default:
+			year_level = 3;
+		}
+		return year_level;
+	}
+	
+	
 }

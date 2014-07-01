@@ -18,8 +18,10 @@ import models.Decease;
 import models.ExecutedOperation;
 import models.Farmer;
 import models.OccurredDecease;
+import play.db.jpa.GenericModel.JPAQuery;
 import play.db.jpa.JPA;
 import play.mvc.Controller;
+import dao.DateDao;
 import de.congrace.exp4j.UnknownFunctionException;
 import de.congrace.exp4j.UnparsableExpressionException;
 import dto.DiseaseOccurenceProb;
@@ -98,7 +100,15 @@ public class DeseasesExpertSystem extends Controller {
 			error("Not logged in");
 		}
 		List<String> result = new ArrayList<String>();
-		String sql = "select DISTINCT(name) from occurreddecease,Decease where plantation_id=:plantation_id and desease_id=Decease.id and date > DATE_SUB(date(:date), INTERVAL 15 DAY)";
+		String sql = "select DISTINCT(name) from ((select * from occurreddecease where plantation_id=:plantation_id and date > DATE_SUB(date(:date), INTERVAL 15 DAY)) as t LEFT JOIN Decease ON t.desease_id=Decease.id)";
+//		String sql = "select DISTINCT(name) from occurreddecease Decease where"
+//				+ " plantation_id=:plantation_id and desease_id=Decease.id and "
+//				+ "date > DATE_SUB(date(:date), INTERVAL 15 DAY)";
+		
+//		JPAQuery q = OccurredDecease.find("select Distinct(od.id) FROM OccurredDecease od where od.plantation.id=:plant and od.date > DATE_SUB(date(:date), INTERVAL 15 DAY)");
+//		q.setParameter("plant", farmer.field.plantation);
+//		q.setParameter("date", farmer.gameDate.date);
+//		result = q.fetch();
 		Query q = JPA.em().createNativeQuery(sql);
 		q.setParameter("plantation_id", farmer.field.plantation.id);
 		q.setParameter("date", farmer.gameDate.date);
@@ -112,16 +122,8 @@ public class DeseasesExpertSystem extends Controller {
 
 	public static List<DiseaseProtectingOperationDto> getMmax(Farmer farmer,
 			Decease disease) {
-		Boolean afterNewYear = false;
-		Date date = farmer.gameDate.date;
-		Calendar c = Calendar.getInstance();
-		c.setTime(date);
-		if (isAfterNewYear(date)) {
-			c.set(Calendar.YEAR, 1971);
-		} else {
-			c.set(Calendar.YEAR, 1970);
-		}
-		Date curDate = c.getTime();
+		
+		Date curDate = DateDao.convertDateTo70(farmer.gameDate.date);
 		SimpleDateFormat formatter = new SimpleDateFormat();
 		formatter.applyPattern("yyyy-MM-dd");
 		String sqlString = "SELECT Operation.id as operation_id,decease_id, deceaseProtectingFactor,startFrom, endTo FROM applegame.DeceaseProtectingOperation, Operation, OperationBestTimeInterval where decease_id=:id and DeceaseProtectingOperation.operation_id=Operation.id AND OperationBestTimeInterval.operation_id=DeceaseProtectingOperation.id and date(:date)>=date(endTo)";
@@ -147,19 +149,5 @@ public class DeseasesExpertSystem extends Controller {
 		return null;
 	}
 
-	public static Boolean isAfterNewYear(Date date) {
-		Calendar c = Calendar.getInstance();
-		c.setTime(date);
-		int month = c.get(Calendar.MONTH);
-		int day = c.get(Calendar.DAY_OF_MONTH);
-		if (month <= Calendar.DECEMBER && month >= Calendar.OCTOBER) {
-			return false;
-		}
-		if (month == Calendar.SEPTEMBER) {
-			if (day > 15) {
-				return false;
-			}
-		}
-		return true;
-	}
+	
 }

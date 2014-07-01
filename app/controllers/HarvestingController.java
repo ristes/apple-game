@@ -38,6 +38,14 @@ public class HarvestingController extends Controller{
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(farmer.gameDate.date);
 		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH);
+		Yield yieldDone = Yield.find("byYearAndFarmer", year,farmer).first();
+		if (yieldDone!=null) {
+			error("Not allowed");
+		}
+		if (month!=8) {
+			error("Not allowed");
+		}
 		int q = farmer.productQuantity;
 		farmer.apples_in_stock += q;
 		farmer.productQuantity = 0;
@@ -47,7 +55,7 @@ public class HarvestingController extends Controller{
 		yield.quantity = q;
 		yield.year = year;
 		yield.save();
-		StatusDto status = new StatusDto(true, "Успешна берба", String.valueOf(farmer.productQuantity), farmer);
+		StatusDto status = new StatusDto(true, "Успешна берба", String.valueOf(farmer.apples_in_stock), farmer);
 		JsonController.toJson(status, "gameDate", "field", "weatherType","plantation");
 	}
 

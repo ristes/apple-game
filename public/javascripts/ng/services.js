@@ -355,10 +355,11 @@ Game.factory('Operations', ['$resource', '$rootScope',
           duration: 100,
           order: 5
         }, {
-          ico: "/public/images/game/operations/desease-analysis.png",
-          name: 'desease-analysis',
+          ico: "/public/images/game/operations/spraying.png",
+          name: 'spraying',
+          requires: 'spraying',
           price: 0,
-          duration: 0,
+          duration: 30,
           order: 6
         }]
       };

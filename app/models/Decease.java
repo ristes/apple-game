@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import controllers.DeseasesExpertSystem;
+import dao.DateDao;
 import dao.DeceasesDao;
 import dao.DeseaseRisk;
 import de.congrace.exp4j.Calculable;
@@ -188,7 +189,7 @@ public class Decease extends Model implements DeseaseRisk {
 		Calendar c = Calendar.getInstance();
 		c.setTime(result.startDate);
 		c.set(Calendar.YEAR, 1970);
-		if (DeseasesExpertSystem.isAfterNewYear(c.getTime())) {
+		if (DateDao.isAfterNewYear(c.getTime())) {
 			c.add(Calendar.YEAR, 1);
 		}
 		result.startDate = c.getTime();
