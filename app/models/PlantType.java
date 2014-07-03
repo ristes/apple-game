@@ -22,6 +22,8 @@ public class PlantType extends Model {
 	
 	public String name;
 	
+	public String apple_color;
+	
 	
 	public String toString() {
 		return name;

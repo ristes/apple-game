@@ -48,6 +48,10 @@ public class C {
 	public static final long SEASON_WINTER = 1;
 	public static final long SEASON_SPRING = 3;
 	public static final long SEASON_SUMMER = 4;
+	
+	public static final String APPLE_COLOR_RED = "red";
+	public static final String APPLE_COLOR_GREEN = "green";
+	public static final String APPLE_COLOR_GOLD = "gold";
 
 	public static String root_folder = "/public/images/";
 	public static String irrigation_folder = "/public/images/game/soil/irrigation/";

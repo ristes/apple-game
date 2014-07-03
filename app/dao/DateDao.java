@@ -3,6 +3,7 @@ package dao;
 import java.util.Calendar;
 import java.util.Date;
 
+import models.Day;
 import models.Farmer;
 import controllers.DeseasesExpertSystem;
 
@@ -56,5 +57,14 @@ public class DateDao {
 			}
 		}
 		return false;
+	}
+	
+	public static Long diffCurDate(Farmer farmer, Date date) {
+		Day day = Day.find("byDate", date).first();
+		if (day==null) {
+			return null;
+		}
+		return farmer.gameDate.dayOrder-day.dayOrder;
+				
 	}
 }
