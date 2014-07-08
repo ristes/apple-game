@@ -7,14 +7,13 @@ Game.controller('IrrigationController', [
     'Operations',
     '$farmer',
     '$items',
-    '$plantation',
     '$weather',
     '$interval',
     '$timeout',
     '$irrigate',
     'jQuery',
     function($scope, $translate, $http, Store, StoreItems, Operations, $farmer,
-            $items, $plantation, $weather, $interval, $timeout, $irrigate, $) {
+            $items, $weather, $interval, $timeout, $irrigate, $) {
 
       $scope.visible = false;
       $scope.irrigationUrl = '/public/images/game/operations/irrigation.png';

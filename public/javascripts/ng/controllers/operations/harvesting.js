@@ -7,12 +7,11 @@ Game.controller('HarvestingController', [
     'Operations',
     '$farmer',
     '$items',
-    '$plantation',
     '$weather',
     '$plowing',
     '$day',
     function($scope, $translate, $http, Store, StoreItems, Operations, $farmer,
-            $items, $plantation, $weather, $plowing, $day) {
+            $items, $weather, $plowing, $day) {
 
       var unreg = $scope.$root.$on('operation-harvest', function(_s, oper) {
 

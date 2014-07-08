@@ -73,6 +73,10 @@ Game.factory('StoreItems', function($resource) {
       url: '/public/images/game/terrain/prizmaticna.png'
     }],
     'terrain-size': [{
+      size: 4,
+      name: '4 Ha',
+      url: '/public/images/game/pocva-prodavnica-icon.png'
+    }, {
       size: 2,
       name: '2 Ha',
       url: '/public/images/game/pocva-prodavnica-icon.png'
@@ -83,10 +87,6 @@ Game.factory('StoreItems', function($resource) {
     }, {
       size: 0.5,
       name: '0.5 Ha',
-      url: '/public/images/game/pocva-prodavnica-icon.png'
-    }, {
-      size: 0.25,
-      name: '0.25 Ha',
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }],
     'base': [{
@@ -99,13 +99,13 @@ Game.factory('StoreItems', function($resource) {
       id: 2,
       name: 'M26',
       perHa: true,
-      price: 0,
+      price: 1000,
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }, {
       id: 3,
       name: 'MM106',
       perHa: true,
-      price: 0,
+      price: 1000,
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }],
     'apple-type': [{
@@ -262,14 +262,14 @@ Game.factory('StoreItems', function($resource) {
     'stores': [{
       name: 'tractor',
       url: '/public/images/game/stores/tractor.png'
-    }, 
-//    {
-//      name: 'fertilizer',
-//      url: '/public/images/game/stores/fertilizer.png'
-//    }, {
-//      name: 'spraying',
-//      url: '/public/images/game/stores/sprays.png'
-//    },
+    },
+    // {
+    // name: 'fertilizer',
+    // url: '/public/images/game/stores/fertilizer.png'
+    // }, {
+    // name: 'spraying',
+    // url: '/public/images/game/stores/sprays.png'
+    // },
     {
       name: 'irrigation',
       url: '/public/images/game/stores/irrigation.png'
@@ -284,9 +284,12 @@ Game.factory('StoreItems', function($resource) {
 Game.factory('Operations', ['$resource', '$rootScope',
     function($resource, $rootScope) {
       return {
+        /**
+         * Sadenje
+         */
         'planting': [{
           ico: "/public/images/game/operations/plowing.png",
-          name: 'plowing',
+          name: 'deep-plowing',
           price: 2000,
           duration: 20,
           order: 1
@@ -298,36 +301,57 @@ Game.factory('Operations', ['$resource', '$rootScope',
           requires: 'fertilizer',
           order: 2
         }, {
-          ico: "/public/images/game/operations/irrigation.png",
-          name: 'irrigation',
-          price: 100,
-          duration: -1,
-          order: 3
-        }, {
-          ico: "/public/images/game/operations/digging.png",
-          name: 'digging',
-          price: 100,
-          duration: 50,
-          order: 4
-        }, {
-          ico: "/public/images/game/operations/harvest.png",
-          name: 'harvest',
-          price: 100,
-          duration: 100,
-          order: 5
-        }, {
-          ico: "/public/images/game/operations/planting.png",
-          name: 'planting-done',
-          price: 0,
-          duration: 0,
-          requires: 'seedlings',
-          order: 6
-        }],
-        'growing': [{
           ico: "/public/images/game/operations/plowing.png",
           name: 'plowing',
           price: 2000,
           duration: 20,
+          order: 3
+        }],
+        /**
+         * Leto
+         */
+        'season-4': [{
+          ico: "/public/images/game/operations/irrigation.png",
+          name: 'irrigation',
+          price: 100,
+          duration: -1,
+          order: 1
+        }, {
+          ico: "/public/images/game/operations/plowing.png",
+          name: 'plowing',
+          price: 2000,
+          duration: 20,
+          order: 2
+        }, {
+          ico: "/public/images/game/operations/digging.png",
+          name: 'digging',
+          price: 100,
+          duration: 50,
+          order: 3
+        }, {
+          ico: "/public/images/game/operations/spraying.png",
+          name: 'spraying',
+          requires: 'spraying',
+          price: 0,
+          duration: 30,
+          order: 4
+        }, {
+          ico: "/public/images/game/operations/fertilizing.png",
+          name: 'fertilizing',
+          price: 1000,
+          duration: 10,
+          requires: 'fertilizer',
+          order: 5
+        }],
+        /**
+         * Prolet
+         */
+        'season-3': [{
+          ico: "/public/images/game/operations/spraying.png",
+          name: 'spraying',
+          requires: 'spraying',
+          price: 0,
+          duration: 30,
           order: 1
         }, {
           ico: "/public/images/game/operations/fertilizing.png",
@@ -337,10 +361,10 @@ Game.factory('Operations', ['$resource', '$rootScope',
           requires: 'fertilizer',
           order: 2
         }, {
-          ico: "/public/images/game/operations/irrigation.png",
-          name: 'irrigation',
-          price: 100,
-          duration: -1,
+          ico: "/public/images/game/operations/plowing.png",
+          name: 'plowing',
+          price: 2000,
+          duration: 20,
           order: 3
         }, {
           ico: "/public/images/game/operations/digging.png",
@@ -349,10 +373,45 @@ Game.factory('Operations', ['$resource', '$rootScope',
           duration: 50,
           order: 4
         }, {
+          ico: "/public/images/game/operations/irrigation.png",
+          name: 'irrigation',
+          price: 100,
+          duration: -1,
+          order: 5
+        }],
+        /**
+         * Esen
+         */
+        'season-2': [{
           ico: "/public/images/game/operations/harvest.png",
           name: 'harvest',
           price: 100,
           duration: 100,
+          order: 1
+        }, {
+          ico: "/public/images/game/operations/plowing.png",
+          name: 'plowing',
+          price: 2000,
+          duration: 20,
+          order: 2
+        }, {
+          ico: "/public/images/game/operations/fertilizing.png",
+          name: 'fertilizing',
+          price: 1000,
+          duration: 10,
+          requires: 'fertilizer',
+          order: 3
+        }, {
+          ico: "/public/images/game/operations/digging.png",
+          name: 'digging',
+          price: 100,
+          duration: 50,
+          order: 4
+        }, {
+          ico: "/public/images/game/operations/irrigation.png",
+          name: 'irrigation',
+          price: 100,
+          duration: -1,
           order: 5
         }, {
           ico: "/public/images/game/operations/spraying.png",
@@ -361,6 +420,26 @@ Game.factory('Operations', ['$resource', '$rootScope',
           price: 0,
           duration: 30,
           order: 6
+        }],
+        'season-1': [{
+          ico: "/public/images/game/operations/plowing.png",
+          name: 'plowing',
+          price: 2000,
+          duration: 20,
+          order: 1
+        }, {
+          ico: "/public/images/game/operations/fertilizing.png",
+          name: 'fertilizing',
+          price: 1000,
+          duration: 10,
+          requires: 'fertilizer',
+          order: 2
+        }, {
+          ico: "/public/images/game/operations/clothing.png",
+          name: 'clothing',
+          price: 100,
+          duration: 50,
+          order: 4
         }]
       };
     }]);

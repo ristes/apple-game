@@ -7,10 +7,9 @@ Game.controller('TerrainAnalysisController', [
     'Operations',
     '$farmer',
     '$items',
-    '$plantation',
     '$weather',
     function($scope, $translate, $http, Store, StoreItems, Operations, $farmer,
-            $items, $plantation, $weather) {
+            $items, $weather) {
 
       $scope.visible = false;
       $scope.url = "/public/images/game/operations/terrain-analysis.png";

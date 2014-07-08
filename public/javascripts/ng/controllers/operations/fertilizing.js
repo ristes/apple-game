@@ -7,15 +7,13 @@ Game.controller('FertilizingController', [
     'Operations',
     '$farmer',
     '$items',
-    '$plantation',
     '$weather',
     '$fertilize',
     '$timeout',
     '$interval',
     '$window',
     function($scope, $translate, $http, Store, StoreItems, Operations, $farmer,
-            $items, $plantation, $weather, $fertilize, $timeout, $interval,
-            $window) {
+            $items, $weather, $fertilize, $timeout, $interval, $window) {
 
       $scope.fertilizer = {
         n: 40,

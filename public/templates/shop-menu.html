@@ -2,7 +2,7 @@
 		ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
 		
 	<div class="shop_icon">
-		<img class="shop_icon-img" src="{{storeUrl}}"></img>
+		<img class="shop_icon-img" ng-src="{{storeUrl}}"></img>
 		<div class="shop-label ramka">
 			<span class="shop-label-text">{{shop.name | translate}}</span> 
 		</div>
@@ -12,7 +12,7 @@
 	
 	<div class="shop_menu_grid">
 		<div class="shop_item_in_grid" ng-repeat="item in items" ng-click="itemClick(item)">
-			<img src="{{item.url}}"></img>
+			<img ng-src="{{item.url}}"></img>
 			<div class="shop-item-label ramka"  ng-click="itemClick(item)">
 				<span class="title-text" translate="{{item.name}}"></span>
 			</div>

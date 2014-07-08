@@ -7,9 +7,8 @@ Game.controller('PlantingController', [
     'Operations',
     '$farmer',
     '$items',
-    '$plantation',
     '$weather',
     function($scope, $translate, $http, Store, StoreItems, Operations, $farmer,
-            $items, $plantation, $weather) {
+            $items, $weather) {
 
     }]);

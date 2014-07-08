@@ -1,14 +1,7 @@
 Game.factory('$farmer', ['$rootScope', '$http', '$items', '$location', '$day',
     function($rootScope, $http, $items, $location, $day) {
       function swap(farmer) {
-        if (!$rootScope.farmer && farmer.field) {
-          $items.load();
-        }
-        if ($rootScope.farmer === farmer) return;
-        $rootScope.farmer = farmer;
-        $rootScope.day = farmer;
-
-        $location.path(farmer.currentState || '/buy_tractor');
+        $day.load(farmer);
       }
       return {
         load: function() {
@@ -25,6 +18,33 @@ Game.factory('$farmer', ['$rootScope', '$http', '$items', '$location', '$day',
         swap: swap
       };
 
+    }]);
+
+Game.factory('$day', ['$rootScope', '$http', '$weather', '$diseases', '$items',
+    '$location',
+    function($rootScope, $http, $weather, $diseases, $items, $location) {
+      return {
+        load: function(farmer) {
+          if (!$rootScope.farmer && farmer.field) {
+            $items.load();
+          }
+          if (farmer.balans != null) {
+            $rootScope.day = farmer;
+            $rootScope.farmer = farmer;
+          }
+
+          $location.path(farmer.currentState || '/buy_tractor');
+        },
+        next: function() {
+          var res = $http.get("/application/nextday");
+          res.success(function(data) {
+            this.load(data);
+
+            $weather.load();
+            $diseases.load();
+          });
+        }
+      };
     }]);
 
 Game.factory('$items', ['$rootScope', '$http', function($rootScope, $http) {
@@ -119,17 +139,18 @@ Game.factory('$plantation', [
     '$http',
     function($rootScope, $http) {
       return {
-        load: function() {
-          if (!$rootScope.plantation) {
-            var res = $http.get("/AuthController/plantation");
-            res.success(function(data) {
-              $rootScope.plantation = data;
-            });
-          }
+        load: function(fn) {
+          var res = $http.get("/AuthController/plantation");
+          res.success(function(data) {
+            $rootScope.plantation = data;
+            if (fn && typeof fn === 'function') {
+              fn(data);
+            }
+          });
         },
-        save: function(array, fn) {
+        save: function(array, seedlings, fn) {
           var res = $http.post("/PlantationController/savePlanting?array="
-                  + array);
+                  + array + '&seedlings=' + seedlings);
           res.success(function(data) {
             if (fn && typeof fn === 'function') {
               fn(data);
@@ -149,27 +170,6 @@ Game.factory('$diseases', ['$rootScope', '$http', function($rootScope, $http) {
     }
   };
 }]);
-
-Game.factory('$day', ['$rootScope', '$http', '$weather', '$diseases',
-    function($rootScope, $http, $weather, $diseases) {
-      return {
-        load: function(farmer) {
-          if (farmer.balans) {
-            $rootScope.day = farmer;
-          }
-
-        },
-        next: function() {
-          var res = $http.get("/application/nextday");
-          res.success(function(data) {
-            $rootScope.day = data;
-
-            $weather.load();
-            $diseases.load();
-          });
-        }
-      };
-    }]);
 
 Game.factory('$irrigate', [
     '$rootScope',
@@ -206,6 +206,15 @@ Game.factory('$plowing', ['$rootScope', '$http', '$day',
           var res = $http.get("/LandTreatmanController/plowing");
           res.success(function(data) {
             $day.load(data.farmer);
+          });
+        },
+        deepPlowing: function() {
+          var res = $http.get("/LandTreatmanController/plowing");
+          res.success(function(data) {
+            var res = $http.get("/LandTreatmanController/digging");
+            res.success(function(data) {
+              $day.load(data.farmer);
+            });
           });
         }
       };

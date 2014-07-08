@@ -51,7 +51,9 @@ Game.controller('ShoppingController', [
         $scope.$root.$emit('shop-show', {
           items: StoreItems['stores'],
           showNext: true,
-          shop: {name: 'shop'},
+          shop: {
+            name: 'shop'
+          },
           storeUrl: '/public/images/game/operations/shop.png',
           onItemClick: showStoreItems
         });

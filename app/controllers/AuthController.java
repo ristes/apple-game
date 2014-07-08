@@ -31,15 +31,17 @@ public class AuthController extends Controller {
 	public static void plantation() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		Farmer farmer = getFarmer();
-		if (farmer != null) {
+		if (farmer != null && farmer.field != null
+				&& farmer.field.plantation != null
+				&& farmer.field.plantation.base != null) {
 			PlantationDto dto = new PlantationDto();
+
 			dto.area = farmer.field.area;
 			dto.base = farmer.field.plantation.base.name;
 			dto.treePositions = farmer.field.plantation.treePositions;
 			JsonController.toJson(dto);
 		} else {
-			response.status = 401;
-			renderJSON(null);
+			renderJSON("");
 		}
 	}
 

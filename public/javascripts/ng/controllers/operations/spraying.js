@@ -7,12 +7,11 @@ Game.controller('SprayingController', [
     'Operations',
     '$farmer',
     '$items',
-    '$plantation',
     '$weather',
     '$day',
     '$spraying',
     function($scope, $translate, $http, Store, StoreItems, Operations, $farmer,
-            $items, $plantation, $weather, $day, $spraying) {
+            $items, $weather, $day, $spraying) {
 
       var showProgress = function(_scope, oper, item) {
         $spraying.spray(item);
@@ -33,10 +32,10 @@ Game.controller('SprayingController', [
         }, null, function(result) {
           if (result.balans) {
             $day.load(result);
-            $items.load(function(){
+            $items.load(function() {
               $scope.$root.$emit('shop-hide');
-              var boughtItem=$items.get($scope.sprayingOper.requires)[0];
-              showProgress($scope, $scope.sprayingOper, boughtItem);              
+              var boughtItem = $items.get($scope.sprayingOper.requires)[0];
+              showProgress($scope, $scope.sprayingOper, boughtItem);
             });
 
           } else {

@@ -149,6 +149,7 @@ img.ograda-gore {
 	margin-top: -225%;
 	margin-left: -75%;
 	float: left;
+	cursor: pointer;
 }
 
 .text-info {

@@ -40,13 +40,14 @@ Game.controller('PlantingStateController', [
       $farmer.load();
       $scope.actions = Operations['planting'];
 
-      if ($scope.$root.plantation == null) {
+      if (!$scope.$root.plantation) {
+        $plantation.load();
         $scope.coords = [];
       } else {
         $scope.coords = JSON.parse($scope.$root.plantation.treePositions);
       }
       $scope.seedling = $scope.coords.length;
-      $scope.totalSeedling = $scope.coords.length;
+      $scope.totalSeedling = 40;
 
       var isInCoords = function(p) {
         var arr = $scope.coords;
@@ -58,29 +59,19 @@ Game.controller('PlantingStateController', [
         return false;
       }
 
-      var unreg = $scope.$root.$on('operation-planting-done',
-              function(_s, oper) {
-                $scope.$root.$emit("side-hide");
+      $scope.plantingDone = function() {
 
-                var percent = ($scope.seedling * 100) / $scope.totalSeedling;
-                console.log(percent);
+        function successPlanting(data) {
+          if (data.status == true) {
+            $farmer.load();
+          }
+        }
 
-                function successPlanting(data) {
-                  if (data.status == true) {
-                    toaster.pop('success', 'Done :)', 'sadenjeto e zavrseno'
-                            + JSON.stringify($scope.coords));
-                  }
-                }
+        var data = $plantation.save(JSON.stringify($scope.coords),
+                $scope.seedling, successPlanting);
+        $scope.planting = false;
 
-                var data = $plantation.save(JSON.stringify($scope.coords),
-                        successPlanting);
-                $scope.planting = false;
-
-              });
-
-      var successPlanting = $scope.$root.$on("successPlanting", function() {
-        toaster.pop('success', 'Done :)', 'sadenjeto e zavrseno');
-      });
+      };
 
       $scope.planting = true;
 
@@ -138,7 +129,6 @@ Game.controller('PlantingStateController', [
         };
         $scope.rows.push(r);
         for (var i = 0; i < N; i++) {
-          $scope.totalSeedling++;
           r.cols.push({
             show: true,
             active: true,

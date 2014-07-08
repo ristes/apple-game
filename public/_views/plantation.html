@@ -1,17 +1,30 @@
+<div id="div_next_day" ng-click="$root.next()" ng-if="nextDay">
+	<span id="span_next_day">Next day</span>
+</div>
 
+<div id="div_next_day" ng-if="planting">
+	<div id="span_next_day">{{seedling * 35}} {{ 'seedlings_planted' | translate }}</div>
+	<div id="span_next_day">{{ 'base' | translate}} : {{$root.plantation.base}}</div>
+	<div id="span_next_day">
+		<button ng-click="plantingDone()">{{ 'planting_done' | translate}} </button>		
+	</div>
+</div>
 <side-menu weather="weather" actions="actions"></side-menu>
 
 
 
 <div ng-controller="ShoppingController"></div>
 <div ng-controller="PlowingController"></div>
+<div ng-controller="DeepPlowingController"></div>
 <div ng-controller="DiggingController"></div>
 <div ng-controller="HarvestingController"></div>
 <div ng-controller="SprayingController"></div>
+<div ng-controller="ClothingController"></div>
 
 <ng-include src="'/public/_views/scenes/fertilization.html'"></ng-include>
 <ng-include src="'/public/_views/scenes/irrigation.html'"></ng-include>
 <ng-include src="'/public/_views/scenes/terrain-analyse.html'"></ng-include>
+<ng-include src="'/public/_views/scenes/deseases.html'"></ng-include>
 
 
 <div ng-controller="PlantingController"></div>
