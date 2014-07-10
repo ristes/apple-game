@@ -34,6 +34,7 @@ Game.controller('BuyTerrainController', ['$scope', '$translate', '$http',
         Store['buyTerrain']({
           terrainId: item.id,
           size: $scope.size,
+          price: item.price,
           currentState: "/buy_base"
         }, null, function(result) {
           if (result.balans) {

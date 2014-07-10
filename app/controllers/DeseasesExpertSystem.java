@@ -126,7 +126,7 @@ public class DeseasesExpertSystem extends Controller {
 		Date curDate = DateDao.convertDateTo70(farmer.gameDate.date);
 		SimpleDateFormat formatter = new SimpleDateFormat();
 		formatter.applyPattern("yyyy-MM-dd");
-		String sqlString = "SELECT Operation.id as operation_id,decease_id, deceaseProtectingFactor,startFrom, endTo FROM applegame.DeceaseProtectingOperation, Operation, OperationBestTimeInterval where decease_id=:id and DeceaseProtectingOperation.operation_id=Operation.id AND OperationBestTimeInterval.operation_id=DeceaseProtectingOperation.id and date(:date)>=date(endTo)";
+		String sqlString = "SELECT Operation.id as operation_id,decease_id, deceaseProtectingFactor,startFrom, endTo FROM DeceaseProtectingOperation, Operation, OperationBestTimeInterval where decease_id=:id and DeceaseProtectingOperation.operation_id=Operation.id AND OperationBestTimeInterval.operation_id=DeceaseProtectingOperation.id and date(:date)>=date(endTo)";
 		Query query = JPA.em().createNativeQuery(sqlString);
 		query.setParameter("id", disease.id);
 		query.setParameter("date", formatter.format(curDate));

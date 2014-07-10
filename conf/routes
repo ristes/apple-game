@@ -3,7 +3,11 @@
 # ~~~~
 
 # Home page
-GET     /                                       Application.index
+GET     /                                       Crafty.iso
+
+GET		/logout									Crafty.logout
+
+GET		/login									Crafty.login
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

@@ -75,18 +75,22 @@ Game.factory('StoreItems', function($resource) {
     'terrain-size': [{
       size: 4,
       name: '4 Ha',
+      price: 4800000,
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }, {
       size: 2,
       name: '2 Ha',
+      price: 2400000,
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }, {
       size: 1,
       name: '1 Ha',
+      price: 1200000,
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }, {
       size: 0.5,
       name: '0.5 Ha',
+      price: 600000,
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }],
     'base': [{

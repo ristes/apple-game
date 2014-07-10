@@ -23,6 +23,7 @@ Game.controller('StoreController', ['$scope', '$translate', '$http', 'Store',
           itemid:item.id,
           itemName: item.name,
           quantity: 1,
+          price: item.price,
           currentState: "/" + $scope.nextState
         }, null, function(result) {
           if (result.balans) {

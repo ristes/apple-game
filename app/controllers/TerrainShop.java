@@ -11,9 +11,14 @@ import models.Seedling;
 import models.SeedlingType;
 import models.Terrain;
 import models.TerrainAnalysis;
+
+import exceptions.NotEnoughMoneyException;
+
 import play.mvc.Controller;
 
 public class TerrainShop extends Controller {
+	
+	public static final Long price_Ha = 1200000l;
 
 	public static void allTerrains() throws Exception {
 		JsonController.toJson(Terrain.findAll(), "analysis");
@@ -37,9 +42,13 @@ public class TerrainShop extends Controller {
 		field.terrain = Terrain.findById(terrainId);
 
 		Farmer farmer = AuthController.getFarmer();
+		Double totalCost = size * price_Ha + field.terrain.analysis.unitPrice * size;
+		if (farmer.balans < totalCost) {
+			throw new NotEnoughMoneyException();
+		}
+		farmer.balans -= totalCost;
 		farmer.currentState = currentState;
 		farmer.field = field;
-		farmer.balans -= field.terrain.analysis.unitPrice * size;
 
 		if (farmer.balans > 0) {
 			field.owner = farmer;

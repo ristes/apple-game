@@ -28,16 +28,23 @@ Game.controller('DeseaseController', [
         var luck = $scope.$root.day.luck;
         $scope.deceases = [];
         if ($scope.$root.diseases) {
-          for ( var i in $scope.$root.diseases) {
-            var d = $scope.$root.diseases[i];
-            if (d.probability < luck) {
-              $scope.deceases.push({
-                name: d.name,
-                url: '/public/images/game/deceases/' + d.name + '.png'
-              });
-              $scope.hasDecease = true;
-            }
-          }
+        	/*
+			 * for ( var i in $scope.$root.diseases) { var d =
+			 * $scope.$root.diseases[i]; if (d.probability < luck) {
+			 * $scope.deceases.push({ name: d.name, url:
+			 * '/public/images/game/deceases/' + d.name + '.png' });
+			 * $scope.hasDecease = true; } }
+			 */
+        	if ($scope.$root.diseases.length!=0) {
+        		$scope.hasDecease = true;
+        		for (var i=0; i < $scope.$root.diseases.length;i++) {
+        			var d = $scope.$root.diseases[i];
+        			$scope.deceases.push({
+        				name: d,
+        				url: '/public/images/game/deceases/' + d + '.png'
+        			});
+        		}
+        	}
         }
 
         $scope.visible = true;

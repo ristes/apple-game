@@ -18,8 +18,8 @@ public class YieldController extends Controller{
 		c.setTime(farmer.gameDate.date);
 		int year = c.get(Calendar.YEAR);
 		if (WeatherController.evaluateYearLevel(year)>1){
-			double applesPerA = farmer.field.plantation.base.maxApplesPerHa / 10.0;
-			return applesPerA * farmer.field.area * 1000;
+			double applesPerA = farmer.field.plantation.base.maxApplesPerHa;
+			return applesPerA * farmer.field.area * 1000*(farmer.field.plantation.fieldPercentage/100.0);
 		}
 		return 0.0;
 

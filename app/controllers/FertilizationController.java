@@ -56,7 +56,7 @@ public class FertilizationController extends Controller {
 		}
 
 		farmer.balans -= value;
-		farmer.eco_points += N.pollutionCoefficient + P.pollutionCoefficient
+		farmer.eco_points -= N.pollutionCoefficient + P.pollutionCoefficient
 				+ K.pollutionCoefficient + Ca.pollutionCoefficient
 				+ B.pollutionCoefficient + Mg.pollutionCoefficient;
 		saveItem(N, farmer, n);

@@ -118,11 +118,10 @@ public class Farmer extends Model {
 	 * (not need) it's clear 2 - (medium) little grass 3 - (high) lot of grass
 	 */
 	public Double digging_coef;
-	
-	
+
 	public double subtractEcoPoints(double points) {
 		eco_points -= points;
-		if (eco_points<0) {
+		if (eco_points < 0) {
 			eco_points = 0;
 		}
 		return eco_points;
@@ -295,8 +294,11 @@ public class Farmer extends Model {
 
 	public void evaluateDisease() {
 		// check for diseases every 5 days triggered by the farmer luck
-		if (gameDate.dayOrder % 5 == 0) {
-			DeseasesExpertSystem.diseases();
+		// in winter the diseases does not occure
+		if (season_level != C.SEASON_WINTER) {
+			if (gameDate.dayOrder % 5 == 0) {
+				DeseasesExpertSystem.diseases();
+			}
 		}
 	}
 
@@ -308,19 +310,21 @@ public class Farmer extends Model {
 		int year = c.get(Calendar.YEAR);
 		if (WeatherController.evaluateYearLevel(year) >= 2) {
 			if (month == 9 && day == 1) {
-				productQuantity = (int) Math.round(YieldController.calculateYield());
+				productQuantity = (int) Math.round(YieldController
+						.calculateYield());
 				eco_points = 100;
 			}
 		}
 	}
-	
+
 	public void evaluateFertilizingState() {
 		Calendar c = Calendar.getInstance();
 		c.setTime(gameDate.date);
 		int year = c.get(Calendar.YEAR);
 		int month = c.get(Calendar.MONTH);
 		int day = c.get(Calendar.DAY_OF_MONTH);
-		if (month == Calendar.SEPTEMBER && day==1 && WeatherController.evaluateYearLevel(year)>1) {
+		if (month == Calendar.SEPTEMBER && day == 1
+				&& WeatherController.evaluateYearLevel(year) > 1) {
 			FertilizationController.finalEvaluationFertilizer();
 		}
 	}
@@ -363,9 +367,9 @@ public class Farmer extends Model {
 		Farmer farmer = new Farmer();
 		farmer.username = username;
 		farmer.password = password;
-		Day start = Day.find("dayOrder", 243l).first();
+		Day start = Day.find("dayOrder", 318l).first();
 		farmer.gameDate = start;
-		farmer.balans = 1000000;
+		farmer.balans = 7000000;
 		farmer.eco_points = 100;
 		farmer.deltaCumulative = 0.0;
 		farmer.cumulativeHumidity = 0.0;
