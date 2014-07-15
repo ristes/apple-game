@@ -46,13 +46,13 @@ Game.factory('StoreItems', function($resource) {
       id: 1,
       store: 'tractor',
       name: 'EkoTraktor',
-      price: 250000,
+      price: 4500,
       url: '/public/images/game/items/eco-tractor.png'
     }, {
       id: 2,
       store: 'tractor',
       name: 'ObicenTraktor',
-      price: 150000,
+      price: 1500,
       url: '/public/images/game/items/tractor.png'
     }],
     'terrain': [{
@@ -75,41 +75,41 @@ Game.factory('StoreItems', function($resource) {
     'terrain-size': [{
       size: 4,
       name: '4 Ha',
-      price: 4800000,
+      price: 80000,
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }, {
       size: 2,
       name: '2 Ha',
-      price: 2400000,
+      price: 40000,
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }, {
       size: 1,
       name: '1 Ha',
-      price: 1200000,
+      price: 20000,
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }, {
       size: 0.5,
       name: '0.5 Ha',
-      price: 600000,
+      price: 10000,
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }],
     'base': [{
       id: 1,
       name: 'M9',
       perHa: true,
-      price: 1000,
+      price: 15,
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }, {
       id: 2,
       name: 'M26',
       perHa: true,
-      price: 1000,
+      price: 15,
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }, {
       id: 3,
       name: 'MM106',
       perHa: true,
-      price: 1000,
+      price: 15,
       url: '/public/images/game/pocva-prodavnica-icon.png'
     }],
     'apple-type': [{
@@ -154,35 +154,35 @@ Game.factory('StoreItems', function($resource) {
       id: 1,
       store: 'fertilizer',
       perHa: true,
-      price: 100,
+      price: 25,
       name: 'NPK',
       url: '/public/images/game/items/fertilizer.png'
     }, {
       id: 2,
       store: 'fertilizer',
       perHa: true,
-      price: 100,
+      price: 35,
       name: 'ArskoGjubrivo',
       url: '/public/images/game/items/fertilizer.png'
     }, {
       id: 3,
       store: 'fertilizer',
       perHa: true,
-      price: 100,
+      price: 50,
       name: 'Ca',
       url: '/public/images/game/items/fertilizer.png'
     }, {
       id: 4,
       store: 'fertilizer',
       perHa: true,
-      price: 100,
+      price: 50,
       name: 'B',
       url: '/public/images/game/items/fertilizer.png'
     }, {
       id: 5,
       store: 'fertilizer',
       perHa: true,
-      price: 100,
+      price: 50,
       name: 'Mg',
       url: '/public/images/game/items/fertilizer.png'
     }],
@@ -195,14 +195,14 @@ Game.factory('StoreItems', function($resource) {
     }, {
       id: 2,
       store: 'irrigation',
-      price: 100,
+      price: 150,
       perHa: true,
       name: 'KapkovoNavodnuvanje',
       url: '/public/images/game/items/drop.png'
     }, {
       id: 3,
       store: 'irrigation',
-      price: 100,
+      price: 150,
       perHa: true,
       name: 'tensiometer',
       url: '/public/images/game/items/tensiometer.png'
@@ -237,28 +237,28 @@ Game.factory('StoreItems', function($resource) {
     'spraying': [{
       id: 1,
       store: 'spraying',
-      price: 100,
+      price: 50,
       perHa: true,
       name: 'insecticide',
       url: '/public/images/game/items/insecticide.png'
     }, {
       id: 2,
       store: 'spraying',
-      price: 100,
+      price: 8,
       perHa: true,
       name: 'pheromone',
       url: '/public/images/game/items/pheromone.png'
     }, {
       id: 3,
       store: 'spraying',
-      price: 100,
+      price: 50,
       perHa: true,
       name: 'BakarenFugicid',
       url: '/public/images/game/items/copper-fungicide.png'
     }, {
       id: 4,
       store: 'spraying',
-      price: 100,
+      price: 50,
       perHa: true,
       name: 'BeloMaslo',
       url: '/public/images/game/items/white-oil.png'

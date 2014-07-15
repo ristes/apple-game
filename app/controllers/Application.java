@@ -29,6 +29,24 @@ public class Application extends Controller {
 		farmer = farmer.gotoNextDay();
 		JsonController.farmerJson(farmer);
 	}
+	
+	public static void nextweek() throws IOException{
+		Farmer farmer = AuthController.getFarmer();
+		if (farmer==null) {
+			renderJSON("");
+		}
+		farmer = farmer.gotoNextWeek();
+		JsonController.farmerJson(farmer);
+	}
+	
+	public static void nextmonth() throws IOException{
+		Farmer farmer = AuthController.getFarmer();
+		if (farmer==null) {
+			renderJSON("");
+		}
+		farmer = farmer.gotoNextMonth();
+		JsonController.farmerJson(farmer);
+	}
 
 	public static void observeDiseasesForThisYear() {
 		Farmer farmer = AuthController.getFarmer();

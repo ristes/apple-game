@@ -51,6 +51,40 @@ Game.factory('$day', [ '$rootScope', '$http', '$weather', '$diseases',
 						$weather.load();
 						$diseases.load();
 					});
+				},
+				nextWeek : function() {
+					var res = $http.get("/application/nextweek");
+					res.success(function(data) {
+						if (!$rootScope.farmer && data.field) {
+							$items.load();
+						}
+						if (data.balans != null) {
+							$rootScope.day = data;
+							$rootScope.farmer = data;
+						}
+
+						$location.path(data.currentState || '/buy_tractor');
+
+						$weather.load();
+						$diseases.load();
+					});
+				},
+				nextMonth : function() {
+					var res = $http.get("/application/nextmonth");
+					res.success(function(data) {
+						if (!$rootScope.farmer && data.field) {
+							$items.load();
+						}
+						if (data.balans != null) {
+							$rootScope.day = data;
+							$rootScope.farmer = data;
+						}
+
+						$location.path(data.currentState || '/buy_tractor');
+
+						$weather.load();
+						$diseases.load();
+					});
 				}
 			};
 		} ]);

@@ -1,7 +1,14 @@
-<div id="div_next_day" ng-click="$root.next()" ng-if="nextDay">
+<div ng-if="nextDay">
+<div id="div_next_day" ng-click="$root.next()">
 	<span id="span_next_day">Next day</span>
 </div>
-
+<div id="div_next_week" ng-click="$root.nextWeek()">
+	<span id="span_next_week">Next week</span>
+</div>
+<div id="div_next_month" ng-click="$root.nextMonth()">
+	<span id="span_next_month">Next month</span>
+</div>
+</div>
 <div id="div_next_day" ng-if="planting">
 	<div id="span_next_day">{{seedling * 35}} {{ 'seedlings_planted' | translate }}</div>
 	<div id="span_next_day">{{ 'base' | translate}} : {{$root.plantation.base}}</div>

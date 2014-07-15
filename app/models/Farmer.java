@@ -178,7 +178,25 @@ public class Farmer extends Model {
 		this.save();
 		return this;
 	}
+	
+	public Farmer gotoNextWeek() {
+		int i = 0;
+		while (i!=7) {
+			gotoNextDay();
+			i++;
+		}
+		return this;
+	}
 
+	public Farmer gotoNextMonth() {
+		int i = 0;
+		while (i!=31) {
+			gotoNextDay();
+			i++;
+		}
+		return this;
+	}
+	
 	public void calculateLuck(Day gameDate) {
 		if (gameDate.dayOrder % 5 == 0) {
 			this.luck = generateLuck();
@@ -369,7 +387,7 @@ public class Farmer extends Model {
 		farmer.password = password;
 		Day start = Day.find("dayOrder", 318l).first();
 		farmer.gameDate = start;
-		farmer.balans = 7000000;
+		farmer.balans = 120000;
 		farmer.eco_points = 100;
 		farmer.deltaCumulative = 0.0;
 		farmer.cumulativeHumidity = 0.0;

@@ -18,7 +18,7 @@ import play.mvc.Controller;
 
 public class TerrainShop extends Controller {
 	
-	public static final Long price_Ha = 1200000l;
+	public static final Long price_Ha = 20000l;
 
 	public static void allTerrains() throws Exception {
 		JsonController.toJson(Terrain.findAll(), "analysis");

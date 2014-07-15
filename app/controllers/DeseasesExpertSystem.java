@@ -100,15 +100,7 @@ public class DeseasesExpertSystem extends Controller {
 			error("Not logged in");
 		}
 		List<String> result = new ArrayList<String>();
-		String sql = "select DISTINCT(name) from ((select * from occurreddecease where plantation_id=:plantation_id and date > DATE_SUB(date(:date), INTERVAL 15 DAY)) as t LEFT JOIN Decease ON t.desease_id=Decease.id)";
-//		String sql = "select DISTINCT(name) from occurreddecease Decease where"
-//				+ " plantation_id=:plantation_id and desease_id=Decease.id and "
-//				+ "date > DATE_SUB(date(:date), INTERVAL 15 DAY)";
-		
-//		JPAQuery q = OccurredDecease.find("select Distinct(od.id) FROM OccurredDecease od where od.plantation.id=:plant and od.date > DATE_SUB(date(:date), INTERVAL 15 DAY)");
-//		q.setParameter("plant", farmer.field.plantation);
-//		q.setParameter("date", farmer.gameDate.date);
-//		result = q.fetch();
+		String sql = "select DISTINCT(name) from ((select * from OccurredDecease where plantation_id=:plantation_id and date > DATE_SUB(date(:date), INTERVAL 15 DAY)) as t LEFT JOIN Decease ON t.desease_id=Decease.id)";
 		Query q = JPA.em().createNativeQuery(sql);
 		q.setParameter("plantation_id", farmer.field.plantation.id);
 		q.setParameter("date", farmer.gameDate.date);
@@ -119,6 +111,7 @@ public class DeseasesExpertSystem extends Controller {
 		}
 		renderJSON(result);
 	}
+	
 
 	public static List<DiseaseProtectingOperationDto> getMmax(Farmer farmer,
 			Decease disease) {
