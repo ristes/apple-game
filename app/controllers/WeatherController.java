@@ -18,6 +18,7 @@ import play.db.jpa.JPA;
 import play.mvc.Controller;
 
 public class WeatherController extends Controller {
+
 	public static void weatherforecast(String fordays) throws IOException {
 		List<DayWeatherDao> result = new ArrayList<DayWeatherDao>();
 
@@ -127,8 +128,11 @@ public class WeatherController extends Controller {
 		return season_level;
 	}
 
-	public static int evaluateYearLevel(Integer year) {
+	public static int evaluateYearLevel(Date date) {
 		int year_level = 0;
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		int year = c.get(Calendar.YEAR);
 		switch (year) {
 		case 2020:
 			year_level = 1;
@@ -136,8 +140,17 @@ public class WeatherController extends Controller {
 		case 2021:
 			year_level = 2;
 			break;
-		default:
+		case 2022:
 			year_level = 3;
+			break;
+		case 2023:
+			year_level = 4;
+			break;
+		case 2024:
+			year_level = 5;
+			break;
+		default:
+			year_level = 5;
 		}
 		return year_level;
 	}

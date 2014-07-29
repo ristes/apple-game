@@ -6,6 +6,8 @@ public class C {
 	
 	public static final String COEF_SALES_YML = "/data/coefs_sale.yml";
 	
+	public static final String COEF_SEEDLIGTYPE_YIELD = "/data/coefs_seedlingType_yield.yml";
+	
 	public static final String KEY_RAIN_COEFS = "coef_rain_avgs";
 	
 	public static final String KEY_GROOVES_EVAP = "coef_grooves_evaporation";
@@ -15,6 +17,8 @@ public class C {
 	public static final String KEY_DROPS_HUM = "coef_drops_humidity";
 	
 	public static final String KEY_DIGGING_COEF = "coef_digging_coef";
+	
+	public static final String KEY_SEEDLNIG_TYPE_YIELD = "coef_seedlingType_yield";
 	
 	public static final String KEY_ONE_HOUR_IRRIGATION_VALUES = "coef_mm_one_hour_irrigation";
 	public static final String KEY_PRICE_IRRIGATION_VALUES = "coef_price_one_ar_irrigation";

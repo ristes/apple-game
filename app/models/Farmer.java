@@ -161,7 +161,7 @@ public class Farmer extends Model {
 		if (date.after(c.getTime())) {
 			c.add(Calendar.YEAR, 1);
 			c.set(Calendar.DAY_OF_MONTH, 1);
-			c.set(Calendar.MONTH, 9);
+			c.set(Calendar.MONTH, Calendar.OCTOBER);
 			if (date.before(c.getTime())) {
 				return true;
 			}
@@ -326,7 +326,7 @@ public class Farmer extends Model {
 		int month = c.get(Calendar.MONTH);
 		int day = c.get(Calendar.DAY_OF_MONTH);
 		int year = c.get(Calendar.YEAR);
-		if (WeatherController.evaluateYearLevel(year) >= 2) {
+		if (WeatherController.evaluateYearLevel(gameDate.date) >= 2) {
 			if (month == 9 && day == 1) {
 				productQuantity = (int) Math.round(YieldController
 						.calculateYield());
@@ -342,7 +342,7 @@ public class Farmer extends Model {
 		int month = c.get(Calendar.MONTH);
 		int day = c.get(Calendar.DAY_OF_MONTH);
 		if (month == Calendar.SEPTEMBER && day == 1
-				&& WeatherController.evaluateYearLevel(year) > 1) {
+				&& WeatherController.evaluateYearLevel(gameDate.date) > 1) {
 			FertilizationController.finalEvaluationFertilizer();
 		}
 	}

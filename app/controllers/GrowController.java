@@ -31,7 +31,7 @@ public class GrowController extends Controller {
 		int year_level = 1;
 		int year = calendar.get(Calendar.YEAR);
 		int month = calendar.get(Calendar.MONTH);
-		year_level = WeatherController.evaluateYearLevel(year);
+		year_level = year_tree_image(WeatherController.evaluateYearLevel(farmer.gameDate.date));
 
 		additional.append(checkToPutApplesOnTree(farmer, year, year_level, month,
 				season));
@@ -40,6 +40,13 @@ public class GrowController extends Controller {
 				+ additional + ".png";
 	}
 
+	public static int year_tree_image(int year_level) {
+		if (year_level>=3) {
+			return 3;
+		}
+		return year_level;
+	}
+	
 	public static String checkToPutApplesOnTree(Farmer farmer, int year,
 			int year_level, int month, int season) {
 		String result = "";

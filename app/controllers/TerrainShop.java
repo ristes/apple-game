@@ -76,10 +76,10 @@ public class TerrainShop extends Controller {
 		farmer.balans -= plantation.base.price;
 
 		if (farmer.balans > 0) {
-			farmer.productQuantity = (int) Math.round(YieldController.calculateYield());
+			//farmer.productQuantity = (int) Math.round(YieldController.calculateYield());
 			plantation.save();
 			field.save();
-			farmer.evaluateState();
+			//farmer.evaluateState();
 			farmer.save();
 		}
 		JsonController.farmerJson(farmer);

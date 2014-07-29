@@ -1,7 +1,10 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import play.db.jpa.Model;
 
@@ -19,6 +22,9 @@ public class SeedlingType extends Model {
 	public String description;
 	
 	public String type;
+	
+	@OneToMany(mappedBy="type")
+	public List<Yield> yields;
 	
 	
 	@ManyToOne
