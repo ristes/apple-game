@@ -11,13 +11,15 @@ import models.Seedling;
 import models.SeedlingType;
 import models.Terrain;
 import models.TerrainAnalysis;
-
 import exceptions.NotEnoughMoneyException;
-
 import play.mvc.Controller;
+import service.MoneyTransactionService;
+import service.StoreService;
+import service.impl.StoreServiceImpl;
+import service.impl.TransactionServiceImpl;
 
 public class TerrainShop extends Controller {
-	
+
 	public static final Long price_Ha = 20000l;
 
 	public static void allTerrains() throws Exception {
@@ -27,10 +29,9 @@ public class TerrainShop extends Controller {
 	public static void analyze(Long terrainId) throws Exception {
 		Terrain t = Terrain.findById(terrainId);
 		Farmer farmer = AuthController.getFarmer();
-		farmer.balans -= TerrainAnalysis.ANALYSIS_PRICE;
-		if (farmer.balans > 0) {
-			farmer.save();
-		}
+		MoneyTransactionService moneyService = new TransactionServiceImpl();
+		moneyService.commitMoneyTransaction(farmer,
+				-TerrainAnalysis.ANALYSIS_PRICE);
 		JsonController.toJson(t.analysis.features, "category");
 	}
 
@@ -42,19 +43,16 @@ public class TerrainShop extends Controller {
 		field.terrain = Terrain.findById(terrainId);
 
 		Farmer farmer = AuthController.getFarmer();
-		Double totalCost = size * price_Ha + field.terrain.analysis.unitPrice * size;
-		if (farmer.balans < totalCost) {
-			throw new NotEnoughMoneyException();
-		}
-		farmer.balans -= totalCost;
+		Double totalCost = size * price_Ha + field.terrain.analysis.unitPrice
+				* size;
+		MoneyTransactionService moneyService = new TransactionServiceImpl();
+		moneyService.commitMoneyTransaction(farmer, -totalCost);
 		farmer.currentState = currentState;
 		farmer.field = field;
 
-		if (farmer.balans > 0) {
-			field.owner = farmer;
-			field.save();
-			farmer.save();
-		}
+		field.owner = farmer;
+		field.save();
+		farmer.save();
 		JsonController.farmerJson(farmer);
 	}
 
@@ -65,33 +63,10 @@ public class TerrainShop extends Controller {
 	public static void buyBase(Long itemid, String currentState)
 			throws Exception {
 		Farmer farmer = AuthController.getFarmer();
-		Field field = Field.find("owner.id", farmer.id).first();
-
-		Plantation plantation = Plantation.buildInstance();
-		plantation.base = Base.findById(itemid);
-
-		field.plantation = plantation;
-
-		farmer.currentState = currentState;
-		farmer.balans -= plantation.base.price;
-
-		if (farmer.balans > 0) {
-			//farmer.productQuantity = (int) Math.round(YieldController.calculateYield());
-			plantation.save();
-			field.save();
-			//farmer.evaluateState();
-			farmer.save();
-		}
+		StoreService storeService = new StoreServiceImpl();
+		farmer = storeService.buyBase(farmer, itemid, currentState);
 		JsonController.farmerJson(farmer);
 	}
-
-	/**
-	 * calculate the maximum yield that the farmer could receive
-	 * 
-	 * @param farmer
-	 * @return kg of apples for that season
-	 */
-
 
 	public static void allSeedlings() throws Exception {
 		JsonController.toJson(Seedling.findAll(), "seedlingType", "type");
@@ -101,24 +76,12 @@ public class TerrainShop extends Controller {
 			String currentState) throws Exception {
 		Farmer farmer = AuthController.getFarmer();
 
-		Plantation plantation = Plantation.find("field.owner.id", farmer.id)
-				.first();
-
-		plantation.seadlings = Seedling
-				.find("type.id=:t and seedlingType.id=:st")
-				.setParameter("t", plantTypeId)
-				.setParameter("st", seedlingTypeId).first();
-
-		farmer.currentState = currentState;
-		farmer.balans -= plantation.seadlings.price * plantation.field.area;
-
-		if (farmer.balans > 0) {
-			plantation.save();
-			farmer.save();
-		}
+		StoreService storeService = new StoreServiceImpl();
+		farmer = storeService.buySeedling(farmer, seedlingTypeId, plantTypeId, currentState);
 		JsonController.farmerJson(farmer);
 	}
-
+	//TODO: Check this code productivity, otherwise delete it
+/*
 	public static void generateAllSeedlings() {
 		List<SeedlingType> stList = SeedlingType.findAll();
 		List<PlantType> ptList = PlantType.findAll();
@@ -132,5 +95,5 @@ public class TerrainShop extends Controller {
 			}
 		}
 	}
-
+*/
 }

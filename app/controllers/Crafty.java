@@ -7,6 +7,10 @@ import models.Farmer;
 import play.cache.Cache;
 import play.i18n.Lang;
 import play.mvc.Controller;
+import service.ContextService;
+import service.FarmerService;
+import service.impl.ContextServiceImpl;
+import service.impl.FarmerServiceImpl;
 
 public class Crafty extends Controller {
 
@@ -16,8 +20,8 @@ public class Crafty extends Controller {
 		if (farmer == null) {
 			login("mk");
 		}
-		farmer.evaluateState();
-		farmer.save();
+		ContextService ctxService = new ContextServiceImpl();
+		ctxService.evaluateState(farmer);
 		render();
 	}
 
@@ -57,8 +61,9 @@ public class Crafty extends Controller {
 
 		}
 		System.out.println(farmer);
+		FarmerService farmerService = new FarmerServiceImpl();
 		if (farmer == null) {
-			farmer = Farmer.buildInstance(username, password);
+			farmer = farmerService.buildInstance(username, password);
 		}
 		UUID id = UUID.randomUUID();
 		Cache.add(id.toString(), farmer.id);

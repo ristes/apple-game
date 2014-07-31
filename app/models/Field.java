@@ -53,21 +53,7 @@ public class Field extends Model {
 	@OneToMany(mappedBy = "field")
 	public List<ExecutedOperation> executedOperations;
 
-	public Boolean hasDropSystem(Farmer farmer) {
-		ItemInstance dropsystem = ItemInstance.find("byType.nameAndownedBy",
-				"KapkovoNavodnuvanje", farmer).first();
-		if (dropsystem == null) {
-			return false;
-		}
-		return true;
-	}
+	
 
-	public Boolean hasTensiometerSystem(Farmer farmer) {
-		ItemInstance tensiometerSystem = ItemInstance.find(
-				"byType.nameAndownedBy", "tensiometer", farmer).first();
-		if (tensiometerSystem == null) {
-			return false;
-		}
-		return true;
-	}
+	
 }

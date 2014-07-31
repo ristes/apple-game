@@ -14,7 +14,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import controllers.DeseasesExpertSystem;
-import dao.DateDao;
 import dao.DeceasesDao;
 import dao.DeseaseRisk;
 import de.congrace.exp4j.Calculable;
@@ -24,6 +23,12 @@ import de.congrace.exp4j.UnparsableExpressionException;
 import dto.DiseaseProtectingOperationDto;
 import play.data.validation.Range;
 import play.db.jpa.Model;
+import service.ContextService;
+import service.DateService;
+import service.DiseaseService;
+import service.impl.ContextServiceImpl;
+import service.impl.DateServiceImpl;
+import service.impl.DiseaseServiceImpl;
 
 /**
  * The deceases catalog with the occurrence conditions
@@ -104,6 +109,12 @@ public class Decease extends Model implements DeseaseRisk {
 	@ManyToMany
 	public List<Operation> healingOperation;
 
+	
+	public String toString() {
+		return name;
+	}
+
+
 	public Double getRisk(Farmer context) {
 		Double result = 0.0;
 		if (expression == null || expression.equals("")) {
@@ -138,7 +149,6 @@ public class Decease extends Model implements DeseaseRisk {
 	 */
 
 	public int getOperationsDiminushingFactor(Farmer context) {
-		Double result = 0.0;
 		int minN = 0;
 		int maxN = 9;
 		int minM = 0;
@@ -146,14 +156,16 @@ public class Decease extends Model implements DeseaseRisk {
 		if ( context.field==null) {
 			return 0;
 		}
+		DateService dateService = new DateServiceImpl();
+		DiseaseService diseaseService = new DiseaseServiceImpl();
 		List<ExecutedOperation> operations = context.field.executedOperations;
 		List<ExecutedOperation> operationsThisYear = new ArrayList<ExecutedOperation>();
 		for (ExecutedOperation operation : operations) {
-			if (context.isSameYear(operation.startDate)) {
-				operationsThisYear.add(changeYear(operation));
+			if (dateService.isSameYear(context,operation.startDate)) {
+				operationsThisYear.add(dateService.changeYear(operation));
 			}
 		}
-		List<DiseaseProtectingOperationDto> protections = DeseasesExpertSystem.getMmax(context, Decease.this);
+		List<DiseaseProtectingOperationDto> protections = diseaseService.getMmax(context, Decease.this);
 		for (DiseaseProtectingOperationDto protection: protections) {
 			if (protection.isMatched(operationsThisYear)) {
 				matches++;
@@ -170,29 +182,5 @@ public class Decease extends Model implements DeseaseRisk {
 	}
 	
 
-	private DeceaseProtectingOperation isOperationInProtections(
-			ExecutedOperation operation) {
-		for (DeceaseProtectingOperation protection : protections) {
-			if (protection.operation.id == operation.operation.id) {
-				return protection;
-			}
-		}
-		return null;
-	}
-
-	public String toString() {
-		return name;
-	}
-
-	public static ExecutedOperation changeYear(ExecutedOperation operation) {
-		ExecutedOperation result = operation.clone();
-		Calendar c = Calendar.getInstance();
-		c.setTime(result.startDate);
-		c.set(Calendar.YEAR, 1970);
-		if (DateDao.isAfterNewYear(c.getTime())) {
-			c.add(Calendar.YEAR, 1);
-		}
-		result.startDate = c.getTime();
-		return result;
-	}
+	
 }

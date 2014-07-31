@@ -47,7 +47,7 @@ public class DeceaseProtectingOperation extends Model {
 	@ManyToOne
 	public Decease decease;
 	
-	public Boolean isInInterval(Date date) {
+	public Boolean isInInterval(Decease disease, Date date) {
 		for (OperationBestTimeInterval interval : intervalsForPrevetions) {
 			if (interval.isInInterval(date)) {
 				return true;

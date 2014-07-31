@@ -1,37 +1,39 @@
-package controllers;
+package service.impl;
 
 import java.util.Calendar;
 import java.util.List;
 
-import dao.DateDao;
-import dao.SeedlingDao;
-import dto.C;
 import models.ExecutedOperation;
 import models.Farmer;
 import models.Item;
-import models.ItemInstance;
 import models.Yield;
-import play.mvc.Controller;
+import controllers.WeatherController;
+import dao.SeedlingDao;
+import dao.impl.SeedlingDaoImpl;
+import dto.C;
+import service.DateService;
+import service.GrowingService;
 
-public class GrowController extends Controller {
-
+public class GrowingServiceImpl implements GrowingService{	
+	
 	public final static String EXTENSION_BIG_APPLES_GREEN = "abgr";
 	public final static String EXTENSION_BIG_APPLES_RED = "abr";
 	public final static String EXTENSION_BIG_APPLES_GOLD = "abg";
 	public final static String EXTENSION_SMALL_APPLES = "as";
 
 	public final static String EXTENSION_WHITE_TREE = "b";
-
-	public static String evaluatePlantImage(Farmer farmer) {
+	
+	public String evaluatePlantImage(Farmer farmer) {
+		DateService dateService = new DateServiceImpl();
 		String image_path = "/public/images/game/apple_tree/";
 		StringBuilder additional = new StringBuilder();
-		int season = WeatherController.season_level(farmer);
+		int season = dateService.season_level(farmer);
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(farmer.gameDate.date);
 		int year_level = 1;
 		int year = calendar.get(Calendar.YEAR);
 		int month = calendar.get(Calendar.MONTH);
-		year_level = year_tree_image(WeatherController.evaluateYearLevel(farmer.gameDate.date));
+		year_level = year_tree_image(dateService.evaluateYearLevel(farmer.gameDate.date));
 
 		additional.append(checkToPutApplesOnTree(farmer, year, year_level, month,
 				season));
@@ -40,14 +42,14 @@ public class GrowController extends Controller {
 				+ additional + ".png";
 	}
 
-	public static int year_tree_image(int year_level) {
+	public int year_tree_image(int year_level) {
 		if (year_level>=3) {
 			return 3;
 		}
 		return year_level;
 	}
 	
-	public static String checkToPutApplesOnTree(Farmer farmer, int year,
+	public String checkToPutApplesOnTree(Farmer farmer, int year,
 			int year_level, int month, int season) {
 		String result = "";
 		if (year_level == 3) {
@@ -63,9 +65,10 @@ public class GrowController extends Controller {
 		return result;
 	}
 
-	public static String checkAppleColor(Farmer farmer) {
+	public String checkAppleColor(Farmer farmer) {
+		SeedlingDao seedlingDao = new SeedlingDaoImpl();
 		String result = "";
-		String apples_type = SeedlingDao.getApplesColor(farmer);
+		String apples_type = seedlingDao.getApplesColor(farmer);
 		if (apples_type.equals(C.APPLE_COLOR_GOLD)) {
 			result = EXTENSION_BIG_APPLES_GOLD;
 		} else if (apples_type.equals(C.APPLE_COLOR_GREEN)) {
@@ -76,14 +79,15 @@ public class GrowController extends Controller {
 		return result;
 	}
 
-	public static String checkWhiteSprayed(Farmer farmer, int year_level) {
+	public String checkWhiteSprayed(Farmer farmer, int year_level) {
 		String result = "";
 		Item item = Item.find("byName", "BeloMaslo").first();
 		List<ExecutedOperation> operations = ExecutedOperation.find(
 				"byItemInstance.typeAndField", item, farmer.field).fetch();
+		DateService dateService = new DateServiceImpl();
 		for (ExecutedOperation operation : operations) {
-			if (DateDao.isSameYear(farmer,operation.startDate)) {
-				if (DateDao.diffCurDate(farmer, operation.startDate) <= 60) {
+			if (dateService.isSameYear(farmer,operation.startDate)) {
+				if (dateService.diffCurDate(farmer, operation.startDate) <= 60) {
 					result = "b";
 				}
 
@@ -91,4 +95,5 @@ public class GrowController extends Controller {
 		}
 		return result;
 	}
+
 }

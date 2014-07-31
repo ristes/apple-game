@@ -3,6 +3,10 @@ package controllers;
 import dto.StatusDto;
 import models.Farmer;
 import play.mvc.Controller;
+import service.FarmerService;
+import service.PlantingService;
+import service.impl.FarmerServiceImpl;
+import service.impl.PlantingServiceImpl;
 
 public class PlantationController extends Controller {
 
@@ -11,24 +15,10 @@ public class PlantationController extends Controller {
 		if (farmer == null) {
 			error("Not logged in");
 		}
-		farmer.currentState = "growing";
-		farmer.save();
-		int optimum = 2380;
-		switch (farmer.field.plantation.base.id.intValue()) {
-		case 1:
-			optimum = 1435;
-			break;
-		case 2:
-			optimum = 1000;
-			break;
-		case 3:
-		default:
-			optimum = 1000;
-			break;
-		}
-		farmer.field.plantation.fieldPercentage = (int) (seedlings * 35 * 100.0 / optimum);
-		farmer.field.plantation.treePositions = array;
-		farmer.field.plantation.save();
+		FarmerService farmerService = new FarmerServiceImpl();
+		farmerService.setState(farmer, FarmerService.STATE_GROWING);
+		PlantingService plantingService = new PlantingServiceImpl();
+		farmer = plantingService.savePlantingParams(farmer, array, seedlings);
 		renderJSON(new StatusDto(true));
 	}
 

@@ -16,49 +16,37 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import dto.C;
 import dto.StatusDto;
+import exceptions.NotAllowedException;
 import exceptions.NotEnoughMoneyException;
 import models.Farmer;
 import models.Yield;
 import play.Play;
 import play.cache.Cache;
 import play.mvc.Controller;
+import service.HarvestService;
+import service.impl.HarvestServiceImpl;
 
-public class HarvestingController extends Controller{
-	
-	public static void harvest() throws NotEnoughMoneyException, JsonGenerationException, JsonMappingException, IOException{
-		
+public class HarvestingController extends Controller {
+
+	public static void harvest() throws NotEnoughMoneyException,
+			JsonGenerationException, JsonMappingException, IOException {
+
 		Farmer farmer = AuthController.getFarmer();
-		if (farmer==null) {
+		if (farmer == null) {
 			redirect("/Crafty/login");
 		}
-		double expense = farmer.field.area * 3000;
-		if (expense > farmer.balans) {
-			throw new NotEnoughMoneyException();
-		}
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(farmer.gameDate.date);
-		int year = cal.get(Calendar.YEAR);
-		int month = cal.get(Calendar.MONTH);
-		Yield yieldDone = Yield.find("byYearAndFarmer", year,farmer).first();
-		if (yieldDone!=null) {
+		HarvestService hService = new HarvestServiceImpl();
+		try {
+			farmer = hService.makeHarvesting(farmer);
+		} catch (NotAllowedException ex) {
 			error("Not allowed");
+		} catch (NotEnoughMoneyException ex) {
+			error("Not enough money");
 		}
-		if (month!=8) {
-			error("Not allowed");
-		}
-		int q = farmer.productQuantity;
-		farmer.apples_in_stock += q;
-		farmer.productQuantity = 0;
-		farmer.save();
-		Yield yield = new Yield();
-		yield.farmer = farmer;
-		yield.quantity = q;
-		yield.year = year;
-		yield.save();
-		StatusDto status = new StatusDto(true, "Успешна берба", String.valueOf(farmer.apples_in_stock), farmer);
-		JsonController.toJson(status, "gameDate", "field", "weatherType","plantation");
+		StatusDto status = new StatusDto(true, "Успешна берба",
+				String.valueOf(farmer.apples_in_stock), farmer);
+		JsonController.toJson(status, "gameDate", "field", "weatherType",
+				"plantation");
 	}
 
-	
-	
 }

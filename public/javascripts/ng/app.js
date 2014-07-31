@@ -29,6 +29,7 @@ Game.run(['$rootScope', '$location', '$farmer', '$items','$day','$plantation',
       $farmer.load();
       $day.load($farmer);
       $plantation.load();
+      $rootScope.visible=false;
       $rootScope.next = function() {
     	  $day.next();
     	  $rootScope.$emit("weather-hide");

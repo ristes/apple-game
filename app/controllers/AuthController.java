@@ -16,17 +16,17 @@ import play.mvc.Http;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import dao.ItemsDao;
+import dao.impl.ItemsDaoImpl;
+import dto.PlantationDto;
+
 public class AuthController extends Controller {
 
 	public static void farmer() throws Exception {
 		JsonController.farmerJson(getFarmer());
 	}
 
-	public static class PlantationDto {
-		public String base;
-		public double area;
-		public String treePositions;
-	}
+	
 
 	public static void plantation() throws JsonGenerationException,
 			JsonMappingException, IOException {
@@ -49,13 +49,8 @@ public class AuthController extends Controller {
 			JsonMappingException, IOException {
 		Farmer farmer = getFarmer();
 		if (farmer != null) {
-			String sqlSelect = "select * from ItemInstance  where ownedBy_id=:farmer_id and id NOT IN (select DISTINCT(itemInstance_id) FROM ExecutedOperation where field_id=:field_id and  not(isnull(ItemInstance_id)))";
-			Query query = JPA.em().createNativeQuery(sqlSelect,
-					ItemInstance.class);
-			query.setParameter("farmer_id", farmer.id);
-			query.setParameter("field_id", farmer.field.id);
-			List<ItemInstance> items = query.getResultList();
-			renderJSON(items);
+			ItemsDao itemsDao = new ItemsDaoImpl();
+			renderJSON(itemsDao.getBoughtAndUnusedItems(farmer));
 		} else {
 			response.status = 401;
 			renderJSON(null);

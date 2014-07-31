@@ -9,6 +9,10 @@ import models.ExecutedOperation;
 import models.Farmer;
 import models.ItemInstance;
 import play.mvc.Controller;
+import service.ContextService;
+import service.FarmerService;
+import service.impl.ContextServiceImpl;
+import service.impl.FarmerServiceImpl;
 
 public class SprayingController extends Controller {
 
@@ -28,7 +32,8 @@ public class SprayingController extends Controller {
 		executed.operation = instance.type.operation;
 		executed.itemInstance = instance;
 		executed.save();
-		farmer.subtractEcoPoints(1);	
+		FarmerService farmerService = new FarmerServiceImpl();
+		farmerService.subtractEcoPoints(farmer,1);	
 		JsonController.farmerJson(farmer);
 	}
 

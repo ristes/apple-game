@@ -3,11 +3,11 @@ package dto;
 import models.Day;
 import models.Farmer;
 
-public class FarmerTransactionDao {
+public class FarmerTransactionDto {
 	
 	public String username;
 	
-	public int balans;
+	public double balans;
 	
 	public Boolean status;
 	
@@ -16,15 +16,15 @@ public class FarmerTransactionDao {
 	public String currentState;
 	
 	
-	public FarmerTransactionDao(Farmer farmer, Boolean status) {
+	public FarmerTransactionDto(Farmer farmer, Boolean status) {
 		this.status = status;
 		this.username = farmer.username;
-		this.balans = farmer.balans;
+		this.balans = farmer.getBalance();
 		this.gameDate = farmer.gameDate;
 		this.currentState = farmer.currentState;
 	}
 	
-	public FarmerTransactionDao(Boolean status) {
+	public FarmerTransactionDto(Boolean status) {
 		this.status = status;
 	}
 

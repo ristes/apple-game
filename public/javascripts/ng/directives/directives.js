@@ -121,27 +121,26 @@ var GameDirectives = angular
                         restrict: 'E',
                         transclude: true,
                         scope: {
-                          w: '=',
-                          visible: '='
+                          w: '='
                         },
                         link: function(scope, element, attrs, ctrl, transclude,
                                 formCtrl) {
-                          scope.visible = false;
-                          function hide() {
+                          scope.weather_info_visible = false;
+                          function weather_detail_info_hide() {
                             // $(element).find("#weather-info-details").transition({
                             // right : '-750px'
                             // }, 700, 'ease');
-                            scope.visible = false;
+                            scope.weather_info_visible = false;
                             $(element).find("#weather-info-details").animate({
                               opacity: 0
                             });
                           }
 
-                          function show(position) {
+                          function weather_detail_info_show(position) {
                             // $(element).find("#weather-info-details").transition({
                             // right : '350px'
                             // }, 700, 'ease');
-                            scope.visible = true;
+                        	 scope.weather_info_visible = true;
                             $(element).find("#weather-info-details").css("top",
                                     position.top);
                             $(element).find("#weather-info-details").css(
@@ -152,12 +151,12 @@ var GameDirectives = angular
                           }
 
                           scope.$root.$on("weather-hide", function($scope) {
-                            hide();
+                        	  weather_detail_info_hide()
                           });
                           scope.$root.$on("weather-show", function($scope, w,
                                   position) {
                             scope.w = w;
-                            show(position);
+                            weather_detail_info_show(position)
                           });
 
                         },

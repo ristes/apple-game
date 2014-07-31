@@ -1,0 +1,17 @@
+package service;
+
+import java.util.Date;
+
+import models.ExecutedOperation;
+import models.Farmer;
+
+public interface DateService {
+
+	public Date convertDateTo70(Date date);
+	public Boolean isAfterNewYear(Date date);
+	public Boolean isSameYear(Farmer farmer, Date date);
+	public Long diffCurDate(Farmer farmer, Date date);
+	public ExecutedOperation changeYear(ExecutedOperation operation);
+	public int season_level(Farmer farmer);
+	public int evaluateYearLevel(Date date);
+}
