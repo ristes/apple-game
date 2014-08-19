@@ -37,7 +37,6 @@ public class DeceasesDaoImpl implements DeceasesDao {
 				seadlings.type.id, base.id, decease.id).first();
 	}
 
-	@Override
 	public List<String> getOccurredDiseasesLast15Days(Farmer farmer) {
 		List<String> result = new ArrayList<String>();
 		String sql = "select DISTINCT(name) from ((select * from OccurredDecease where plantation_id=:plantation_id and date > DATE_SUB(date(:date), INTERVAL 15 DAY)) as t LEFT JOIN Decease ON t.desease_id=Decease.id)";

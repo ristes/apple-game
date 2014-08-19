@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import play.db.jpa.Model;
 
@@ -14,6 +15,7 @@ import play.db.jpa.Model;
  * 
  */
 @Entity
+@Table(name="terrainfeaturecategory")
 public class TerrainFeatureCategory extends Model {
 
 	/**

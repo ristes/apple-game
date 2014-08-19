@@ -6,10 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import play.db.jpa.Model;
 
 @Entity
+@Table(name="terrainanalysis")
 public class TerrainAnalysis extends Model {
 
 	public static final int ANALYSIS_PRICE = 1000;

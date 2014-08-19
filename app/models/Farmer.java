@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.swing.text.Position.Bias;
 
 import org.apache.commons.collections.map.HashedMap;
@@ -45,6 +46,7 @@ import utils.GameUtils;
  * 
  */
 @Entity
+@Table(name="farmer")
 public class Farmer extends Model {
 
 	public String username;

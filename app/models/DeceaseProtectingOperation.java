@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import play.data.validation.Range;
 import play.db.jpa.Model;
@@ -18,6 +19,7 @@ import play.db.jpa.Model;
  * 
  */
 @Entity
+@Table(name="deceaseprotectingoperation")
 public class DeceaseProtectingOperation extends Model {
 
 	/**

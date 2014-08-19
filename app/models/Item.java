@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import play.data.validation.Range;
 import play.db.jpa.Model;
@@ -17,6 +18,7 @@ import play.db.jpa.Model;
  * 
  */
 @Entity
+@Table(name="item")
 public class Item extends Model {
 
 	/**

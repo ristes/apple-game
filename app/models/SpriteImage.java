@@ -6,11 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Table;
 
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
 @Entity
+@Table(name="spriteimage")
 public class SpriteImage extends Model {
 
 	@Required

@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import controllers.DeseasesExpertSystem;
 import dao.DeceasesDao;
@@ -37,6 +38,7 @@ import service.impl.DiseaseServiceImpl;
  * 
  */
 @Entity
+@Table(name="decease")
 public class Decease extends Model implements DeseaseRisk {
 
 	/**

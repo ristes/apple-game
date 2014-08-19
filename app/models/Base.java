@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 import play.db.jpa.Model;
 
@@ -16,6 +17,7 @@ import play.db.jpa.Model;
  * 
  */
 @Entity
+@Table(name="base")
 public class Base extends Model {
 
 	/**
