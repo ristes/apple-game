@@ -39,7 +39,7 @@ public class DeceasesDaoImpl implements DeceasesDao {
 
 	public List<String> getOccurredDiseasesLast15Days(Farmer farmer) {
 		List<String> result = new ArrayList<String>();
-		String sql = "select DISTINCT(name) from ((select * from OccurredDecease where plantation_id=:plantation_id and date > DATE_SUB(date(:date), INTERVAL 15 DAY)) as t LEFT JOIN Decease ON t.desease_id=Decease.id)";
+		String sql = "select DISTINCT(name) from ((select * from occurreddecease where plantation_id=:plantation_id and date > DATE_SUB(date(:date), INTERVAL 15 DAY)) as t LEFT JOIN decease ON t.desease_id=decease.id)";
 		Query q = JPA.em().createNativeQuery(sql);
 		q.setParameter("plantation_id", farmer.field.plantation.id);
 		q.setParameter("date", farmer.gameDate.date);
@@ -54,7 +54,7 @@ public class DeceasesDaoImpl implements DeceasesDao {
 	public List<DiseaseProtectingOperationDto> getDiseaseProtectingOpersShouldBeDoneToDate(Decease disease, Date curDate) {
 		SimpleDateFormat formatter = new SimpleDateFormat();
 		formatter.applyPattern("yyyy-MM-dd");
-		String sqlString = "SELECT Operation.id as operation_id,decease_id, deceaseProtectingFactor,startFrom, endTo FROM DeceaseProtectingOperation, Operation, OperationBestTimeInterval where decease_id=:id and DeceaseProtectingOperation.operation_id=Operation.id AND OperationBestTimeInterval.operation_id=DeceaseProtectingOperation.id and date(:date)>=date(endTo)";
+		String sqlString = "SELECT operation.id as operation_id,decease_id, deceaseProtectingFactor,startFrom, endTo FROM deceaseprotectingoperation, operation, operationbesttimeinterval where decease_id=:id and deceaseprotectingoperation.operation_id=operation.id AND operationbesttimeinterval.operation_id=deceaseprotectingoperation.id and date(:date)>=date(endTo)";
 		Query query = JPA.em().createNativeQuery(sqlString);
 		query.setParameter("id", disease.id);
 		query.setParameter("date", formatter.format(curDate));

@@ -43,7 +43,7 @@ public class WeatherController extends Controller {
 		}
 		String whereClause = StringUtils.join(listDayOrders, ",");
 		String sql = new String(String.format(
-				"SELECT * FROM Day WHERE dayOrder IN (%s)", whereClause));
+				"SELECT * FROM day WHERE dayOrder IN (%s)", whereClause));
 		List<Object[]> resultForecast = JPA.em().createNativeQuery(sql)
 				.getResultList();
 		for (Object[] obj : resultForecast) {

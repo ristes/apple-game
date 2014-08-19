@@ -16,7 +16,7 @@ public class ItemsDaoImpl implements ItemsDao{
 
 	@Override
 	public List<ItemInstance> getBoughtAndUnusedItems(Farmer farmer) {
-		String sqlSelect = "select * from ItemInstance  where ownedBy_id=:farmer_id and id NOT IN (select DISTINCT(itemInstance_id) FROM ExecutedOperation where field_id=:field_id and  not(isnull(ItemInstance_id)))";
+		String sqlSelect = "select * from iteminstance  where ownedBy_id=:farmer_id and id NOT IN (select DISTINCT(itemInstance_id) FROM executedoperation where field_id=:field_id and  not(isnull(iteminstance_id)))";
 		Query query = JPA.em().createNativeQuery(sqlSelect,
 				ItemInstance.class);
 		query.setParameter("farmer_id", farmer.id);
@@ -29,13 +29,13 @@ public class ItemsDaoImpl implements ItemsDao{
 	public List<ItemBoughtDto> getAllItemsBoughtDaoAndUnunsedByFarmer(
 			Farmer farmer) {
 		String sql = "select "+
-				"ItemInstance.id," +
-				"ItemInstance.type_id,"+
-				"Item.name,"+
-				"Item.imageurl,"+
-				"count(ItemInstance.type_id) as count,"+
-				"ItemInstance.quantity,"+
-				"Store.name as store "+
+				"iteminstance.id," +
+				"iteminstance.type_id,"+
+				"item.name,"+
+				"item.imageurl,"+
+				"count(iteminstance.type_id) as count,"+
+				"iteminstance.quantity,"+
+				"store.name as store "+
 				"from "+
 				"iteminstance "+
 				"left join "+
@@ -47,12 +47,12 @@ public class ItemsDaoImpl implements ItemsDao{
 				"and iteminstance.id not in (select DISTINCT "+
 				"(itemInstance_id) "+
 				"FROM "+
-				"ExecutedOperation "+
+				"executedoperation "+
 				"where "+
 				"field_id = :field_id "+
-                "and not (isnull(ItemInstance_id))) "+
-                "GROUP BY ItemInstance.type_id "+
-                "order by ItemInstance.id";
+                "and not (isnull(iteminstance_id))) "+
+                "GROUP BY iteminstance.type_id "+
+                "order by iteminstance.id";
 		List<ItemBoughtDto> result = new ArrayList<ItemBoughtDto>();
 		List<Object[]> resultSql = JPA.em().createNativeQuery(sql)
 				.setParameter("farmer_id", farmer.id)
