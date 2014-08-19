@@ -28,7 +28,7 @@ Game.controller('IrrigationController', [
         var hasItem = $items.check('irrigation');
         if (!hasItem) {
           $scope.$root.$emit('shop-show', {
-            items: StoreItems['irrigation'],
+            items: $scope.$root.storeItems['irrigation'],
             showNext: true,
             storeUrl: oper.ico,
             shop: {

@@ -21,6 +21,9 @@ public class OperationBestTimeInterval extends Model{
 	public FertilizationOperation fertilizationBestTime;
 	
 	@ManyToOne
+	public TerrainAnalysis terrainAnalyse;
+	
+	@ManyToOne
 	public DeceaseProtectingOperation operation;
 	
 	public Boolean isInInterval(Date date) {

@@ -23,6 +23,8 @@ public class SeedlingType extends Model {
 	
 	public String type;
 	
+	public String imageurl;
+	
 	@OneToMany(mappedBy="type")
 	public List<Yield> yields;
 	

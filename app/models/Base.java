@@ -22,9 +22,12 @@ public class Base extends Model {
 	 * The price to buy the corresponding base for unit of plantation
 	 */
 	
+	
 	public String name;
 	
 	public int price;
+	
+	public String imageurl;
 
 	/**
 	 * The base may require some items like support handles etc.

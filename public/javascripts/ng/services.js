@@ -39,7 +39,18 @@ Game.factory('Store', ['$resource', function($resource) {
     }
   });
 }]);
-
+/*
+Game.factory('StoreItems', ['$http', function($http) {
+		
+	return {
+		var res = $http.get("/storecontroller/storeitems");
+		res.success(function(data) {
+			return data;
+		});
+	}
+}]);
+*/
+/*
 Game.factory('StoreItems', function($resource) {
   return {
     'tractor': [{
@@ -284,13 +295,13 @@ Game.factory('StoreItems', function($resource) {
     }],
   };
 });
-
+*/
 Game.factory('Operations', ['$resource', '$rootScope',
     function($resource, $rootScope) {
       return {
         /**
-         * Sadenje
-         */
+		 * Sadenje
+		 */
         'planting': [{
           ico: "/public/images/game/operations/plowing.png",
           name: 'deep-plowing',
@@ -312,8 +323,8 @@ Game.factory('Operations', ['$resource', '$rootScope',
           order: 3
         }],
         /**
-         * Leto
-         */
+		 * Leto
+		 */
         'season-4': [{
           ico: "/public/images/game/operations/irrigation.png",
           name: 'irrigation',
@@ -348,8 +359,8 @@ Game.factory('Operations', ['$resource', '$rootScope',
           order: 5
         }],
         /**
-         * Prolet
-         */
+		 * Prolet
+		 */
         'season-3': [{
           ico: "/public/images/game/operations/spraying.png",
           name: 'spraying',
@@ -384,8 +395,8 @@ Game.factory('Operations', ['$resource', '$rootScope',
           order: 5
         }],
         /**
-         * Esen
-         */
+		 * Esen
+		 */
         'season-2': [{
           ico: "/public/images/game/operations/harvest.png",
           name: 'harvest',

@@ -24,8 +24,9 @@ Game.config([
 
     }]);
 
-Game.run(['$rootScope', '$location', '$farmer', '$items','$day','$plantation',
-    function($rootScope, $location, $farmer, $items, $day, $plantation) {
+Game.run(['$rootScope', '$location', '$farmer', '$items','$day','$plantation','StoreItems',
+    function($rootScope, $location, $farmer, $items, $day, $plantation, $StoreItems) {
+	  $StoreItems.load();
       $farmer.load();
       $day.load($farmer);
       $plantation.load();

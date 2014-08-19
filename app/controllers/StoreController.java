@@ -42,6 +42,11 @@ public class StoreController extends Controller {
 		renderJSON(storeSer.findAllStores());
 	}
 
+	public static void storeitems() throws JsonGenerationException, JsonMappingException, IOException {
+		StoreService service = new StoreServiceImpl();
+		renderJSON(service.storeItems());
+	}
+	
 	public static void show(Long storeId) throws JsonGenerationException,
 			JsonMappingException, IOException {
 		JsonController.toJson(Store.findById(storeId));

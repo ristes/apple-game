@@ -19,6 +19,8 @@ public class Store extends Model {
 
 	public String name;
 
+	public String imageurl;
+	
 	@ManyToOne
 	public SpriteImage image;
 	/**

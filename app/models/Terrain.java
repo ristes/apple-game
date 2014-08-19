@@ -21,6 +21,8 @@ public class Terrain extends Model {
 	 * field.
 	 */
 	public String description;
+	
+	public String imageurl;
 
 	@OneToOne
 	public TerrainAnalysis analysis;

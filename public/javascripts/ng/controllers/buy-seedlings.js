@@ -2,7 +2,7 @@ Game.controller('BuySeadlingsController', ['$scope', '$translate', '$http',
     'Store', 'StoreItems', '$farmer', '$items',
     function($scope, $translate, $http, Store, StoreItems, $farmer, $items) {
 
-      $scope.items = StoreItems['apple-type'];
+      $scope.items = $scope.$root.storeItems['apple-type'];
 
       $scope.$root.$emit('shop-show', {
         items: $scope.items,
@@ -18,7 +18,7 @@ Game.controller('BuySeadlingsController', ['$scope', '$translate', '$http',
         $scope.unreg();
         $scope.$root.$emit('shop-hide');
         $scope.$root.$emit('item-bought');
-        $scope.items = StoreItems['seedling-type'];
+        $scope.items = $scope.$root.storeItems['seedling-type'];
         $scope.$root.$emit('shop-show', {
           items: $scope.items,
           showNext: false,

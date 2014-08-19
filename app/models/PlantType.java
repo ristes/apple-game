@@ -24,6 +24,8 @@ public class PlantType extends Model {
 	
 	public String apple_color;
 	
+	public String imageurl;
+	
 	
 	public String toString() {
 		return name;

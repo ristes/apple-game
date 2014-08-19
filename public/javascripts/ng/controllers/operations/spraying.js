@@ -51,7 +51,7 @@ Game.controller('SprayingController', [
         $scope.sprayingOper = oper;
         if (!hasItem) {
           $scope.$root.$emit('shop-show', {
-            items: StoreItems[oper.requires],
+            items: $scope.$root.storeItems[oper.requires],
             showNext: true,
             storeUrl: oper.ico,
             onItemClick: onBuyItem

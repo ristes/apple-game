@@ -28,6 +28,13 @@ public class Item extends Model {
 	 * The price for the item
 	 */
 	public int price;
+	
+	/**
+	 * JSON object that describes the object
+	 */
+	public String metadata;
+	
+	public String imageurl;
 
 	/**
 	 * How this item affects the ecology. Ranges from 0 to 10, where 0 is the

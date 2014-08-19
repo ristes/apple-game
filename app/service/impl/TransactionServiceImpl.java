@@ -10,6 +10,7 @@ import dto.C;
 import exceptions.NotEnoughApplesException;
 import exceptions.NotEnoughItemsException;
 import exceptions.NotEnoughMoneyException;
+import exceptions.PriceNotValidException;
 import models.Farmer;
 import models.Item;
 import models.ItemInstance;
@@ -66,7 +67,6 @@ public class TransactionServiceImpl implements MoneyTransactionService, ItemTran
 			throw new NotEnoughApplesException(Messages.get("controller.sale.fail"));
 		}
 		farmer.productQuantity -= quantity;
-		farmer.save();
 		return farmer;
 	}
 
@@ -79,20 +79,19 @@ public class TransactionServiceImpl implements MoneyTransactionService, ItemTran
 
 	@Override
 	public Farmer commitAppleSaleTransaction(Farmer farmer, Integer quantity)
-			throws NotEnoughApplesException {
-		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl.load_hash(C.COEF_SALES_YML);
+			throws NotEnoughApplesException, PriceNotValidException {
+		PriceServiceImpl priceService = new PriceServiceImpl();
 		try {
 			farmer = commitAppleTransaction(farmer, quantity);
 		} catch (NotEnoughApplesException ex) {
 			throw ex;
 		}
-		Calendar c = Calendar.getInstance();
-		Date gameDate = farmer.gameDate.date;
-		c.setTime(gameDate);
-		double cena = coefs.get(C.KEY_SALE_PRICES).get(
-				c.get(Calendar.MONTH));
-		farmer.setBalance(farmer.getBalance()+quantity * cena);
-		
+		try {
+			Double price = priceService.price(farmer);
+			farmer.setBalance(farmer.getBalance()+quantity*price);
+		} catch (PriceNotValidException ex) {
+			throw ex;
+		}
 		farmer.save();
 		return farmer;
 	}

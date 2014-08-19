@@ -595,6 +595,12 @@ body {
 	padding: 7%;
 }
 
+.progress_div {
+	margin-top: 30%;
+	margin-left: 25%;
+	margin-right: 25%;
+	
+}
 
 
 @media ( max-width : 1200px) {

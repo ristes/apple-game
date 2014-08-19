@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import play.db.jpa.Model;
@@ -19,6 +20,12 @@ public class TerrainAnalysis extends Model {
 	 * Price for unit area field with these features
 	 */
 	public Double unitPrice;
+	
+	@OneToMany(mappedBy="terrainAnalyse")
+	public List<OperationBestTimeInterval> fertilizingBestTimeIntervals;
+	
+//	@OneToMany(mappedBy="terrainAnalyse")
+//	public List<FertilizationOperation> fertilizationOperations;
 
 	/**
 	 * The list of features. It contains exactly one feature from each category

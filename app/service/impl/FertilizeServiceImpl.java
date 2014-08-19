@@ -181,12 +181,13 @@ public class FertilizeServiceImpl implements FertilizeService{
 			Farmer farmer, Item item) {
 		DateService dateService = new DateServiceImpl();
 		List<FertilizerOperationDto> fertilizationOper = new ArrayList<FertilizerOperationDto>();
-		String sqlSelect = "select * from FertilizationOperation,OperationBestTimeInterval where OperationBestTimeInterval.fertilizationBestTime_id=FertilizationOperation.id and fertilizer_id=:id and date(endTo)<=date(:date)";
+		String sqlSelect = "select * from FertilizationOperation,OperationBestTimeInterval where OperationBestTimeInterval.fertilizationBestTime_id=FertilizationOperation.id and fertilizer_id=:id and date(endTo)<=date(:date) and terrainAnalyse_id=:terrain_analyse_id";
 		Query query = JPA.em().createNativeQuery(sqlSelect);
 		SimpleDateFormat formatter = new SimpleDateFormat();
 		formatter.applyPattern("yyyy-MM-dd");
 		query.setParameter("id", item.id);
 		query.setParameter("date", formatter.format(dateService.convertDateTo70(farmer.gameDate.date)));
+		query.setParameter("terrain_analyse_id",farmer.field.terrain.analysis.id);
 		List<Object[]> fertilizing = query.getResultList();
 		for (Object[] o : fertilizing) {
 			FertilizerOperationDto f = new FertilizerOperationDto();
@@ -195,7 +196,8 @@ public class FertilizeServiceImpl implements FertilizeService{
 			f.operation_id = ((BigInteger) (o[2])).longValue();
 			f.startFrom = (Timestamp) (o[5]);
 			f.endTo = (Timestamp) (o[4]);
-			f.quantity = ((Double) (o[8])).doubleValue();
+			//default value is for 1ha field, so we multiply the quantity with area size to gain the required value of the fertilizer
+			f.quantity = ((Double) (o[8])).doubleValue()*farmer.field.area;
 			fertilizationOper.add(f);
 		}
 		return fertilizationOper;

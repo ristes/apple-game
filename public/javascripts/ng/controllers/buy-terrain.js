@@ -1,7 +1,7 @@
 Game.controller('BuyTerrainController', ['$scope', '$translate', '$http',
     'Store', 'StoreItems', '$farmer',
     function($scope, $translate, $http, Store, StoreItems, $farmer) {
-      $scope.items = StoreItems['terrain-size'];
+      $scope.items = $scope.$root.storeItems['terrain-size'];
 
       $scope.$root.$emit('shop-show', {
         items: $scope.items,
@@ -17,7 +17,7 @@ Game.controller('BuyTerrainController', ['$scope', '$translate', '$http',
         $scope.unreg();
         $scope.$root.$emit('shop-hide');
         $scope.$root.$emit('item-bought');
-        $scope.items = StoreItems['terrain'];
+        $scope.items = $scope.$root.storeItems['terrain'];
         $scope.$root.$emit('shop-show', {
           items: $scope.items,
           showNext: false,

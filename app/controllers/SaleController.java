@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import dto.C;
 import dto.StatusDto;
 import exceptions.NotEnoughApplesException;
+import exceptions.PriceNotValidException;
 import models.Farmer;
 import play.Play;
 import play.cache.Cache;
@@ -44,7 +45,7 @@ public class SaleController extends Controller {
 			AppleSaleTransactionService appleSaleService = new TransactionServiceImpl();
 			appleSaleService.commitAppleSaleTransaction(farmer, quantity);
 			
-		} catch (NotEnoughApplesException e) {
+		} catch (NotEnoughApplesException | PriceNotValidException e) {
 			StatusDto statusDto = new StatusDto(status, e.getMessage(),null, farmer);
 			JsonController
 					.toJson(statusDto, "gameDate", "field", "weatherType");

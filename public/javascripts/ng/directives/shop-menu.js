@@ -5,7 +5,7 @@ GameDirectives.directive('shopMenu', ['jQuery','$items', function($,$items) {
     transclude: true,
     scope: {},
     link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
-      scope.showNext = true;
+      scope.showNext = true;	
       scope.visible = false;
       scope.buying = false;
 

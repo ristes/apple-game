@@ -38,7 +38,7 @@ Game.controller('ShoppingController', [
         $scope.$root.$emit('item-bought');
         $scope.store = store;
         $scope.$root.$emit('shop-show', {
-          items: StoreItems[store.name],
+          items: $scope.$root.storeItems[store.name],
           showNext: true,
           shop: store,
           storeUrl: store.url,
@@ -49,7 +49,7 @@ Game.controller('ShoppingController', [
 
       var unreg = $scope.$root.$on('operation-store', function() {
         $scope.$root.$emit('shop-show', {
-          items: StoreItems['stores'],
+          items: $scope.$root.storeItems['stores'],
           showNext: true,
           shop: {
             name: 'shop'
