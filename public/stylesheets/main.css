@@ -25,7 +25,7 @@
 
 .scene {
 	position: fixed;
-	bottom: 0;
+	bottom: 10px;
 	right: 10%;
 	z-index: 5;
 	width: 62%;
@@ -34,7 +34,7 @@
 .kukja {
 	position: fixed;
 	left: -30%;
-	top: -4%;
+	top: -15%;
 	z-index: -1;
 	width: 26%;
 	-webkit-transform: skew(45deg);
@@ -57,16 +57,24 @@
 
 .side-trees {
 	position: fixed;
+	left: 0px;
 	bottom: 0;
-	z-index: 10;
-	width: 25%;
+	z-index: -10;
+	width: 23%;
 }
+
+.seed-no-click {
+	pointer-events: none;
+}
+
 
 .field-terrain {
 	width: 160%;
 	position: fixed;
 	z-index: -20;
 	margin-left: -30%;
+	height: 60%;
+	bottom: 0;
 }
 
 .lake {

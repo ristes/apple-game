@@ -122,6 +122,14 @@ public class Farmer extends Model {
 	 * (not need) it's clear 2 - (medium) little grass 3 - (high) lot of grass
 	 */
 	public Double digging_coef;
+	
+	public String name;
+	
+	public String surname;
+	
+	public String email;
+	
+	public String picture;
 
 	/**
 	 * The items he owns
