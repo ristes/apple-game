@@ -8,4 +8,5 @@ public class StoreItemDto {
      public Double price;
      public String url;
      public Double size;
+     public String misc;
 }
