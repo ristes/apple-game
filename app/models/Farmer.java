@@ -123,6 +123,8 @@ public class Farmer extends Model {
 	 */
 	public Double digging_coef;
 	
+	public String fb_access_token;
+	
 	public String name;
 	
 	public String surname;
