@@ -5,7 +5,7 @@
 	<div class="field">
 		<img src="/public/images/backgrounds/kukarka.png" class="kukja" ng-click="showShop()"/> 
 		<img src="/public/images/backgrounds/pozadinski-drva.png" class="back-trees"/>
-		
+		<img src="/public/images/backgrounds/field-terrain.png" class="field-terrain"/>
 		<div class="field-row" ng-repeat="r in rows">
 			<div ng-class="{false: 'pocva-bg', true: 'ograda-bg'}[c.staticV || !planting]" style="width: {{atom}}px; height: {{atom}}px" ng-repeat="c in r.cols">
 				<img ng-show="c.show"  ng-if="!c.staticV" ng-src="{{$root.day.soil_url}}" class="{{c.cls}}" ng-click="portionClick(c)"/>
@@ -18,7 +18,6 @@
 	</div>	
 </div>
 
-<img src="/public/images/backgrounds/field-terrain.png" class="field-terrain"/>
 <img src="/public/images/backgrounds/side-trees.png" class="side-trees"/>
 <img ng-show="$root.day.eco_points>50" src="/public/images/backgrounds/lake-2.png" class="lake"/>
 <img ng-show="$root.day.eco_points<=50" src="/public/images/backgrounds/lake-1.png" class="lake"/>

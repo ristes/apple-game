@@ -34,7 +34,7 @@
 .kukja {
 	position: fixed;
 	left: -30%;
-	top: -15%;
+	top: -4%;
 	z-index: -1;
 	width: 26%;
 	-webkit-transform: skew(45deg);
@@ -57,24 +57,17 @@
 
 .side-trees {
 	position: fixed;
-	left: 0px;
 	bottom: 0;
-	z-index: -10;
-	width: 23%;
-}
-
-.seed-no-click {
+	z-index: 10;
+	width: 25%;
 	pointer-events: none;
 }
-
 
 .field-terrain {
 	width: 160%;
 	position: fixed;
 	z-index: -20;
 	margin-left: -30%;
-	height: 60%;
-	bottom: 0;
 }
 
 .lake {
@@ -158,6 +151,11 @@ img.ograda-gore {
 	margin-left: -75%;
 	float: left;
 	cursor: pointer;
+	pointer-events: none;
+}
+
+.seed-no-click {
+	pointer-events: none;
 }
 
 .text-info {
@@ -226,4 +224,58 @@ img.ograda-gore {
 	background-color: transparent;
 	border: none;
 	padding-bottom: 40px;
+}
+
+.fb-modal-friends {
+	width: 95%;
+	height: 100%;
+	z-index: 9999;
+	position: fixed;
+	margin: auto;
+	background-image: url("/public/images/home/fb_drven_el.png");
+	background-size: 100% 100%;
+	margin-top: -80px;
+}
+
+.fb-friends-container {
+	position: relative;
+	padding: 100px 180px;
+	padding-top: 160px;
+}
+
+.fb-friends-grid {
+	list-style: none;
+	overflow-y: scroll;
+	height: 400px;
+}
+
+.fb-friends-grid li {
+	float: left;
+	position: relative;
+	width: 155px;
+}
+
+.fb-friends-grid li:hover {
+	box-shadow: 5px 5px 5px #000;
+}
+
+.fb-grid-back {
+	width: 150px;
+}
+
+.fb-grid-img {
+	margin-left: -105px;
+	margin-top: -20px;
+}
+
+.fb-grid-name {
+	font-size: 10px;
+	margin-top: -40px;
+	font-weight: bold;
+	color: white;
+	text-align: center;
+}
+
+.li-inner {
+	
 }
