@@ -1,0 +1,21 @@
+<div ng-controller="fbController as fb">
+	<div class="fb-modal-friends-container">
+		<div ng-show="fb.preloadedInviteFriends != true" ng-controller="fbInviteFriends as friends" ng-animate="slide" class="fb-modal-friends slide-enter">
+			<div class="fb-friends-container">
+			<input type="submit" ng-click="friends.inviteFriends()" value="send_invitations" />
+			<a href="javascript:void(0)" ng-click="fb.initDialog(true)">close</a>
+				<ul class="fb-friends-grid">
+					<li ng-repeat="friend in friends.friends">
+						<div class="li-inner">
+							<img class="fb-grid-back" src="/public/images/home/fb_profile_img.png" />
+							<img class="fb-grid-img" ng-src="{{friend.picture.data.url}}" />
+							<div class="fb-grid-name">{{friend.name}}
+							<input type="checkbox" ng-model="self.dummy" ng-change="friends.checkFriend(friend.id)" />
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
