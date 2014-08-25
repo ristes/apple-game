@@ -26,6 +26,10 @@ public class Item extends Model {
 	 */
 	public String name;
 
+	
+	@ManyToOne
+	public ItemType type;
+	
 	/**
 	 * The price for the item
 	 */

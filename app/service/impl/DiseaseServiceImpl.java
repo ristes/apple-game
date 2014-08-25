@@ -29,6 +29,9 @@ import dto.DiseaseProtectingOperationDto;
 import service.ContextService;
 import service.DateService;
 import service.DiseaseService;
+import service.InfoTableService;
+import service.InsuranceService;
+import utils.RString;
 
 public class DiseaseServiceImpl implements DiseaseService{
 	
@@ -36,11 +39,16 @@ public class DiseaseServiceImpl implements DiseaseService{
 
 	@Override
 	public List<DiseaseOccurenceProb> getDiseasesProb(Farmer farmer) {
+		DateService ds = new DateServiceImpl();
 		List<DiseaseOccurenceProb> disProbs = new ArrayList<DiseaseOccurenceProb>();
 		List<Decease> deceases = Decease.findAll();
 		for (Decease disease : deceases) {
 			DiseaseOccurenceProb dis = new DiseaseOccurenceProb();
 			dis.name = disease.name;
+			if (disease.id==10l && farmer.gameDate.weatherType.id==3l && ds.season_level(farmer)==4) {
+				Double prob = disease.getRisk(farmer);
+				System.out.println(prob+" - "+farmer.luck*100);
+			}
 			Double prob = disease.getRisk(farmer);
 			int n = disease.getOperationsDiminushingFactor(farmer);
 			dis.probability = prob - ((1- Math.pow(coef_of_diminushing, n))*100);
@@ -56,15 +64,24 @@ public class DiseaseServiceImpl implements DiseaseService{
 		List<String> result = new ArrayList<String>();
 		List<DiseaseOccurenceProb> probs = getDiseasesProb(farmer);
 		for (DiseaseOccurenceProb prob: probs) {
+			Decease des = Decease.find("byName", prob.name).first();
 			if (prob.probability>(farmer.luck*100)) {
 				OccurredDecease od = new OccurredDecease();
 				Decease d = Decease.find("byName", prob.name).first();
 				od.desease = d;
 				od.plantation = farmer.field.plantation;
 				od.date = farmer.gameDate.date;
-				od.save();
-				farmer.productQuantity -= farmer.productQuantity*(d.defaultDiminishingFactor/100.0);
+				if (d.isDemageVar) {
+					Double demage = d.getDemage(farmer);
+					farmer.productQuantity -= demage;
+					od.demage = demage;
+				} else {
+					farmer.productQuantity -= farmer.productQuantity*(d.defaultDiminishingFactor/100.0);
+				}
 				farmer.save();
+				od.save();
+				checkInfoTable(farmer, od);
+				checkRefunding(farmer,od);
 			}
 		}
 		return 1;
@@ -100,6 +117,21 @@ public class DiseaseServiceImpl implements DiseaseService{
 		return null;
 	}
 
+	private void checkRefunding(Farmer farmer,OccurredDecease od) {
+		if (od.desease.isRefundable) {
+			InsuranceService insSev = new InsuranceServiceImpl();
+			if (insSev.hasInsuranceThisYear(farmer)) {
+				insSev.refundInsurance(farmer, od);
+			}
+		}
+	}
+	
+	private void checkInfoTable(Farmer farmer,OccurredDecease od) {
+		if (od.desease.triggersInfoTable) {
+			InfoTableService it = new InfoTableServiceImpl();
+			it.createT1(farmer, String.format(od.desease.infoTableText,od.demage.intValue()), od.desease.getImageUrl());
+		}
+	}
 	
 
 

@@ -239,6 +239,12 @@ public class ContextServiceImpl implements ContextService {
 			}
 		}
 	}
+	
+	public void evaluateIce(Farmer farmer) {
+		if (farmer.gameDate.heavyRain>0.2) {
+//			Decease
+		}
+	}
 
 	public int seasionLevelSoilImage(int season_level) {
 		if (season_level == 3 || season_level == 4) {

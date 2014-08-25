@@ -13,4 +13,10 @@ public class RandomGeneratorServiceImpl implements RandomGeneratorService{
 		return randV;
 	}
 
+	@Override
+	public Double random(Double minV, Double maxV) {
+		Random random = new Random();
+		return minV + random.nextDouble() * (maxV-minV);
+	}
+
 }

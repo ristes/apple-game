@@ -10,5 +10,6 @@ public interface ItemsDao {
 	
 	public List<ItemInstance> getBoughtAndUnusedItems(Farmer farmer);
 	public List<ItemBoughtDto> getAllItemsBoughtDaoAndUnunsedByFarmer(Farmer farmer);
+	public List<ItemBoughtDto> getOneYearDurationItems(Farmer farmer);
 
 }

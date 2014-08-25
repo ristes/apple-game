@@ -14,4 +14,6 @@ public interface DateService {
 	public ExecutedOperation changeYear(ExecutedOperation operation);
 	public int season_level(Farmer farmer);
 	public int evaluateYearLevel(Date date);
+	public int evaluateYearLevel(int year);
+	public int recolteYear(Date date);
 }

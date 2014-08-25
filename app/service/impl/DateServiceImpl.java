@@ -39,6 +39,20 @@ public class DateServiceImpl implements DateService{
 		}
 		return true;
 	}
+	/**
+	 * 
+	 * @param farmer
+	 * @param date
+	 * @return the year of recolte
+	 */
+	public int recolteYear(Date date) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		if (isAfterNewYear(date)) {
+			return c.get(Calendar.YEAR) - 1;
+		}
+		return c.get(Calendar.YEAR);
+	}
 	
 	public Boolean isSameYear(Farmer farmer, Date date) {
 
@@ -126,10 +140,15 @@ public class DateServiceImpl implements DateService{
 	}
 	
 	public int evaluateYearLevel(Date date) {
-		int year_level = 0;
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
 		int year = c.get(Calendar.YEAR);
+		return evaluateYearLevel(year);
+	}
+
+	@Override
+	public int evaluateYearLevel(int year) {
+		int year_level = 0;
 		switch (year) {
 		case 2020:
 			year_level = 1;

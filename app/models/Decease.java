@@ -22,14 +22,22 @@ import de.congrace.exp4j.ExpressionBuilder;
 import de.congrace.exp4j.UnknownFunctionException;
 import de.congrace.exp4j.UnparsableExpressionException;
 import dto.DiseaseProtectingOperationDto;
+import exceptions.PriceNotValidException;
 import play.data.validation.Range;
 import play.db.jpa.Model;
 import service.ContextService;
 import service.DateService;
 import service.DiseaseService;
+import service.PriceService;
+import service.RandomGeneratorService;
+import service.YieldService;
 import service.impl.ContextServiceImpl;
 import service.impl.DateServiceImpl;
 import service.impl.DiseaseServiceImpl;
+import service.impl.PriceServiceImpl;
+import service.impl.RandomGeneratorServiceImpl;
+import service.impl.YieldServiceImpl;
+import utils.RImage;
 
 /**
  * The deceases catalog with the occurrence conditions
@@ -76,6 +84,25 @@ public class Decease extends Model implements DeseaseRisk {
 	 * {@link DeceaseImpact} is linked for the type and base
 	 */
 	public int defaultThreshold;
+	
+	
+	/**
+	 * if the insurrance could refund back the money
+	 */
+	public Boolean isRefundable;
+	
+	/**
+	 * if disease has variable behavior
+	 */
+	public Boolean isDemageVar;
+	
+	public String refundValue;
+	
+	public String demageVarExp;
+	
+	public Boolean triggersInfoTable;
+	
+	public String infoTableText;
 
 	/**
 	 * How much the yield will be diminished with these decease by default
@@ -116,20 +143,56 @@ public class Decease extends Model implements DeseaseRisk {
 		return name;
 	}
 
-
-	public Double getRisk(Farmer context) {
+	public Double getRefund(Farmer context) {
 		Double result = 0.0;
 		if (expression == null || expression.equals("")) {
 			return result;
 		}
 		Calculable value = null;
 		try {
+			RandomGeneratorService rgS = new RandomGeneratorServiceImpl();
+			YieldService yS = new YieldServiceImpl();
+			PriceService pS = new PriceServiceImpl();
+			Double rand = rgS.random(0.0, 1.0);
+			Double maxYield = yS.calculateYield(context);
+			Double avgPrice = pS.price(context);
+			value = new ExpressionBuilder(refundValue).withVariable("rand", rand).withVariable("maxYield",maxYield).withVariable("avgPrice", avgPrice).build();
+			result = value.calculate();
+		} catch (UnknownFunctionException ex) {
+			ex.printStackTrace();
+		} catch (UnparsableExpressionException ex) {
+			ex.printStackTrace();
+		} catch (PriceNotValidException ex) {
+			ex.printStackTrace();
+		}
+		return result;
+	}
+
+	public Double getRisk(Farmer context) {
+		Double result = 0.0;
+		if (expression == null || expression.equals("")) {
+			return result;
+		}
+		
+		Calculable value = null;
+		try {
+			DateService dateS = new DateServiceImpl();
+			RandomGeneratorService rGS = new RandomGeneratorServiceImpl();
+			Double randn03015 = rGS.randomGausseGenerator(0.3, 0.15);
 			value = new ExpressionBuilder(expression)
 					.withVariable("humidity", context.gameDate.humidity)
 					.withVariable("tempLow", context.gameDate.tempLow)
 					.withVariable("tempHigh", context.gameDate.tempHigh)
+					.withVariable("iceProb", context.gameDate.iceProb)
+					.withVariable("heavyRain", context.gameDate.heavyRain)
+					.withVariable("season_type_id",dateS.season_level(context))
+					.withVariable("rain_type_id", context.gameDate.weatherType.id)
+					.withVariable("randn03015", randn03015)
+					.withVariable("rain_id",3)
+					.withVariable("spring_id",4)
 					.withVariable("humidityOfLeaf",
 							context.gameDate.humidityOfLeaf).build();
+		
 		} catch (UnknownFunctionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -137,7 +200,9 @@ public class Decease extends Model implements DeseaseRisk {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		result = value.calculate();
+		DateService dS = new DateServiceImpl();
 		if (result < 0.0) {
 			result = 0.0;
 		}
@@ -181,6 +246,34 @@ public class Decease extends Model implements DeseaseRisk {
 		
 		return n;
 
+	}
+
+	public Double getDemage(Farmer context) {
+		Double result = 0.0;
+		if (!isDemageVar) {
+			return result;
+		}
+		if (demageVarExp == null || demageVarExp.equals("")) {
+			return result;
+		}
+		Calculable value = null;
+		try {
+			RandomGeneratorService rgS = new RandomGeneratorServiceImpl();
+			YieldService yS = new YieldServiceImpl();
+			Double rand = rgS.random(0.0, 1.0);
+			Double maxYield = yS.calculateYield(context);
+			value = new ExpressionBuilder(demageVarExp).withVariable("rand", rand).withVariable("maxYield", maxYield).build();
+			result = value.calculate();
+		} catch (UnknownFunctionException ex) {
+			ex.printStackTrace();
+		} catch (UnparsableExpressionException ex) {
+			ex.printStackTrace();
+		} 
+		return result;
+	}
+	
+	public String getImageUrl() {
+		return String.format("%s%s", RImage.get("disease_path"),name);
 	}
 	
 

@@ -33,5 +33,7 @@ public class ItemInstance extends Model {
 	public Farmer ownedBy;
 	
 	public Double quantity;
+	
+	public Integer year;
 
 }

@@ -34,4 +34,6 @@ public class OccurredDecease extends Model {
 	public Plantation plantation;
 	
 	public Date date;
+	
+	public Double demage;
 }

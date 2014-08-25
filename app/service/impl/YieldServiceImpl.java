@@ -29,11 +29,11 @@ public class YieldServiceImpl implements YieldService{
 		Calendar c = Calendar.getInstance();
 		c.setTime(farmer.gameDate.date);
 		int year = c.get(Calendar.YEAR);
-		Integer ord_year = dateService.evaluateYearLevel(farmer.gameDate.date);
+		Integer ord_year = dateService.evaluateYearLevel(dateService.recolteYear(farmer.gameDate.date));
 		Long seedlingType = farmer.field.plantation.seadlings.seedlingType.id;
 		HashMap<Integer, ArrayList<Double>> hash = YmlServiceImpl.load_hash_key_int(C.COEF_SEEDLIGTYPE_YIELD);
 		ArrayList<Double> coefs_yield = hash.get(seedlingType.intValue());
-		Double seedling_coef = coefs_yield.get(ord_year);
+		Double seedling_coef = coefs_yield.get(ord_year-1);
 		double applesPerA = farmer.field.plantation.base.maxApplesPerHa;
 		applesPerA = applesPerA * farmer.field.area * 1000
 				* (farmer.field.plantation.fieldPercentage / 100.0);

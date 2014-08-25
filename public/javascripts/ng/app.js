@@ -33,14 +33,17 @@ Game.run(['$rootScope', '$location', '$farmer', '$items','$day','$plantation','S
       $rootScope.visible=false;
       $rootScope.next = function() {
     	  $day.next();
+    	  $items.load();
     	  $rootScope.$emit("weather-hide");
       };
       $rootScope.nextWeek = function() {
     	  $day.nextWeek();
+    	  $items.load();
     	  $rootScope.$emit("weather-hide");
       };
       $rootScope.nextMonth = function() {
     	  $day.nextMonth();
+    	  $items.load();
     	  $rootScope.$emit("weather-hide");
       };
       $location.path("/");

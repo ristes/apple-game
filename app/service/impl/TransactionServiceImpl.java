@@ -18,23 +18,28 @@ import service.AppleSaleTransactionService;
 import service.AppleTransactionService;
 import service.DispensibleItemTransaction;
 import service.IndispensibleItemTransaction;
+import service.InsuranceService;
 import service.ItemTransactionService;
 import service.MoneyTransactionService;
 
-public class TransactionServiceImpl implements MoneyTransactionService, ItemTransactionService, IndispensibleItemTransaction, DispensibleItemTransaction, AppleTransactionService, AppleSaleTransactionService{
+public class TransactionServiceImpl implements MoneyTransactionService,
+		ItemTransactionService, IndispensibleItemTransaction,
+		DispensibleItemTransaction, AppleTransactionService,
+		AppleSaleTransactionService {
 
 	@Override
-	public Farmer commitMoneyTransaction(Farmer farmer, double value) throws NotEnoughMoneyException{
-		//expense
+	public Farmer commitMoneyTransaction(Farmer farmer, double value)
+			throws NotEnoughMoneyException {
+		// expense
 		if (value < 0.0) {
 			value = Math.abs(value);
 			if (value > farmer.getBalance()) {
 				throw new NotEnoughMoneyException();
 			}
-			value = - value;
+			value = -value;
 		}
 		farmer.setBalance(farmer.getBalance() + value);
-		
+		farmer.save();
 		return farmer;
 	}
 
@@ -59,12 +64,13 @@ public class TransactionServiceImpl implements MoneyTransactionService, ItemTran
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
 	public Farmer commitAppleTransaction(Farmer farmer, Integer quantity)
 			throws NotEnoughApplesException {
 		if (farmer.productQuantity < quantity) {
-			throw new NotEnoughApplesException(Messages.get("controller.sale.fail"));
+			throw new NotEnoughApplesException(
+					Messages.get("controller.sale.fail"));
 		}
 		farmer.productQuantity -= quantity;
 		return farmer;
@@ -88,7 +94,7 @@ public class TransactionServiceImpl implements MoneyTransactionService, ItemTran
 		}
 		try {
 			Double price = priceService.price(farmer);
-			farmer.setBalance(farmer.getBalance()+quantity*price);
+			farmer.setBalance(farmer.getBalance() + quantity * price);
 		} catch (PriceNotValidException ex) {
 			throw ex;
 		}
@@ -104,21 +110,31 @@ public class TransactionServiceImpl implements MoneyTransactionService, ItemTran
 	}
 
 	@Override
-	public Farmer commitBuyingItem(Farmer farmer, Item item, Double quantity) throws NotEnoughMoneyException{
-		double value = item.price * quantity;
-		commitMoneyTransaction(farmer, -value);
-		ItemInstance instance = new ItemInstance();
-		instance.ownedBy = farmer;
-		instance.type = item;
-		instance.quantity = quantity;
-		instance.save();
+	public Farmer commitBuyingItem(Farmer farmer, Item item, Double quantity)
+			throws NotEnoughMoneyException {
+		if (item.price == 0) {
+			commitBuyingSpecialItem(farmer, item, quantity);
+		} else {
+			double value = item.price * quantity;
+			commitMoneyTransaction(farmer, -value);
+			ItemInstance instance = new ItemInstance();
+			instance.ownedBy = farmer;
+			instance.type = item;
+			instance.quantity = quantity;
+			instance.save();
 
-		farmer.save();
+			farmer.save();
+		}
 		return farmer;
 	}
 
-	
-	
-	
+	public Farmer commitBuyingSpecialItem(Farmer farmer, Item item,
+			Double quantity) throws NotEnoughMoneyException {
+		if (item.name.equals("insurrance")) {
+			InsuranceService insService = new InsuranceServiceImpl();
+			farmer = insService.buyInsurance(farmer);
+		}
+		return farmer;
+	}
 
 }

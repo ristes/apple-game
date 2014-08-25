@@ -25,6 +25,7 @@ public class PriceServiceImpl implements PriceService{
 		HashMap<Integer,ArrayList<Double>> monthPrice = YmlServiceImpl.load_hash_key_int(C.COEF_SALES_YML);
 		Random random = new Random();
 		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(farmer.gameDate.date);
 		RandomGeneratorService randomService = new RandomGeneratorServiceImpl();
 		Double randV = randomService.randomGausseGenerator(31.0,1.0);
 		Double avgPrice = monthPrice.get(farmer.field.plantation.seadlings.type.id.intValue()).get(calendar.get(Calendar.MONTH));

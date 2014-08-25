@@ -75,6 +75,9 @@ public class Plantation extends Model {
 	@JsonIgnore
 	@OneToOne(mappedBy = "plantation")
 	public Field field;
+	
+	@OneToMany(mappedBy="plantation")
+	public List<InfoTableInstance> infoTables; 
 
 	/**
 	 * The deceases that occurred on this plantation
