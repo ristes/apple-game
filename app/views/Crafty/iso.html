@@ -119,6 +119,12 @@
 			<script src="/public/javascripts/ng/router.js"></script>
 			<script src="/public/javascripts/ng/global/services.js"></script>
 			<script src="/public/javascripts/ng/controllers/preloader.js"></script>
+			
+			<!-- facebook dependencies -->
+			<script src="/public/javascripts/FB/angular-easyfb.js"></script>
+			<script src="/public/javascripts/ng/controllers/fb.js"></script>
+			<!-- facebook dependencies END -->
+			
 			<title>Iso</title>
 			<style>
 body,html {
@@ -156,6 +162,7 @@ body,html {
 				<progress-dialog prefix="global"></progress-dialog>
 
 				<toaster-container toaster-options="{'time-out': 3000}"></toaster-container>
+				<ng-include src="'/public/_views/fb.html'"></ng-include>
 			</div>
 		</div>
 </body>

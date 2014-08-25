@@ -16,6 +16,8 @@ GET     /favicon.ico                            404
 GET		/stores/stores							StoreController.all
 GET		/stores/{storeId}						StoreController.show
 
+POST	/fblogin/								FbController.login
+
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 
