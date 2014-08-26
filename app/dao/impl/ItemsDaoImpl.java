@@ -64,8 +64,8 @@ public class ItemsDaoImpl implements ItemsDao {
 		List<ItemBoughtDto> result = new ArrayList<ItemBoughtDto>();
 		ItemType iType = ItemType.find("byName", "oneyear").first();
 		DateService dS = new DateServiceImpl();
-		List<ItemInstance> items = ItemInstance.find("byType.typeAndYear",
-				iType, dS.recolteYear(farmer.gameDate.date)).fetch();
+		List<ItemInstance> items = ItemInstance.find("byType.typeAndYearAndOwnedBy",
+				iType, dS.recolteYear(farmer.gameDate.date),farmer).fetch();
 		for (ItemInstance item : items) {
 			ItemBoughtDto it = new ItemBoughtDto();
 			it.id = item.id;
