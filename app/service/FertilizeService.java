@@ -19,8 +19,6 @@ public interface FertilizeService {
 	public Double evaluateFertilizer(Farmer farmer, Item item);
 	public List<OperationBestTimeInterval> intervalsForFertilizer(Item item);
 	public Boolean isInInterval(List<OperationBestTimeInterval> intervalsForPrevetions,  Date date);
-	public List<FertilizerOperationDto> getFertilizationOper(Farmer farmer, Item item);
-	public List<FertilizerOperationDto> getExecFertOper(Farmer farmer, Long operation_id);
 	public Boolean checkNeedOfN(Farmer farmer) throws NotSuchItemException;
 	public Boolean checkNeedOfP(Farmer farmer) throws NotSuchItemException;
 	public Boolean checkNeedOfK(Farmer farmer) throws NotSuchItemException;

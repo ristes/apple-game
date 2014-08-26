@@ -26,6 +26,8 @@ import models.OperationBestTimeInterval;
 import controllers.AuthController;
 import controllers.JsonController;
 import controllers.YieldController;
+import dao.FertilizingDao;
+import dao.impl.FertilizingDaoImpl;
 import dto.FertilizerOperationDto;
 import exceptions.NotEnoughMoneyException;
 import exceptions.NotSuchItemException;
@@ -119,28 +121,30 @@ public class FertilizeServiceImpl implements FertilizeService{
 	}
 	
 	public Double finalEvaluationItem(Farmer farmer, Item item) {
+		FertilizingDao fDao = new FertilizingDaoImpl();
 		List<FertilizationOperation> operations = item.fertilizationOperations;
 		List<FertilizerOperationDto> execs = new ArrayList<FertilizerOperationDto>();
 		for (FertilizationOperation operation: operations) {
-			List<FertilizerOperationDto> exec = getExecFertOper(farmer, operation.operation.id);
+			List<FertilizerOperationDto> exec = fDao.getExecFertOper(farmer, operation.operation.id);
 			execs.addAll(exec);
 		}
 		Double allQ = FertilizerOperationDto.sumOfQuantity(execs);
-		List<FertilizerOperationDto> intervals = getFertilizationOper(farmer, item);
+		List<FertilizerOperationDto> intervals = fDao.getFertilizationOper(farmer, item);
 		Double execSumQ = FertilizerOperationDto.sumOfQuantity(intervals);
 		return execSumQ/allQ;
 	}
 	
 
 	public Double evaluateFertilizer(Farmer farmer, Item item) {
+		FertilizingDao fDao = new FertilizingDaoImpl();
 		List<FertilizationOperation> operations = item.fertilizationOperations;
 		List<FertilizerOperationDto> execs = new ArrayList<FertilizerOperationDto>();
 		for (FertilizationOperation operation: operations) {
-			List<FertilizerOperationDto> exec = getExecFertOper(farmer, operation.id);
+			List<FertilizerOperationDto> exec = fDao.getExecFertOper(farmer, operation.id);
 			execs.addAll(exec);
 		}
 		
-		List<FertilizerOperationDto> intervals = getFertilizationOper(farmer, item);
+		List<FertilizerOperationDto> intervals = fDao.getFertilizationOper(farmer, item);
 		int correct = 0;
 		for (FertilizerOperationDto interval: intervals) {
 			for (FertilizerOperationDto exec: execs) {
@@ -177,54 +181,9 @@ public class FertilizeServiceImpl implements FertilizeService{
 		return false;
 	}
 	
-	public List<FertilizerOperationDto> getFertilizationOper(
-			Farmer farmer, Item item) {
-		DateService dateService = new DateServiceImpl();
-		List<FertilizerOperationDto> fertilizationOper = new ArrayList<FertilizerOperationDto>();
-		String sqlSelect = "select * from FertilizationOperation,OperationBestTimeInterval where OperationBestTimeInterval.fertilizationBestTime_id=FertilizationOperation.id and fertilizer_id=:id and date(endTo)<=date(:date) and terrainAnalyse_id=:terrain_analyse_id";
-		Query query = JPA.em().createNativeQuery(sqlSelect);
-		SimpleDateFormat formatter = new SimpleDateFormat();
-		formatter.applyPattern("yyyy-MM-dd");
-		query.setParameter("id", item.id);
-		query.setParameter("date", formatter.format(dateService.convertDateTo70(farmer.gameDate.date)));
-		query.setParameter("terrain_analyse_id",farmer.field.terrain.analysis.id);
-		List<Object[]> fertilizing = query.getResultList();
-		for (Object[] o : fertilizing) {
-			FertilizerOperationDto f = new FertilizerOperationDto();
-			f.id = ((BigInteger) (o[0])).longValue();
-			f.fertilizer_id = ((BigInteger) (o[1])).longValue();
-			f.operation_id = ((BigInteger) (o[2])).longValue();
-			f.startFrom = (Timestamp) (o[5]);
-			f.endTo = (Timestamp) (o[4]);
-			//default value is for 1ha field, so we multiply the quantity with area size to gain the required value of the fertilizer
-			f.quantity = ((Double) (o[8])).doubleValue()*farmer.field.area;
-			fertilizationOper.add(f);
-		}
-		return fertilizationOper;
-	}
 	
-	public List<FertilizerOperationDto> getExecFertOper(Farmer farmer,
-			Long operation_id) {
-		DateService dateService = new DateServiceImpl();
-		String sqlSelect = "select * from ExecutedOperation,ItemInstance where field_id=:field_id and itemInstance_id=ItemInstance.id and ExecutedOperation.operation_id=:operation_id";
-		List<FertilizerOperationDto> resultEnd = new ArrayList<FertilizerOperationDto>();
-		Query query = JPA.em().createNativeQuery(sqlSelect);
-		query.setParameter("field_id", farmer.field.id);
-		query.setParameter("operation_id", operation_id);
-		List<Object[]> result = query.getResultList();
-		for (Object[] obj : result) {
-			FertilizerOperationDto fo = new FertilizerOperationDto();
-			fo.id = ((BigInteger) obj[0]).longValue();
-			fo.startFrom = ((Timestamp) obj[1]);
-			fo.operation_id = ((BigInteger) obj[2]).longValue();
-			if (dateService.isSameYear(farmer, fo.startFrom)) {
-				fo.quantity = ((Double) obj[8]).doubleValue();
-				resultEnd.add(fo);
-			}
-			
-		}
-		return resultEnd;
-	}
+	
+
 	
 	public Boolean checkNeedOfN(Farmer farmer) throws NotSuchItemException{
 		Item item = Item.find("byName", "N").first();
@@ -283,11 +242,12 @@ public class FertilizeServiceImpl implements FertilizeService{
 	}
 
 	public Boolean checkNeedOfFertilizerType(Farmer farmer, Item item) {
-		List<FertilizerOperationDto> all = getFertilizationOper(farmer, item);
+		FertilizingDao fDao = new FertilizingDaoImpl();
+		List<FertilizerOperationDto> all = fDao.getFertilizationOper(farmer, item);
 		if (all.size() == 0) {
 			return false;
 		}
-		List<FertilizerOperationDto> executed = getExecFertOper(farmer,
+		List<FertilizerOperationDto> executed = fDao.getExecFertOper(farmer,
 				all.get(0).operation_id);
 		double allQuantity = FertilizerOperationDto.sumOfQuantity(all);
 		double farmerQuantity = FertilizerOperationDto.sumOfQuantity(executed);
