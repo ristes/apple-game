@@ -1,5 +1,7 @@
 package service.impl;
 
+import java.util.List;
+
 import models.Farmer;
 import models.InfoTable;
 import models.InfoTableInstance;
@@ -22,6 +24,7 @@ public class InfoTableServiceImpl implements InfoTableService{
 		infoIns.message1 = message1;
 		infoIns.infoTable = type;
 		infoIns.plantation = farmer.field.plantation;
+		infoIns.image2_url = image2_url;
 		infoIns.save();
 		
 	}
@@ -56,6 +59,17 @@ public class InfoTableServiceImpl implements InfoTableService{
 		info.isRead = true;
 		info.save();
 		
+	}
+
+
+	@Override
+	public List<InfoTableInstance> news(Farmer farmer) {
+		List<InfoTableInstance> news = InfoTableInstance.find("byPlantationAndIsRead",farmer.field.plantation,false).fetch();
+		for (InfoTableInstance ins : news) {
+			ins.isRead = true;
+			ins.save();
+		}
+		return news;
 	}
 	
 	

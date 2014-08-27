@@ -185,7 +185,7 @@ body {
 }
 
 .img-user-info {
-	width: 100px;
+	width: 90px;
 	height: 100px;
 }
 
@@ -426,6 +426,15 @@ body {
 .shop_item_in_grid img {
 	width: 100%;
 	height: 100%;
+}
+
+.info_item_in_grid {
+	width: 100%;
+	padding-right: 5px;
+	float: left;
+	text-align: center;
+	z-index: 300;
+	float: left;
 }
 
 .shop-item-label {

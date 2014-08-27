@@ -23,6 +23,9 @@ public class TerrainAnalysis extends Model {
 	 */
 	public Double unitPrice;
 	
+	@OneToMany(mappedBy="analyse")
+	public List<Plantation> plantations;
+	
 	@OneToMany(mappedBy="terrainAnalyse")
 	public List<OperationBestTimeInterval> fertilizingBestTimeIntervals;
 	

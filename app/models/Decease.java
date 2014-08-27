@@ -262,7 +262,7 @@ public class Decease extends Model implements DeseaseRisk {
 			YieldService yS = new YieldServiceImpl();
 			Double rand = rgS.random(0.0, 1.0);
 			Double maxYield = yS.calculateYield(context);
-			value = new ExpressionBuilder(demageVarExp).withVariable("rand", rand).withVariable("maxYield", maxYield).build();
+			value = new ExpressionBuilder(demageVarExp).withVariable("rand", rand).withVariable("maxYield", maxYield).withVariable("curYield",context.productQuantity).build();
 			result = value.calculate();
 		} catch (UnknownFunctionException ex) {
 			ex.printStackTrace();
@@ -273,7 +273,7 @@ public class Decease extends Model implements DeseaseRisk {
 	}
 	
 	public String getImageUrl() {
-		return String.format("%s%s", RImage.get("disease_path"),name);
+		return String.format("%s%s%s", RImage.get("disease_path"),name,".png");
 	}
 	
 

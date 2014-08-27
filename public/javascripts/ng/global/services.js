@@ -346,6 +346,32 @@ Game
 							}
 						} ]);
 
+Game.factory("$infoTable",['$rootScope','$http', function($rootScope,$http) {
+	return {
+		load: function(data) {
+			if (data) {
+			
+			}
+			$rootScope.infoTables = data;
+		},
+		getNews : function() {
+			$http({
+				url: '/infotablecontroller/news'
+			}).then(function(res) {
+				if (res.data.length > 0) {
+					for (var i=0;i<res.data.length;i++) {
+						$rootScope.$emit('info-show', {
+							infos: res.data,
+							showNext: true,
+							titleImageUrl: '/public/images/game/jabolko.png'
+				        });
+					}
+				}
+			})
+		}
+	}
+}])
+
 // I provide a utility class for preloading image objects.
 Game.factory("preloader", function($q, $rootScope) {
 

@@ -35,7 +35,7 @@ public abstract class JsonController extends Controller {
 		String encoding = Http.Response.current().encoding;
 		response.setContentTypeIfNotSet("application/json; charset=" + encoding);
 
-		ObjectMapper mapper = new ObjectMapper();
+		com.fasterxml.jackson.databind.ObjectMapper mapper = new ObjectMapper();
 		mapper.setDateFormat(new SimpleDateFormat("dd.MM.yyyy"));
 		mapper.addMixInAnnotations(Object.class, PropertyFilterMixIn.class);
 

@@ -14,6 +14,8 @@ import org.apache.ivy.core.event.download.NeedArtifactEvent;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import play.db.jpa.Model;
+import service.RandomGeneratorService;
+import service.impl.RandomGeneratorServiceImpl;
 
 @Entity
 @Table(name="plantation")
@@ -86,7 +88,13 @@ public class Plantation extends Model {
 	@OneToMany(mappedBy = "plantation")
 	public List<OccurredDecease> deseases;
 	
+	@ManyToOne
+	public TerrainAnalysis analyse;
+	
 	public static Plantation buildInstance() {
+		RandomGeneratorService rgS = new RandomGeneratorServiceImpl();
+		Long rAnalyse = rgS.random(1l, 5l).longValue();
+		TerrainAnalysis ta = TerrainAnalysis.findById(rAnalyse);
 		Plantation p = new Plantation();
 		p.treePositions = "[]";
 		p.needB = false;
@@ -96,6 +104,7 @@ public class Plantation extends Model {
 		p.needN = false;
 		p.needP = false;
 		p.needZn = false;
+		p.analyse = ta;
 		p.save();
 		return p;
 	}

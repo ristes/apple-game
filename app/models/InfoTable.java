@@ -8,6 +8,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import play.db.jpa.Model;
 
 @Entity
@@ -22,7 +24,7 @@ public class InfoTable extends Model {
 	public Integer type;
 	public String image1_url;
 
-
+	@JsonIgnore
 	@OneToMany(mappedBy="infoTable")
 	public List<InfoTable> infoTable;
 
