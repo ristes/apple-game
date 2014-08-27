@@ -1,0 +1,21 @@
+<div class="shop-menu" ng-animate="shop"
+		ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
+		
+	<div class="shop_icon">
+		<img class="shop_icon-img" ng-src="{{titleImageUrl}}"></img>
+		<div class="shop-label ramka">
+			<span class="shop-label-text">{{title | translate}}</span> 
+		</div>
+	</div>
+	
+	<div class="shop_arrow" ng-show="showNext" ng-click="hide()"></div>
+	
+	<div class="shop_menu_grid">
+		<div class="info_item_in_grid" ng-repeat="info in infos" ng-click="itemClick(info)">
+			<img ng-src="{{info.image2_url}}" style="width:33%;"></img>
+			<div class="shop-item-label ramka"  ng-click="itemClick(info)">
+				<span class="title-text" translate="{{info.message1}}"></span>
+			</div>
+		</div>
+	</div>
+</div>
