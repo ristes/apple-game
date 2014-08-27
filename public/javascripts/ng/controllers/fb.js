@@ -56,8 +56,15 @@
 			     title: 'My Great Invite',
 			     message: 'Check out this Awesome App!',
 			   }, function(res){
+				   _.forEach(self.checkedFriends, function(f){
+					  var ind=_.findIndex(self.friends, function(it){
+						  return it.id==f;
+					  });
+					  if(ind>-1){
+						  self.friends.splice(ind, 1);
+					  }
+				   });
 				   self.checkedFriends=new Array();
-				   self.getFriends();
 			   });
 		};
 		
