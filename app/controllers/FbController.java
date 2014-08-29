@@ -87,6 +87,7 @@ public class FbController extends Controller {
 		renderJSON("{\"status\":"+status+"}");
 	}
 	
+	//TODO metod koj se povikuva otkako korisnikot ke napravi share na facebook. Valda treba da dobie eko poeni ili pari...
 	public static void shareGame(){
 		Farmer farmer = AuthController.getFarmer();
 		farmer.sharedApp=true;
