@@ -17,6 +17,8 @@ GET		/stores/stores							StoreController.all
 GET		/stores/{storeId}						StoreController.show
 
 POST	/fblogin/								FbController.login
+POST	/checkShared							FbController.checkShared
+POST	/shareGame								FbController.shareGame
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public

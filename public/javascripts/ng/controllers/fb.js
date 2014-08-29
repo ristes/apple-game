@@ -4,18 +4,56 @@
 		
 		self.fbId=0;
 		self.preloadedInviteFriends=true;
+		self.shared=true;
+		self.pageLiked=true;
 		
 		self.init=function(){
 			ezfb.getLoginStatus(function(r){
 				if(r.status=='connected'){
+					ezfb.Event.subscribe('edge.create', function(res){
+						debugger;
+					});
+					
+					ezfb.Event.subscribe('edge.remove', function(res){
+						debugger;
+					});
+					
 					$timeout(function(){
 						if($location.url().indexOf('plantation')>0 ||
 								$location.url().indexOf('growing')>0){
+							//show invite friends
 							self.preloadedInviteFriends=false;
+							
+							//show share-like dialog
+							$http.post('/checkShared').then(function(res){
+								self.shared=res.data.status;
+								
+//								ezfb.api('/me/likes/789213031099161', function(res){
+//									self.pageLiked=res.data.length>0;
+//								});
+							});
 						}
 					}, 2000);
 				}
 			});
+		};
+		
+		self.shareGame=function(){
+			ezfb.ui({
+				  method: 'share',
+				  href: 'https://apps.facebook.com/applegm',
+				}, function(response){
+					if(!(response.error_code!=undefined &&response.error_code==4201)){
+						$http.post('/shareGame').then(function(res){
+							self.shared=true;
+						});
+					}
+				});
+		};
+		
+		self.closeShareLike=function(){
+			self.shared=true;
+			self.pageLiked=true;
 		};
 		
 		self.initDialog=function(val){
@@ -75,6 +113,11 @@
 		};
 		
 		self.init();
+	}])
+	
+	.controller('fbShareLike', ['ezfb', '$http', '$timeout', function(ezfb, $http, $timeout){
+		var self=this;
+		
 	}]);
 	
 }());

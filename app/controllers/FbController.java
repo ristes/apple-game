@@ -77,5 +77,20 @@ public class FbController extends Controller {
 		}
 	}
 	
+	public static void checkShared(){
+		Farmer farmer = AuthController.getFarmer();
+		boolean status=true;
+		if (farmer != null) {
+			status=farmer.sharedApp;
+		}
+		
+		renderJSON("{\"status\":"+status+"}");
+	}
 	
+	public static void shareGame(){
+		Farmer farmer = AuthController.getFarmer();
+		farmer.sharedApp=true;
+		
+		farmer.save();
+	}
 }

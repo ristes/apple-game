@@ -132,6 +132,8 @@ public class Farmer extends Model {
 	public String email;
 	
 	public String picture;
+	
+	public boolean sharedApp;
 
 	/**
 	 * The items he owns

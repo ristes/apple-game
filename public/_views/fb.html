@@ -2,22 +2,39 @@
 	<div class="fb-modal-friends-container">
 		<div ng-show="fb.preloadedInviteFriends != true" ng-controller="fbInviteFriends as friends" ng-animate="slide" class="fb-modal-friends slide-enter">
 			<div class="fb-friends-container">
-			<div class="form-group">
-				<input type="text" class="form-control" placeholder="search friends" ng-model="friends.searchText" />
-			</div>
-			<input type="submit" ng-click="friends.inviteFriends()" value="send_invitations" />
 			<a href="javascript:void(0)" ng-click="fb.initDialog(true)">close</a>
-				<ul class="fb-friends-grid">
-					<li ng-repeat="friend in friends.friends | filter:friends.searchText">
-						<div class="li-inner">
-							<img class="fb-grid-back" src="/public/images/home/fb_profile_img.png" />
-							<img class="fb-grid-img" ng-src="{{friend.picture.data.url}}" />
-							<div class="fb-grid-name">{{friend.name}}
-							<input type="checkbox" ng-model="self.dummy" ng-change="friends.checkFriend(friend.id)" />
-							</div>
+				<div class="form-horizontal">
+					<div class="form-group">
+						<div class="col-sm-10">
+							<input type="text" class="form-control" placeholder="search friends" ng-model="friends.searchText" />
 						</div>
-					</li>
-				</ul>
+						<input type="submit" ng-click="friends.inviteFriends()" value="send_invitations" />
+					</div>
+				</div>
+				<div ng-show="!fb.pageLiked || !fb.shared" ng-controller="fbShareLike as share" ng-animate="slide" class="slide-enter">
+					<div class="row">
+						<div class="col-md-2">
+							<a class="btn btn-primary fb-share-button" href="javascript:void(0)" ng-click="fb.shareGame()">
+								<span class="fa fa-facebook-square"></span>&nbsp;
+								Share
+							</a>
+						</div>
+						<div style="color: white" class="col-md-10">
+							Share to gain 10 eco points.
+						</div>
+					</div>
+				</div>
+					<ul class="fb-friends-grid">
+						<li ng-repeat="friend in friends.friends | filter:friends.searchText">
+							<div class="li-inner">
+								<img class="fb-grid-back" src="/public/images/home/fb_profile_img.png" />
+								<img class="fb-grid-img" ng-src="{{friend.picture.data.url}}" />
+								<div class="fb-grid-name">{{friend.name}}
+									<input type="checkbox" ng-model="self.dummy" ng-change="friends.checkFriend(friend.id)" />
+								</div>
+							</div>
+						</li>
+					</ul>
 			</div>
 		</div>
 	</div>

@@ -226,6 +226,27 @@ img.ograda-gore {
 	padding-bottom: 40px;
 }
 
+.fb-modal-sharelike {
+	width: 95%;
+	height: 100%;
+	z-index: 99999;
+	position: fixed;
+	margin: auto;
+	background-image: url("/public/images/home/fb_drven_el.png");
+	background-size: 100% 100%;
+	margin-top: -80px;
+}
+
+.fb-sharelike-container {
+	position: relative;
+	padding: 100px 180px;
+	padding-top: 160px;
+}
+
+.fb-share-button {
+	padding: 0 7px;
+}
+
 .fb-modal-friends {
 	width: 95%;
 	height: 100%;
