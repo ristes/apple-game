@@ -6,6 +6,9 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
 import dto.DiseaseOccurenceProb;
 import dto.DiseaseStatusDto;
 import models.Day;
@@ -51,6 +54,17 @@ public class Application extends Controller {
 		}
 		FarmerService farmerService = new FarmerServiceImpl();
 		farmer = farmerService.gotoNextMonth(farmer);
+		JsonController.farmerJson(farmer);
+	}
+	
+	public static void restartGame() throws JsonGenerationException, JsonMappingException, IOException {
+		Farmer farmer = AuthController.getFarmer();
+		if (farmer==null) {
+			renderJSON("");
+		}
+		FarmerService farmerService = new FarmerServiceImpl();
+		farmer = farmerService.restartGame(farmer);
+		redirect("/login");
 		JsonController.farmerJson(farmer);
 	}
 /*

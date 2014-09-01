@@ -98,6 +98,7 @@ Game.factory('$day', [ '$rootScope', '$http', '$weather', '$diseases',
 						$diseases.load();
 					});
 				}
+				
 			};
 		} ]);
 

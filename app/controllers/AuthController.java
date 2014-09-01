@@ -62,7 +62,9 @@ public class AuthController extends Controller {
 		Long fid = (Long) Cache.get(id);
 		if (fid != null) {
 			Farmer farmer = Farmer.findById(fid);
-			return farmer;
+			if (farmer.is_active) {
+				return farmer;
+			}
 		}
 		return null;
 	}

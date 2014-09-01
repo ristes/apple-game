@@ -61,6 +61,12 @@ public class FarmerServiceImpl implements FarmerService{
 		return farmer;
 	}
 	
+	public Farmer restartGame(Farmer farmer) {
+		farmer.is_active = false;
+		farmer.save();
+		return farmer;
+	}
+	
 	public Farmer buildFbInstance(String username, String access_token, String name, String surname, String email, String picture){
 		Farmer farmer=Farmer.find("username=:username")
 				.setParameter("username", username)
@@ -99,6 +105,7 @@ public class FarmerServiceImpl implements FarmerService{
 		farmer.coef_soil_type = 1;
 		farmer.grass_growth = 5.0;
 		farmer.digging_coef = 1.0;
+		farmer.is_active = true;
 
 		farmer.save();
 		return farmer;
@@ -127,6 +134,8 @@ public class FarmerServiceImpl implements FarmerService{
 		result.addAll(itemDao.getOneYearDurationItems(farmer));
 		return (result);
 	}
+	
+	
 
 
 }

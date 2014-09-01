@@ -18,4 +18,5 @@ public interface FarmerService {
 	public Farmer addCumulative(Farmer farmer, double deltaCumulative);
 	public Farmer setState(Farmer farmer, String state);
 	public List<ItemBoughtDto> farmersItems(Farmer farmer);
+	public Farmer restartGame(Farmer farmer);
 }

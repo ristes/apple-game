@@ -36,7 +36,7 @@ Game.run(['$rootScope', '$location', '$farmer', '$items','$day','$plantation','S
       $farmer.load();
       $day.load($farmer);
       $plantation.load();
-//      $infoTable.getNews();
+      $infoTable.getNews();
       $rootScope.visible=false;
       $rootScope.next = function() {
     	  $day.next();
@@ -56,6 +56,9 @@ Game.run(['$rootScope', '$location', '$farmer', '$items','$day','$plantation','S
     	  $items.load();
     	  $infoTable.getNews();
     	  $rootScope.$emit("weather-hide");
+      };
+      $rootScope.restartGame = function() {
+    	  $day.restartGame();
       };
       
       $location.path("/");

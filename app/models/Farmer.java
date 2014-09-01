@@ -105,6 +105,12 @@ public class Farmer extends Model {
 
 	public String soil_url;
 	public String plant_url;
+	
+	/**
+	 * flags that represents the restarted state of the farmer
+	 * if set to false, the farmer is deactivated
+	 */
+	public Boolean is_active;
 
 	/*
 	 * coefficient of soil type influences the irrigation of the plants between
