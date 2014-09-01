@@ -107,4 +107,34 @@ public class FbController extends Controller {
 		}
 		farmer.save();
 	}
+	
+	public static void restart() {
+		Farmer farmer = AuthController.getFarmer();
+		String oauthToken = farmer.fb_access_token;
+		FarmerService fS = new FarmerServiceImpl();
+		fS.restartGame(farmer);
+		FacebookClient facebookClient;
+		facebookClient = new DefaultFacebookClient(oauthToken);
+
+		User user = facebookClient.fetchObject("me", User.class);
+
+		JsonElement profilepic = WS
+				.url("https://graph.facebook.com/" + user.getId()
+						+ "/picture?type=normal&redirect=false").get()
+				.getJson();
+
+		String picture = profilepic.getAsJsonObject().get("data")
+				.getAsJsonObject().get("url").getAsString();
+		FarmerService farmerService = new FarmerServiceImpl();
+		farmer = farmerService.buildFbInstance(user.getId(),
+				oauthToken, user.getFirstName(), user.getLastName(),
+				user.getEmail(), picture);
+
+		UUID id = UUID.randomUUID();
+		Cache.add(id.toString(), farmer.id);
+		Cache.add(farmer.username, id.toString());
+		session.put("farmer", id.toString());
+
+		redirect("/");
+	}
 }

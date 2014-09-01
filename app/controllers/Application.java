@@ -64,7 +64,7 @@ public class Application extends Controller {
 		}
 		FarmerService farmerService = new FarmerServiceImpl();
 		farmer = farmerService.restartGame(farmer);
-		redirect("/login");
+		redirect("/iso");
 		JsonController.farmerJson(farmer);
 	}
 /*
