@@ -80,6 +80,7 @@ public class FarmerServiceImpl implements FarmerService{
 		farmer.surname=surname;
 		farmer.email=email;
 		farmer.picture=picture;
+		farmer.is_active = true;
 		farmer.save();
 		
 		return farmer;
