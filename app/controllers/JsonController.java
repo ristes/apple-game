@@ -25,11 +25,11 @@ public abstract class JsonController extends Controller {
 	class PropertyFilterMixIn {
 	}
 
-	
-	protected static void farmerJson(Farmer farmer) throws JsonGenerationException, JsonMappingException, IOException {
-		toJson(farmer, "field", "gameDate", "weatherType","plantation");
+	protected static void farmerJson(Farmer farmer)
+			throws JsonGenerationException, JsonMappingException, IOException {
+		toJson(farmer, "field", "gameDate", "weatherType", "plantation");
 	}
-	
+
 	protected static void toJson(Object o, String... expandFields)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		String encoding = Http.Response.current().encoding;
@@ -39,15 +39,31 @@ public abstract class JsonController extends Controller {
 		mapper.setDateFormat(new SimpleDateFormat("dd.MM.yyyy"));
 		mapper.addMixInAnnotations(Object.class, PropertyFilterMixIn.class);
 
-		FilterProvider filters = new SimpleFilterProvider()
-				.addFilter("filter properties by name", new OneToManyFilter(
-						expandFields));
+		FilterProvider filters = new SimpleFilterProvider().addFilter(
+				"filter properties by name", new OneToManyFilter(expandFields));
 
 		ObjectWriter jsonWriter = mapper.writer(filters);
 
 		jsonWriter.writeValue(response.out, o);
 		renderJSON("");
 
+	}
+
+	protected static String toJsonString(Object o, String... expandFields)
+			throws JsonGenerationException, JsonMappingException, IOException {
+		String encoding = Http.Response.current().encoding;
+		response.setContentTypeIfNotSet("application/json; charset=" + encoding);
+
+		com.fasterxml.jackson.databind.ObjectMapper mapper = new ObjectMapper();
+		mapper.setDateFormat(new SimpleDateFormat("dd.MM.yyyy"));
+		mapper.addMixInAnnotations(Object.class, PropertyFilterMixIn.class);
+
+		FilterProvider filters = new SimpleFilterProvider().addFilter(
+				"filter properties by name", new OneToManyFilter(expandFields));
+
+		ObjectWriter jsonWriter = mapper.writer(filters);
+
+		return jsonWriter.writeValueAsString(o);
 	}
 
 	static class OneToManyFilter extends CollaseAnnotationAndExpandFieldsFilter {

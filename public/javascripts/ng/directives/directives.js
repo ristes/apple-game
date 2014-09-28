@@ -6,7 +6,7 @@ var GameDirectives = angular
         .module(
                 'Game.directives',
                 ['ngResource', 'ngRoute', 'ngAnimate', 'ngCookies',
-                    'ui.bootstrap', 'toaster', 'mgcrea.ngStrap',
+                    'ui.bootstrap', 'toaster',
                     'pascalprecht.translate'])
         .directive('appVersion', ['version', function(version) {
           return function(scope, elm, attrs) {

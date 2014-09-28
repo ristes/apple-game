@@ -43,6 +43,6 @@ public class DeceaseImpact extends Model {
 	 * the decease
 	 */
 	@ManyToOne
-	public Decease decease;
+	public Disease decease;
 
 }

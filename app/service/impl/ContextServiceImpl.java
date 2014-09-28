@@ -242,7 +242,7 @@ public class ContextServiceImpl implements ContextService {
 	
 	public void evaluateIce(Farmer farmer) {
 		if (farmer.gameDate.heavyRain>0.2) {
-//			Decease
+//			Disease
 		}
 	}
 

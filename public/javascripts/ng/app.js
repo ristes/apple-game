@@ -10,8 +10,17 @@ Game.config([
     '$httpProvider',
     '$locationProvider',
     'ezfbProvider',
+    '$tooltipProvider',
     function($routeProvider, $translateProvider, $httpProvider,
-            $locationProvider, ezfbProvider) {
+            $locationProvider, ezfbProvider,$tooltipProvider) {
+      
+      $tooltipProvider.setTriggers({
+        'mouseenter': 'mouseleave'
+      });
+      
+      $tooltipProvider.options({
+        placement: 'bottom'
+      });
 
     	ezfbProvider.setInitParams({
     	    appId: '671566419604666',
@@ -24,7 +33,7 @@ Game.config([
         suffix: '.json'
       });
 
-      $translateProvider.preferredLanguage('en');
+      $translateProvider.preferredLanguage('mk');
 
       $translateProvider.useCookieStorage();
 
@@ -34,7 +43,6 @@ Game.run(['$rootScope', '$location', '$farmer', '$items','$day','$plantation','S
     function($rootScope, $location, $farmer, $items, $day, $plantation, $StoreItems, $infoTable) {
 	  $StoreItems.load();
       $farmer.load();
-      $day.load($farmer);
       $plantation.load();
       $infoTable.getNews();
       $rootScope.visible=false;
@@ -56,9 +64,6 @@ Game.run(['$rootScope', '$location', '$farmer', '$items','$day','$plantation','S
     	  $items.load();
     	  $infoTable.getNews();
     	  $rootScope.$emit("weather-hide");
-      };
-      $rootScope.restartGame = function() {
-    	  $day.restartGame();
       };
       
       $location.path("/");

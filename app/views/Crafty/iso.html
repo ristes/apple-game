@@ -1,145 +1,96 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<link rel="stylesheet" type="text/css"
-	href="/public/stylesheets/shopwindow.css" />
-<link rel="stylesheet" type="text/css"
-	href="/public/stylesheets/animations.css" />
-<link rel="stylesheet" type="text/css"
-	href="/public/bower_components/jquery-ui/themes/smoothness/jquery-ui.css" />
-<link
-	href="/public/bower_components/bootstrap/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-	<link
-		href="/public/bower_components/bootstrap/dist/css/font-awesome.min.css"
-		rel="stylesheet">
-		<link href="/public/bower_components/ng-slider/src/css/ng-slider.css"
-			rel="stylesheet">
-			<link rel="stylesheet" type="text/css"
-				href="/public/stylesheets/main.css" />
-				<link rel="stylesheet" type="text/css"
-					href="/public/fa/css/font-awesome.css" />
+	<link rel="stylesheet" type="text/css" href="/public/stylesheets/shopwindow.css" />
+	<link rel="stylesheet" type="text/css" href="/public/stylesheets/animations.css" />
+	<link rel="stylesheet" type="text/css" href="/public/bower_components/jquery-ui/themes/smoothness/jquery-ui.css" />
+	<link href="/public/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+		
+	<link href="/public/bower_components/bootstrap/dist/css/font-awesome.min.css" rel="stylesheet"/>
+	<link href="/public/bower_components/ng-slider/src/css/ng-slider.css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="/public/stylesheets/main.css" />
+	<link rel="stylesheet" type="text/css" href="/public/fa/css/font-awesome.css" />
+	
+	
+	<script type="text/javascript" src="/public/javascripts/modelStore.js"></script>
+	<script type="text/javascript" src="/public/javascripts/crafty.js"></script>
+	<script type="text/javascript" src="/public/javascripts/callback-manager.js"></script>
+	<script type="text/javascript" src="/public/javascripts/land.js"></script>
 
-			<script type="text/javascript"
-				src="/public/javascripts/modelStore.js"></script>
-			<script type="text/javascript" src="/public/javascripts/crafty.js"></script>
-			<script type="text/javascript"
-				src="/public/javascripts/callback-manager.js"></script>
-			<script type="text/javascript" src="/public/javascripts/land.js"></script>
-
-			<!-- <script type="text/javascript" src="/public/javascripts/shopwindow.js"></script>
-<script type="text/javascript" src="/public/javascripts/i18n.js"></script>
-<script type="text/javascript" src="/public/javascripts/terrainShop.js"></script>
-<script type="text/javascript" src="/public/javascripts/ItemStore.js"></script>
-<script type="text/javascript" src="/public/javascripts/components/compositeDataComponent.js"></script>
-<script type="text/javascript" src="/public/javascripts/components/list.js"></script>
-<script type="text/javascript" src="/public/javascripts/frames/userframe.js"></script>
-<script type="text/javascript" src="/public/javascripts/frames/weatherframe.js"></script>
-<script type="text/javascript" src="/public/javascripts/scenes/loadingScene.js"></script>
-<script type="text/javascript" src="/public/javascripts/scenes/baseShop.js"></script>
-<script type="text/javascript" src="/public/javascripts/scenes/seedlingShop.js"></script>
-<script type="text/javascript" src="/public/javascripts/scenes/shop.js"></script>
-<script type="text/javascript" src="/public/javascripts/operations.js"></script>
-<script type="text/javascript" src="/public/javascripts/game.js"></script>
-<script type="text/javascript" src="/public/javascripts/actions.js"></script>
-<script type="text/javascript" src="/public/javascripts/toolbar.js"></script>
-<script type="text/javascript" src="/public/javascripts/add-or-relpace-plant-callback.js"></script>
-<script type="text/javascript" src="/public/javascripts/sprites.js"></script> -->
+	<script src="/public/bower_components/jquery/dist/jquery.js"></script>
+	<script src="/public/bower_components/jquery-ui/ui/jquery-ui.js"></script>
+	<script type="text/javascript" src="/public/javascripts/jquery.transit.min.js"></script>
+	<script src="/public/bower_components/ng-file-upload/angular-file-upload-shim.min.js"></script>
+	<script src="/public/bower_components/angular/angular.js"></script>
+	<script src="/public/bower_components/angular-resource/angular-resource.js"></script>
+	<script src="/public/bower_components/angular-route/angular-route.js"></script>
+	<script src="/public/bower_components/angular-animate/angular-animate.js"></script>
+	<script src="/public/bower_components/angular-sanitize/angular-sanitize.js"></script>
+	<script src="/public/bower_components/angular-cookies/angular-cookies.js"></script>
+	<script src="/public/bower_components/angular-translate/angular-translate.js"></script>
+	<script src="/public/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+	<script src="/public/bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
+	<script src="/public/bower_components/ng-file-upload/angular-file-upload.js"></script>
+	<script src="/public/bower_components/ng-table/ng-table.js"></script>
+	<script src="/public/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script src="/public/bower_components/angular-strap/dist/angular-strap.js"></script>
+	<script src="/public/bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
+	<script src="/public/bower_components/AngularJS-Toaster/toaster.js"></script>
 
 
-			<script src="/public/bower_components/jquery/dist/jquery.js"></script>
-			<script src="/public/bower_components/jquery-ui/ui/jquery-ui.js"></script>
-			<script type="text/javascript"
-				src="/public/javascripts/jquery.transit.min.js"></script>
-			<script
-				src="/public/bower_components/ng-file-upload/angular-file-upload-shim.min.js"></script>
-			<script src="/public/bower_components/angular/angular.js"></script>
-			<script
-				src="/public/bower_components/angular-resource/angular-resource.js"></script>
-			<script src="/public/bower_components/angular-route/angular-route.js"></script>
-			<script
-				src="/public/bower_components/angular-animate/angular-animate.js"></script>
-			<script
-				src="/public/bower_components/angular-sanitize/angular-sanitize.js"></script>
-			<script
-				src="/public/bower_components/angular-cookies/angular-cookies.js"></script>
-			<script
-				src="/public/bower_components/angular-translate/angular-translate.js"></script>
-			<script
-				src="/public/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
-			<script
-				src="/public/bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
-			<script
-				src="/public/bower_components/ng-file-upload/angular-file-upload.js"></script>
-			<script src="/public/bower_components/ng-table/ng-table.js"></script>
-			<script
-				src="/public/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-			<script
-				src="/public/bower_components/angular-strap/dist/angular-strap.min.js"></script>
-			<script
-				src="/public/bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
-			<script src="/public/bower_components/AngularJS-Toaster/toaster.js"></script>
-
-
-			<script src="/public/javascripts/ng/app.js"></script>
-			<script src="/public/javascripts/ng/services.js"></script>
-			<script src="/public/javascripts/ng/filters.js"></script>
-			<script src="/public/javascripts/ng/directives/directives.js"></script>
-			<script src="/public/javascripts/ng/directives/shop-menu.js"></script>
-			<script src="/public/javascripts/ng/directives/side-menu.js"></script>
-			<script src="/public/javascripts/ng/directives/slider.js"></script>
-			<script src="/public/javascripts/ng/controllers.js"></script>
-			<script src="/public/javascripts/ng/controllers/store.js"></script>
-			<script src="/public/javascripts/ng/controllers/buy-terrain.js"></script>
-			<script src="/public/javascripts/ng/controllers/buy-seedlings.js"></script>
-			<script src="/public/javascripts/ng/controllers/planting.js"></script>
-			<script src="/public/javascripts/ng/controllers/growing.js"></script>
-			<script
-				src="/public/javascripts/ng/controllers/operations/digging.js"></script>
-			<script
-				src="/public/javascripts/ng/controllers/operations/fertilizing.js"></script>
-			<script
-				src="/public/javascripts/ng/controllers/operations/harvesting.js"></script>
-			<script
-				src="/public/javascripts/ng/controllers/operations/irrigation.js"></script>
-			<script
-				src="/public/javascripts/ng/controllers/operations/planting.js"></script>
-			<script
-				src="/public/javascripts/ng/controllers/operations/plowing.js"></script>
-			<script
-				src="/public/javascripts/ng/controllers/operations/deep-plowing.js"></script>
-			<script
-				src="/public/javascripts/ng/controllers/operations/shopping.js"></script>
-			<script
-				src="/public/javascripts/ng/controllers/operations/spraying.js"></script>
-			<script
-				src="/public/javascripts/ng/controllers/operations/terrain-analyzis.js"></script>
-			<script
-				src="/public/javascripts/ng/controllers/operations/deseases.js"></script>
-			<script
-				src="/public/javascripts/ng/controllers/operations/clothing.js"></script>
-			<script src="/public/javascripts/ng/directives/info-table.js"></script>
-			<script src="/public/javascripts/ng/router.js"></script>
-			<script src="/public/javascripts/ng/global/services.js"></script>
-			<script src="/public/javascripts/ng/controllers/preloader.js"></script>
+	<script src="/public/javascripts/ng/app.js"></script>
+	<script src="/public/javascripts/ng/services.js"></script>
+	<script src="/public/javascripts/ng/filters.js"></script>
+	<script src="/public/javascripts/ng/directives/directives.js"></script>
+	<script src="/public/javascripts/ng/directives/shop-menu.js"></script>
+	<script src="/public/javascripts/ng/directives/side-menu.js"></script>
+	<script src="/public/javascripts/ng/directives/slider.js"></script>
+	<script src="/public/javascripts/ng/controllers.js"></script>
+	<script src="/public/javascripts/ng/controllers/store.js"></script>
+	<script src="/public/javascripts/ng/controllers/buy-terrain.js"></script>
+	<script src="/public/javascripts/ng/controllers/buy-seedlings.js"></script>
+	<script src="/public/javascripts/ng/controllers/planting.js"></script>
+	<script src="/public/javascripts/ng/controllers/growing.js"></script>
+	<script src="/public/javascripts/ng/controllers/operations/digging.js"></script>
+	<script src="/public/javascripts/ng/controllers/operations/fertilizing.js"></script>
+	<script src="/public/javascripts/ng/controllers/operations/harvesting.js"></script>
+	<script src="/public/javascripts/ng/controllers/operations/irrigation.js"></script>
+	<script src="/public/javascripts/ng/controllers/operations/planting.js"></script>
+	<script src="/public/javascripts/ng/controllers/operations/plowing.js"></script>
+	<script src="/public/javascripts/ng/controllers/operations/deep-plowing.js"></script>
+	<script src="/public/javascripts/ng/controllers/operations/shopping.js"></script>
+	<script src="/public/javascripts/ng/controllers/operations/spraying.js"></script>
+	<script src="/public/javascripts/ng/controllers/operations/terrain-analyzis.js"></script>
+	<script src="/public/javascripts/ng/controllers/operations/deseases.js"></script>
+	<script src="/public/javascripts/ng/controllers/operations/clothing.js"></script>
+	<script src="/public/javascripts/ng/directives/info-table.js"></script>
+	<script src="/public/javascripts/ng/router.js"></script>
+	<script src="/public/javascripts/ng/global/services.js"></script>
+	<script src="/public/javascripts/ng/services/initialization.js"></script>
+	<script src="/public/javascripts/ng/services/store.js"></script>
+	<script src="/public/javascripts/ng/services/irrigation.js"></script>
+	<script src="/public/javascripts/ng/services/diseases.js"></script>
+	<script src="/public/javascripts/ng/controllers/preloader.js"></script>
+	
+	<!-- facebook dependencies -->
+	<script src="/public/javascripts/FB/lodash.compat.js"></script>
+	<script src="/public/javascripts/FB/angular-easyfb.js"></script>
+	<script src="/public/javascripts/ng/controllers/fb.js"></script>
+	<!-- facebook dependencies END -->
 			
-			<!-- facebook dependencies -->
-			<script src="/public/javascripts/FB/lodash.compat.js"></script>
-			<script src="/public/javascripts/FB/angular-easyfb.js"></script>
-			<script src="/public/javascripts/ng/controllers/fb.js"></script>
-			<!-- facebook dependencies END -->
-			
-			<title>Iso</title>
-			<style>
-body,html {
-	margin: 0;
-	padding: 0;
-	/* background: url("/public/images/sky.png"); */
-}
-</style>
+	<title>Iso</title>
+	<style>
+		body,html {
+			margin: 0;
+			padding: 0;
+			/* background: url("/public/images/sky.png"); */
+		}
+	</style>
 </head>
+
 <body ng-app="Game" ng-animate="slide" class="body-transition-bkg"
 	style="background: url('{{$root.day.gameDate.weatherType.background_url}}'); -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;">
+	
 	<div ng-controller="PreloadController">
 		<div ng-switch="isLoading">
 
@@ -170,5 +121,5 @@ body,html {
 				<ng-include src="'/public/_views/fb.html'"></ng-include>
 			</div>
 		</div>
-</body>
+	</body>
 </html>

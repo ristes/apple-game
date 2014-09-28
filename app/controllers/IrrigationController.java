@@ -24,18 +24,12 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import dto.C;
+import dto.ItemBoughtDto;
+import dto.StoreItemDto;
 import exceptions.NotAllowedException;
 import exceptions.NotEnoughMoneyException;
 
-public class IrrigationController extends Controller {
-
-	private static Farmer checkFarmer() {
-		Farmer farmer = AuthController.getFarmer();
-		if (farmer == null) {
-			error("Not logged in");
-		}
-		return farmer;
-	}
+public class IrrigationController extends GameController {
 
 	private static void returnFarmer(Farmer farmer, double deltaCul)
 			throws JsonGenerationException, JsonMappingException, IOException {
@@ -77,16 +71,24 @@ public class IrrigationController extends Controller {
 		returnFarmer(farmer, result);
 	}
 
-	public static void tensiometerTime(int irrigationType) {
+	public static void tensiometerTime() {
 		Farmer farmer = checkFarmer();
 		int time = 0;
 		try {
 			IrrigationService irrService = new IrrigationServiceImpl();
-			time = irrService.tensiometerTimeForIrr(farmer,irrigationType);
+			time = irrService.tensiometerTimeForIrr(farmer);
 		} catch (NotAllowedException e) {
 			e.printStackTrace();
 		}
- 		renderJSON(time);
+		renderJSON(time);
+	}
+
+	public static void activeIrrigationItem() {
+		Farmer farmer = checkFarmer();
+		IrrigationService irrService = new IrrigationServiceImpl();
+		ItemBoughtDto irrigationType = irrService
+				.getActiveIrrigationType(farmer);
+		renderJSON(irrigationType);
 	}
 
 }

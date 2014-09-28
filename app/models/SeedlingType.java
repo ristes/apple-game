@@ -16,24 +16,23 @@ import play.db.jpa.Model;
  * 
  */
 @Entity
-@Table(name="seedlingtype")
+@Table(name = "seedlingtype")
 public class SeedlingType extends Model {
 
+	public String name;
 	
-
 	public String description;
-	
+
 	public String type;
-	
+
 	public String imageurl;
-	
-	@OneToMany(mappedBy="type")
+
+	@OneToMany(mappedBy = "type")
 	public List<Yield> yields;
-	
-	
+
 	@ManyToOne
 	public SpriteImage image;
-	
+
 	public String toString() {
 		return description;
 	}

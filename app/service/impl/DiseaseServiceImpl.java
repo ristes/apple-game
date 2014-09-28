@@ -13,7 +13,7 @@ import javax.persistence.Query;
 import play.db.jpa.JPA;
 import controllers.AuthController;
 import controllers.DeseasesExpertSystem;
-import models.Decease;
+import models.Disease;
 import models.DeceaseProtectingOperation;
 import models.ExecutedOperation;
 import models.Farmer;
@@ -41,8 +41,8 @@ public class DiseaseServiceImpl implements DiseaseService{
 	public List<DiseaseOccurenceProb> getDiseasesProb(Farmer farmer) {
 		DateService ds = new DateServiceImpl();
 		List<DiseaseOccurenceProb> disProbs = new ArrayList<DiseaseOccurenceProb>();
-		List<Decease> deceases = Decease.findAll();
-		for (Decease disease : deceases) {
+		List<Disease> deceases = Disease.findAll();
+		for (Disease disease : deceases) {
 			DiseaseOccurenceProb dis = new DiseaseOccurenceProb();
 			dis.name = disease.name;
 			if (disease.id==10l && farmer.gameDate.weatherType.id==3l && ds.season_level(farmer)==4) {
@@ -64,10 +64,10 @@ public class DiseaseServiceImpl implements DiseaseService{
 		List<String> result = new ArrayList<String>();
 		List<DiseaseOccurenceProb> probs = getDiseasesProb(farmer);
 		for (DiseaseOccurenceProb prob: probs) {
-			Decease des = Decease.find("byName", prob.name).first();
+			Disease des = Disease.find("byName", prob.name).first();
 			if (prob.probability>(farmer.luck*100)) {
 				OccurredDecease od = new OccurredDecease();
-				Decease d = Decease.find("byName", prob.name).first();
+				Disease d = Disease.find("byName", prob.name).first();
 				od.desease = d;
 				od.plantation = farmer.field.plantation;
 				od.date = farmer.gameDate.date;
@@ -93,7 +93,7 @@ public class DiseaseServiceImpl implements DiseaseService{
 	}
 	
 	public List<DiseaseProtectingOperationDto> getMmax(Farmer farmer,
-			Decease disease) {
+			Disease disease) {
 		DateService dateService = new DateServiceImpl();
 		Date curDate = dateService.convertDateTo70(farmer.gameDate.date);
 		DeceasesDao diseasesDao = new DeceasesDaoImpl();
@@ -108,7 +108,7 @@ public class DiseaseServiceImpl implements DiseaseService{
 	
 
 	private DeceaseProtectingOperation isOperationInProtections(
-			ExecutedOperation operation, Decease disease) {
+			ExecutedOperation operation, Disease disease) {
 		for (DeceaseProtectingOperation protection : disease.protections) {
 			if (protection.operation.id == operation.operation.id) {
 				return protection;

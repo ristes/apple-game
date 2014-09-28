@@ -15,7 +15,7 @@ import models.Base;
 import models.Farmer;
 import models.Field;
 import models.Seedling;
-import models.Decease;
+import models.Disease;
 import models.DeceaseImpact;
 import models.ExecutedOperation;
 import dao.DeceasesDao;
@@ -23,13 +23,13 @@ import dto.DiseaseProtectingOperationDto;
 
 public class DeceasesDaoImpl implements DeceasesDao {
 
-	public List<ExecutedOperation> executedValidOperations(Decease decease,
+	public List<ExecutedOperation> executedValidOperations(Disease decease,
 			Field field) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public DeceaseImpact getDeceaseThreshold(Decease decease,
+	public DeceaseImpact getDeceaseThreshold(Disease decease,
 			Seedling seadlings, Base base) {
 
 		return DeceaseImpact.find(
@@ -51,7 +51,7 @@ public class DeceasesDaoImpl implements DeceasesDao {
 		return result;
 	}
 	
-	public List<DiseaseProtectingOperationDto> getDiseaseProtectingOpersShouldBeDoneToDate(Decease disease, Date curDate) {
+	public List<DiseaseProtectingOperationDto> getDiseaseProtectingOpersShouldBeDoneToDate(Disease disease, Date curDate) {
 		SimpleDateFormat formatter = new SimpleDateFormat();
 		formatter.applyPattern("yyyy-MM-dd");
 		String sqlString = "SELECT operation.id as operation_id,decease_id, deceaseProtectingFactor,startFrom, endTo FROM deceaseprotectingoperation, operation, operationbesttimeinterval where decease_id=:id and deceaseprotectingoperation.operation_id=operation.id AND operationbesttimeinterval.operation_id=deceaseprotectingoperation.id and date(:date)>=date(endTo)";

@@ -133,7 +133,7 @@ public class FarmerServiceImpl implements FarmerService{
 	@Override
 	public List<ItemBoughtDto> farmersItems(Farmer farmer) {
 		ItemsDao itemDao = new ItemsDaoImpl();
-		List<ItemBoughtDto> result = itemDao.getAllItemsBoughtDaoAndUnunsedByFarmer(farmer);
+		List<ItemBoughtDto> result = itemDao.getAllItemsBoughtAndUnunsedByFarmer(farmer);
 		result.addAll(itemDao.getOneYearDurationItems(farmer));
 		return (result);
 	}

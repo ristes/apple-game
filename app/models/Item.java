@@ -18,7 +18,7 @@ import play.db.jpa.Model;
  * 
  */
 @Entity
-@Table(name="item")
+@Table(name = "item")
 public class Item extends Model {
 
 	/**
@@ -26,20 +26,21 @@ public class Item extends Model {
 	 */
 	public String name;
 
-	
+	public String description;
+
 	@ManyToOne
 	public ItemType type;
-	
+
 	/**
 	 * The price for the item
 	 */
 	public int price;
-	
+
 	/**
 	 * JSON object that describes the object
 	 */
 	public String metadata;
-	
+
 	public String imageurl;
 
 	/**
@@ -48,7 +49,7 @@ public class Item extends Model {
 	 */
 	@Range(min = 0, max = 10)
 	public int pollutionCoefficient;
-	
+
 	@ManyToOne
 	public SpriteImage image;
 
@@ -57,8 +58,8 @@ public class Item extends Model {
 	 */
 	@ManyToOne
 	public Store store;
-	
-	@OneToMany(mappedBy="fertilizer")
+
+	@OneToMany(mappedBy = "fertilizer")
 	public List<FertilizationOperation> fertilizationOperations;
 
 	/**

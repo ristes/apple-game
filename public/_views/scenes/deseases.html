@@ -14,21 +14,23 @@
 		
 		<div class="shop_menu_grid fa-stack-2x fa-inverse">
 		
-			<div id="irrigation-info" ng-show="hasDecease">
+			<div id="disease-info" ng-show="hasDecease">
 				{{ 'decease_occured' | translate }} 
 			</div>
 			<div id="irrigation-slider-container" ng-show="hasDecease">
 				<div class="shop_menu_grid" style="top:20%">
 					<div class="shop_item_in_grid" ng-repeat="item in deceases">
 						<img ng-src="{{item.url}}"></img>
+						<button class="btn btn-xs" ng-click="showDeseaseHelp(item)">{{ 'disease.get_help' | translate }}</button>
+						<div ng-show="item.help">{{ item.help}}</div>
 					</div>
+					
 				</div>
 			</div>
 			<div id="irrigation-slider-container" ng-show="!hasDecease">
 				{{ 'no_decease' | translate }}
 			</div>
 			
-			<!--  -->
 		</div>
 	</div>
 	

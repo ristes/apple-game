@@ -9,11 +9,11 @@ import javax.persistence.Table;
 import play.db.jpa.Model;
 
 @Entity
-@Table(name="itemtype")
-public class ItemType extends Model{
+@Table(name = "itemtype")
+public class ItemType extends Model {
 
 	public String name;
-	
-	@OneToMany(mappedBy="type")
+
+	@OneToMany(mappedBy = "type")
 	public List<Item> items;
 }

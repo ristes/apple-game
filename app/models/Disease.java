@@ -1,7 +1,6 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -14,8 +13,19 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import controllers.DeseasesExpertSystem;
-import dao.DeceasesDao;
+import play.data.validation.Range;
+import play.db.jpa.Model;
+import service.DateService;
+import service.DiseaseService;
+import service.PriceService;
+import service.RandomGeneratorService;
+import service.YieldService;
+import service.impl.DateServiceImpl;
+import service.impl.DiseaseServiceImpl;
+import service.impl.PriceServiceImpl;
+import service.impl.RandomGeneratorServiceImpl;
+import service.impl.YieldServiceImpl;
+import utils.RImage;
 import dao.DeseaseRisk;
 import de.congrace.exp4j.Calculable;
 import de.congrace.exp4j.ExpressionBuilder;
@@ -23,21 +33,6 @@ import de.congrace.exp4j.UnknownFunctionException;
 import de.congrace.exp4j.UnparsableExpressionException;
 import dto.DiseaseProtectingOperationDto;
 import exceptions.PriceNotValidException;
-import play.data.validation.Range;
-import play.db.jpa.Model;
-import service.ContextService;
-import service.DateService;
-import service.DiseaseService;
-import service.PriceService;
-import service.RandomGeneratorService;
-import service.YieldService;
-import service.impl.ContextServiceImpl;
-import service.impl.DateServiceImpl;
-import service.impl.DiseaseServiceImpl;
-import service.impl.PriceServiceImpl;
-import service.impl.RandomGeneratorServiceImpl;
-import service.impl.YieldServiceImpl;
-import utils.RImage;
 
 /**
  * The deceases catalog with the occurrence conditions
@@ -46,8 +41,8 @@ import utils.RImage;
  * 
  */
 @Entity
-@Table(name="decease")
-public class Decease extends Model implements DeseaseRisk {
+@Table(name = "decease")
+public class Disease extends Model implements DeseaseRisk {
 
 	/**
 	 * The decease name
@@ -84,24 +79,23 @@ public class Decease extends Model implements DeseaseRisk {
 	 * {@link DeceaseImpact} is linked for the type and base
 	 */
 	public int defaultThreshold;
-	
-	
+
 	/**
 	 * if the insurrance could refund back the money
 	 */
 	public Boolean isRefundable;
-	
+
 	/**
 	 * if disease has variable behavior
 	 */
 	public Boolean isDemageVar;
-	
+
 	public String refundValue;
-	
+
 	public String demageVarExp;
-	
+
 	public Boolean triggersInfoTable;
-	
+
 	public String infoTableText;
 
 	/**
@@ -110,6 +104,11 @@ public class Decease extends Model implements DeseaseRisk {
 	 */
 	@Range(min = 0, max = 100)
 	public int defaultDiminishingFactor;
+
+	@Column(length = 2000)
+	public String hint;
+
+	public double hintPrice;
 
 	/**
 	 * The weather preconditions for decease occurrence
@@ -138,7 +137,6 @@ public class Decease extends Model implements DeseaseRisk {
 	@ManyToMany
 	public List<Operation> healingOperation;
 
-	
 	public String toString() {
 		return name;
 	}
@@ -156,7 +154,10 @@ public class Decease extends Model implements DeseaseRisk {
 			Double rand = rgS.random(0.0, 1.0);
 			Double maxYield = yS.calculateYield(context);
 			Double avgPrice = pS.price(context);
-			value = new ExpressionBuilder(refundValue).withVariable("rand", rand).withVariable("maxYield",maxYield).withVariable("avgPrice", avgPrice).build();
+			value = new ExpressionBuilder(refundValue)
+					.withVariable("rand", rand)
+					.withVariable("maxYield", maxYield)
+					.withVariable("avgPrice", avgPrice).build();
 			result = value.calculate();
 		} catch (UnknownFunctionException ex) {
 			ex.printStackTrace();
@@ -173,7 +174,7 @@ public class Decease extends Model implements DeseaseRisk {
 		if (expression == null || expression.equals("")) {
 			return result;
 		}
-		
+
 		Calculable value = null;
 		try {
 			DateService dateS = new DateServiceImpl();
@@ -185,14 +186,15 @@ public class Decease extends Model implements DeseaseRisk {
 					.withVariable("tempHigh", context.gameDate.tempHigh)
 					.withVariable("iceProb", context.gameDate.iceProb)
 					.withVariable("heavyRain", context.gameDate.heavyRain)
-					.withVariable("season_type_id",dateS.season_level(context))
-					.withVariable("rain_type_id", context.gameDate.weatherType.id)
+					.withVariable("season_type_id", dateS.season_level(context))
+					.withVariable("rain_type_id",
+							context.gameDate.weatherType.id)
 					.withVariable("randn03015", randn03015)
-					.withVariable("rain_id",3)
-					.withVariable("spring_id",4)
+					.withVariable("rain_id", 3)
+					.withVariable("spring_id", 4)
 					.withVariable("humidityOfLeaf",
 							context.gameDate.humidityOfLeaf).build();
-		
+
 		} catch (UnknownFunctionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -200,9 +202,8 @@ public class Decease extends Model implements DeseaseRisk {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		result = value.calculate();
-		DateService dS = new DateServiceImpl();
 		if (result < 0.0) {
 			result = 0.0;
 		}
@@ -220,7 +221,7 @@ public class Decease extends Model implements DeseaseRisk {
 		int maxN = 9;
 		int minM = 0;
 		int matches = 0;
-		if ( context.field==null) {
+		if (context.field == null) {
 			return 0;
 		}
 		DateService dateService = new DateServiceImpl();
@@ -228,22 +229,24 @@ public class Decease extends Model implements DeseaseRisk {
 		List<ExecutedOperation> operations = context.field.executedOperations;
 		List<ExecutedOperation> operationsThisYear = new ArrayList<ExecutedOperation>();
 		for (ExecutedOperation operation : operations) {
-			if (dateService.isSameYear(context,operation.startDate)) {
+			if (dateService.isSameYear(context, operation.startDate)) {
 				operationsThisYear.add(dateService.changeYear(operation));
 			}
 		}
-		List<DiseaseProtectingOperationDto> protections = diseaseService.getMmax(context, Decease.this);
-		for (DiseaseProtectingOperationDto protection: protections) {
+		List<DiseaseProtectingOperationDto> protections = diseaseService
+				.getMmax(context, Disease.this);
+		for (DiseaseProtectingOperationDto protection : protections) {
 			if (protection.isMatched(operationsThisYear)) {
 				matches++;
 			}
 		}
 		int maxM = protections.size();
-		if (maxM==0) {
+		if (maxM == 0) {
 			return 0;
 		}
-		int n = Math.round((maxN-minN)*((float)((matches-minM))/(maxM-minM)));
-		
+		int n = Math.round((maxN - minN)
+				* ((float) ((matches - minM)) / (maxM - minM)));
+
 		return n;
 
 	}
@@ -262,20 +265,22 @@ public class Decease extends Model implements DeseaseRisk {
 			YieldService yS = new YieldServiceImpl();
 			Double rand = rgS.random(0.0, 1.0);
 			Double maxYield = yS.calculateYield(context);
-			value = new ExpressionBuilder(demageVarExp).withVariable("rand", rand).withVariable("maxYield", maxYield).withVariable("curYield",context.productQuantity).build();
+			value = new ExpressionBuilder(demageVarExp)
+					.withVariable("rand", rand)
+					.withVariable("maxYield", maxYield)
+					.withVariable("curYield", context.productQuantity).build();
 			result = value.calculate();
 		} catch (UnknownFunctionException ex) {
 			ex.printStackTrace();
 		} catch (UnparsableExpressionException ex) {
 			ex.printStackTrace();
-		} 
+		}
 		return result;
 	}
-	
-	public String getImageUrl() {
-		return String.format("%s%s%s", RImage.get("disease_path"),name,".png");
-	}
-	
 
-	
+	public String getImageUrl() {
+		return String
+				.format("%s%s%s", RImage.get("disease_path"), name, ".png");
+	}
+
 }

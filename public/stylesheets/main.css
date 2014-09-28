@@ -127,7 +127,6 @@
 img.pocva {
 	width: 110%;
 	height: 110%;
-	cursor: pointer;
 }
 
 img.ograda-gore {
@@ -150,7 +149,13 @@ img.ograda-gore {
 	margin-top: -225%;
 	margin-left: -75%;
 	float: left;
+}
+
+.clickable {
 	cursor: pointer;
+}
+
+.no-mouse-event {
 	pointer-events: none;
 }
 

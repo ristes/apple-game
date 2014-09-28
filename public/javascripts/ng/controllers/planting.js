@@ -23,7 +23,7 @@ Game.controller('PlantingStateController', [
           duration: 0,
           order: 1
         });
-      }
+      };
 
       $scope.onResizeFunction = function() {
         $scope.atom = $window.innerWidth * 0.8 / 20;
@@ -75,12 +75,12 @@ Game.controller('PlantingStateController', [
 
       $scope.planting = true;
 
-      $scope.portionClick = function(p) {
+      $scope.soilClick = function(p) {
         if ($scope.planting) {
           if (p.active && !p.tree) {
             // p.tree = "/public/images/game/plant.png";
             p.tree = $scope.$root.farmer.plant_url;
-            p.treeCls = 'seedling';
+            p.treeCls = 'seedling no-mouse-event';
             $scope.seedling++;
             $scope.coords.push({
               x: p.x,
@@ -102,8 +102,11 @@ Game.controller('PlantingStateController', [
             }
           }
         }
-
       }
+
+      $scope.treeClick = function(t) {
+        // does nothing
+      };
 
       $scope.rows = [];
       // var N = 15, M = 5;
@@ -136,7 +139,7 @@ Game.controller('PlantingStateController', [
             x: i,
             y: j,
             terrain: $scope.$root.farmer.soil_url,
-            cls: 'pocva'
+            cls: 'pocva clickable'
           })
 
         }
@@ -144,7 +147,7 @@ Game.controller('PlantingStateController', [
           var p = r.cols[i];
           if (p.active && isInCoords(p)) {
             r.cols[i].tree = $scope.$root.farmer.plant_url;
-            r.cols[i].treeCls = 'seedling';
+            r.cols[i].treeCls = 'seedling no-mouse-event';
           }
         }
 

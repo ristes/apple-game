@@ -40,5 +40,5 @@ public class WeatherPreconditions extends Model {
 	 * For which decease is this precondition
 	 */
 	@ManyToOne
-	public Decease decease;
+	public Disease decease;
 }
