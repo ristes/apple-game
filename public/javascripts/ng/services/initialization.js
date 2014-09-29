@@ -55,71 +55,45 @@ Game.factory('Terrain', ['$resource', function($resource) {
 
 }]);
 
-Game.factory('StateSubscriber', [function() {
-  var id = 0;
-  function _StateSubscriber() {
-    this.id = id++;
-    var subscribers = {};
-    this.subscribe = function(id, callback) {
-      if (subscribers.hasOwnProperty(id)) {
+Game.factory('State', [function() {
+  var state = {
+    /**
+     * Najaveniot farmer
+     */
+    farmer: null,
+    diseases: null
+  };
+
+  var subscribers = {};
+
+  return {
+    subscribe: function(field, id, callback) {
+      var topic = subscribers[field] || {};
+      subscribers[field] = topic;
+      if (topic.hasOwnProperty(id)) {
         throw exception('duplicate subscription id: ' + id);
       } else {
-        subscribers[id] = callback;
-        if (farmer) {
-          callback(farmer);
+        topic[id] = callback;
+        if (state[field]) {
+          callback(state[field]);
         }
       }
-    };
+    },
+    unsubscribe: function(field, id) {
+      delete subscribers[field][id];
+    },
+    get: function() {
+      return state;
+    },
+    getByField: function(field) {
+      return state[field];
+    },
+    set: function(field, data) {
+      state[field] = data;
+      angular.forEach(subscribers[field], function(callback, key) {
+        callback(data);
+      });
+    }
+  };
 
-    this.unsubscribe = function(id) {
-      delete subscribers[id];
-    };
-  }
-
-  return new _StateSubscriber();
 }]);
-
-Game.factory('State', ['$http', 'StateSubscriber',
-    function($http, StateSubscriber) {
-
-      var state = {
-        /**
-         * Najaveniot farmer
-         */
-        farmer: null,
-        diseases: null
-      };
-
-      var subscribers = {};
-
-      return {
-        subscribe: function(field, id, callback) {
-          var topic = subscribers[field] || {};
-          subscribers[field] = topic;
-          if (topic.hasOwnProperty(id)) {
-            throw exception('duplicate subscription id: ' + id);
-          } else {
-            topic[id] = callback;
-            if (state[field]) {
-              callback(state[field]);
-            }
-          }
-        },
-        unsubscribe: function(field, id) {
-          delete subscribers[field][id];
-        },
-        get: function() {
-          return state;
-        },
-        getByField: function(field) {
-          return state[field];
-        },
-        set: function(field, data) {
-          state[field] = data;
-          angular.forEach(subscribers[field], function(callback, key) {
-            callback(data);
-          });
-        }
-      };
-
-    }]);

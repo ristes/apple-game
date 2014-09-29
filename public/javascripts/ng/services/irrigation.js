@@ -1,9 +1,8 @@
 Game.factory('$irrigate', [
     '$http',
     '$day',
-    '$items',
     'Store',
-    function($http, $day, $items, Store) {
+    function($http, $day, Store) {
       var GROOVES = 'grooves';
       var DROPS = 'drops';
       var TENSIOMETERS = 'tensiometers';

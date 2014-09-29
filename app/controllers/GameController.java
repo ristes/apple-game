@@ -10,15 +10,17 @@ public class GameController extends Controller {
 	public static class ExceptionStatus {
 		public boolean status = false;
 		public String exception;
+		public String message;
 
-		public ExceptionStatus(String ex) {
-			exception = ex;
+		public ExceptionStatus(Exception ex) {
+			exception = ex.getClass().getSimpleName();
+			message = ex.getMessage();
 		}
 	}
 
 	@Catch
 	public static void notEnoughMoney(final Exception ex) {
-		renderJSON(new ExceptionStatus(ex.getClass().getSimpleName()));
+		renderJSON(new ExceptionStatus(ex));
 	}
 
 	protected static Farmer checkFarmer() {

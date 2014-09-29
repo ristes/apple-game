@@ -39,6 +39,7 @@
 
 
 	<script src="/public/javascripts/ng/app.js"></script>
+	<script src="/public/javascripts/ng/services/interceptors.js"></script>
 	<script src="/public/javascripts/ng/services.js"></script>
 	<script src="/public/javascripts/ng/filters.js"></script>
 	<script src="/public/javascripts/ng/directives/directives.js"></script>
@@ -47,6 +48,7 @@
 	<script src="/public/javascripts/ng/directives/slider.js"></script>
 	<script src="/public/javascripts/ng/controllers.js"></script>
 	<script src="/public/javascripts/ng/controllers/store.js"></script>
+	<script src="/public/javascripts/ng/controllers/notification.js"></script>
 	<script src="/public/javascripts/ng/controllers/buy-terrain.js"></script>
 	<script src="/public/javascripts/ng/controllers/buy-seedlings.js"></script>
 	<script src="/public/javascripts/ng/controllers/planting.js"></script>
@@ -69,6 +71,7 @@
 	<script src="/public/javascripts/ng/services/initialization.js"></script>
 	<script src="/public/javascripts/ng/services/store.js"></script>
 	<script src="/public/javascripts/ng/services/irrigation.js"></script>
+	<script src="/public/javascripts/ng/services/plowing.js"></script>
 	<script src="/public/javascripts/ng/services/diseases.js"></script>
 	<script src="/public/javascripts/ng/controllers/preloader.js"></script>
 	
@@ -99,6 +102,9 @@
 					{{percentLoaded | integer}} %</progressbar>
 			</p>
 			<div ng-switch-when="false" ng-switch="isSuccessful">
+				<div ng-controller="NotificationController">
+					<!-- <ng-include src="'/public/templates/notification-dialog'"></ng-include> -->
+				</div>
 				<shop-menu items="items"></shop-menu>
 				<info-table></info-table>
 				<div class="div_wrapper">

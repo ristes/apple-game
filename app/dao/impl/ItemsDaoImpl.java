@@ -34,7 +34,7 @@ public class ItemsDaoImpl implements ItemsDao {
 		String sql = "select t1.id, t1.type_id, item.name, item.imageurl, count(t1.type_id) as count, t1.quantity, store.name as store from (select * from iteminstance where iteminstance.ownedBy_id = :farmer_id) as t1 left join item ON t1.type_id = item.id left join store ON item.store_id = store.id where item.type_id not in (:item_type_one_year) and t1.id not in (select DISTINCT (itemInstance_id) FROM executedoperation where field_id = :field_id and not (isnull(iteminstance_id))) GROUP BY t1.type_id order by t1.id";
 
 		List<ItemBoughtDto> result = new ArrayList<ItemBoughtDto>();
-		ItemType one_year_type = ItemType.find("byName", "oneyear").first();
+		ItemType one_year_type = ItemType.find("name", "oneyear").first();
 		List<Object[]> resultSql = JPA.em().createNativeQuery(sql)
 				.setParameter("farmer_id", farmer.id)
 				.setParameter("field_id", farmer.field.id)
@@ -62,7 +62,7 @@ public class ItemsDaoImpl implements ItemsDao {
 	@Override
 	public List<ItemBoughtDto> getOneYearDurationItems(Farmer farmer) {
 		List<ItemBoughtDto> result = new ArrayList<ItemBoughtDto>();
-		ItemType iType = ItemType.find("byName", "oneyear").first();
+		ItemType iType = ItemType.find("name", "oneyear").first();
 		DateService dS = new DateServiceImpl();
 		List<ItemInstance> items = ItemInstance.find(
 				"byType.typeAndYearAndOwnedBy", iType,

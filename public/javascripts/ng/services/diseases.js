@@ -4,7 +4,6 @@ Game.factory('Diseases', ['$http', 'State', function($http, State) {
     load: function() {
       var res = $http.get('/DeseasesExpertSystem/getOccurredDiseases');
       res.success(function(data) {
-        data = ['Aphid', 'FireBlight'];
         State.set('diseases', data);
       });
     },

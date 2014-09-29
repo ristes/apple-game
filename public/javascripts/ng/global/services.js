@@ -54,7 +54,7 @@ Game.factory('$day', ['$rootScope', 'State', '$http', '$weather', 'Diseases',
 
       return {
         get: function() {
-          return State.get('farmer');
+          return State.getByField('farmer');
         },
         load: function(farmer) {
           State.set('farmer', farmer);
@@ -224,47 +224,28 @@ Game.factory('$plantation', [
       };
     }]);
 
-Game.factory('$plowing', ['$rootScope', '$http', '$day',
-    function($rootScope, $http, $day) {
-      return {
-        plowing: function() {
-          var res = $http.get("/LandTreatmanController/plowing");
-          res.success(function(data) {
-            $day.load(data.farmer);
-          });
-        },
-        deepPlowing: function() {
-          var res = $http.get("/LandTreatmanController/plowing");
-          res.success(function(data) {
-            var res = $http.get("/LandTreatmanController/digging");
-            res.success(function(data) {
-              $day.load(data.farmer);
-            });
-          });
-        }
-      };
-    }]);
+Game.factory('Fertilize', ['State', '$http', function(State, $http) {
 
-Game.factory('$fertilize', ['$day', '$http', 'jQuery',
-    function($day, $http, $) {
-
-      return {
-        fertilize: function(fertilizer) {
-          $http({
-            method: 'POST',
-            url: "/fertilizationcontroller/fertilize",
-            data: $.param(fertilizer),
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            }
-          }).then(function(res) {
-            if (res.data && res.data.balans) {
-              $day.load(res.data);
-            }
-          });
+  return {
+    fertilize: function(fertilizer, callback) {
+      $http({
+        method: 'POST',
+        url: "/fertilizationcontroller/fertilize",
+        data: $.param(fertilizer),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
         }
-      }
-    }]);
+      }).then(function(res) {
+        if (res.data && res.data.status == true && res.data.farmer) {
+          State.set('farmer', data.farmer);
+          if (typeof callback === 'function') {
+            callback();
+          }
+        }
+      });
+    }
+  }
+}]);
 Game.factory('$spraying', ['$items', '$day', '$http', 'jQuery',
     function($items, $day, $http, $) {
 

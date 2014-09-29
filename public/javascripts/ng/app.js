@@ -12,26 +12,28 @@ Game.config([
     'ezfbProvider',
     '$tooltipProvider',
     function($routeProvider, $translateProvider, $httpProvider,
-            $locationProvider, ezfbProvider,$tooltipProvider) {
-      
+            $locationProvider, ezfbProvider, $tooltipProvider) {
+
       $tooltipProvider.setTriggers({
         'mouseenter': 'mouseleave'
       });
-      
+
       $tooltipProvider.options({
         placement: 'bottom'
       });
 
-    	ezfbProvider.setInitParams({
-    	    appId: '671566419604666',
-    	    version: 'v2.0'
-    	  });
-    	
+      ezfbProvider.setInitParams({
+        appId: '671566419604666',
+        version: 'v2.0'
+      });
+
       // Initialize angular-translate
       $translateProvider.useStaticFilesLoader({
         prefix: '/public/i18n/',
         suffix: '.json'
       });
+
+      $httpProvider.interceptors.push('GameHttpInterceptors');
 
       $translateProvider.preferredLanguage('mk');
 
@@ -39,32 +41,41 @@ Game.config([
 
     }]);
 
-Game.run(['$rootScope', '$location', '$farmer', '$items','$day','$plantation','StoreItems','$infoTable',
-    function($rootScope, $location, $farmer, $items, $day, $plantation, $StoreItems, $infoTable) {
-	  $StoreItems.load();
+Game.run([
+    '$rootScope',
+    '$location',
+    '$farmer',
+    '$items',
+    '$day',
+    '$plantation',
+    'StoreItems',
+    '$infoTable',
+    function($rootScope, $location, $farmer, $items, $day, $plantation,
+            $StoreItems, $infoTable) {
+      $StoreItems.load();
       $farmer.load();
       $plantation.load();
       $infoTable.getNews();
-      $rootScope.visible=false;
+      $rootScope.visible = false;
       $rootScope.next = function() {
-    	  $day.next();
-    	  $items.load();
-    	  $infoTable.getNews();
-    	  $rootScope.$emit("weather-hide");
-    	 
+        $day.next();
+        $items.load();
+        $infoTable.getNews();
+        $rootScope.$emit("weather-hide");
+
       };
       $rootScope.nextWeek = function() {
-    	  $day.nextWeek();
-    	  $items.load();
-    	  $infoTable.getNews();
-    	  $rootScope.$emit("weather-hide");
+        $day.nextWeek();
+        $items.load();
+        $infoTable.getNews();
+        $rootScope.$emit("weather-hide");
       };
       $rootScope.nextMonth = function() {
-    	  $day.nextMonth();
-    	  $items.load();
-    	  $infoTable.getNews();
-    	  $rootScope.$emit("weather-hide");
+        $day.nextMonth();
+        $items.load();
+        $infoTable.getNews();
+        $rootScope.$emit("weather-hide");
       };
-      
+
       $location.path("/");
     }]);

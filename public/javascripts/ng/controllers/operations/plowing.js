@@ -1,24 +1,14 @@
-Game.controller('PlowingController', [
-    '$scope',
-    '$translate',
-    '$http',
-    'Store',
-    'StoreItems',
-    'Operations',
-    '$farmer',
-    '$items',
-    '$weather',
-    '$plowing',
-    function($scope, $translate, $http, Store, StoreItems, Operations, $farmer,
-            $items, $weather, $plowing) {
+Game.controller('PlowingController', ['$scope', 'Plowing',
+    function($scope, Plowing) {
 
       var unreg = $scope.$root.$on('operation-plowing', function(_s, oper) {
 
-        $scope.$root.$emit('show-progress-global', {
-          title: 'progress.plowing',
-          duration: 5
+        Plowing.plowing(function() {
+          $scope.$root.$emit('show-progress-global', {
+            title: 'progress.plowing',
+            duration: 20
+          });
         });
-        $plowing.plowing();
       });
 
       $scope.$on("$destroy", function() {

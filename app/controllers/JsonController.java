@@ -19,6 +19,8 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 
+import dto.StatusDto;
+
 public abstract class JsonController extends Controller {
 
 	@JsonFilter("filter properties by name")
@@ -28,6 +30,12 @@ public abstract class JsonController extends Controller {
 	protected static void farmerJson(Farmer farmer)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		toJson(farmer, "field", "gameDate", "weatherType", "plantation");
+	}
+
+	protected static void statusJson(Farmer farmer)
+			throws JsonGenerationException, JsonMappingException, IOException {
+		StatusDto status = new StatusDto(farmer != null, null, null, farmer);
+		toJson(status, "field", "gameDate", "weatherType", "plantation");
 	}
 
 	protected static void toJson(Object o, String... expandFields)
