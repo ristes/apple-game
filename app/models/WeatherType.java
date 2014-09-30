@@ -20,6 +20,12 @@ import play.db.jpa.Model;
 @Entity
 @Table(name="weathertype")
 public class WeatherType extends Model {
+	
+	
+	public final static Long WEATHER_TYPE_SUNNY = 1l;
+	public final static Long WEATHER_TYPE_CLOUDY = 2l;
+	public final static Long WEATHER_TYPE_RAINY = 3l;
+	public final static Long WEATHER_TYPE_ICY = 4l;
 
 	/**
 	 * The name of the weather type

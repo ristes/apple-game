@@ -21,6 +21,8 @@ public class DayWeatherDao {
 	public Double uvProb;
 
 	public Integer humidity;
+	
+	public Double rainQuantity;
 
 	// past,today,future
 	public String type;

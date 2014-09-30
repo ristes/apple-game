@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
 
 import controllers.DeseasesExpertSystem;
@@ -43,7 +45,7 @@ public class ContextServiceImpl implements ContextService {
 	}
 
 
-
+	
 	public double calculateHumidityLooses(Farmer farmer) {
 		double result = 0.0;
 		FieldService fieldService = new FieldServiceImpl();
@@ -64,6 +66,22 @@ public class ContextServiceImpl implements ContextService {
 		}
 		return result;
 	}
+	
+	public Double rainCoefForMonth(Date date) {
+		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl.load_hash(C.COEF_HUMIDITY_YML);
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		double avg_rain = coefs.get(C.KEY_RAIN_COEFS).get(
+				c.get(Calendar.MONTH));
+		return avg_rain;
+	}
+	
+	public Double rainCoefForMonth(Integer month) {
+		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl.load_hash(C.COEF_HUMIDITY_YML);
+		double avg_rain = coefs.get(C.KEY_RAIN_COEFS).get(month);
+		return avg_rain;
+	}
+	
 
 	public void calculateCumulatives(Farmer farmer) {
 		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl.load_hash(C.COEF_HUMIDITY_YML);
@@ -71,9 +89,9 @@ public class ContextServiceImpl implements ContextService {
 		c.setTime(farmer.gameDate.date);
 		Day today = farmer.gameDate;
 		if (today.weatherType.id == C.WEATHER_TYPE_RAINY) {
-			double avg_rain = coefs.get(C.KEY_RAIN_COEFS).get(
-					c.get(Calendar.MONTH));
-			farmer.deltaCumulative += avg_rain;
+//			double avg_rain = coefs.get(C.KEY_RAIN_COEFS).get(
+//					c.get(Calendar.MONTH));
+			farmer.deltaCumulative += rainCoefForMonth(c.get(Calendar.MONTH));
 		}
 
 		if (farmer.gameDate.dayOrder % 8 == 0) {
@@ -95,6 +113,8 @@ public class ContextServiceImpl implements ContextService {
 	public void calculateGrassGrowth(Farmer farmer) {
 		farmer.grass_growth += 0.2;
 	}
+	
+
 
 	public void calculateDiggingCoefficient(Farmer farmer) {
 		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl

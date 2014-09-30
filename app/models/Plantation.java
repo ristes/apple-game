@@ -15,7 +15,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import play.db.jpa.Model;
 import service.RandomGeneratorService;
+import service.StoreService;
 import service.impl.RandomGeneratorServiceImpl;
+import service.impl.StoreServiceImpl;
 
 @Entity
 @Table(name="plantation")
@@ -106,6 +108,7 @@ public class Plantation extends Model {
 		p.needZn = false;
 		p.analyse = ta;
 		p.save();
+		
 		return p;
 	}
 

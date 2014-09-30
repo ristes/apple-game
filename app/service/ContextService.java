@@ -20,4 +20,6 @@ public interface ContextService {
 	public void evaluateState(Farmer farmer);
 	public void calculateFertalizing(Farmer farmer);
 	public int seasionLevelSoilImage(int season_level);
+	public Double rainCoefForMonth(Date date);
+	public Double rainCoefForMonth(Integer month);
 }

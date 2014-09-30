@@ -140,6 +140,8 @@ public class Farmer extends Model {
 	public String picture;
 	
 	public boolean sharedApp;
+	
+	public Double cumulativeRains;
 
 	/**
 	 * The items he owns

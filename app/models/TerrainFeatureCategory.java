@@ -38,6 +38,8 @@ public class TerrainFeatureCategory extends Model {
 	 * Description of this feature
 	 */
 	public String description;
+	
+	public String image_url;
 
 	@OneToMany(mappedBy = "category")
 	public List<TerrainFeature> fetures;

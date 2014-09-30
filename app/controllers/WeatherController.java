@@ -16,6 +16,8 @@ import models.Farmer;
 import models.WeatherType;
 import play.db.jpa.JPA;
 import play.mvc.Controller;
+import service.ContextService;
+import service.impl.ContextServiceImpl;
 
 public class WeatherController extends Controller {
 
@@ -62,6 +64,12 @@ public class WeatherController extends Controller {
 			weather.icon_url = wType.icon.name;
 			weather.uvProb = ((Double) obj[7]).doubleValue();
 			weather.humidity = ((Integer) obj[2]).intValue();
+			ContextService contextS = new ContextServiceImpl();
+			if (weather.weatherType==WeatherType.WEATHER_TYPE_RAINY || weather.weatherType==WeatherType.WEATHER_TYPE_ICY) {
+				weather.rainQuantity = contextS.rainCoefForMonth(weather.date);
+			} else {
+				weather.rainQuantity = 0.0;
+			}
 			weather.id = ((BigInteger) obj[10]).intValue();
 			if (dayOrder < farmer.gameDate.dayOrder) {
 				weather.type = "past-future";

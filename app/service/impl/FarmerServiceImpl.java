@@ -3,6 +3,7 @@ package service.impl;
 import java.util.List;
 import java.util.Random;
 
+import controllers.ItemController;
 import models.Day;
 import models.Farmer;
 import dao.ItemsDao;
@@ -11,6 +12,7 @@ import dto.C;
 import dto.ItemBoughtDto;
 import service.ContextService;
 import service.FarmerService;
+import service.StoreService;
 
 public class FarmerServiceImpl implements FarmerService{
 	
@@ -109,8 +111,9 @@ public class FarmerServiceImpl implements FarmerService{
 		farmer.grass_growth = 5.0;
 		farmer.digging_coef = 1.0;
 		farmer.is_active = true;
-
 		farmer.save();
+		StoreService ss = new StoreServiceImpl();
+		ss.buyItem(farmer, "SoilAnalyse", 1.0, farmer.currentState);
 		return farmer;
 	}
 
