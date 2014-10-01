@@ -16,13 +16,15 @@ import play.db.jpa.Model;
  * 
  */
 @Entity
-@Table(name="store")
+@Table(name = "store")
 public class Store extends Model {
 
 	public String name;
 
+	public String description;
+
 	public String imageurl;
-	
+
 	@ManyToOne
 	public SpriteImage image;
 	/**
@@ -30,7 +32,7 @@ public class Store extends Model {
 	 */
 	@OneToMany(mappedBy = "store")
 	public List<Item> items;
-	
+
 	public String toString() {
 		return name;
 	}

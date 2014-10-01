@@ -2,16 +2,29 @@ package service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import controllers.AuthController;
 import models.Farmer;
-import dto.C;
-import exceptions.NotAllowedException;
-import exceptions.NotEnoughMoneyException;
+import models.Item;
+import models.ItemInstance;
+import models.Store;
 import service.FieldService;
 import service.IrrigationService;
 import service.MoneyTransactionService;
+import dao.ItemsDao;
+import dao.impl.ItemsDaoImpl;
+import dto.C;
+import dto.ItemBoughtDto;
+import dto.StoreItemDto;
+import exceptions.NotAllowedException;
+import exceptions.NotEnoughMoneyException;
 
 public class IrrigationServiceImpl implements IrrigationService {
+
+	public static final String GROOVES = "grooves";
+	public static final String DROPS = "drops";
+	public static final String TENSIOMETERS = "tensiometers";
 
 	public double dropsIrrigation(Farmer farmer, Integer time)
 			throws NotEnoughMoneyException {
@@ -55,11 +68,11 @@ public class IrrigationServiceImpl implements IrrigationService {
 				* area_size * time;
 		MoneyTransactionService moneyTransServ = new TransactionServiceImpl();
 		moneyTransServ.commitMoneyTransaction(farmer, -price);
-		
+
 		return result;
 	}
 
-	public int tensiometerTimeForIrr(Farmer farmer,int irrigationType) throws NotAllowedException{
+	public int tensiometerTimeForIrr(Farmer farmer) throws NotAllowedException {
 		FieldService fieldService = new FieldServiceImpl();
 		if (fieldService.hasTensiometerSystem(farmer)) {
 
@@ -67,20 +80,32 @@ public class IrrigationServiceImpl implements IrrigationService {
 			HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl
 					.load_hash(C.COEF_HUMIDITY_YML);
 			int time = 0;
-			if (C.ENUM_DROPS == irrigationType) {
-				time = (int) (delta / coefs.get(
-						C.KEY_ONE_HOUR_IRRIGATION_VALUES).get(C.ENUM_DROPS));
-			} else if (C.ENUM_GROOVES == irrigationType) {
-				time = (int) (delta / coefs.get(
-						C.KEY_ONE_HOUR_IRRIGATION_VALUES).get(C.ENUM_GROOVES));
-			}
+			time = (int) (delta / coefs.get(C.KEY_ONE_HOUR_IRRIGATION_VALUES)
+					.get(C.ENUM_DROPS));
 			if (time > 0) {
 				time = 0;
 			}
 			return Math.abs(time);
-		}
-		else {
+		} else {
 			throw new NotAllowedException();
 		}
 	}
+
+	@Override
+	public ItemBoughtDto getActiveIrrigationType(Farmer farmer) {
+
+		ItemsDao dao = new ItemsDaoImpl();
+		List<ItemInstance> res = dao.getItemsByStoreNameOrdered(farmer.id,
+				"irrigation");
+		if (res == null || res.isEmpty()) {
+			ItemInstance instance = new ItemInstance();
+			instance.ownedBy = farmer;
+			instance.type = dao.findItemByName(GROOVES);
+			instance.save();
+			return new ItemBoughtDto(instance);
+		} else {
+			return new ItemBoughtDto(res.get(0));
+		}
+	}
+
 }

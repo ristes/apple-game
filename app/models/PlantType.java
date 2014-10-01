@@ -15,20 +15,21 @@ import play.db.jpa.Model;
  * 
  */
 @Entity
-@Table(name="planttype")
+@Table(name = "planttype")
 public class PlantType extends Model {
 
 	/**
 	 * The allowed bases for planting of this type
 	 */
-	
+
 	public String name;
-	
+
+	public String description;
+
 	public String apple_color;
-	
+
 	public String imageurl;
-	
-	
+
 	public String toString() {
 		return name;
 	}

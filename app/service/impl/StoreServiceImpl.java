@@ -35,6 +35,7 @@ public class StoreServiceImpl implements StoreService {
 			StoreDto dto = new StoreDto();
 			dto.id = store.id;
 			dto.name = store.name;
+			dto.description = store.description;
 			dto.url = store.image.url;
 			result.add(dto);
 		}
@@ -42,22 +43,25 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	public Farmer buyItem(Farmer farmer, String itemName, Double quantity,
-			String currentState){
+			String currentState) {
 		if (farmer != null) {
-			Item item = Item.find("byName", itemName).first();
+			Item item = Item.find("name", itemName).first();
 			ItemTransactionService itemTrans = new TransactionServiceImpl();
 			try {
 				farmer = itemTrans.commitBuyingItem(farmer, item, quantity);
 			} catch (NotEnoughMoneyException ex) {
 				ex.printStackTrace();
 			}
-			farmer.currentState = currentState;
+			if (currentState != null) {
+				farmer.currentState = currentState;
+			}
 			farmer.save();
 		}
 		return farmer;
 	}
-	
-	public Farmer buyBase(Farmer farmer, Long itemid, String currentState) throws NotEnoughMoneyException{
+
+	public Farmer buyBase(Farmer farmer, Long itemid, String currentState)
+			throws NotEnoughMoneyException {
 		Field field = Field.find("owner.id", farmer.id).first();
 
 		Plantation plantation = Plantation.buildInstance();
@@ -103,49 +107,50 @@ public class StoreServiceImpl implements StoreService {
 		result.put("tractor", tractorStoreItems());
 		result.put("terrain", terrainStoreItems());
 		result.put("terrain-size", terrainSizeItems());
-		result.put("base",terrainBaseItems());
+		result.put("base", terrainBaseItems());
 		result.put("apple-type", plantTypes());
 		result.put("seedlings", plantTypes());
-		result.put("seedling-type",seedlingTypes());
-		result.put("irrigation",irrigationStoreItems());
+		result.put("seedling-type", seedlingTypes());
+		result.put("irrigation", irrigationStoreItems());
 		result.put("other", otherStoreItems());
 		result.put("spraying", sprayingStoreItems());
-		result.put("stores",allStores());
-		result.put("fertilizer",fertilizerStoreItems());
+		result.put("stores", allStores());
+		result.put("fertilizer", fertilizerStoreItems());
 		return result;
-		
-		
+
 	}
-	
+
 	public List<StoreItemDto> tractorStoreItems() {
 		List<StoreItemDto> result = new ArrayList<StoreItemDto>();
-		Store store  = Store.find("byName","tractor").first();
-		List<Item> items = Item.find("byStore",store).fetch();
-		for (Item item: items) {
+		Store store = Store.find("byName", "tractor").first();
+		List<Item> items = Item.find("byStore", store).fetch();
+		for (Item item : items) {
 			StoreItemDto storeDto = new StoreItemDto();
 			storeDto.id = item.id;
 			storeDto.name = item.name;
+			storeDto.description = item.description;
 			storeDto.url = item.imageurl;
-			storeDto.price = (double)item.price;
+			storeDto.price = (double) item.price;
 			storeDto.store = item.store.name;
 			result.add(storeDto);
 		}
 		return result;
 	}
-	
+
 	public List<StoreItemDto> terrainStoreItems() {
 		List<StoreItemDto> result = new ArrayList<StoreItemDto>();
 		List<Terrain> terrains = Terrain.findAll();
 		for (Terrain terrain : terrains) {
 			StoreItemDto item = new StoreItemDto();
 			item.id = terrain.id;
-			item.name = terrain.description;
+			item.name = terrain.name;
+			item.description = terrain.description;
 			item.url = terrain.imageurl;
 			result.add(item);
 		}
 		return result;
 	}
-	
+
 	public List<StoreItemDto> terrainSizeItems() {
 		List<StoreItemDto> result = new ArrayList<StoreItemDto>();
 		List<TerrainSize> terrains = TerrainSize.findAll();
@@ -153,6 +158,7 @@ public class StoreServiceImpl implements StoreService {
 			StoreItemDto item = new StoreItemDto();
 			item.id = terrainSize.id;
 			item.name = terrainSize.name;
+			item.description = terrainSize.description;
 			item.url = terrainSize.imageurl;
 			item.size = terrainSize.size;
 			item.price = terrainSize.price;
@@ -160,7 +166,7 @@ public class StoreServiceImpl implements StoreService {
 		}
 		return result;
 	}
-	
+
 	public List<StoreItemDto> terrainBaseItems() {
 		List<StoreItemDto> result = new ArrayList<StoreItemDto>();
 		List<Base> bases = Base.findAll();
@@ -168,13 +174,14 @@ public class StoreServiceImpl implements StoreService {
 			StoreItemDto item = new StoreItemDto();
 			item.id = base.id;
 			item.name = base.name;
-			item.price = (double)base.price;
+			item.description = base.description;
+			item.price = (double) base.price;
 			item.url = base.imageurl;
 			result.add(item);
 		}
 		return result;
 	}
-	
+
 	public List<StoreItemDto> plantTypes() {
 		List<StoreItemDto> result = new ArrayList<StoreItemDto>();
 		List<PlantType> types = PlantType.findAll();
@@ -182,99 +189,106 @@ public class StoreServiceImpl implements StoreService {
 			StoreItemDto item = new StoreItemDto();
 			item.id = plantType.id;
 			item.name = plantType.name;
+			item.description = plantType.description;
 			item.url = plantType.imageurl;
 			result.add(item);
 		}
 		return result;
 	}
-	
+
 	public List<StoreItemDto> seedlingTypes() {
 		List<StoreItemDto> result = new ArrayList<StoreItemDto>();
 		List<SeedlingType> types = SeedlingType.findAll();
 		for (SeedlingType seedlingType : types) {
 			StoreItemDto item = new StoreItemDto();
 			item.id = seedlingType.id;
-			item.name = seedlingType.description;
+			item.name = seedlingType.name;
+			item.description = seedlingType.description;
 			item.url = seedlingType.imageurl;
 			result.add(item);
 		}
 		return result;
 	}
-	
+
 	public List<StoreItemDto> irrigationStoreItems() {
 		List<StoreItemDto> result = new ArrayList<StoreItemDto>();
-		Store store  = Store.find("byName","irrigation").first();
-		List<Item> items = Item.find("byStore",store).fetch();
-		for (Item item: items) {
+		Store store = Store.find("byName", "irrigation").first();
+		List<Item> items = Item.find("byStore", store).fetch();
+		for (Item item : items) {
 			StoreItemDto storeDto = new StoreItemDto();
 			storeDto.id = item.id;
 			storeDto.name = item.name;
+			storeDto.description = item.description;
 			storeDto.url = item.imageurl;
-			storeDto.price = (double)item.price;
+			storeDto.price = (double) item.price;
 			storeDto.store = item.store.name;
 			result.add(storeDto);
 		}
 		return result;
 	}
-	
+
 	public List<StoreItemDto> fertilizerStoreItems() {
 		List<StoreItemDto> result = new ArrayList<StoreItemDto>();
-		Store store  = Store.find("byName","fertilizer").first();
-		List<Item> items = Item.find("byStore",store).fetch();
-		for (Item item: items) {
+		Store store = Store.find("byName", "fertilizer").first();
+		List<Item> items = Item.find("byStore", store).fetch();
+		for (Item item : items) {
 			StoreItemDto storeDto = new StoreItemDto();
 			storeDto.id = item.id;
 			storeDto.name = item.name;
+			storeDto.description = item.description;
 			storeDto.url = item.imageurl;
-			storeDto.price = (double)item.price;
+			storeDto.price = (double) item.price;
 			storeDto.store = item.store.name;
 			result.add(storeDto);
 		}
 		return result;
 	}
-	
+
 	public List<StoreItemDto> sprayingStoreItems() {
 		List<StoreItemDto> result = new ArrayList<StoreItemDto>();
-		Store store  = Store.find("byName","spraying").first();
-		List<Item> items = Item.find("byStore",store).fetch();
-		for (Item item: items) {
+		Store store = Store.find("byName", "spraying").first();
+		List<Item> items = Item.find("byStore", store).fetch();
+		for (Item item : items) {
 			StoreItemDto storeDto = new StoreItemDto();
 			storeDto.id = item.id;
 			storeDto.name = item.name;
+			storeDto.description = item.description;
 			storeDto.url = item.imageurl;
-			storeDto.price = (double)item.price;
+			storeDto.price = (double) item.price;
 			storeDto.store = item.store.name;
 			result.add(storeDto);
 		}
 		return result;
 	}
-	
+
 	public List<StoreItemDto> otherStoreItems() {
 		List<StoreItemDto> result = new ArrayList<StoreItemDto>();
-		Store store  = Store.find("byName","other").first();
-		List<Item> items = Item.find("byStore",store).fetch();
-		for (Item item: items) {
+		Store store = Store.find("byName", "other").first();
+		List<Item> items = Item.find("byStore", store).fetch();
+		for (Item item : items) {
 			StoreItemDto storeDto = new StoreItemDto();
 			storeDto.id = item.id;
 			storeDto.name = item.name;
+			storeDto.description = item.description;
 			storeDto.url = item.imageurl;
-			storeDto.price = (double)item.price;
+			storeDto.price = (double) item.price;
 			storeDto.store = item.store.name;
 			result.add(storeDto);
 		}
 		return result;
 	}
-	
+
 	public List<StoreItemDto> allStores() {
 		List<StoreItemDto> result = new ArrayList<StoreItemDto>();
-		List<Store> stores  = Store.findAll();
-		for (Store store: stores) {
+		List<Store> stores = Store.findAll();
+		for (Store store : stores) {
 			StoreItemDto storeDto = new StoreItemDto();
 			storeDto.name = store.name;
+			storeDto.description = store.description;
 			storeDto.url = store.imageurl;
 			result.add(storeDto);
 		}
 		return result;
 	}
-	
+
 }

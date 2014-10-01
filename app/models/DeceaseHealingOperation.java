@@ -34,5 +34,5 @@ public class DeceaseHealingOperation extends Model {
 	 * The decease from which the operation heals
 	 */
 	@ManyToOne
-	public Decease decease;
+	public Disease decease;
 }

@@ -2,7 +2,7 @@ package service;
 
 import java.util.List;
 
-import models.Decease;
+import models.Disease;
 import models.ExecutedOperation;
 import models.Farmer;
 import dto.DiseaseOccurenceProb;
@@ -14,6 +14,6 @@ public interface DiseaseService {
 	public int diseases(Farmer farmer);
 	public List<String> getOccurredDiseasesLast15Days(Farmer farmer);
 	public List<DiseaseProtectingOperationDto> getMmax(Farmer farmer,
-			Decease disease);
+			Disease disease);
 	public List<ExecutedOperation> getProtections(Farmer f);
 }

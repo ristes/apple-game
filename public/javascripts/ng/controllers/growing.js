@@ -12,9 +12,9 @@ Game.controller('GrowingStateController', [
     '$window',
     '$day',
     '$plantation',
-    '$diseases',
+    'Diseases',
     function($scope, $location, $http, Store, StoreItems, Operations, $farmer,
-            $items, $weather, toaster, $window, $day, $plantation, $diseases) {
+            $items, $weather, toaster, $window, $day, $plantation, Diseases) {
 
       $scope.nextDay = true;
 
@@ -42,7 +42,7 @@ Game.controller('GrowingStateController', [
 
       $farmer.load();
       $weather.load();
-      $diseases.load();
+      Diseases.load();
 
       $scope.$root.$watch('day.season_level', function(n) {
         if (!n) return;
@@ -105,15 +105,15 @@ Game.controller('GrowingStateController', [
             var p = r.cols[i];
             if (p.active && isInCoords(p)) {
               r.cols[i].tree = $scope.$root.farmer.plant_url;
-              r.cols[i].treeCls = 'seedling';
+              r.cols[i].treeCls = 'seedling clickable';
             }
           }
 
         }
       });
 
-      $scope.portionClick = function(p) {
+      $scope.treeClick = function(p) {
         $scope.$root.$emit('operation-desease-analysis');
-      }
+      };
 
     }]);

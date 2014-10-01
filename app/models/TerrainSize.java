@@ -10,6 +10,7 @@ import play.db.jpa.Model;
 public class TerrainSize extends Model{
 	
 	public String name;
+	public String description;
 	public Double size;
 	public Double price;
 	public String imageurl;

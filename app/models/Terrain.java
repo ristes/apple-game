@@ -15,15 +15,16 @@ import play.db.jpa.Model;
  * 
  */
 @Entity
-@Table(name="terrain")
+@Table(name = "terrain")
 public class Terrain extends Model {
 
+	public String name;
 	/**
 	 * The description for the terrain, shown in the process of buying of the
 	 * field.
 	 */
 	public String description;
-	
+
 	public String imageurl;
 
 	@OneToOne

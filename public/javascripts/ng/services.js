@@ -15,30 +15,7 @@ Game.factory('jQuery', function() {
   return jQuery;
 });
 
-Game.factory('Store', ['$resource', function($resource) {
-  return $resource('', {}, {
-    'buy': {
-      method: 'POST',
-      url: '/storecontroller/buyItem'
-    },
-    'buyItem': {
-      method: 'POST',
-      url: '/storecontroller/buyItem'
-    },
-    'buyTerrain': {
-      method: 'POST',
-      url: '/terrainshop/buyTerrain'
-    },
-    'buyBase': {
-      method: 'POST',
-      url: '/terrainshop/buyBase'
-    },
-    'buySeedling': {
-      method: 'POST',
-      url: '/terrainshop/buySeedling'
-    }
-  });
-}]);
+
 /*
 Game.factory('StoreItems', ['$http', function($http) {
 		

@@ -65,21 +65,16 @@ Game
 								$scope.isLoading = false;
 								$scope.isSuccessful = true;
 
-								console.info("Preload Successful");
 
 							}, function handleReject(imageLocation) {
 
 								$scope.isLoading = false;
 								$scope.isSuccessful = false;
 
-								console.error("Image Failed", imageLocation);
-								console.info("Preload Failure");
 
 							}, function handleNotify(event) {
 
 								$scope.percentLoaded = event.percent;
-
-								console.info("Percent loaded:", event.percent);
 
 							});
 

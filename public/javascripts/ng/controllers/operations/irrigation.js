@@ -1,70 +1,34 @@
-Game.controller('IrrigationController', [
-    '$scope',
-    '$translate',
-    '$http',
-    'Store',
-    'StoreItems',
-    'Operations',
-    '$farmer',
-    '$items',
-    '$weather',
-    '$interval',
-    '$timeout',
-    '$irrigate',
-    'jQuery',
-    function($scope, $translate, $http, Store, StoreItems, Operations, $farmer,
-            $items, $weather, $interval, $timeout, $irrigate, $) {
+Game.controller('IrrigationController', ['$scope', '$day', '$interval',
+    '$timeout', '$irrigate', 'jQuery',
+    function($scope, $day, $interval, $timeout, $irrigate, $) {
 
       $scope.visible = false;
-      $scope.irrigationUrl = '/public/images/game/operations/irrigation.png';
       $scope.showNext = true;
       $scope.enableOther = true;
+      $scope.info = {
+        mmRain: $day.get().cumulativeHumidity
+      };
 
       $scope.holder = {};
       $scope.holder.duration = 0;
 
       function onIrrigation(_s, oper) {
         $scope.$root.$emit("side-hide");
-        var hasItem = $items.check('irrigation');
-        if (!hasItem) {
-          $scope.$root.$emit('shop-show', {
-            items: $scope.$root.storeItems['irrigation'],
-            showNext: true,
-            storeUrl: oper.ico,
-            shop: {
-              name: 'irrigation'
-            },
-            onItemClick: onBuyItem
-          });
-
-        } else {
-          var types = extractIrrigationItems();
-
-          if (types.length > 1) {
-
-            // select which irrigation to start
-            $scope.$root.$emit('shop-show', {
-              items: types,
-              showNext: true,
-              storeUrl: oper.ico,
-              shop: {
-                name: 'irrigation'
-              },
-              onItemClick: showIrrigation
-            });
-          } else {
-            showIrrigation(types[0]);
-          }
-        }
+        $irrigate.getTypeAsync(showIrrigation);
       }
 
       function showIrrigation(type) {
+        if(!type) {
+          console.log('no type');
+          return;
+        }
         $scope.$root.$emit('shop-hide');
-        var t = (type.name == 'KapkovoNavodnuvanje' ? 1 : 0);
-        $scope.startIrrigate = $irrigate[t ? 'dropsIrrigation'
-                : 'groovesIrrigation'];
-        if ($scope.hasTensiometer) {
-          var res = $irrigate.tensiometerTime(t ? 1 : 0);
+        $scope.nextType = $irrigate.nextIrrigationType(type);
+
+        $scope.startIrrigate = $irrigate[type.name + 'Irrigation'];
+        $scope.hasTensiometer = type.hasTensiometer;
+        if (type.hasTensiometer) {
+          var res = $irrigate.tensiometerTime();
           res.success(function(data) {
             $scope.holder.duration = data;
             $scope.holder.best = data;
@@ -103,26 +67,9 @@ Game.controller('IrrigationController', [
         }
       }
 
-      function onBuyItem(item) {
-        Store['buyItem']({
-          itemName: item.name,
-          quantity: item.perHa ? $scope.plantation.area : 1,
-          currentState: $scope.$root.farmer.currentState
-        }, null, function(result) {
-          if (result.balans) {
-            $items.add(item.store, item);
-            $farmer.swap(result);
-            $scope.$root.$emit('shop-hide');
-            $scope.visible = true;
-          } else {
-            $scope.$root.$emit('insuficient-funds');
-          }
-        }).$promise['finally'](function() {
-          $scope.$root.$emit('item-bought');
-
-        });
+      $scope.buy = function(nextType) {
+        $irrigate.buy(nextType, showIrrigation)
       }
-      ;
 
       var unreg = $scope.$root.$on('operation-irrigation', onIrrigation);
 
@@ -138,23 +85,6 @@ Game.controller('IrrigationController', [
           unregHide();
         }
       });
-
-      function extractIrrigationItems() {
-        var types = $items.get('irrigation');
-
-        var result = [];
-
-        for (var i = 0; i < types.length; i++) {
-          if (types[i].name == 'tensiometer') {
-            $scope.hasTensiometer = true;
-          } else {
-            result.push(types[i]);
-          }
-        }
-
-        return result;
-
-      }
 
       $scope.cfg = {
         range: "max",

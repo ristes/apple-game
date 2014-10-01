@@ -2,8 +2,8 @@
 		ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
 		
 	<div class="shop_icon">
-		<img class="shop_icon-img" ng-src="{{storeUrl}}"></img>
-		<div class="shop-label ramka">
+		<img class="shop_icon-img" ng-src="{{storeUrl}}"  popover-trigger="mouseenter" popover-placement="bottom" popover="{{shop.description}}"></img>
+		<div class="shop-label ramka" popover-trigger="mouseenter" popover-placement="bottom" popover="{{shop.description}}">
 			<span class="shop-label-text">{{shop.name | translate}}</span> 
 		</div>
 	</div>
@@ -11,7 +11,8 @@
 	<div class="shop_arrow" ng-show="showNext" ng-click="hide()"></div>
 	
 	<div class="shop_menu_grid">
-		<div class="shop_item_in_grid" ng-repeat="item in items" ng-click="itemClick(item)">
+		<div class="shop_item_in_grid" ng-repeat="item in items" ng-click="itemClick(item)" 
+				popover-trigger="mouseenter" popover-placement="bottom" popover="{{item.description}}">
 			<img ng-src="{{item.url}}"></img>
 			<div class="shop-item-label ramka"  ng-click="itemClick(item)">
 				<span class="title-text" translate="{{item.name}}"></span>

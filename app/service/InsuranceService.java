@@ -1,7 +1,7 @@
 package service;
 
 import exceptions.NotEnoughMoneyException;
-import models.Decease;
+import models.Disease;
 import models.Farmer;
 import models.OccurredDecease;
 

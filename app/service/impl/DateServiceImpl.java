@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import models.Day;
-import models.Decease;
+import models.Disease;
 import models.ExecutedOperation;
 import models.Farmer;
 import models.OperationBestTimeInterval;

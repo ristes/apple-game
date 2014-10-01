@@ -5,7 +5,7 @@ import java.util.List;
 
 import models.GameContext;
 import models.Plantation;
-import models.Decease;
+import models.Disease;
 import models.DeceaseImpact;
 import models.ExecutedOperation;
 import play.mvc.Controller;
@@ -16,7 +16,7 @@ public class Deceases extends Controller {
 
 	static DeceasesDao deceases;
 
-	public static void shouldDeceaseOccure(Decease decease,
+	public static void shouldDeceaseOccure(Disease decease,
 			Plantation plantation, Date date) {
 
 		List<ExecutedOperation> executedValidOperations = deceases

@@ -1,19 +1,10 @@
 Game.controller('FertilizingController', [
     '$scope',
-    '$translate',
-    '$http',
-    'Store',
-    'StoreItems',
-    'Operations',
-    '$farmer',
-    '$items',
-    '$weather',
-    '$fertilize',
+    'Fertilize',
     '$timeout',
     '$interval',
     '$window',
-    function($scope, $translate, $http, Store, StoreItems, Operations, $farmer,
-            $items, $weather, $fertilize, $timeout, $interval, $window) {
+    function($scope, Fertilize, $timeout, $interval, $window) {
 
       $scope.fertilizer = {
         n: 40,
@@ -98,24 +89,25 @@ Game.controller('FertilizingController', [
         var time = 10 * 50;
 
         if (!$scope.fertilizeProgress) {
-          $fertilize.fertilize($scope.fertilizer);
+          Fertilize.fertilize($scope.fertilizer, function() {
 
-          $scope.status = 0;
-          $scope.fertilizeProgress = true;
+            $scope.status = 0;
+            $scope.fertilizeProgress = true;
 
-          $interval(function() {
-            $scope.status += 100 / time;
-            $scope.showStatus = Math.round($scope.status);
-            if ($scope.status > 100) {
-              $scope.status = 100;
-            }
+            $interval(function() {
+              $scope.status += 100 / time;
+              $scope.showStatus = Math.round($scope.status);
+              if ($scope.status > 100) {
+                $scope.status = 100;
+              }
 
-          }, interval, time);
+            }, interval, time);
 
-          $timeout(function() {
-            $scope.fertilizeProgress = false;
-            $scope.hide();
-          }, interval * (time + 1));
+            $timeout(function() {
+              $scope.fertilizeProgress = false;
+              $scope.hide();
+            }, interval * (time + 1));
+          });
 
         }
       }

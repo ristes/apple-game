@@ -4,18 +4,25 @@
 		
 		
 		<div class="shop_icon">
-			<img src="{{irrigationUrl}}" style="width:75%;"></img>
+			<img src="{{type.url}}" style="width:75%;"></img>
 			<div class="shop-label ramka">
-				<span class="shop-label-text" translate="irrigation"></span> 
+				<span class="shop-label-text">
+					{{ 'irrigation.'+type.name | translate }}
+				</span> 
 			</div>
 		</div>
 		
 		<div class="shop_arrow" ng-show="showNext" ng-click="hide()"></div>
 		
 		<div class="shop_menu_grid fa-stack-2x fa-inverse" ng-show="enableOther">
-		
+			<div id="mm-rain">
+				{{ 'irrigation.mm_rain' | translate: info }}
+			</div>
+			<div id="irrigation-description">
+				{{ 'irrigation.'+type.name+"_info" | translate: type }} 
+			</div>
 			<div id="irrigation-info" ng-show="holder.best!=null">
-				{{ 'tensiometer.recomended' | translate }} {{holder.best}} {{ 'hours' | translate }}
+				{{ 'irrigation.tensiometer_recomended' | translate }} {{holder.best}} {{ 'hours' | translate }}
 			</div>
 			<div id="irrigation-info" ng-show="!hasTensiometer">
 				{{ 'irrigation.choose_duration' | translate }}
@@ -26,11 +33,14 @@
 			<div>
 				<span ng-show="td" >{{td}} h</span>
 				<span ng-show="!td" > {{holder.duration}} h</span>
-				<button class="btn btn-xs" ng-click="irrigate()">irrigate</button>
+				<button class="btn btn-xs" ng-click="irrigate()">{{ 'irrigation.irrigate' | translate }}</button>
 			</div>
-			<!-- <div class="shop_item_in_grid" ng-repeat="item in items">
-				<div class="shop_icon_in_grid" title="{{item.name}}" style="background-image:url('{{item.url}}')" ng-click="itemClick(item)"></div>
-			</div> -->
+			<div class="buy-better-irrigation" ng-show="nextType">
+				<div>
+					{{ "irrigation."+nextType+"_benefits" | translate}}
+				</div>
+				<button class="btn btn-xs" ng-click="buy(nextType)">{{ 'action.buy' | translate }} {{ 'irrigation.'+nextType | translate}} </button>
+			</div>
 		</div>
 	</div>
 	
