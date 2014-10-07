@@ -46,7 +46,7 @@ import utils.GameUtils;
  * 
  */
 @Entity
-@Table(name="farmer")
+@Table(name = "farmer")
 public class Farmer extends Model {
 
 	public String username;
@@ -107,10 +107,10 @@ public class Farmer extends Model {
 
 	public String soil_url;
 	public String plant_url;
-	
+
 	/**
-	 * flags that represents the restarted state of the farmer
-	 * if set to false, the farmer is deactivated
+	 * flags that represents the restarted state of the farmer if set to false,
+	 * the farmer is deactivated
 	 */
 	public Boolean is_active;
 
@@ -130,19 +130,19 @@ public class Farmer extends Model {
 	 * (not need) it's clear 2 - (medium) little grass 3 - (high) lot of grass
 	 */
 	public Double digging_coef;
-	
+
 	public String fb_access_token;
-	
+
 	public String name;
-	
+
 	public String surname;
-	
+
 	public String email;
-	
+
 	public String picture;
-	
+
 	public boolean sharedApp;
-	
+
 	public Double cumulativeRains;
 
 	/**
@@ -158,9 +158,9 @@ public class Farmer extends Model {
 	public Double getBalance() {
 		return balans;
 	}
-	
+
 	public void setBalance(Double balance) {
 		this.balans = balance;
 	}
-	
+
 }

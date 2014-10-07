@@ -15,18 +15,18 @@ import exceptions.NotEnoughMoneyException;
 
 public class HarvestingController extends GameController {
 
-	public static void harvest(Integer goodcollected, Integer goodtotal, Integer badcollected, Integer badtotal) throws Exception {
+	public static void harvest() throws Exception {
 
 		Farmer farmer = checkFarmer();
-		
 		HarvestService hService = new HarvestServiceImpl();
 		double goodper = goodcollected / (double)goodtotal;
 		double badper = badcollected / (double) badtotal;
 		farmer = hService.makeHarvesting(farmer, goodper, badper);
+		farmer = hService.makeHarvesting(farmer);
+
 		StatusDto status = new StatusDto(true, "Успешна берба",
 				String.valueOf(farmer.apples_in_stock), farmer);
-		JsonController.toJson(status, "gameDate", "field", "weatherType",
-				"plantation");
+		JsonController.toJson(status, FARMER_EXCLUDES);
 	}
 
 }

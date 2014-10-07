@@ -1,11 +1,15 @@
 package controllers;
 
+import exceptions.UnauthorizedException;
 import models.Farmer;
-import exceptions.NotEnoughMoneyException;
 import play.mvc.Catch;
 import play.mvc.Controller;
+import play.mvc.Http;
 
 public class GameController extends Controller {
+
+	static final String[] FARMER_EXCLUDES = { "gameDate", "field",
+			"weatherType", "plantation" };
 
 	public static class ExceptionStatus {
 		public boolean status = false;
@@ -20,13 +24,15 @@ public class GameController extends Controller {
 
 	@Catch
 	public static void notEnoughMoney(final Exception ex) {
+		response.status = Http.StatusCode.BAD_REQUEST;
 		renderJSON(new ExceptionStatus(ex));
 	}
 
 	protected static Farmer checkFarmer() {
 		Farmer farmer = AuthController.getFarmer();
 		if (farmer == null) {
-			error("Not logged in");
+			response.status = Http.StatusCode.UNAUTHORIZED;
+			renderJSON(new ExceptionStatus(new UnauthorizedException()));
 		}
 		return farmer;
 	}
