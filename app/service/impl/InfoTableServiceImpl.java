@@ -1,5 +1,6 @@
 package service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import models.Farmer;
@@ -64,6 +65,9 @@ public class InfoTableServiceImpl implements InfoTableService{
 
 	@Override
 	public List<InfoTableInstance> news(Farmer farmer) {
+		if (farmer==null) {
+			return new ArrayList<InfoTableInstance>();
+		}
 		List<InfoTableInstance> news = InfoTableInstance.find("byPlantationAndIsRead",farmer.field.plantation,false).fetch();
 		for (InfoTableInstance ins : news) {
 			ins.isRead = true;

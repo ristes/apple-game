@@ -29,6 +29,7 @@ import service.HumidityDropsService;
 import service.HumidityGroovesService;
 import service.HumidityService;
 import service.LandTreatmanService;
+import service.RandomGeneratorService;
 import service.YieldService;
 
 public class ContextServiceImpl implements ContextService {
@@ -82,6 +83,23 @@ public class ContextServiceImpl implements ContextService {
 		return avg_rain;
 	}
 
+	public Double calculateRainForPrevDays(Farmer farmer, Integer days) {
+		Double result = 0.0;
+		for (int i = 0; i < days; i++) {
+			long dayOrder = farmer.gameDate.dayOrder - days + i;
+			Day prevDay = Day.find("byDayOrder", dayOrder).first();
+			RandomGeneratorService rS = new RandomGeneratorServiceImpl();
+			if (prevDay != null) {
+				Calendar c = Calendar.getInstance();
+
+				Integer randm = rS.random(0.0, 12.0).intValue();
+				result += rainCoefForMonth(c.get(Calendar.MONTH)) * randm;
+			}
+
+		}
+		return result;
+	}
+
 	public void calculateCumulatives(Farmer farmer) {
 		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl
 				.load_hash(C.COEF_HUMIDITY_YML);
@@ -89,9 +107,12 @@ public class ContextServiceImpl implements ContextService {
 		c.setTime(farmer.gameDate.date);
 		Day today = farmer.gameDate;
 		if (today.weatherType.id == C.WEATHER_TYPE_RAINY) {
-			// double avg_rain = coefs.get(C.KEY_RAIN_COEFS).get(
-			// c.get(Calendar.MONTH));
-			farmer.deltaCumulative += rainCoefForMonth(c.get(Calendar.MONTH));
+			RandomGeneratorService rS = new RandomGeneratorServiceImpl();
+
+			Integer randm = rS.random(0.0, 12.0).intValue();
+			farmer.deltaCumulative += rainCoefForMonth(c.get(Calendar.MONTH))
+					* randm;
+			farmer.rain_values = calculateRainForPrevDays(farmer, 5);
 		}
 
 		if (farmer.gameDate.dayOrder % 8 == 0) {
