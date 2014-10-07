@@ -20,7 +20,7 @@ import service.impl.RandomGeneratorServiceImpl;
 import service.impl.StoreServiceImpl;
 
 @Entity
-@Table(name="plantation")
+@Table(name = "plantation")
 public class Plantation extends Model {
 
 	/**
@@ -28,7 +28,7 @@ public class Plantation extends Model {
 	 * actions
 	 */
 	public int currentQuantity;
-	
+
 	/**
 	 * need of minerals
 	 */
@@ -39,19 +39,19 @@ public class Plantation extends Model {
 	public Boolean needB;
 	public Boolean needZn;
 	public Boolean needMg;
-	
-	
+
 	/**
-	 * JSON Array representing (x,y) values of every tree positioned on the plantation in form of String (javascript parsing)
-	 * ex: "[{0,0},{0,1},{1,1},{2,2}]
+	 * JSON Array representing (x,y) values of every tree positioned on the
+	 * plantation in form of String (javascript parsing) ex:
+	 * "[{0,0},{0,1},{1,1},{2,2}]
 	 */
-	@Column(length=5000)
+	@Column(length = 5000)
 	public String treePositions;
 
 	/**
 	 * Used for visual representation of the trees
 	 */
-	
+
 	public int treeSize;
 
 	/**
@@ -79,9 +79,6 @@ public class Plantation extends Model {
 	@JsonIgnore
 	@OneToOne(mappedBy = "plantation")
 	public Field field;
-	
-	@OneToMany(mappedBy="plantation")
-	public List<InfoTableInstance> infoTables; 
 
 	/**
 	 * The deceases that occurred on this plantation
@@ -89,10 +86,10 @@ public class Plantation extends Model {
 	@JsonIgnore
 	@OneToMany(mappedBy = "plantation")
 	public List<OccurredDecease> deseases;
-	
+
 	@ManyToOne
 	public TerrainAnalysis analyse;
-	
+
 	public static Plantation buildInstance() {
 		RandomGeneratorService rgS = new RandomGeneratorServiceImpl();
 		Long rAnalyse = rgS.random(1l, 5l).longValue();
@@ -108,7 +105,7 @@ public class Plantation extends Model {
 		p.needZn = false;
 		p.analyse = ta;
 		p.save();
-		
+
 		return p;
 	}
 

@@ -18,7 +18,10 @@ Game.controller('HarvestingController', [
           title: 'progress.harvest',
           duration: oper.duration
         });
+        
+        
         var res = $http.get("/HarvestingController/harvest");
+        
         res.success(function(data) {
           $day.load(data.farmer);
           var res1 = $http.get("/salecontroller/sale?quantity="

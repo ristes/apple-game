@@ -26,27 +26,17 @@ import play.mvc.Controller;
 import service.HarvestService;
 import service.impl.HarvestServiceImpl;
 
-public class HarvestingController extends Controller {
+public class HarvestingController extends GameController {
 
-	public static void harvest() throws NotEnoughMoneyException,
-			JsonGenerationException, JsonMappingException, IOException {
+	public static void harvest() throws Exception {
 
-		Farmer farmer = AuthController.getFarmer();
-		if (farmer == null) {
-			redirect("/Crafty/login");
-		}
+		Farmer farmer = checkFarmer();
 		HarvestService hService = new HarvestServiceImpl();
-		try {
-			farmer = hService.makeHarvesting(farmer);
-		} catch (NotAllowedException ex) {
-			error("Not allowed");
-		} catch (NotEnoughMoneyException ex) {
-			error("Not enough money");
-		}
+		farmer = hService.makeHarvesting(farmer);
+
 		StatusDto status = new StatusDto(true, "Успешна берба",
 				String.valueOf(farmer.apples_in_stock), farmer);
-		JsonController.toJson(status, "gameDate", "field", "weatherType",
-				"plantation");
+		JsonController.toJson(status, FARMER_EXCLUDES);
 	}
 
 }
