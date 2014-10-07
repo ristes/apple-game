@@ -36,6 +36,7 @@ public class WeatherController extends Controller {
 			myday = day.get(0);
 		}
 		List<String> listDayOrders = new ArrayList<String>();
+		
 
 		for (int i = 0; i < fordaysInt; i++) {
 			long dayOrder = myday.dayOrder - fordaysInt / 2 + i;

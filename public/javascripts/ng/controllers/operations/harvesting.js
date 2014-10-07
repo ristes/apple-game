@@ -12,12 +12,17 @@ Game.controller('HarvestingController', [
     function($scope, $translate, $http, Store, StoreItems, Operations, $farmer,
             $items, $weather, $day) {
 
-      var unreg = $scope.$root.$on('operation-harvest', function(_s, oper) {
-
+    	  
+    	  //TODO: open panel to choose weather to play the game or not
+    	  
+    	  // not playing => call service with score = 0.7
+    	  // otherwise show game panel, and disable clicking anywhere else
+    	/*
         $scope.$root.$emit('show-progress-global', {
           title: 'progress.harvest',
           duration: oper.duration
         });
+        */
         var res = $http.get("/HarvestingController/harvest");
         res.success(function(data) {
           $day.load(data.farmer);
@@ -27,12 +32,12 @@ Game.controller('HarvestingController', [
             $day.load(data.farmer);
           });
         });
-      });
+        $scope.$on("$destroy", function() {
+            if (unreg) {
+              unreg();
+            }
+          });
+      }]);
 
-      $scope.$on("$destroy", function() {
-        if (unreg) {
-          unreg();
-        }
-      });
+    
 
-    }]);

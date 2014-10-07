@@ -5,5 +5,5 @@ import exceptions.NotAllowedException;
 import exceptions.NotEnoughMoneyException;
 
 public interface HarvestService {
-	public Farmer makeHarvesting(Farmer farmer) throws NotEnoughMoneyException, NotAllowedException;
+	public Farmer makeHarvesting(Farmer farmer, Double goodper, Double badper) throws NotEnoughMoneyException, NotAllowedException;
 }

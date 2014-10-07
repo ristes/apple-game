@@ -61,6 +61,8 @@ public class Farmer extends Model {
 	public Double luck_dev;
 
 	public Double luck_avg;
+	
+	public Double rain_values;
 
 	@OneToMany(mappedBy = "farmer")
 	public List<Yield> yields;

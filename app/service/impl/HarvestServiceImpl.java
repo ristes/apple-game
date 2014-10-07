@@ -11,7 +11,7 @@ import service.MoneyTransactionService;
 
 public class HarvestServiceImpl implements HarvestService {
 
-	public Farmer makeHarvesting(Farmer farmer) throws NotEnoughMoneyException, NotAllowedException{
+	public Farmer makeHarvesting(Farmer farmer, Double goodper, Double badper) throws NotEnoughMoneyException, NotAllowedException{
 		double expense = farmer.field.area * 3000;
 		MoneyTransactionService moneyService = new TransactionServiceImpl();
 		moneyService.commitMoneyTransaction(farmer, -expense);
@@ -26,7 +26,12 @@ public class HarvestServiceImpl implements HarvestService {
 		if (month != 8) {
 			throw new NotAllowedException();
 		}
-		int q = farmer.productQuantity;
+		//scaling to decrease the looses harvesting bad apples
+		badper = badper*0.2;
+		int q = (int)(farmer.productQuantity*goodper-farmer.productQuantity*badper);
+		if (q < 0) {
+			q = 0;
+		}
 		farmer.apples_in_stock += q;
 		farmer.productQuantity = 0;
 		farmer.save();
