@@ -1,1 +1,17 @@
-<div ng-init="initStore('base','buy_seedlings','buyBase','/public/images/game/pocva-prodavnica-icon.png')"></div>
+<div class="seedling-planting" >
+
+	<div ng-repeat="base in bases" 
+		 popover-trigger="mouseenter" 
+		 popover-placement="bottom" 
+		 popover="{{base.description}}"
+		 ng-click="buyBase(base)">
+		 
+		<img ng-src="{{base.imageurl}}" class="seedling-type-header"></img>
+		
+		<div class="shop-item-label ramka">
+			<span class="title-text" translate="{{base.name}}"></span>
+		</div>
+		
+	</div>
+
+</div>

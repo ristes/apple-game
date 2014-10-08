@@ -103,13 +103,13 @@ public abstract class JsonController extends Controller {
 
 	protected static void farmerJson(Farmer farmer)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		toJson(farmer, "field", "gameDate", "weatherType", "plantation");
+		toJson(farmer, "field", "plantation");
 	}
 
 	protected static void statusJson(Farmer farmer)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		StatusDto status = new StatusDto(farmer != null, null, null, farmer);
-		toJson(status, "field", "gameDate", "weatherType", "plantation");
+		toJson(status, "field", "plantation");
 	}
 
 	protected static void toJacksonJson(Object o, String... expandFields)

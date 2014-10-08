@@ -56,10 +56,12 @@ public class TerrainShop extends Controller {
 		JsonController.farmerJson(farmer);
 	}
 
+	@Deprecated
 	public static void allBases() throws Exception {
 		JsonController.toJson(Base.findAll());
 	}
 
+	@Deprecated
 	public static void buyBase(Long itemid, String currentState)
 			throws Exception {
 		Farmer farmer = AuthController.getFarmer();
@@ -68,32 +70,9 @@ public class TerrainShop extends Controller {
 		JsonController.farmerJson(farmer);
 	}
 
+	@Deprecated
 	public static void allSeedlings() throws Exception {
 		JsonController.toJson(Seedling.findAll(), "seedlingType", "type");
 	}
 
-	public static void buySeedling(Long seedlingTypeId, Long plantTypeId,
-			String currentState) throws Exception {
-		Farmer farmer = AuthController.getFarmer();
-
-		StoreService storeService = new StoreServiceImpl();
-		farmer = storeService.buySeedling(farmer, seedlingTypeId, plantTypeId, currentState);
-		JsonController.farmerJson(farmer);
-	}
-	//TODO: Check this code productivity, otherwise delete it
-/*
-	public static void generateAllSeedlings() {
-		List<SeedlingType> stList = SeedlingType.findAll();
-		List<PlantType> ptList = PlantType.findAll();
-		for (SeedlingType st : stList) {
-			for (PlantType pt : ptList) {
-				Seedling s = new Seedling();
-				s.seedlingType = st;
-				s.type = pt;
-				s.price = 1;
-				s.save();
-			}
-		}
-	}
-*/
 }

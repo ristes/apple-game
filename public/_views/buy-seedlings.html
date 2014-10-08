@@ -1,1 +1,66 @@
-<div ng-init="initStore('seedlings','plantation')"></div>
+
+<div class="seedling-planting" >
+	<div  class="select-seedling">
+		<table>
+			<tr>
+				<td></td>
+				<td ng-repeat="st in seedlingTypes | orderBy: id">
+					<div popover-trigger="mouseenter" popover-placement="bottom" popover="{{st.description}}">
+						<img ng-src="{{st.imageurl}}" class="seedling-type-header"></img>
+						<div class="shop-item-label ramka">
+							<span class="title-text" translate="{{st.description}}"></span>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr ng-repeat="at in appleTypes">
+				<td>
+					<div popover-trigger="mouseenter" popover-placement="bottom" popover="{{at.description}}">
+						<img ng-src="{{at.imageurl}}" class="seedling-type-header"></img>
+						<div class="shop-item-label ramka">
+							<span class="title-text" translate="{{at.name}}"></span>
+						</div>
+					</div>
+				</td>
+				<td ng-repeat="s in seedlings | filter: { type: at } | orderBy: seedlingType.id" class="td-price">
+					<span class="seedling-price badge" ng-click="select(s)">{{s.price}}</span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<div class="select-seedling-quantity">
+		<h3>
+			{{ 'total' | translate }}: {{total()}}
+		</h3>
+		<table>
+			<tr ng-repeat="s in selected">
+				<td>
+					<div popover-trigger="mouseenter" popover-placement="bottom" popover="{{s.type.description}}">
+						<img ng-src="{{s.type.imageurl}}" class="seedling-type-header"></img>
+						<div class="shop-item-label ramka">
+							<span class="title-text" translate="{{s.type.name}}"></span>
+						</div>
+					</div>
+				</td>
+				<td>
+					<div popover-trigger="mouseenter" popover-placement="bottom" popover="{{s.seedlingType.description}}">
+						<img ng-src="{{s.seedlingType.imageurl}}" class="seedling-type-header"></img>
+						<div class="shop-item-label ramka">
+							<span class="title-text" translate="{{s.seedlingType.description}}"></span>
+						</div>
+					</div>
+				</td>
+				<td style="width:50px">
+					<input type="text" ng-model="s.quantity" style="width:50px"/>
+					{{ s.quantity* s.price }}
+				</td>
+				<td ng-click="removeSelected(s)">
+					<span class="remove badge">x</span> {{ 'remove' | translate }}
+				</td>
+			</tr>
+		</table>
+		<button class="btn btn-default btn-xs" ng-click="buySeedlings()">{{ 'buy_seedlings' | translate }}</button>
+	</div>
+	
+</div>

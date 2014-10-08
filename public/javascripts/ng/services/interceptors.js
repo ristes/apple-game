@@ -17,6 +17,7 @@ Game.factory('GameHttpInterceptors', ['$timeout', 'State',
               });
             }
           }
+          return response;
         },
         'response': function(response) {
           if (response.data && response.data.farmer) {
