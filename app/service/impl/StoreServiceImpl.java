@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.h2.table.Plan;
+
 import controllers.JsonController;
 import models.Base;
 import models.Farmer;
@@ -12,6 +14,7 @@ import models.Field;
 import models.Item;
 import models.PlantType;
 import models.Plantation;
+import models.PlantationSeedling;
 import models.Seedling;
 import models.SeedlingType;
 import models.Store;
@@ -60,11 +63,35 @@ public class StoreServiceImpl implements StoreService {
 		return farmer;
 	}
 
+	public Plantation getOrCreatePlantation(Farmer farmer) {
+		Plantation plantation = null;
+		try {
+			plantation = Plantation.find("field.owner.id", farmer.id).first();
+		} catch (Exception ex) {
+			return createPlantation(farmer);
+		}
+		if (plantation == null) {
+			return createPlantation(farmer);
+		} else {
+			return plantation;
+		}
+
+	}
+
+	public Plantation createPlantation(Farmer farmer) {
+		Field field = Field.find("owner.id", farmer.id).first();
+		Plantation plantation = Plantation.buildInstance();
+		field.plantation = plantation;
+		plantation.save();
+		field.save();
+		return Plantation.findById(plantation.id);
+	}
+
 	public Farmer buyBase(Farmer farmer, Long itemid, String currentState)
 			throws NotEnoughMoneyException {
 		Field field = Field.find("owner.id", farmer.id).first();
 
-		Plantation plantation = Plantation.buildInstance();
+		Plantation plantation = getOrCreatePlantation(farmer);
 		plantation.base = Base.findById(itemid);
 
 		field.plantation = plantation;
@@ -80,23 +107,25 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public Farmer buySeedling(Farmer farmer, Long seedlingTypeId,
-			Long plantTypeId, String currentState)
-			throws NotEnoughMoneyException {
-		Plantation plantation = Plantation.find("field.owner.id", farmer.id)
-				.first();
+	public Farmer buySeedling(Farmer farmer, List<PlantationSeedling> seedling,
+			String currentState) throws NotEnoughMoneyException {
 
-		plantation.seadlings = Seedling
-				.find("type.id=:t and seedlingType.id=:st")
-				.setParameter("t", plantTypeId)
-				.setParameter("st", seedlingTypeId).first();
-
-		farmer.currentState = currentState;
 		MoneyTransactionService moneyService = new TransactionServiceImpl();
-		Double value = plantation.seadlings.price * plantation.field.area;
+		Plantation plantation = getOrCreatePlantation(farmer);
+
+		Double value = 0d;
+		for (PlantationSeedling ps : seedling) {
+			value += ps.seedling.price * ps.quantity * plantation.field.area;
+		}
 		moneyService.commitMoneyTransaction(farmer, -value);
 
+		farmer.currentState = currentState;
+
 		plantation.save();
+		for (PlantationSeedling ps : seedling) {
+			ps.plantation = plantation;
+			ps.save();
+		}
 		farmer.save();
 		return farmer;
 	}

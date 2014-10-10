@@ -1,58 +1,78 @@
-Game.controller('BuySeadlingsController', ['$scope', '$translate', '$http',
-    'Store', 'StoreItems', '$farmer', '$items',
-    function($scope, $translate, $http, Store, StoreItems, $farmer, $items) {
+Game.controller('BuySeadlingsController', ['$scope', 'Planting',
+    function($scope, Planting) {
 
-      $scope.items = $scope.$root.storeItems['apple-type'];
+      $scope.seedlings = [];
+      $scope.appleTypes = [];
+      $scope.seedlingTypes = [];
+      $scope.bases = [];
 
-      $scope.$root.$emit('shop-show', {
-        items: $scope.items,
-        showNext: false,
-        shop: {
-          name: 'appleType'
-        },
-        storeUrl: '/public/images/game/stores/seedlings.png'
-      });
+      $scope.selected = {};
+      $scope.showBase = false;
+      $scope.seedlingChosen = false;
+      $scope.count = 0;
 
-      $scope.onSelectSize = function(_scope, item) {
-        $scope.plantTypeId = item.id;
-        $scope.unreg();
-        $scope.$root.$emit('shop-hide');
-        $scope.$root.$emit('item-bought');
-        $scope.items = $scope.$root.storeItems['seedling-type'];
-        $scope.$root.$emit('shop-show', {
-          items: $scope.items,
-          showNext: false,
-          shop: {
-            name: 'seedlingType'
-          },
-          storeUrl: '/public/images/game/stores/seedlings.png'
+      $scope.total = function() {
+        var total = 0;
+        angular.forEach($scope.selected, function(val) {
+          total += val.quantity * val.price;
         });
-        $scope.unreg = $scope.$root.$on('buy-item', $scope.onBuyItem);
+        return total;
+      }
 
-      };
-
-      $scope.onBuyItem = function(_scope, item) {
-        Store['buySeedling']({
-          seedlingTypeId: item.id,
-          plantTypeId: $scope.plantTypeId,
-          currentState: "/plantation"
-        }, null, function(result) {
-          if (result.balans) {
-            $items.add('seedlings', item);
-            $farmer.swap(result);
-            $scope.$root.$emit('shop-hide');
-          } else {
-            $scope.$root.$emit('insuficient-funds');
+      $scope.select = function(seedling) {
+        var key = seedling.type.id;
+        var q = 0;
+        if ($scope.selected[key]) {
+          q = $scope.selected[key].quantity;
+        }
+        seedling.quantity = q;
+        if ($scope.count >= 3 && !$scope.selected.hasOwnProperty(key)) {
+          alert('To many apple types. Remove some in order to add new')
+        } else {
+          if (!$scope.selected.hasOwnProperty(key)) {
+            $scope.count++;
           }
-        }).$promise['finally'](function() {
-          $scope.$root.$emit('item-bought');
+          $scope.selected[key] = seedling;
+        }
+      };
+
+      $scope.removeSelected = function(seedling) {
+        var key = seedling.type.id;
+        if ($scope.selected.hasOwnProperty(key)) {
+          $scope.count--;
+        }
+        delete $scope.selected[key];
+      };
+
+      $scope.buySeedlings = function() {
+        var bought = [];
+        angular.forEach($scope.selected, function(val) {
+          bought.push(val);
+        });
+        Planting.buySeedlings(bought, function() {
+          $scope.showBase = true;
         });
       };
 
-      $scope.unreg = $scope.$root.$on('buy-item', $scope.onSelectSize);
-
-      $scope.$on("$destroy", function() {
-        $scope.unreg();
-      })
+      Planting.seedlings(function(seedlings) {
+        var at = {};
+        var st = {};
+        // seedlings
+        $scope.seedlings = seedlings;
+        angular.forEach(seedlings, function(val) {
+          at[val.type.id] = val.type;
+          st[val.seedlingType.id] = val.seedlingType;
+        });
+        // plantTypes
+        $scope.appleTypes = [];
+        angular.forEach(at, function(val) {
+          $scope.appleTypes.push(val);
+        });
+        // seedlingTypes
+        $scope.seedlingTypes = [];
+        angular.forEach(st, function(val) {
+          $scope.seedlingTypes.push(val);
+        });
+      });
 
     }]);

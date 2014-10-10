@@ -1,37 +1,29 @@
 Game.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {
     templateUrl: '/public/_views/index.html'
-  })
-  .when('/login', {
+  }).when('/login', {
     templateUrl: '/public/_views/login.html',
-    controller : 'LoginController'
-  })
-  .when('/buy_tractor', {
+    controller: 'LoginController'
+  }).when('/buy_tractor', {
     templateUrl: '/public/_views/buy-tractor.html',
-    controller : 'StoreController'
-  })
-  .when('/buy_terrain', {
+    controller: 'StoreController'
+  }).when('/buy_terrain', {
     templateUrl: '/public/_views/buy-terrain.html',
-    controller : 'BuyTerrainController'
-  })
-  .when('/buy_base', {
-    templateUrl: '/public/_views/buy-base.html',
-    controller : 'StoreController'
-  })
-  .when('/buy_seedlings', {
+    controller: 'BuyTerrainController'
+  }).when('/buy_seedlings', {
     templateUrl: '/public/_views/buy-seedlings.html',
-    controller : 'BuySeadlingsController'
-  })
-  .when('/plantation', {
+    controller: 'BuySeadlingsController'
+  }).when('/buy_base', {
+    templateUrl: '/public/_views/buy-base.html',
+    controller: 'BuyBaseController'
+  }).when('/plantation', {
     templateUrl: '/public/_views/plantation.html',
-    controller : 'PlantingStateController'
-  })
-  .when('/growing', {
+    controller: 'PlantingStateController'
+  }).when('/growing', {
     templateUrl: '/public/_views/plantation.html',
-    controller : 'GrowingStateController'
-  })
-  .otherwise({
-    redirectTo : '/'
+    controller: 'GrowingStateController'
+  }).otherwise({
+    redirectTo: '/'
   });
 
 }]);

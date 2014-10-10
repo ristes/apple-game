@@ -69,6 +69,7 @@ public class Plantation extends Model {
 	/**
 	 * The seedlings used for planting this plantation
 	 */
+	@Deprecated
 	@JsonIgnore
 	@ManyToOne
 	public Seedling seadlings;

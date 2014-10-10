@@ -282,7 +282,7 @@ Game.factory("$infoTable", ['$rootScope', '$http', function($rootScope, $http) {
       $http({
         url: '/infotablecontroller/news'
       }).then(function(res) {
-        if (res.data.length > 0) {
+        if (res && res.data && res.data.length > 0) {
           for (var i = 0; i < res.data.length; i++) {
             $rootScope.$emit('info-show', {
               infos: res.data,
@@ -296,19 +296,20 @@ Game.factory("$infoTable", ['$rootScope', '$http', function($rootScope, $http) {
   }
 }]);
 
-Game.factory("$soilAnalyse",['$rootScope','$http', function($rootScope,$http) {
-	return {
-		load: function(data) {
-			$http({
-				url: '/infotablecontroller/news'
-			}).then(function(res) {
-				if (res.data.length > 0) {
-					$rootScope.soilAnalyse = data;
-				}
-			})
-		}
-	}
-}]);
+Game.factory("$soilAnalyse", ['$rootScope', '$http',
+    function($rootScope, $http) {
+      return {
+        load: function(data) {
+          $http({
+            url: '/infotablecontroller/news'
+          }).then(function(res) {
+            if (res.data.length > 0) {
+              $rootScope.soilAnalyse = data;
+            }
+          })
+        }
+      }
+    }]);
 
 // I provide a utility class for preloading image objects.
 Game.factory("preloader", function($q, $rootScope) {

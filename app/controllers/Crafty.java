@@ -2,7 +2,6 @@ package controllers;
 
 import java.util.UUID;
 
-import models.Day;
 import models.Farmer;
 import play.cache.Cache;
 import play.i18n.Lang;
@@ -60,7 +59,6 @@ public class Crafty extends Controller {
 			System.out.println(ex);
 
 		}
-		System.out.println(farmer);
 		FarmerService farmerService = new FarmerServiceImpl();
 		if (farmer == null) {
 			farmer = farmerService.buildInstance(username, password);
@@ -75,7 +73,6 @@ public class Crafty extends Controller {
 
 	public static void logout() {
 		String id = session.get("farmer");
-		Long fid = (Long) Cache.get(id);
 		Cache.delete(id);
 		session.clear();
 	}

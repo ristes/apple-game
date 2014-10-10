@@ -1,19 +1,19 @@
 Game.controller('PlantingStateController', [
     '$scope',
-    '$location',
-    '$http',
-    'Store',
-    'StoreItems',
     'Operations',
     '$farmer',
-    '$items',
     '$plantation',
     '$weather',
-    'toaster',
     '$window',
-    '$day',
-    function($scope, $location, $http, Store, StoreItems, Operations, $farmer,
-            $items, $plantation, $weather, toaster, $window, $day) {
+    'Planting',
+    function($scope, Operations, $farmer, $plantation, $weather, $window,
+            Planting) {
+
+      $scope.availableSeedlings = 0;
+
+      Planting.availableSeedlings(function(num) {
+        $scope.availableSeedlings = num;
+      });
 
       $scope.showShop = function() {
         $scope.$root.$emit('operation-store', {
@@ -74,22 +74,31 @@ Game.controller('PlantingStateController', [
       };
 
       $scope.planting = true;
-
+      $scope.dif = 35;
       $scope.soilClick = function(p) {
         if ($scope.planting) {
           if (p.active && !p.tree) {
-            // p.tree = "/public/images/game/plant.png";
-            p.tree = $scope.$root.farmer.plant_url;
-            p.treeCls = 'seedling no-mouse-event';
-            $scope.seedling++;
-            $scope.coords.push({
-              x: p.x,
-              y: p.y
-            });
+            if ($scope.availableSeedlings > 0) {
+              // p.tree = "/public/images/game/plant.png";
+              p.tree = $scope.$root.farmer.plant_url;
+              p.treeCls = 'seedling no-mouse-event';
+
+              $scope.availableSeedlings -= $scope.dif;
+              if ($scope.availableSeedlings < 0) {
+                $scope.dif = 35 + $scope.availableSeedlings;
+                $scope.availableSeedlings = 0;
+              }
+              $scope.coords.push({
+                x: p.x,
+                y: p.y
+              });
+            }
           } else if (p.tree) {
             delete p.tree;
             delete p.treeCls;
-            $scope.seedling--;
+            $scope.availableSeedlings += $scope.dif;
+
+            $scope.dif = 35;
             var oldCoords = $scope.coords;
             $scope.coords = [];
             for (var i = 0; i < oldCoords.length; i++) {

@@ -14,8 +14,8 @@ import service.ContextService;
 import service.FarmerService;
 import service.StoreService;
 
-public class FarmerServiceImpl implements FarmerService{
-	
+public class FarmerServiceImpl implements FarmerService {
+
 	public Double generateLuck(Farmer farmer) {
 		Random random = new Random();
 		Double stand_dev = farmer.luck_dev;
@@ -26,7 +26,7 @@ public class FarmerServiceImpl implements FarmerService{
 		}
 		return farmer.luck;
 	}
-	
+
 	public double subtractEcoPoints(Farmer farmer, double points) {
 		farmer.eco_points -= points;
 		if (farmer.eco_points < 0) {
@@ -34,20 +34,19 @@ public class FarmerServiceImpl implements FarmerService{
 		}
 		return farmer.eco_points;
 	}
-	
+
 	public Farmer gotoNextDay(Farmer farmer) {
 		ContextService ctxService = new ContextServiceImpl();
-		Day today = farmer.gameDate;
-		List<Day> gameDates = Day.find("byDayOrder", farmer.gameDate.dayOrder + 1)
-				.fetch();
+		List<Day> gameDates = Day.find("byDayOrder",
+				farmer.gameDate.dayOrder + 1).fetch();
 		farmer.gameDate = gameDates.get(0);
 		ctxService.evaluateState(farmer);
 		return farmer;
 	}
-	
+
 	public Farmer gotoNextWeek(Farmer farmer) {
 		int i = 0;
-		while (i!=7) {
+		while (i != 7) {
 			gotoNextDay(farmer);
 			i++;
 		}
@@ -56,40 +55,40 @@ public class FarmerServiceImpl implements FarmerService{
 
 	public Farmer gotoNextMonth(Farmer farmer) {
 		int i = 0;
-		while (i!=31) {
+		while (i != 31) {
 			gotoNextDay(farmer);
 			i++;
 		}
 		return farmer;
 	}
-	
+
 	public Farmer restartGame(Farmer farmer) {
 		farmer.is_active = false;
 		farmer.save();
 		return farmer;
 	}
-	
-	public Farmer buildFbInstance(String username, String access_token, String name, String surname, String email, String picture){
-		Farmer farmer=Farmer.find("username=:username")
-				.setParameter("username", username)
-				.first();
-		if(farmer==null){
-			farmer=buildInstance(username, "default_password");
+
+	public Farmer buildFbInstance(String username, String access_token,
+			String name, String surname, String email, String picture) {
+		Farmer farmer = Farmer.find("username=:username")
+				.setParameter("username", username).first();
+		if (farmer == null) {
+			farmer = buildInstance(username, "default_password");
 		} else {
 			farmer = buildInstance(username, "default_password");
 		}
-		
-		farmer.fb_access_token=access_token;
-		farmer.name=name;
-		farmer.surname=surname;
-		farmer.email=email;
-		farmer.picture=picture;
+
+		farmer.fb_access_token = access_token;
+		farmer.name = name;
+		farmer.surname = surname;
+		farmer.email = email;
+		farmer.picture = picture;
 		farmer.is_active = true;
 		farmer.save();
-		
+
 		return farmer;
 	}
-	
+
 	public Farmer buildInstance(String username, String password) {
 		Farmer farmer = new Farmer();
 		farmer.username = username;
@@ -136,12 +135,10 @@ public class FarmerServiceImpl implements FarmerService{
 	@Override
 	public List<ItemBoughtDto> farmersItems(Farmer farmer) {
 		ItemsDao itemDao = new ItemsDaoImpl();
-		List<ItemBoughtDto> result = itemDao.getAllItemsBoughtAndUnunsedByFarmer(farmer);
+		List<ItemBoughtDto> result = itemDao
+				.getAllItemsBoughtAndUnunsedByFarmer(farmer);
 		result.addAll(itemDao.getOneYearDurationItems(farmer));
 		return (result);
 	}
-	
-	
-
 
 }

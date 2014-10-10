@@ -15,11 +15,12 @@ import exceptions.NotEnoughMoneyException;
 
 public class HarvestingController extends GameController {
 
-	public static void harvest(Integer goodcollected, Integer goodtotal, Integer badcollected, Integer badtotal) throws Exception {
+	public static void harvest(int goodcollected, int goodtotal,
+			int badcollected, int badtotal) throws Exception {
 
 		Farmer farmer = checkFarmer();
 		HarvestService hService = new HarvestServiceImpl();
-		double goodper = goodcollected / (double)goodtotal;
+		double goodper = goodcollected / (double) goodtotal;
 		double badper = badcollected / (double) badtotal;
 		farmer = hService.makeHarvesting(farmer, goodper, badper);
 

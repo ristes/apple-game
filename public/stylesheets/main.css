@@ -319,3 +319,39 @@ img.ograda-gore {
 .modal-dialog {
 	margin-top: 0px;
 }
+
+.seedling-planting {
+	z-index: 5000;
+	background-color: white;
+	position: fixed;
+	left: 10%;
+	top: 10%;
+	width: 700px;
+	height: 80%;
+	overflow: scroll;
+}
+
+.seedling-type-header {
+	height: 80px;
+}
+
+.seedling-price {
+	cursor: pointer;
+}
+
+.td-price {
+	text-align: center;
+}
+
+div.select-seedling {
+	float: left;
+}
+
+div.select-seedling-quantity {
+	margin-left: 20px;
+	float: left;
+}
+
+div.select-seedling-quantity td{
+	padding: 5px;
+}
