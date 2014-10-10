@@ -32,7 +32,7 @@ public class SeedlingType extends Model {
 
 	@ManyToOne
 	public SpriteImage image;
-
+	
 	public String toString() {
 		return description;
 	}
