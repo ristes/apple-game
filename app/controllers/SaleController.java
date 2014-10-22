@@ -45,7 +45,11 @@ public class SaleController extends Controller {
 			AppleSaleTransactionService appleSaleService = new TransactionServiceImpl();
 			appleSaleService.commitAppleSaleTransaction(farmer, quantity);
 			
-		} catch (NotEnoughApplesException | PriceNotValidException e) {
+		} catch (NotEnoughApplesException e) {
+			StatusDto statusDto = new StatusDto(status, e.getMessage(),null, farmer);
+			JsonController
+					.toJson(statusDto, "gameDate", "field", "weatherType");
+		} catch (PriceNotValidException e) {
 			StatusDto statusDto = new StatusDto(status, e.getMessage(),null, farmer);
 			JsonController
 					.toJson(statusDto, "gameDate", "field", "weatherType");

@@ -22,6 +22,12 @@ public class PlantationSeedling extends Model {
 	 */
 
 	public int quantity;
+	
+	
+	/**
+	 * this percent gives information how many of trees planted on plantation are from this type of seedling
+	 */
+	public int percentOfPlantedArea;
 	/**
 	 * The type of the appes
 	 */

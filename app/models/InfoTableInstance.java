@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import play.db.jpa.Model;
 
 @Entity
@@ -17,9 +19,11 @@ public class InfoTableInstance extends Model{
 	public String image2_url;
 	public String image3_url;
 
+	@JsonIgnore
 	@ManyToOne
 	public InfoTable infoTable;
 	
+	@JsonIgnore
 	@ManyToOne
 	public Plantation plantation;
 }

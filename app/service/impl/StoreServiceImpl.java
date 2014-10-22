@@ -114,9 +114,12 @@ public class StoreServiceImpl implements StoreService {
 		Plantation plantation = getOrCreatePlantation(farmer);
 
 		Double value = 0d;
+		Integer numSeedlings = 0;
 		for (PlantationSeedling ps : seedling) {
 			value += ps.seedling.price * ps.quantity * plantation.field.area;
+			numSeedlings += ps.quantity;
 		}
+		plantation.currentQuantity = numSeedlings;
 		moneyService.commitMoneyTransaction(farmer, -value);
 
 		farmer.currentState = currentState;
