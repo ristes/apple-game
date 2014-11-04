@@ -16,6 +16,7 @@ Game.factory('$irrigate', [
         drops: 0.75
       }
       return {
+    	 
         tensiometerTime: function(type) {
           var res = $http.get("/IrrigationController/tensiometerTime");
           return res;
@@ -27,7 +28,7 @@ Game.factory('$irrigate', [
             $day.load(data);
           });
         },
-        groovesIrrigation: function(time) {
+        BrazdiNavodnuvanjeIrrigation: function(time) {
           var res = $http.get("/IrrigationController/groovesIrrigation?time="
                   + time);
           res.success(function(data) {

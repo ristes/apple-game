@@ -183,7 +183,9 @@ public class ContextServiceImpl implements ContextService {
 
 	public void evaluatePlantImage(Farmer farmer) {
 		GrowingService growService = new GrowingServiceImpl();
-		farmer.plant_url = growService.evaluatePlantImage(farmer);
+		farmer.plant_url = growService.evaluatePlantImage(farmer,"red");
+		farmer.plant_url_gold = growService.evaluatePlantImage(farmer,"gold");
+		farmer.plant_url_green = growService.evaluatePlantImage(farmer,"green");
 	}
 
 	public void evaluateSeason(Farmer farmer) {

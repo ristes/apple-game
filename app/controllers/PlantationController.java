@@ -16,9 +16,11 @@ import models.Seedling;
 import models.SeedlingType;
 import service.FarmerService;
 import service.PlantingService;
+import service.SoilService;
 import service.StoreService;
 import service.impl.FarmerServiceImpl;
 import service.impl.PlantingServiceImpl;
+import service.impl.SoilServiceImpl;
 import service.impl.StoreServiceImpl;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -119,4 +121,10 @@ public class PlantationController extends GameController {
 		JsonController.statusJson(farmer);
 	}
 
+	public static void soilanalyse() throws Exception{
+		SoilService soilService = new SoilServiceImpl();
+		String res = JsonController.toJsonString(soilService.features(checkFarmer()), "field", "gameDate",
+				"weatherType", "plantation","category","analysis","fertilizingBestTimeIntervals");
+		renderJSON(res);
+	}
 }

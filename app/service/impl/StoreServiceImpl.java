@@ -68,7 +68,7 @@ public class StoreServiceImpl implements StoreService {
 		try {
 			plantation = Plantation.find("field.owner.id", farmer.id).first();
 		} catch (Exception ex) {
-			return createPlantation(farmer);
+//			return createPlantation(farmer);
 		}
 		if (plantation == null) {
 			return createPlantation(farmer);
@@ -84,7 +84,7 @@ public class StoreServiceImpl implements StoreService {
 		field.plantation = plantation;
 		plantation.save();
 		field.save();
-		return Plantation.findById(plantation.id);
+		return plantation;
 	}
 
 	public Farmer buyBase(Farmer farmer, Long itemid, String currentState)

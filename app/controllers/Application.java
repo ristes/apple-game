@@ -27,6 +27,8 @@ public class Application extends Controller {
 	public static void index() {
 	}
 
+	
+	
 	public static void nextday() throws IOException {
 		Farmer farmer = AuthController.getFarmer();
 		if (farmer == null) {

@@ -11,6 +11,7 @@ Game.controller('IrrigationController', ['$scope', '$day', '$interval',
 
       $scope.holder = {};
       $scope.holder.duration = 0;
+      
 
       function onIrrigation(_s, oper) {
         $scope.$root.$emit("side-hide");
@@ -24,8 +25,10 @@ Game.controller('IrrigationController', ['$scope', '$day', '$interval',
         }
         $scope.$root.$emit('shop-hide');
         $scope.nextType = $irrigate.nextIrrigationType(type);
-
-        $scope.startIrrigate = $irrigate[type.name + 'Irrigation'];
+        $scope.type = type;
+        $scope.startIrrigate = function(time) {
+        	$irrigate[$scope.type.name + 'Irrigation'](time);
+        };
         $scope.hasTensiometer = type.hasTensiometer;
         if (type.hasTensiometer) {
           var res = $irrigate.tensiometerTime();
@@ -34,7 +37,7 @@ Game.controller('IrrigationController', ['$scope', '$day', '$interval',
             $scope.holder.best = data;
           });
         }
-        $scope.type = type;
+        
         $scope.visible = true;
       }
 

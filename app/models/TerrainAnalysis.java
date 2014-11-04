@@ -8,6 +8,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import play.db.jpa.Model;
 
 @Entity
@@ -23,6 +25,7 @@ public class TerrainAnalysis extends Model {
 	 */
 	public Double unitPrice;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="analyse")
 	public List<Plantation> plantations;
 	
@@ -35,6 +38,7 @@ public class TerrainAnalysis extends Model {
 	/**
 	 * The list of features. It contains exactly one feature from each category
 	 */
+	@JsonIgnore
 	@OneToMany(mappedBy = "analysis")
 	public List<TerrainFeature> features;
 

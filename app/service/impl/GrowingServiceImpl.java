@@ -23,7 +23,7 @@ public class GrowingServiceImpl implements GrowingService{
 
 	public final static String EXTENSION_WHITE_TREE = "b";
 	
-	public String evaluatePlantImage(Farmer farmer) {
+	public String evaluatePlantImage(Farmer farmer, String color) {
 		DateService dateService = new DateServiceImpl();
 		String image_path = "/public/images/game/apple_tree/";
 		StringBuilder additional = new StringBuilder();
@@ -36,7 +36,7 @@ public class GrowingServiceImpl implements GrowingService{
 		year_level = year_tree_image(dateService.evaluateYearLevel(farmer.gameDate.date));
 
 		additional.append(checkToPutApplesOnTree(farmer, year, year_level, month,
-				season));
+				season, color));
 		additional.append(checkWhiteSprayed(farmer, year_level));
 		return image_path + String.valueOf(year_level) + String.valueOf(season)
 				+ additional + ".png";
@@ -50,7 +50,7 @@ public class GrowingServiceImpl implements GrowingService{
 	}
 	
 	public String checkToPutApplesOnTree(Farmer farmer, int year,
-			int year_level, int month, int season) {
+			int year_level, int month, int season, String color) {
 		String result = "";
 		if (year_level == 3) {
 			if (month == Calendar.AUGUST) {
@@ -58,22 +58,20 @@ public class GrowingServiceImpl implements GrowingService{
 			} else if (month == Calendar.SEPTEMBER) {
 				// has been harvested this year to show apples on plant
 				if (Yield.find("byFarmerAndYear", farmer, year).fetch().size() == 0) {
-					result = checkAppleColor(farmer);
+					result = checkAppleColor(farmer, color);
 				}
 			}
 		}
 		return result;
 	}
 
-	public String checkAppleColor(Farmer farmer) {
-		SeedlingDao seedlingDao = new SeedlingDaoImpl();
+	public String checkAppleColor(Farmer farmer,String color) {
 		String result = "";
-		String apples_type = seedlingDao.getApplesColor(farmer);
-		if (apples_type.equals(C.APPLE_COLOR_GOLD)) {
+		if (color.equals(C.APPLE_COLOR_GOLD)) {
 			result = EXTENSION_BIG_APPLES_GOLD;
-		} else if (apples_type.equals(C.APPLE_COLOR_GREEN)) {
+		} else if (color.equals(C.APPLE_COLOR_GREEN)) {
 			result = EXTENSION_BIG_APPLES_GREEN;
-		} else if (apples_type.equals(C.APPLE_COLOR_RED)) {
+		} else if (color.equals(C.APPLE_COLOR_RED)) {
 			result = EXTENSION_BIG_APPLES_RED;
 		}
 		return result;
