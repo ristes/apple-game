@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import org.apache.ivy.core.module.status.Status;
+
 import models.Farmer;
 import models.GameContext;
 import models.ItemInstance;
@@ -19,11 +21,13 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import dao.ItemsDao;
 import dao.impl.ItemsDaoImpl;
 import dto.PlantationDto;
+import dto.StatusDto;
 
-public class AuthController extends Controller {
+public class AuthController extends GameController {
 
 	public static void farmer() throws Exception {
-		JsonController.farmerJson(getFarmer());
+//		JsonController.farmerJson(getFarmer());
+		JsonController.statusJson(getFarmer());
 	}
 
 	

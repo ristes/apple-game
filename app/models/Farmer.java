@@ -151,6 +151,8 @@ public class Farmer extends Model {
 
 	public Double cumulativeRains;
 
+	public String tips;
+	
 	/**
 	 * The items he owns
 	 */

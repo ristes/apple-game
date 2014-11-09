@@ -7,6 +7,9 @@ import java.util.List;
 
 import org.h2.table.Plan;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
 import controllers.JsonController;
 import models.Base;
 import models.Farmer;
@@ -20,6 +23,7 @@ import models.SeedlingType;
 import models.Store;
 import models.Terrain;
 import models.TerrainSize;
+import dto.StatusDto;
 import dto.StoreDto;
 import dto.StoreItemDto;
 import exceptions.NotEnoughMoneyException;
@@ -45,8 +49,9 @@ public class StoreServiceImpl implements StoreService {
 		return result;
 	}
 
-	public Farmer buyItem(Farmer farmer, String itemName, Double quantity,
+	public StatusDto buyItem(Farmer farmer, String itemName, Double quantity,
 			String currentState) {
+		StatusDto statusRes = new StatusDto(true,null,null,farmer);
 		if (farmer != null) {
 			Item item = Item.find("name", itemName).first();
 			ItemTransactionService itemTrans = new TransactionServiceImpl();
@@ -55,12 +60,31 @@ public class StoreServiceImpl implements StoreService {
 			} catch (NotEnoughMoneyException ex) {
 				ex.printStackTrace();
 			}
+
 			if (currentState != null) {
 				farmer.currentState = currentState;
 			}
-			farmer.save();
+			checkMetaData(statusRes, item);
+			statusRes.farmer.save();
 		}
-		return farmer;
+		return statusRes;
+	}
+
+	private void checkMetaData(StatusDto status, Item item) {
+		if (item.metadata == null) {
+			return;
+		}
+		JsonParser jsonParser = new JsonParser();
+		JsonElement element = jsonParser.parse(item.metadata);
+		JsonElement jsonHlp = element.getAsJsonObject().get("eco");
+		if (jsonHlp != null) {
+			status.farmer.eco_points += jsonHlp.getAsInt();
+		}
+		jsonHlp = element.getAsJsonObject().get("tips");
+		if (jsonHlp != null) {
+			status.tip = jsonHlp.getAsString();
+		}
+
 	}
 
 	public Plantation getOrCreatePlantation(Farmer farmer) {
@@ -68,7 +92,7 @@ public class StoreServiceImpl implements StoreService {
 		try {
 			plantation = Plantation.find("field.owner.id", farmer.id).first();
 		} catch (Exception ex) {
-//			return createPlantation(farmer);
+			// return createPlantation(farmer);
 		}
 		if (plantation == null) {
 			return createPlantation(farmer);

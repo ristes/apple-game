@@ -16,6 +16,7 @@ public class NextDayJobs extends Job{
 		List<Farmer> farmers = Farmer.find("is_active=true").fetch();
 		FarmerService farmerService = new FarmerServiceImpl();
 		for (Farmer farmer: farmers) {
+			//TODO: if farmer was not active today
 			farmerService.gotoNextDay(farmer);
 		}
 	}

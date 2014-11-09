@@ -19,6 +19,9 @@ Game.config(['$routeProvider', function($routeProvider) {
   }).when('/plantation', {
     templateUrl: '/public/_views/plantation.html',
     controller: 'PlantingStateController'
+  }).when('/plowing', {
+	templateUrl: '/public/_views/plowing.html',
+	controller: 'PlowingController' 
   }).when('/growing', {
     templateUrl: '/public/_views/plantation.html',
     controller: 'GrowingStateController'

@@ -1,10 +1,12 @@
 package service.impl;
 
-import controllers.JsonController;
-import dto.StatusDto;
+import java.util.List;
+
 import models.Farmer;
 import models.Item;
+import models.ItemInstance;
 import play.i18n.Messages;
+import service.FarmerService;
 import service.HumidityService;
 import service.LandTreatmanService;
 import service.MoneyTransactionService;
@@ -35,10 +37,7 @@ public class LandTreatmanServiceImpl implements LandTreatmanService{
 	}
 
 	public Farmer executePlowing(Farmer farmer) throws TooWaterOnFieldException, SoilTooDryException, NotEnoughMoneyException{
-		Double balance = farmer.getBalance();
-		Double expense;
-		Item plowing = (Item)Item.find("byName", "PlowingItem").fetch().get(0);
-		String image = "";
+		
 		try {
 			farmer = determineThePlowingPrice(farmer);
 		} catch (TooWaterOnFieldException ex) {
@@ -48,8 +47,17 @@ public class LandTreatmanServiceImpl implements LandTreatmanService{
 		} catch (NotEnoughMoneyException ex) {
 			throw ex;
 		}
+		farmer = evaluatePlowingEcoPoints(farmer);
 		farmer.grass_growth = 0.0;
 		farmer.save();
+		return farmer;
+	}
+	
+	public Farmer evaluatePlowingEcoPoints(Farmer farmer) {
+		FarmerService farmerS = new FarmerServiceImpl();
+		if (!hasEcoTractor(farmer)) {
+			farmerS.subtractEcoPoints(farmer, 1);
+		}
 		return farmer;
 	}
 	
@@ -75,18 +83,19 @@ public class LandTreatmanServiceImpl implements LandTreatmanService{
 		HumidityService hService = new HumidityServiceImpl();
 		int level = hService.humidityLevel(farmer);
 		Item plowing = (Item) Item.find("byName", "PlowingItem").fetch().get(0);
+		Double coefTypeTractor =  hasEcoTractor(farmer)?0.7:1.0;
 		Integer price = 0;
 		switch (level) {
 		case 0:
 			throw new SoilTooDryException(Messages.get("controller.plowing.fail.toodry"));
 		case 1:
-			price =  1 * plowing.price * (int) farmer.field.area;
+			price =  (int) (coefTypeTractor * 1 * plowing.price * (int) farmer.field.area);
 			break;
 		case 2:
-			price =  (int) (1.3 * plowing.price * (int) farmer.field.area);
+			price =  (int) (coefTypeTractor * 1.3 * plowing.price * (int) farmer.field.area);
 			break;
 		case 3:
-			price =  (int) (1.5 * plowing.price * (int) farmer.field.area);
+			price =  (int) (coefTypeTractor * 1.5 * plowing.price * (int) farmer.field.area);
 			break;
 		case 4:
 			throw new TooWaterOnFieldException(Messages.get("controller.plowing.fail.toowater"));
@@ -99,6 +108,16 @@ public class LandTreatmanServiceImpl implements LandTreatmanService{
 			throw ex;
 		}
 		return farmer;
+	}
+
+	@Override
+	public Boolean hasEcoTractor(Farmer farmer) {
+		Item ecoTractor = Item.find("byName", "EkoTraktor").first();
+		List<Item> items = ItemInstance.find("byOwnedByAndType", farmer,ecoTractor).fetch();
+		if (items.size()>0) {
+			return true;
+		}
+		return false;
 	}
 
 }

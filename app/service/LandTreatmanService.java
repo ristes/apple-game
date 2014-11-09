@@ -13,4 +13,5 @@ public interface LandTreatmanService {
 	public Farmer determineThePlowingPrice(Farmer farmer)
 			throws SoilTooDryException, TooWaterOnFieldException, NotEnoughMoneyException;
 	public Farmer executePlowing(Farmer farmer) throws TooWaterOnFieldException, SoilTooDryException, NotEnoughMoneyException;
+	public Boolean hasEcoTractor(Farmer farmer);
 }

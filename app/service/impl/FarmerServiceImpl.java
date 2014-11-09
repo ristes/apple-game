@@ -112,7 +112,7 @@ public class FarmerServiceImpl implements FarmerService {
 		farmer.is_active = true;
 		farmer.save();
 		StoreService ss = new StoreServiceImpl();
-		ss.buyItem(farmer, "SoilAnalyse", 1.0, farmer.currentState);
+		ss.buyItem(farmer, "SoilAnalyse", 1.0d, farmer.currentState);
 		return farmer;
 	}
 

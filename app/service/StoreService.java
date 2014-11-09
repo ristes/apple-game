@@ -6,6 +6,7 @@ import java.util.List;
 import models.Farmer;
 import models.Plantation;
 import models.PlantationSeedling;
+import dto.StatusDto;
 import dto.StoreDto;
 import dto.StoreItemDto;
 import exceptions.NotEnoughMoneyException;
@@ -14,7 +15,7 @@ public interface StoreService {
 
 	public List<StoreDto> findAllStores();
 
-	public Farmer buyItem(Farmer farmer, String itemName, Double quantity,
+	public StatusDto buyItem(Farmer farmer, String itemName, Double quantity,
 			String currentState);
 
 	public Farmer buyBase(Farmer farmer, Long itemid, String currentState)

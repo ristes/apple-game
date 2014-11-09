@@ -6,7 +6,7 @@ Game.controller('IrrigationController', ['$scope', '$day', '$interval',
       $scope.showNext = true;
       $scope.enableOther = true;
       $scope.info = {
-        mmRain: $day.get().cumulativeHumidity
+        mmRain: $day.get().rain_values
       };
 
       $scope.holder = {};

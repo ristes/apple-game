@@ -12,6 +12,8 @@ public class StatusDto {
 	
 	public String additionalInfo;
 	
+	public String tip;
+	
 	public StatusDto(Boolean status) {
 		this.status = status;
 	}

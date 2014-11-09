@@ -353,6 +353,14 @@ img.ograda-gore {
 	text-align: center;
 }
 
+.tip-bottom-left {
+	width:inherit;
+	height:50px;
+	background:blue;
+	position:absolute;
+	top: 3;
+}
+
 div.select-seedling {
 	float: left;
 }
