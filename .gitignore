@@ -19,5 +19,9 @@ test-result
 server.pid
 *.iml
 *.eml
+*.ipr
+*.iws
 conf/db.conf
 app/views/Crafty/iso.html
+/cookbooks/
+provision/data/*
