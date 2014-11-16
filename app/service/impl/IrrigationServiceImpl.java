@@ -22,7 +22,7 @@ import exceptions.NotEnoughMoneyException;
 
 public class IrrigationServiceImpl implements IrrigationService {
 
-	public static final String GROOVES = "grooves";
+	public static final String GROOVES = "BrazdiNavodnuvanje";
 	public static final String DROPS = "drops";
 	public static final String TENSIOMETERS = "tensiometers";
 

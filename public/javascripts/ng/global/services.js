@@ -17,6 +17,10 @@ Game.factory('$farmer', ['$rootScope', '$http', '$items', '$location', 'State',
           State.set('farmer', farmer);
         }
       }
+      function setStatus(status) {
+    	  State.set('status',status);
+    	  swap(status.farmer);
+      }
       return {
         load: function() {
           /*
@@ -24,12 +28,14 @@ Game.factory('$farmer', ['$rootScope', '$http', '$items', '$location', 'State',
            */
           var res = $http.get("/AuthController/farmer");
           res.success(function(data) {
-            swap(data);
+        	  setStatus(data);
+        	  swap(data.farmer);
           });
           return res;
           // }
         },
-        swap: swap
+        swap: swap,
+        setStatus: setStatus
       };
 
     }]);
@@ -62,7 +68,7 @@ Game.factory('$day', ['$rootScope', 'State', '$http', '$weather', 'Diseases',
         next: function() {
           var res = $http.get("/application/nextday");
           res.success(function(data) {
-            if (!$rootScope.farmer && data.field) {
+            if (!$rootScope.farmer && data.farmer.field) {
               $items.load();
             }
             if (data.balans != null) {
@@ -70,7 +76,7 @@ Game.factory('$day', ['$rootScope', 'State', '$http', '$weather', 'Diseases',
               $rootScope.farmer = data;
             }
 
-            $location.path(data.currentState || '/buy_tractor');
+            $location.path(data.farmer.currentState || '/buy_tractor');
 
             $weather.load();
             Diseases.load();
@@ -87,7 +93,7 @@ Game.factory('$day', ['$rootScope', 'State', '$http', '$weather', 'Diseases',
               $rootScope.farmer = data;
             }
 
-            $location.path(data.currentState || '/buy_tractor');
+            $location.path(data.farmer.currentState || '/buy_tractor');
 
             $weather.load();
             Diseases.load();
@@ -104,7 +110,7 @@ Game.factory('$day', ['$rootScope', 'State', '$http', '$weather', 'Diseases',
               $rootScope.farmer = data;
             }
 
-            $location.path(data.currentState || '/buy_tractor');
+            $location.path(data.farmer.	currentState || '/buy_tractor');
 
             $weather.load();
             Diseases.load();

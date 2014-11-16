@@ -27,7 +27,6 @@ public class HarvestingController extends GameController {
 		double goodper = goodcollected / (double) goodtotal;
 		double badper = badcollected / (double) badtotal;
 		farmer = hService.makeHarvesting(farmer, goodper, badper);
-		farmer = hService.makeHarvesting(farmer, goodper, badper);
 
 		StatusDto status = new StatusDto(true, "Успешна берба",
 				String.valueOf(farmer.apples_in_stock), farmer);

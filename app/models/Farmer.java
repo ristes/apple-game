@@ -107,6 +107,12 @@ public class Farmer extends Model {
 
 	public String soil_url;
 	public String plant_url;
+	public String plant_url_gold;
+	public String plant_url_green;
+	
+	public Integer plants_green;
+	public Integer plants_red;
+	public Integer plants_gold;
 
 	/**
 	 * flags that represents the restarted state of the farmer if set to false,
@@ -145,6 +151,8 @@ public class Farmer extends Model {
 
 	public Double cumulativeRains;
 
+	public String tips;
+	
 	/**
 	 * The items he owns
 	 */

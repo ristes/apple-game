@@ -31,6 +31,7 @@ import de.congrace.exp4j.Calculable;
 import de.congrace.exp4j.ExpressionBuilder;
 import de.congrace.exp4j.UnknownFunctionException;
 import de.congrace.exp4j.UnparsableExpressionException;
+import dto.C;
 import dto.DiseaseProtectingOperationDto;
 import exceptions.PriceNotValidException;
 
@@ -176,10 +177,11 @@ public class Disease extends Model implements DeseaseRisk {
 		}
 
 		Calculable value = null;
+		DateService dateS = new DateServiceImpl();
 		try {
-			DateService dateS = new DateServiceImpl();
+			
 			RandomGeneratorService rGS = new RandomGeneratorServiceImpl();
-			Double randn03015 = rGS.randomGausseGenerator(0.3, 0.15);
+			Double randn02015 = rGS.randomGausseGenerator(0.2, 0.15);
 			value = new ExpressionBuilder(expression)
 					.withVariable("humidity", context.gameDate.humidity)
 					.withVariable("tempLow", context.gameDate.tempLow)
@@ -189,12 +191,12 @@ public class Disease extends Model implements DeseaseRisk {
 					.withVariable("season_type_id", dateS.season_level(context))
 					.withVariable("rain_type_id",
 							context.gameDate.weatherType.id)
-					.withVariable("randn03015", randn03015)
+					.withVariable("randn02015", randn02015)
 					.withVariable("rain_id", 3)
-					.withVariable("spring_id", 4)
+					.withVariable("summer_id", 4)
 					.withVariable("humidityOfLeaf",
 							context.gameDate.humidityOfLeaf).build();
-
+			
 		} catch (UnknownFunctionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -202,8 +204,11 @@ public class Disease extends Model implements DeseaseRisk {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		result = value.calculate();
+		if (name.equals("IceDemage")) {
+			if (dateS.season_level(context)!=C.SEASON_SUMMER) {
+				result=0.0;			}
+		}
 		if (result < 0.0) {
 			result = 0.0;
 		}

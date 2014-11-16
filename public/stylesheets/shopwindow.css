@@ -295,37 +295,37 @@ body {
 
 #div_next_day {
 	padding: 10px;
-	background-color: white;
 	position: absolute;
-	top: 150px;
+	width:110px;
+	top: 10px;
 	left: 20px;
 	z-index: 100;
 }
 #div_next_week {
 	padding: 10px;
-	background-color: white;
 	position: absolute;
-	top: 200px;
-	left: 20px;
+	top: 10px;
+	width:110px;
+	left: 150px;
 	z-index: 100;
 }
 
-#span_next_month {
+#div_next_month {
 	padding: 10px;
-	background-color: white;
 	position: absolute;
-	top: 250px;
-	left: 20px;
+	top: 10px;
+	width:110px;
+	left: 280px;
 	z-index: 100;
 }
 
 
 
-#span_restart_game {
+
+#div_restart_game {
 	padding: 10px;
-	background-color: white;
 	position: absolute;
-	top: 300px;
+	top: 60px;
 	left: 20px;
 	z-index: 100;
 }

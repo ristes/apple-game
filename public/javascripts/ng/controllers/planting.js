@@ -54,7 +54,7 @@ Game.controller('PlantingStateController', [
 
         for (var i = 0; i < arr.length; i++) {
           var el = arr[i];
-          if (el.x === p.x && el.y === p.y) { return true; }
+          if (el.x === p.x && el.y === p.y) {  return true; }
         }
         return false;
       }
@@ -80,7 +80,7 @@ Game.controller('PlantingStateController', [
           if (p.active && !p.tree) {
             if ($scope.availableSeedlings > 0) {
               // p.tree = "/public/images/game/plant.png";
-              p.tree = $scope.$root.farmer.plant_url;
+              p.tree = "red";
               p.treeCls = 'seedling no-mouse-event';
 
               $scope.availableSeedlings -= $scope.dif;
@@ -155,7 +155,8 @@ Game.controller('PlantingStateController', [
         for (var i = 0; i < N; i++) {
           var p = r.cols[i];
           if (p.active && isInCoords(p)) {
-            r.cols[i].tree = $scope.$root.farmer.plant_url;
+            //r.cols[i].tree = $scope.$root.farmer.plant_url;
+        	  r.cols[i].tree = p.color;
             r.cols[i].treeCls = 'seedling no-mouse-event';
           }
         }

@@ -8,7 +8,7 @@ import play.mvc.Http;
 
 public class GameController extends Controller {
 
-	static final String[] FARMER_EXCLUDES = { "gameDate", "field",
+	static final String[] FARMER_EXCLUDES = { "farmer", "gameDate", "field",
 			"weatherType", "plantation" };
 
 	public static class ExceptionStatus {

@@ -26,6 +26,12 @@ public class Terrain extends Model {
 	public String description;
 
 	public String imageurl;
+	
+	/*
+	 * This coef represents the absorption of the soil. If it absorbs well the yield is  1.1, otherwise it is 1.0
+	 * Praskasta has 1.1
+	 */
+	public Double yieldCoef;
 
 	@OneToOne
 	public TerrainAnalysis analysis;

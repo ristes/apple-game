@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import dto.FarmerTransactionDto;
 import dto.ItemBoughtDto;
+import dto.StatusDto;
 import dto.StoreDto;
 import models.Farmer;
 import models.Item;
@@ -30,7 +31,7 @@ import service.StoreService;
 import service.impl.FarmerServiceImpl;
 import service.impl.StoreServiceImpl;
 
-public class StoreController extends Controller {
+public class StoreController extends GameController {
 
 	public static void all() throws JsonGenerationException,
 			JsonMappingException, IOException {
@@ -62,8 +63,11 @@ public class StoreController extends Controller {
 			String currentState) throws IOException {
 		Farmer farmer = AuthController.getFarmer();
 		StoreService storeService = new StoreServiceImpl();
-		storeService.buyItem(farmer, itemName, quantity, currentState);
-		JsonController.toJson(farmer);
+		StatusDto status = storeService.buyItem(farmer, itemName, quantity, currentState);
+		status.message = "Успешно купена ставка.";
+		status.additionalInfo=String.valueOf(farmer.apples_in_stock);
+		
+		JsonController.statusToJson(status, FARMER_EXCLUDES);
 	}
 
 	

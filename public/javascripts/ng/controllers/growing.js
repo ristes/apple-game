@@ -60,7 +60,7 @@ Game.controller('GrowingStateController', [
 
           for (var i = 0; i < arr.length; i++) {
             var el = arr[i];
-            if (el.x === p.x && el.y === p.y) { return true; }
+            if (el.x === p.x && el.y === p.y) { p.color = el.color; return true; }
           }
           return false;
         }
@@ -96,6 +96,7 @@ Game.controller('GrowingStateController', [
               staticV: false,
               x: i,
               y: j,
+              
               terrain: $scope.$root.farmer.soil_url,
               cls: 'pocva'
             })
@@ -103,8 +104,10 @@ Game.controller('GrowingStateController', [
           }
           for (var i = 0; i < N; i++) {
             var p = r.cols[i];
+            var color = "";
             if (p.active && isInCoords(p)) {
-              r.cols[i].tree = $scope.$root.farmer.plant_url;
+              //r.cols[i].tree = $scope.$root.farmer.plant_url;
+            r.cols[i].tree = p.color;
               r.cols[i].treeCls = 'seedling clickable';
             }
           }
@@ -112,6 +115,18 @@ Game.controller('GrowingStateController', [
         }
       });
 
+      
+      $scope.checkTreeType = function(p) {
+    	  var result = "";
+    	  if (p==="red") {
+    		  result = $scope.$root.farmer.plant_url;
+     	 } else if (p==="green") {
+     		result = $scope.$root.farmer.plant_url_green;
+     	 } else if (p==="gold") {
+     		result = $scope.$root.farmer.plant_url_gold;
+     	 }
+    	 return result;
+      }
       $scope.treeClick = function(p) {
         $scope.$root.$emit('operation-desease-analysis');
       };

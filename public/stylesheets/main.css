@@ -331,6 +331,16 @@ img.ograda-gore {
 	overflow: scroll;
 }
 
+#div_timeline_travel {
+	background:brown;
+	position:absolute;
+	top:150px;
+	z-index:100;
+	height: 120px;
+	width: 400px;
+	opacity: 0.9;
+}
+
 .seedling-type-header {
 	height: 80px;
 }
@@ -341,6 +351,14 @@ img.ograda-gore {
 
 .td-price {
 	text-align: center;
+}
+
+.tip-bottom-left {
+	width:inherit;
+	height:50px;
+	background:blue;
+	position:absolute;
+	top: 3;
 }
 
 div.select-seedling {

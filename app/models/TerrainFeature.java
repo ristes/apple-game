@@ -7,6 +7,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import play.db.jpa.Model;
 
 /**
@@ -25,7 +27,7 @@ public class TerrainFeature extends Model {
 	public String value;
 
 	/**
-	 * The category of the feature i.e. the group of features in whch it belongs
+	 * The category of the feature i.e. the group of features in which it belongs
 	 * to
 	 */
 	@ManyToOne

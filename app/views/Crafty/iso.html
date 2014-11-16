@@ -66,6 +66,7 @@
 	<script src="/public/javascripts/ng/controllers/operations/terrain-analyzis.js"></script>
 	<script src="/public/javascripts/ng/controllers/operations/deseases.js"></script>
 	<script src="/public/javascripts/ng/controllers/operations/clothing.js"></script>
+	<script src="/public/javascripts/ng/controllers/tips.js"></script>
 	<script src="/public/javascripts/ng/directives/info-table.js"></script>
 	<script src="/public/javascripts/ng/router.js"></script>
 	<script src="/public/javascripts/ng/global/services.js"></script>
@@ -94,7 +95,7 @@
 </head>
 
 <body ng-app="Game" ng-animate="slide" class="body-transition-bkg"
-	style="background: url('{{$root.day.gameDate.weatherType.background_url}}'); -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;">
+	style="background: url('{{$root.farmer.gameDate.weatherType.background_url}}'); -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;">
 	
 	<div ng-controller="PreloadController">
 		<div ng-switch="isLoading">

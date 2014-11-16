@@ -23,4 +23,13 @@ public class FieldDaoImpl implements FieldDao{
 		}
 		return true;
 	}
+	
+	public Boolean hasBees(Farmer farmer) {
+		ItemInstance bees = ItemInstance.find("byType.nameAndownedBy",
+				"Bees", farmer).first();
+		if (bees == null) {
+			return false;
+		}
+		return true;
+	}
 }

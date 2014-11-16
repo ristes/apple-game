@@ -33,6 +33,11 @@ public abstract class JsonController extends Controller {
 	@JsonFilter("filter properties by name")
 	class PropertyFilterMixIn {
 	}
+	
+	protected static void statusToJson(StatusDto status, String... excludeFields) {
+		
+		toJson(status, excludeFields);
+	}
 
 	protected static void toJson(Object o, String... excludeFields) {
 		String encoding = Http.Response.current().encoding;

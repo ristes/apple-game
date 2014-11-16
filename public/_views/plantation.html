@@ -1,23 +1,23 @@
 <div ng-if="nextDay">
-	<div id="div_next_day" ng-click="$root.next()">
-		<span id="span_next_day">Next day</span>
-	</div>
-	<div id="div_next_week" ng-click="$root.nextWeek()">
-		<span id="span_next_week">Next week</span>
-	</div>
-	<div id="div_next_month" ng-click="$root.nextMonth()">
-		<span id="span_next_month">Next month</span>
-	</div>
-	<div id="dov_restart_game">
-		<a href="/fbcontroller/restart"> <span id="span_restart_game">Restart
-				Game</span>
-		</a>
+	<div id="div_timeline_travel">
+		<div class="btn btn-default" id="div_next_day" ng-click="$root.next()">
+			<span style="margin-right: 5px;" id="span_next_day">Next day</span><i class="glyphicon glyphicon-step-forward"></i>
+		</div>
+		<div class="btn btn-default" id="div_next_week" ng-click="$root.nextWeek()">
+			<span style="margin-right: 5px;" id="span_next_week">Next week</span><i class="glyphicon glyphicon-forward"></i>
+		</div>
+		<div class="btn btn-default" id="div_next_month" ng-click="$root.nextMonth()">
+			<span style="margin-right: 5px;">Next month</span><i class="glyphicon glyphicon-fast-forward"></i>
+		</div>
+		<a class="div_restart_game btn btn-default" href="/fbcontroller/restart" id="div_restart_game">
+			Restart Game
 
+		</a>
 	</div>
 </div>
 <div id="div_next_day" ng-if="planting">
-	<div id="span_next_day">{{availableSeedlings}} {{ 'seedlings_left'
-		| translate }}</div>
+	<div id="span_next_day">{{availableSeedlings}} {{
+		'seedlings_left' | translate }}</div>
 	<div id="span_next_day">{{ 'base' | translate}} :
 		{{$root.plantation.base}}</div>
 	<div id="span_next_day">
@@ -36,6 +36,7 @@
 <div ng-controller="HarvestingController"></div>
 <div ng-controller="SprayingController"></div>
 <div ng-controller="ClothingController"></div>
+<div ng-controller="TipsController"></div>
 
 <ng-include src="'/public/_views/scenes/fertilization.html'"></ng-include>
 <ng-include src="'/public/_views/scenes/irrigation.html'"></ng-include>

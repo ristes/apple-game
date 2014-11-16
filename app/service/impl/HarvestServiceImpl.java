@@ -43,4 +43,10 @@ public class HarvestServiceImpl implements HarvestService {
 		return farmer;
 	}
 
+	@Override
+	public Farmer makeShtarjfTest(Farmer farmer) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -7,6 +7,7 @@ import models.Farmer;
 import models.InfoTable;
 import models.InfoTableInstance;
 import service.InfoTableService;
+import dto.InfoTableInstanceDto;
 
 public class InfoTableServiceImpl implements InfoTableService{
 
@@ -64,16 +65,18 @@ public class InfoTableServiceImpl implements InfoTableService{
 
 
 	@Override
-	public List<InfoTableInstance> news(Farmer farmer) {
+	public List<InfoTableInstanceDto> news(Farmer farmer) {
 		if (farmer==null) {
-			return new ArrayList<InfoTableInstance>();
+			return new ArrayList<InfoTableInstanceDto>();
 		}
+		List<InfoTableInstanceDto> newsDto = new ArrayList<InfoTableInstanceDto>();
 		List<InfoTableInstance> news = InfoTableInstance.find("byPlantationAndIsRead",farmer.field.plantation,false).fetch();
 		for (InfoTableInstance ins : news) {
 			ins.isRead = true;
 			ins.save();
+			newsDto.add(new InfoTableInstanceDto(ins));
 		}
-		return news;
+		return newsDto;
 	}
 	
 	

@@ -20,9 +20,10 @@ Game.controller('ShoppingController', [
           quantity: item.perHa ? $scope.plantation.area : 1,
           currentState: $scope.$root.farmer.currentState
         }, null, function(result) {
-          if (result.balans) {
-            $items.add(item.store, item);
-            $farmer.swap(result);
+          if (result.status) {
+            //$items.add(item.store, item);
+        	  $items.load();
+            $farmer.setStatus(result);
             $scope.$root.$emit('shop-hide');
           } else {
             $scope.$root.$emit('insuficient-funds');

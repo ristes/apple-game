@@ -54,6 +54,7 @@ Game.run([
             $StoreItems, $infoTable) {
       $StoreItems.load();
       $farmer.load();
+      $items.load();
       $plantation.load();
       $infoTable.getNews();
       $rootScope.visible = false;

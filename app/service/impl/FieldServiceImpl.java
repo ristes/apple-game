@@ -18,5 +18,11 @@ public class FieldServiceImpl implements FieldService{
 		FieldDao fieldDao = new FieldDaoImpl();
 		return fieldDao.hasTensiometerSystem(farmer);
 	}
+
+	@Override
+	public Boolean hasBees(Farmer farmer) {
+		FieldDao fieldDao = new FieldDaoImpl();
+		return fieldDao.hasBees(farmer);
+	}
 	
 }
