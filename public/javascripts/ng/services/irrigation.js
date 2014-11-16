@@ -1,4 +1,4 @@
-Game.factory('$irrigate', [
+Game.factory('Irrigate', [
     '$http',
     '$day',
     'Store',
@@ -28,7 +28,7 @@ Game.factory('$irrigate', [
             $day.load(data);
           });
         },
-        BrazdiNavodnuvanjeIrrigation: function(time) {
+        groovesIrrigation: function(time) {
           var res = $http.get("/IrrigationController/groovesIrrigation?time="
                   + time);
           res.success(function(data) {
