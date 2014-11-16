@@ -1,0 +1,25 @@
+[{
+  "name": "tractor",
+  "description": "Служи за обработка на порвршинат.",
+  "url": "/public/images/game/green_tractor.png"
+}, {
+  "name": "terrain",
+  "description": "Овде треба да ја изберете големината и површината на вашата нива. ",
+  "url": "/public/images/game/green_tractor.png"
+}, {
+  "name": "spraying",
+  "description": "Продавница за препарати за прскање. ",
+  "url": "/public/images/game/green_tractor.png"
+}, {
+  "name": "fertilizer",
+  "description": "Продавница за ѓубрива. ",
+  "url": "/public/images/game/green_tractor.png"
+}, {
+  "name": "irrigation",
+  "description": "Наводнување. ",
+  "url": "/public/images/game/green_tractor.png"
+}, {
+  "name": "other",
+  "description": "Купување на останати ставки",
+  "url": ""
+}]

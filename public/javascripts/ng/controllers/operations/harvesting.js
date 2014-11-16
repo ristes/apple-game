@@ -1,16 +1,6 @@
 Game.controller('HarvestingController', [
     '$scope',
-    '$translate',
-    '$http',
-    'Store',
-    'StoreItems',
-    'Operations',
-    '$farmer',
-    '$items',
-    '$weather',
-    '$day',
-    function($scope, $translate, $http, Store, StoreItems, Operations, $farmer,
-            $items, $weather, $day) {
+    function($scope) {
 
       // TODO: open panel to choose weather to play the game or not
 

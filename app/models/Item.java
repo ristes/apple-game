@@ -7,6 +7,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import play.data.validation.Range;
 import play.db.jpa.Model;
@@ -85,4 +86,6 @@ public class Item extends Model {
 		return name;
 	}
 
+	@Transient
+	public String storeName;
 }

@@ -6,7 +6,7 @@ Game.controller('StoreController', ['$scope', '$translate', '$http', 'Store',
         $scope.nextState = nextState;
         $scope.servMethod = servMethod || 'buy';
         $scope.store = store;
-        $scope.items = $scope.$root.storeItems[store];
+        $scope.items = StoreItems.getStoreItems()[store];
 
         $scope.$root.$emit('shop-show', {
           items: $scope.items,
