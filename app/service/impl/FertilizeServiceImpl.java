@@ -84,6 +84,9 @@ public class FertilizeServiceImpl implements FertilizeService{
 		farmer = finalEvaluation("N",farmer);
 		farmer = finalEvaluation("P",farmer);
 		farmer = finalEvaluation("K",farmer);
+		farmer = finalEvaluation("Zn", farmer);
+		farmer = finalEvaluation("Ca",farmer);
+		farmer = finalEvaluation("Mg", farmer);
 		farmer.save();
 		return 1;
 	}
@@ -114,7 +117,7 @@ public class FertilizeServiceImpl implements FertilizeService{
 			farmer.productQuantity+=maxQuantity*0.1;
 			farmerService.subtractEcoPoints(farmer,10);
 		} else if (res>2) {
-			farmer.productQuantity+=maxQuantity*0.05;
+			//farmer.productQuantity+=maxQuantity*0.05;
 			farmer.eco_points /= 2;
 		}
 		return farmer;

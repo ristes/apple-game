@@ -63,6 +63,8 @@ public class Farmer extends Model {
 	public Double luck_avg;
 	
 	public Double rain_values;
+	
+	public Date lastLogIn;
 
 	@OneToMany(mappedBy = "farmer")
 	public List<Yield> yields;
@@ -80,6 +82,10 @@ public class Farmer extends Model {
 	public double eco_points = 100;
 
 	public int apples_in_stock = 0;
+	
+	private int apples_in_na_fridge;
+	
+	private int apples_in_ca_fridge;
 
 	/**
 	 * The quantity of the product he has gained, and haven't sold yet
@@ -113,6 +119,10 @@ public class Farmer extends Model {
 	public Integer plants_green;
 	public Integer plants_red;
 	public Integer plants_gold;
+	
+	public Integer capacityNAFridges;
+	
+	public Integer capacityCAFridges;
 
 	/**
 	 * flags that represents the restarted state of the farmer if set to false,
@@ -154,6 +164,17 @@ public class Farmer extends Model {
 	public String tips;
 	
 	/**
+	 * need of minerals
+	 */
+	public Boolean needN;
+	public Boolean needP;
+	public Boolean needK;
+	public Boolean needCa;
+	public Boolean needB;
+	public Boolean needZn;
+	public Boolean needMg;
+	
+	/**
 	 * The items he owns
 	 */
 	@OneToMany(mappedBy = "ownedBy")
@@ -170,5 +191,49 @@ public class Farmer extends Model {
 	public void setBalance(Double balance) {
 		this.balans = balance;
 	}
+
+	public int getApples_in_stock() {
+		return apples_in_stock;
+	}
+
+	public void setApples_in_stock(int apples_in_stock) {
+		this.apples_in_stock = apples_in_stock;
+		
+	}
+	
+	public void addToApples_in_stock(int apples) {
+		
+		int rest_capacity_ca = capacityCAFridges - this.apples_in_ca_fridge;
+		if (rest_capacity_ca>=apples) {
+			this.apples_in_ca_fridge += apples;
+		} else {
+			this.apples_in_ca_fridge = capacityCAFridges;
+			int rest_app_ca = apples - rest_capacity_ca;
+			int rest_capacity_na = capacityNAFridges - this.apples_in_na_fridge;
+			if (rest_capacity_na>=rest_app_ca) {
+				this.apples_in_na_fridge += rest_app_ca;
+			} else {
+				this.apples_in_na_fridge = capacityNAFridges;
+				int rest_app_na = rest_app_ca - rest_capacity_na;
+				this.apples_in_stock += rest_app_na;
+			}
+		}
+		
+		
+	}
+	
+	public int sumOfApples() {
+		return this.apples_in_stock + this.apples_in_na_fridge + this.apples_in_ca_fridge;
+	}
+
+	public int getApples_in_na_fridge() {
+		return apples_in_na_fridge;
+	}
+
+	public int getApples_in_ca_fridge() {
+		return apples_in_ca_fridge;
+	}
+
+	
 
 }

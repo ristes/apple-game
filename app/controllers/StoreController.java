@@ -65,9 +65,9 @@ public class StoreController extends GameController {
 		StoreService storeService = new StoreServiceImpl();
 		StatusDto status = storeService.buyItem(farmer, itemName, quantity, currentState);
 		status.message = "Успешно купена ставка.";
-		status.additionalInfo=String.valueOf(farmer.apples_in_stock);
+		status.additionalInfo=String.valueOf(farmer.sumOfApples());
 		
-		JsonController.statusToJson(status, FARMER_EXCLUDES);
+		JsonController.statusJson(status);
 	}
 
 	

@@ -17,8 +17,8 @@ import exceptions.TooWaterOnFieldException;
 public class LandTreatmanServiceImpl implements LandTreatmanService{
 
 	
-	public Farmer executeDigging(Farmer farmer) throws NotEnoughMoneyException{
-		Item digItem = Item.find("byName", "DiggingItem").first();
+	public Farmer executeDigging(Farmer farmer, Long id) throws NotEnoughMoneyException{
+		Item digItem = Item.findById(id);
 		Integer price = (int)(farmer.field.area * digItem.price);
 
 		MoneyTransactionService moneyTransServ = new TransactionServiceImpl();

@@ -116,6 +116,11 @@ public abstract class JsonController extends Controller {
 		StatusDto status = new StatusDto(farmer != null, null, null, farmer);
 		toJson(status, "field", "plantation");
 	}
+	
+	protected static void statusJson(StatusDto status)
+			throws JsonGenerationException, JsonMappingException, IOException {
+		toJson(status, "field", "plantation");
+	}
 
 	protected static void toJacksonJson(Object o, String... expandFields)
 			throws JsonGenerationException, JsonMappingException, IOException {

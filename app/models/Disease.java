@@ -198,13 +198,12 @@ public class Disease extends Model implements DeseaseRisk {
 							context.gameDate.humidityOfLeaf).build();
 			
 		} catch (UnknownFunctionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (UnparsableExpressionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		result = value.calculate();
+		result = addBaseProb(context, this, result);
 		if (name.equals("IceDemage")) {
 			if (dateS.season_level(context)!=C.SEASON_SUMMER) {
 				result=0.0;			}
@@ -213,6 +212,14 @@ public class Disease extends Model implements DeseaseRisk {
 			result = 0.0;
 		}
 		return result;
+	}
+	
+	public Double addBaseProb(Farmer farmer, Disease disease, Double prob) {
+		List<BaseDisease> baseDiseaseProbs = BaseDisease.find("byBaseAndDisease", farmer.field.plantation.base, disease).fetch();
+		if (baseDiseaseProbs.size()==0) {
+			return 1.0;
+		}
+		return prob * baseDiseaseProbs.get(0).prob;
 	}
 
 	/**

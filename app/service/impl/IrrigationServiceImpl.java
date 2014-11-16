@@ -64,7 +64,7 @@ public class IrrigationServiceImpl implements IrrigationService {
 
 		Double area_size = farmer.field.area;
 		Double price = coefs.get(C.KEY_PRICE_IRRIGATION_VALUES)
-				.get(C.ENUM_DROPS).doubleValue()
+				.get(C.ENUM_GROOVES).doubleValue()
 				* area_size * time;
 		MoneyTransactionService moneyTransServ = new TransactionServiceImpl();
 		moneyTransServ.commitMoneyTransaction(farmer, -price);

@@ -29,7 +29,7 @@ public class HarvestingController extends GameController {
 		farmer = hService.makeHarvesting(farmer, goodper, badper);
 
 		StatusDto status = new StatusDto(true, "Успешна берба",
-				String.valueOf(farmer.apples_in_stock), farmer);
+				"", farmer);
 		JsonController.toJson(status, FARMER_EXCLUDES);
 	}
 

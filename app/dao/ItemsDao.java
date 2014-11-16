@@ -16,6 +16,8 @@ public interface ItemsDao {
 	public List<ItemBoughtDto> getOneYearDurationItems(Farmer farmer);
 
 	public List<ItemInstance> getItemsByStoreNameOrdered(Long id, String string);
+	
+	public List<Item> getUnboughtItem(Farmer farmer);
 
 	public Item findItemByName(String name);
 

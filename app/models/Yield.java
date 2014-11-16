@@ -32,6 +32,9 @@ public class Yield extends Model {
 	 */
 	@ManyToOne
 	public Base base;
+	
+	@ManyToOne
+	public PlantationSeedling plantation;
 
 	/**
 	 * The apple type

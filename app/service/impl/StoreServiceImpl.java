@@ -28,6 +28,7 @@ import dto.StoreDto;
 import dto.StoreItemDto;
 import exceptions.NotEnoughMoneyException;
 import service.DispensibleItemTransaction;
+import service.FarmerService;
 import service.ItemTransactionService;
 import service.MoneyTransactionService;
 import service.StoreService;
@@ -71,18 +72,39 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	private void checkMetaData(StatusDto status, Item item) {
+		FarmerService farmerService = new FarmerServiceImpl();
 		if (item.metadata == null) {
 			return;
 		}
+		
 		JsonParser jsonParser = new JsonParser();
 		JsonElement element = jsonParser.parse(item.metadata);
-		JsonElement jsonHlp = element.getAsJsonObject().get("eco");
-		if (jsonHlp != null) {
-			status.farmer.eco_points += jsonHlp.getAsInt();
+		JsonElement jsonEco = element.getAsJsonObject().get("eco");
+		JsonElement jsonMoreNAStorage = element.getAsJsonObject().get("moreNAStorage");
+		JsonElement jsonMoreCAStorage = element.getAsJsonObject().get("moreCAStorage");
+		JsonElement jsonYield = element.getAsJsonObject().get("yield");
+		JsonElement jsonTips = element.getAsJsonObject().get("tips");
+		
+		if (jsonMoreCAStorage!=null) {
+			status.farmer.capacityCAFridges+=jsonMoreCAStorage.getAsInt();
 		}
-		jsonHlp = element.getAsJsonObject().get("tips");
-		if (jsonHlp != null) {
-			status.tip = jsonHlp.getAsString();
+		if (jsonMoreNAStorage!=null) {
+			status.farmer.capacityNAFridges += jsonMoreNAStorage.getAsInt();
+		}
+		if (jsonYield!=null) {
+			status.farmer.productQuantity += status.farmer.productQuantity * jsonYield.getAsInt()/100;
+		}
+		if (jsonEco!=null) {
+			int eco = jsonEco.getAsInt();
+			if (eco<0) {
+				farmerService.subtractEcoPoints(status.farmer, (double)Math.abs(eco));
+			} else {
+				status.farmer.eco_points+=eco;
+			}
+		}
+		
+		if (jsonTips != null) {
+			status.tip = jsonTips.getAsString();
 		}
 
 	}
@@ -106,6 +128,7 @@ public class StoreServiceImpl implements StoreService {
 		Field field = Field.find("owner.id", farmer.id).first();
 		Plantation plantation = Plantation.buildInstance();
 		field.plantation = plantation;
+		plantation.field = field;
 		plantation.save();
 		field.save();
 		return plantation;
@@ -136,7 +159,7 @@ public class StoreServiceImpl implements StoreService {
 
 		MoneyTransactionService moneyService = new TransactionServiceImpl();
 		Plantation plantation = getOrCreatePlantation(farmer);
-
+		plantation.field = farmer.field;
 		Double value = 0d;
 		Integer numSeedlings = 0;
 		for (PlantationSeedling ps : seedling) {
@@ -172,6 +195,7 @@ public class StoreServiceImpl implements StoreService {
 		result.put("spraying", sprayingStoreItems());
 		result.put("stores", allStores());
 		result.put("fertilizer", fertilizerStoreItems());
+		result.put("digging", diggingStoreItems());
 		return result;
 
 	}
@@ -188,6 +212,7 @@ public class StoreServiceImpl implements StoreService {
 			storeDto.url = item.imageurl;
 			storeDto.price = (double) item.price;
 			storeDto.store = item.store.name;
+			storeDto.perHa = item.perHa;
 			result.add(storeDto);
 		}
 		return result;
@@ -286,6 +311,23 @@ public class StoreServiceImpl implements StoreService {
 	public List<StoreItemDto> fertilizerStoreItems() {
 		List<StoreItemDto> result = new ArrayList<StoreItemDto>();
 		Store store = Store.find("byName", "fertilizer").first();
+		List<Item> items = Item.find("byStore", store).fetch();
+		for (Item item : items) {
+			StoreItemDto storeDto = new StoreItemDto();
+			storeDto.id = item.id;
+			storeDto.name = item.name;
+			storeDto.description = item.description;
+			storeDto.url = item.imageurl;
+			storeDto.price = (double) item.price;
+			storeDto.store = item.store.name;
+			result.add(storeDto);
+		}
+		return result;
+	}
+	
+	public List<StoreItemDto> diggingStoreItems() {
+		List<StoreItemDto> result = new ArrayList<StoreItemDto>();
+		Store store = Store.find("byName", "digging").first();
 		List<Item> items = Item.find("byStore", store).fetch();
 		for (Item item : items) {
 			StoreItemDto storeDto = new StoreItemDto();

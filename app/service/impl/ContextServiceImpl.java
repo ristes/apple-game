@@ -19,9 +19,11 @@ import dto.C;
 import exceptions.NotSuchItemException;
 import models.Day;
 import models.Farmer;
+import service.BadgesService;
 import service.ContextService;
 import service.DateService;
 import service.DiseaseService;
+import service.FarmerService;
 import service.FertilizeService;
 import service.FieldService;
 import service.GrowingService;
@@ -30,6 +32,7 @@ import service.HumidityGroovesService;
 import service.HumidityService;
 import service.LandTreatmanService;
 import service.RandomGeneratorService;
+import service.ThiefService;
 import service.YieldService;
 
 public class ContextServiceImpl implements ContextService {
@@ -109,7 +112,7 @@ public class ContextServiceImpl implements ContextService {
 		if (today.weatherType.id == C.WEATHER_TYPE_RAINY) {
 			RandomGeneratorService rS = new RandomGeneratorServiceImpl();
 
-			Integer randm = rS.random(0.0, 12.0).intValue();
+			Integer randm = rS.random(0.0, 10.0).intValue();
 			farmer.deltaCumulative += rainCoefForMonth(c.get(Calendar.MONTH))
 					* randm;
 			farmer.rain_values = calculateRainForPrevDays(farmer, 5);
@@ -206,18 +209,27 @@ public class ContextServiceImpl implements ContextService {
 
 	public void evaluateRestartState(Farmer farmer) {
 		DateService dateService = new DateServiceImpl();
-		YieldService yieldService = new YieldServiceImpl();
+		
 		Calendar c = Calendar.getInstance();
 		c.setTime(farmer.gameDate.date);
 		int month = c.get(Calendar.MONTH);
 		int day = c.get(Calendar.DAY_OF_MONTH);
 		if (dateService.evaluateYearLevel(farmer.gameDate.date) >= 2) {
-			if (month == 9 && day == 1) {
-				farmer.productQuantity = (int) Math.round(yieldService
-						.calculateYield(farmer));
-				farmer.eco_points = 100;
+			if (month == Calendar.OCTOBER && day == 31) {
+				triggerNewSeasonEvents(farmer);
 			}
 		}
+	}
+	
+	public void triggerNewSeasonEvents(Farmer farmer) {
+		YieldService yieldService = new YieldServiceImpl();
+		FarmerService farmerS = new FarmerServiceImpl();
+		BadgesService badgesS = new BadgesServiceImpl();
+		farmerS.collectBadge(farmer, badgesS.ecologist(farmer));
+		farmerS.collectBadge(farmer, badgesS.trader(farmer));
+		farmer.productQuantity = (int) Math.round(yieldService
+				.calculateYield(farmer));
+		farmer.eco_points = 100;
 	}
 
 	public void evaluateFertilizingState(Farmer farmer) {
@@ -226,7 +238,7 @@ public class ContextServiceImpl implements ContextService {
 		c.setTime(farmer.gameDate.date);
 		int month = c.get(Calendar.MONTH);
 		int day = c.get(Calendar.DAY_OF_MONTH);
-		if (month == Calendar.SEPTEMBER && day == 1
+		if (month == Calendar.OCTOBER && day == 1
 				&& dateService.evaluateYearLevel(farmer.gameDate.date) > 1) {
 			FertilizeService fertService = new FertilizeServiceImpl();
 			fertService.finalEvaluationFertilizer(farmer);
@@ -258,19 +270,19 @@ public class ContextServiceImpl implements ContextService {
 		FertilizeService fertService = new FertilizeServiceImpl();
 		if ((farmer.gameDate.dayOrder % 8) == 0) {
 			try {
-				farmer.field.plantation.needN = fertService
+				farmer.needN = fertService
 						.checkNeedOfN(farmer);
-				farmer.field.plantation.needP = fertService
+				farmer.needP = fertService
 						.checkNeedOfP(farmer);
-				farmer.field.plantation.needK = fertService
+				farmer.needK = fertService
 						.checkNeedOfK(farmer);
-				farmer.field.plantation.needCa = fertService
+				farmer.needCa = fertService
 						.checkNeedOfCa(farmer);
-				farmer.field.plantation.needB = fertService
+				farmer.needB = fertService
 						.checkNeedOfB(farmer);
-				farmer.field.plantation.needMg = fertService
+				farmer.needMg = fertService
 						.checkNeedOfMg(farmer);
-				farmer.field.plantation.needZn = fertService
+				farmer.needZn = fertService
 						.checkNeedOfZn(farmer);
 				farmer.field.plantation.save();
 			} catch (NotSuchItemException e) {
@@ -290,6 +302,19 @@ public class ContextServiceImpl implements ContextService {
 			return 1;
 		}
 		return season_level;
+	}
+
+	@Override
+	public void setAndCheckLastLoginDate(Farmer farmer) {
+		
+		Long last = System.currentTimeMillis();
+		if (farmer.lastLogIn!=null) {
+			last = farmer.lastLogIn.getTime();
+		}
+		ThiefService thief = new ThiefServiceImpl();
+		thief.checkThiefProb(farmer);
+		farmer.lastLogIn = new Date(System.currentTimeMillis());
+		farmer.save();
 	}
 
 }

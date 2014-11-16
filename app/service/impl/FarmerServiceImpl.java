@@ -4,14 +4,18 @@ import java.util.List;
 import java.util.Random;
 
 import controllers.ItemController;
+import models.Badges;
 import models.Day;
 import models.Farmer;
+import models.FarmerBadges;
 import dao.ItemsDao;
 import dao.impl.ItemsDaoImpl;
 import dto.C;
 import dto.ItemBoughtDto;
 import service.ContextService;
+import service.DateService;
 import service.FarmerService;
+import service.InfoTableService;
 import service.StoreService;
 
 public class FarmerServiceImpl implements FarmerService {
@@ -110,6 +114,13 @@ public class FarmerServiceImpl implements FarmerService {
 		farmer.grass_growth = 5.0;
 		farmer.digging_coef = 1.0;
 		farmer.is_active = true;
+		farmer.needB = false;
+		farmer.needCa = false;
+		farmer.needK = false;
+		farmer.needMg = false;
+		farmer.needN = false;
+		farmer.needP = false;
+		farmer.needZn = false;
 		farmer.save();
 		StoreService ss = new StoreServiceImpl();
 		ss.buyItem(farmer, "SoilAnalyse", 1.0d, farmer.currentState);
@@ -131,14 +142,34 @@ public class FarmerServiceImpl implements FarmerService {
 		farmer.save();
 		return farmer;
 	}
-
-	@Override
-	public List<ItemBoughtDto> farmersItems(Farmer farmer) {
+	
+	public List<ItemBoughtDto> getCurrentItems(Farmer farmer) {
 		ItemsDao itemDao = new ItemsDaoImpl();
 		List<ItemBoughtDto> result = itemDao
 				.getAllItemsBoughtAndUnunsedByFarmer(farmer);
 		result.addAll(itemDao.getOneYearDurationItems(farmer));
-		return (result);
+		return result;
+	}
+
+	@Override
+	public List<ItemBoughtDto> farmersItems(Farmer farmer) {
+		return getCurrentItems(farmer);
+	}
+
+	@Override
+	public Farmer collectBadge(Farmer farmer, Badges badge) {
+		if (badge==null) {
+			return farmer;
+		}
+		DateService dateService = new DateServiceImpl();
+		FarmerBadges farmerBadge = new FarmerBadges();
+		farmerBadge.year = dateService.evaluateYearLevel(farmer.gameDate.date);
+		farmerBadge.badge = badge;
+		farmerBadge.farmer = farmer;
+		InfoTableService infoS = new InfoTableServiceImpl();
+		infoS.createT1(farmer, badge.description, badge.image_url);
+		farmerBadge.save();
+		return farmer;
 	}
 
 }

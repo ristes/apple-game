@@ -7,6 +7,8 @@ import models.ItemInstance;
 public class ItemBoughtDto {
 
 	public Long id;
+	
+	public Long item_id;
 
 	public Long type_id;
 
@@ -25,6 +27,7 @@ public class ItemBoughtDto {
 
 	public ItemBoughtDto(ItemInstance instance) {
 		id = instance.id;
+		item_id = instance.type.getId();
 		quantity = instance.quantity;
 
 		type_id = instance.type.id;
