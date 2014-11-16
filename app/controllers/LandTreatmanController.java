@@ -3,7 +3,7 @@ package controllers;
 import java.io.IOException;
 
 import models.Farmer;
-import play.mvc.Controller;
+import models.Item;
 import service.ContextService;
 import service.LandTreatmanService;
 import service.impl.ContextServiceImpl;
@@ -14,16 +14,14 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import dto.StatusDto;
 import exceptions.NotEnoughMoneyException;
-import exceptions.SoilTooDryException;
-import exceptions.TooWaterOnFieldException;
 
 public class LandTreatmanController extends GameController {
 
-	public static void digging() throws JsonGenerationException,
+	public static void digging(Long id) throws JsonGenerationException,
 			JsonMappingException, IOException, NotEnoughMoneyException {
 		Farmer farmer = checkFarmer();
 		LandTreatmanService landTreatmanService = new LandTreatmanServiceImpl();
-		farmer = landTreatmanService.executeDigging(farmer);
+		farmer = landTreatmanService.executeDigging(farmer,id);
 		ContextService ctxService = new ContextServiceImpl();
 		ctxService.evaluateState(farmer);
 		StatusDto status = new StatusDto(true, null, null, farmer);

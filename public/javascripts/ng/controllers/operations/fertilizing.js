@@ -119,14 +119,14 @@ Game.controller('FertilizingController', [
         $scope.$root.$emit("side-hide");
         $scope.visible = true;
 
-        var size = $scope.$root.day.field.area;
+        var size = $scope.$root.plantation.area;
         $scope.prices = {
-          n: 35 * size,
-          p: 35 * size,
-          k: 35 * size,
-          ca: 3000 * size,
-          mg: 3000 * size,
-          b: 3000 * size
+          n: 0.5 * size,
+          p: 0.5 * size,
+          k: 0.5 * size,
+          ca: 50 * size,
+          mg: 50 * size,
+          b: 50 * size
         }
         calculatePrice();
 

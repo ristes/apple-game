@@ -1,21 +1,36 @@
 <div id="user_tile">
 	<div id="div_user_icon">
-		<img ng-src="{{$root.farmer.picture}}" class="img-user-info"/>
+		<img ng-src="{{$root.farmer.picture}}" class="img-user-info" />
 		<div class="img-user-info-ramka">
-		<span id="span_user_name">{{$root.farmer.name}}</span>
+			<span id="span_user_name">{{$root.farmer.name}}</span>
 		</div>
 	</div>
 	<div id="div_apple_in_stock_info" class="div-user-info-general">
-		<img class="user_icons_info" src="/public/images/home/apple_icon_in_stock.png"/>
-		<span class="span-user-info-details">{{$root.day.productQuantity}}</span>
+		<img class="user_icons_info"
+			src="/public/images/home/apple_icon_in_stock.png" /> <span
+			class="span-user-info-details">{{$root.day.productQuantity}}</span>
+
+		<button ng-hide="($root.day.capacityNAFridges + $root.day.capacityCAFridges)==0" type="button" style="padding: 3px 3px" class="btn btn-default dropdown-toggle span-user-info-details"
+			data-toggle="dropdown">
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu" style="background-color: #3c3c3c; opacity:0.9; padding:10px">
+			<li><div ng-hide="$root.day.capacityNAFridges==0" class="progress" tooltip="NA fridges {{$root.day.capacityNAFridges}}kg apples"><div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{$root.day.apples_in_na_fridge/$root.day.capacityNAFridges * 100}}%;"> {{$root.day.apples_in_na_fridge}}/{{$root.day.capacityNAFridges}}</div></div></li>
+			<li><div ng-hide="$root.day.capacityCAFridges==0" class="progress" tooltip="CA fridges {{$root.day.capacityCAFridges}}kg apples"><div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{$root.day.apples_in_ca_fridge/$root.day.capacityCAFridges * 100}}%;"> {{$root.day.apples_in_ca_fridge}}/{{$root.day.capacityCAFridges}}</div></div></li>
+			<li><button class="btn btn-primary">Sold</button></li>
+		</ul>
+		
 	</div>
 	<div id="div_money_in_stock_info" class="div-user-info-general">
-		<img class="user_icons_info" src="/public/images/home/money_in_stock.png"/>
-		<span class="span-user-info-details">{{$root.day.balans | integer}}</span>
+		<img class="user_icons_info"
+			src="/public/images/home/money_in_stock.png" /> <span
+			class="span-user-info-details">{{$root.day.balans | integer}}</span>
 	</div>
 	<div id="div_eco_points_info" class="div-user-info-general">
-		<img class="user_icons_info" src="/public/images/home/eco_points_in_stock.png"/>
-		<span class="span-user-info-details">{{$root.day.eco_points | integer}}</span>
+		<img class="user_icons_info"
+			src="/public/images/home/eco_points_in_stock.png" /> <span
+			class="span-user-info-details">{{$root.day.eco_points |
+			integer}}</span>
 	</div>
 	<!-- <div id="div_next_day" ng-click="$root.next()">
 		<span id="span_next_day">Next day</span>

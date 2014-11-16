@@ -3,6 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,12 +22,15 @@ import play.mvc.Finally;
 import play.mvc.With;
 import service.ContextService;
 import service.FarmerService;
+import service.TipService;
 import service.impl.ContextServiceImpl;
 import service.impl.FarmerServiceImpl;
+import service.impl.TipServiceImpl;
 
 public class Application extends GameController {
 
 	public static void index() {
+		
 	}
 
 	public static void nextday() throws IOException {
@@ -38,8 +42,13 @@ public class Application extends GameController {
 			farmerService.gotoNextDay(farmer);
 		}
 		farmer.save();
-//		JsonController.farmerJson(farmer);
-		JsonController.statusJson(farmer);
+		TipService tipService = new TipServiceImpl();
+		String tip = tipService.randomTip(tipService.tipgenerator(farmer));
+
+		StatusDto status = new StatusDto(true, "", "", farmer);
+		status.tip = tip;
+		// JsonController.farmerJson(farmer);
+		JsonController.statusJson(status);
 	}
 
 	public static void nextweek() throws IOException {
@@ -52,8 +61,13 @@ public class Application extends GameController {
 			farmerService.gotoNextWeek(farmer);
 			statusDto = new StatusDto(true, "", "", farmer);
 		}
-//		JsonController.farmerJson(farmer);
-		JsonController.statusJson(farmer);
+
+		TipService tipService = new TipServiceImpl();
+		String tip = tipService.randomTip(tipService.tipgenerator(farmer));
+		
+		statusDto.tip = tip;
+		// JsonController.farmerJson(farmer);
+		JsonController.statusJson(statusDto);
 	}
 
 	public static void nextmonth() throws IOException {
@@ -66,8 +80,10 @@ public class Application extends GameController {
 			farmer = farmerService.gotoNextMonth(farmer);
 			statusDto = new StatusDto(true, "", "", farmer);
 		}
-//		JsonController.farmerJson(farmer);
-		JsonController.statusJson(farmer);
+		TipService tipService = new TipServiceImpl();
+		String tip = tipService.randomTip(tipService.tipgenerator(farmer));
+		statusDto.tip = tip;
+		JsonController.statusJson(statusDto);
 	}
 
 	public static void restartGame() throws JsonGenerationException,
@@ -80,7 +96,7 @@ public class Application extends GameController {
 		farmer = farmerService.restartGame(farmer);
 		redirect("/iso");
 		StatusDto status = new StatusDto(true, "", "", farmer);
-//		JsonController.farmerJson(farmer);
+		// JsonController.farmerJson(farmer);
 		JsonController.statusJson(farmer);
 	}
 

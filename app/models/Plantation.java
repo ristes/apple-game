@@ -29,16 +29,7 @@ public class Plantation extends Model {
 	 */
 	public int currentQuantity;
 
-	/**
-	 * need of minerals
-	 */
-	public Boolean needN;
-	public Boolean needP;
-	public Boolean needK;
-	public Boolean needCa;
-	public Boolean needB;
-	public Boolean needZn;
-	public Boolean needMg;
+
 
 	/**
 	 * JSON Array representing (x,y) values of every tree positioned on the
@@ -97,13 +88,6 @@ public class Plantation extends Model {
 		TerrainAnalysis ta = TerrainAnalysis.findById(rAnalyse);
 		Plantation p = new Plantation();
 		p.treePositions = "[]";
-		p.needB = false;
-		p.needCa = false;
-		p.needK = false;
-		p.needMg = false;
-		p.needN = false;
-		p.needP = false;
-		p.needZn = false;
 		p.analyse = ta;
 		p.save();
 

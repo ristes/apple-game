@@ -6,6 +6,8 @@ import models.Farmer;
 import models.Yield;
 import exceptions.NotAllowedException;
 import exceptions.NotEnoughMoneyException;
+import service.BadgesService;
+import service.FarmerService;
 import service.HarvestService;
 import service.MoneyTransactionService;
 
@@ -32,7 +34,10 @@ public class HarvestServiceImpl implements HarvestService {
 		if (q < 0) {
 			q = 0;
 		}
-		farmer.apples_in_stock += q;
+		
+		//check badge conditions
+		checkBadgeConditions(farmer, q);
+		farmer.addToApples_in_stock(q);
 		farmer.productQuantity = 0;
 		farmer.save();
 		Yield yield = new Yield();
@@ -47,6 +52,14 @@ public class HarvestServiceImpl implements HarvestService {
 	public Farmer makeShtarjfTest(Farmer farmer) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	
+	public void checkBadgeConditions(Farmer farmer, Integer q) {
+		BadgesService badgeS = new BadgesServiceImpl();
+		FarmerService farmerS = new FarmerServiceImpl();
+		farmerS.collectBadge(farmer, badgeS.yield(farmer, farmer.productQuantity));
+		farmerS.collectBadge(farmer, badgeS.harvester(farmer, farmer.productQuantity, q));
 	}
 
 }

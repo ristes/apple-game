@@ -2,8 +2,9 @@ package service;
 
 import java.util.List;
 
-import dto.ItemBoughtDto;
+import models.Badges;
 import models.Farmer;
+import dto.ItemBoughtDto;
 
 public interface FarmerService {
 	
@@ -19,4 +20,5 @@ public interface FarmerService {
 	public Farmer setState(Farmer farmer, String state);
 	public List<ItemBoughtDto> farmersItems(Farmer farmer);
 	public Farmer restartGame(Farmer farmer);
+	public Farmer collectBadge(Farmer farmer, Badges badge);
 }

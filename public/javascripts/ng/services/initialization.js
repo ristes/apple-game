@@ -70,14 +70,15 @@ Game.factory('State', [function() {
     subscribe: function(field, id, callback) {
       var topic = subscribers[field] || {};
       subscribers[field] = topic;
-      if (topic.hasOwnProperty(id)) {
-        throw exception('duplicate subscription id: ' + id);
-      } else {
+//      if (topic.hasOwnProperty(id)) {
+//        throw exception('duplicate subscription id: ' + id);
+//    	  return;
+//      } else {
         topic[id] = callback;
         if (state[field]) {
           callback(state[field]);
         }
-      }
+//      }
     },
     unsubscribe: function(field, id) {
       delete subscribers[field][id];

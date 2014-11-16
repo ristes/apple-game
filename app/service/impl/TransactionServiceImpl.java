@@ -16,6 +16,7 @@ import models.Item;
 import models.ItemInstance;
 import service.AppleSaleTransactionService;
 import service.AppleTransactionService;
+import service.DateService;
 import service.DispensibleItemTransaction;
 import service.IndispensibleItemTransaction;
 import service.InsuranceService;
@@ -115,12 +116,14 @@ public class TransactionServiceImpl implements MoneyTransactionService,
 		if (item.price == 0) {
 			commitBuyingSpecialItem(farmer, item, quantity);
 		} else {
+			DateService dateService = new DateServiceImpl();
 			double value = item.price * quantity;
 			commitMoneyTransaction(farmer, -value);
 			ItemInstance instance = new ItemInstance();
 			instance.ownedBy = farmer;
 			instance.type = item;
 			instance.quantity = quantity;
+			instance.year = dateService.recolteYear(farmer.gameDate.date);
 			instance.save();
 
 			farmer.save();

@@ -83,7 +83,7 @@ public class PlantationController extends GameController {
 	public static void buySeedlings(String nextState, Seedling s0, Integer q0,
 			Seedling s1, Integer q1, Seedling s2, Integer q2) throws Exception {
 		Farmer farmer = checkFarmer();
-		Integer totalPlants = q0+q1+q2;
+		Integer totalPlants = (q0!=null?q0:0)+(q1!=null?q1:0)+(q2!=null?q2:0);
 		PlantingService plantingS = new PlantingServiceImpl();
 //		farmer = plantingS.savePlantingParams(farmer,  totalPlants);
 //		Integer percentPlanted = farmer.field.plantation.fieldPercentage;

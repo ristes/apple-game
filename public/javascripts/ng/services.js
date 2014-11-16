@@ -316,6 +316,7 @@ Game.factory('Operations', ['$resource', '$rootScope',
           order: 2
         }, {
           ico: "/public/images/game/operations/digging.png",
+          requires: 'digging',
           name: 'digging',
           price: 100,
           duration: 50,
@@ -360,6 +361,7 @@ Game.factory('Operations', ['$resource', '$rootScope',
           order: 3
         }, {
           ico: "/public/images/game/operations/digging.png",
+          requires: 'digging',
           name: 'digging',
           price: 100,
           duration: 50,
@@ -395,6 +397,7 @@ Game.factory('Operations', ['$resource', '$rootScope',
           order: 3
         }, {
           ico: "/public/images/game/operations/digging.png",
+          requires: 'digging',
           name: 'digging',
           price: 100,
           duration: 50,

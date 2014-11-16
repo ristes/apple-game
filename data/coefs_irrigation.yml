@@ -3,8 +3,8 @@ coef_mm_one_hour_irrigation:
  - 0.75
 
 coef_price_one_ar_irrigation:
- - 150.0
- - 100.0
+ - 25.0
+ - 15.0
  
 coef_humidity_level:
  - -20.0

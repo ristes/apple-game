@@ -11,6 +11,7 @@ public class StoreItemDto {
 	public Double price;
 	public String url;
 	public Double size;
+	public Boolean perHa;
 
 	public StoreItemDto() {
 
@@ -23,5 +24,6 @@ public class StoreItemDto {
 		url = item.imageurl;
 		price = (double) item.price;
 		store = item.store.name;
+		perHa = item.perHa;
 	}
 }

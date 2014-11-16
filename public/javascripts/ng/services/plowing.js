@@ -11,8 +11,8 @@ Game.factory('Plowing', ['$http', 'State', function($http, State) {
         }
       });
     },
-    digging: function(callback) {
-      var res = $http.get("/LandTreatmanController/digging");
+    digging: function(item, callback) {
+      var res = $http.get("/LandTreatmanController/digging?id="+item);
       res.success(function(data) {
         if (data.status === true) {
           State.set('farmer', data.farmer);

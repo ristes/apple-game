@@ -34,7 +34,6 @@ public class YieldServiceImpl implements YieldService {
 			ArrayList<Double> coefs_yield = hash.get(seedlingType.intValue());
 			Double seedling_coef = coefs_yield.get(ord_year - 1);
 			applesPerA = farmer.field.plantation.base.maxApplesPerHa;
-//			seedling.plantation.fieldPercentage
 			applesPerA =  applesPerA * farmer.field.area * 1000
 					* (farmer.field.plantation.fieldPercentage / 100.0);
 			applesPerA = terrainTypeYield * applesPerA * (seedling_coef / 100.0);

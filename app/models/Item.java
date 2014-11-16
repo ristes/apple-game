@@ -8,6 +8,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import play.data.validation.Range;
 import play.db.jpa.Model;
 
@@ -42,6 +46,8 @@ public class Item extends Model {
 	public String metadata;
 
 	public String imageurl;
+	
+	public Boolean perHa;
 
 	/**
 	 * How this item affects the ecology. Ranges from 0 to 10, where 0 is the
@@ -83,6 +89,19 @@ public class Item extends Model {
 
 	public String toString() {
 		return name;
+	}
+
+	public String suggestToBuy() {
+		JsonParser parser = new JsonParser();
+		if (metadata != null || (metadata!=null && !metadata.equals(""))) {
+			JsonObject el = parser.parse(metadata).getAsJsonObject();
+			String suggest_to_buy = null;
+			if (el.has("suggest-to-buy")) {
+				suggest_to_buy = el.get("suggest-to-buy").getAsString();
+			}
+			return suggest_to_buy;
+		}
+		return null;
 	}
 
 }

@@ -20,7 +20,7 @@ public class Crafty extends Controller {
 			login("mk");
 		}
 		ContextService ctxService = new ContextServiceImpl();
-		ctxService.evaluateState(farmer);
+		ctxService.setAndCheckLastLoginDate(farmer);
 		render();
 	}
 
