@@ -4,7 +4,7 @@
 			<img class="img img-responsive" style="width: 100px; height: 75px"
 				ng-src="/public/images/seasons/season-{{$root.farmer.season_level}}.png" />
 			<div class="item-store ramka" style="width:100px">
-			<span class="title-text">Prolet</span></div>
+			<span class="title-text">{{"season."+$root.farmer.season_level | translate}}</span></div>
 		</div>
 		<div class="btn btn-default" tooltip="Next Day" id="div_next_day"
 			ng-click="$root.next()">
