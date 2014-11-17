@@ -3,10 +3,13 @@ Game.factory('StoreItems', ['$rootScope', '$resource', function($rootScope, $res
   var items = resource.get();
   return {
     load: function() {
-      console.log(items)
+      
     },
     getStoreItems: function() {
       return items;
+    },
+    getByName: function(name) {
+
     }
   };
 }]);

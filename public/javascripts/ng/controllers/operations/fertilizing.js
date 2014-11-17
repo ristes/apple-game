@@ -3,11 +3,12 @@ Game.controller('FertilizingController', [
   'Fertilize',
   'State',
   'Planting',
+  'Store',
   'BoughtItems',
   '$timeout',
   '$interval',
   '$window',
-  function($scope, Fertilize, State, Planting, BoughtItems, $timeout, $interval, $window) {
+  function($scope, Fertilize, State, Planting, Store, BoughtItems, $timeout, $interval, $window) {
 
     $scope.fertilizer = {
       n: 40,
@@ -18,13 +19,7 @@ Game.controller('FertilizingController', [
       b: 0.35
     };
 
-    var analisysItem = BoughtItems.getByName('soil_analyse');
-    if (analisysItem) {
-      Planting.analyseTerain(analisysItem.id,
-        function(data) {
-          $scope.analysis = data;
-        });
-    }
+
 
     function calculatePrice() {
       var n = $scope.fertilizer;
@@ -122,7 +117,26 @@ Game.controller('FertilizingController', [
       }
     }
 
-    $scope.fertilizationUrl = '/public/images/game/' + 'operations/fertilizing.png';
+    $scope.fertilizationUrl = '/public/images/game/operations/fertilizing.png';
+
+    $scope.buyAnalisys = function() {
+      Store.buyItem({
+        itemName: 'soil_analyse',
+        quantity: 1,
+        currentState: State.getByField("farmer").currentState
+      }, null, function(result) {
+        BoughtItems.load(function() {
+          $scope.analisysItem = BoughtItems.getByName('soil_analyse');
+        });
+      });
+    }
+    $scope.showAnalisys = function() {
+      Planting.analyseTerain($scope.analisysItem.id,
+        function(data) {
+          $scope.analysis = data;
+          $scope.showingAnalysis = true;
+        });
+    }
 
     var unreg = $scope.$root.$on('operation-fertilizing', function(_s, oper) {
       $scope.$root.$emit("side-hide");
@@ -138,6 +152,11 @@ Game.controller('FertilizingController', [
         b: 50 * size
       }
       calculatePrice();
+
+      $scope.analisysItem = BoughtItems.getByName('soil_analyse');
+      if ($scope.analisysItem) {
+        $scope.haveAnalisys = true;
+      }
 
       $scope.bgw = $window.innerWidth;
       $scope.bgh = $window.innerHeight;

@@ -20,7 +20,7 @@ Game.factory('Planting', ['$http', 'State', function($http, State) {
       doGet("/PlantationController/seedlingTypes", callback);
     },
     analyseTerain: function(id, callback) {
-      doGet("/PlantationController/soilanalyse/" + id, function(data) {
+      doGet("/PlantationController/soilanalyse", function(data) {
         State.set("terrainAnalyse", data);
         callback(data);
       });

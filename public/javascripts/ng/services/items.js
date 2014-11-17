@@ -17,7 +17,7 @@ Game.factory('BoughtItems', ['$http', function($http) {
           namedItems[item.name] = item;
         }
         if (callback && typeof callback === 'function') {
-          callback();
+          callback(data);
         }
       });
     },

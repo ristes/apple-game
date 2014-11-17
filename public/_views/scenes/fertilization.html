@@ -29,8 +29,16 @@
 					</div>
 				</div>
 			</div>
-			
-			<div id="irrigation-slider-container" ng-show="!fertilizeProgress">
+			<div id="irrigation-slider-container" ng-show="!haveAnalisys">
+				<button class="btn btn-xs" ng-click="buyAnalisys()">buy analysys</button>
+			</div>
+			<div id="irrigation-slider-container" ng-show="haveAnalisys">
+				<button class="btn btn-xs" ng-click="showAnalisys()">show analysys</button>
+			</div>
+			<div id="irrigation-slider-container" ng-show="showingAnalysis">
+				TODO: display analisys
+			</div>
+			<div id="irrigation-slider-container" ng-show="!fertilizeProgress && !showingAnalisys">
 				<div id="fertilization-info">
 					{{ 'fertilization.quantity' | translate }}
 				</div>
