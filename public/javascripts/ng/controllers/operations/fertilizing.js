@@ -130,6 +130,10 @@ Game.controller('FertilizingController', [
         });
       });
     }
+
+    $scope.hideAnalisys = function() {
+      $scope.showingAnalysis = false;
+    }
     $scope.showAnalisys = function() {
       Planting.analyseTerain($scope.analisysItem.id,
         function(data) {

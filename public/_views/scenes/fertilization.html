@@ -32,11 +32,16 @@
 			<div id="irrigation-slider-container" ng-show="!haveAnalisys">
 				<button class="btn btn-xs" ng-click="buyAnalisys()">buy analysys</button>
 			</div>
-			<div id="irrigation-slider-container" ng-show="haveAnalisys">
+			<div id="irrigation-slider-container" ng-show="haveAnalisys && !showingAnalysis">
 				<button class="btn btn-xs" ng-click="showAnalisys()">show analysys</button>
 			</div>
-			<div id="irrigation-slider-container" ng-show="showingAnalysis">
-				TODO: display analisys
+			<div id="irrigation-slider-container" ng-show="haveAnalisys && showingAnalysis">
+				<button class="btn btn-xs" ng-click="hideAnalisys()">hide analysys</button>
+			</div>
+			<div id="analysis-container" ng-show="showingAnalysis">
+				<div ng-repeat="a in analysis">
+				[{{a.startFrom}}-{{a.endTo}}]: {{a.quantity}}% {{a.fertilizationBestTime.fertilizer.name}}
+				</div>
 			</div>
 			<div id="irrigation-slider-container" ng-show="!fertilizeProgress && !showingAnalisys">
 				<div id="fertilization-info">
