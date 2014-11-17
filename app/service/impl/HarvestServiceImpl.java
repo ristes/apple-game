@@ -8,13 +8,13 @@ import exceptions.NotAllowedException;
 import exceptions.NotEnoughMoneyException;
 import service.HarvestService;
 import service.MoneyTransactionService;
+import service.ServiceInjector;
 
 public class HarvestServiceImpl implements HarvestService {
 
 	public Farmer makeHarvesting(Farmer farmer, Double goodper, Double badper) throws NotEnoughMoneyException, NotAllowedException{
 		double expense = farmer.field.area * 3000;
-		MoneyTransactionService moneyService = new TransactionServiceImpl();
-		moneyService.commitMoneyTransaction(farmer, -expense);
+		ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, -expense);
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(farmer.gameDate.date);
 		int year = cal.get(Calendar.YEAR);

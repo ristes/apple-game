@@ -112,14 +112,10 @@
 				<info-table></info-table>
 				<div class="div_wrapper">
 
-
 					<div ng-view></div>
-
 
 					<login ng-if="!$root.farmer.id"></login>
 					<user-info ng-if="$root.farmer.id"></user-info>
-
-
 
 				</div>
 				<weather-info-details w='w' visible="visible"></weather-info-details>

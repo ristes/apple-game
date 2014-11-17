@@ -3,21 +3,19 @@ package service.impl;
 import java.util.List;
 import java.util.Random;
 
-import controllers.ItemController;
 import models.Badges;
 import models.Day;
 import models.Farmer;
 import models.FarmerBadges;
+import models.ItemInstance;
+import service.DateService;
+import service.FarmerService;
+import service.ServiceInjector;
+import service.StoreService;
 import dao.ItemsDao;
 import dao.impl.ItemsDaoImpl;
 import dto.C;
 import dto.ItemBoughtDto;
-import service.ContextService;
-import service.DateService;
-import service.FarmerService;
-import service.InfoTableService;
-import service.ServiceInjector;
-import service.StoreService;
 
 public class FarmerServiceImpl implements FarmerService {
 
@@ -114,6 +112,9 @@ public class FarmerServiceImpl implements FarmerService {
 		farmer.grass_growth = 5.0;
 		farmer.digging_coef = 1.0;
 		farmer.is_active = true;
+		farmer.apples_in_ca_fridge = 0;
+		farmer.apples_in_na_fridge = 0;
+		farmer.season_level = 2;
 		farmer.needB = false;
 		farmer.needCa = false;
 		farmer.needK = false;
@@ -166,10 +167,18 @@ public class FarmerServiceImpl implements FarmerService {
 		farmerBadge.year = dateService.evaluateYearLevel(farmer.gameDate.date);
 		farmerBadge.badge = badge;
 		farmerBadge.farmer = farmer;
-		InfoTableService infoS = new InfoTableServiceImpl();
-		infoS.createT1(farmer, badge.description, badge.image_url);
+		ServiceInjector.infoTableService.createT1(farmer, badge.description, badge.image_url);
 		farmerBadge.save();
 		return farmer;
+	}
+
+	@Override
+	public boolean hasBees(Farmer farmer) {
+		ItemInstance bees = ItemInstance.find("byType.nameAndOwnedBy", "bees",farmer).first();
+		if (bees==null) {
+			return false;
+		}
+		return true;
 	}
 
 }

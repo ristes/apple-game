@@ -21,4 +21,5 @@ public interface FarmerService {
 	public List<ItemBoughtDto> farmersItems(Farmer farmer);
 	public Farmer restartGame(Farmer farmer);
 	public Farmer collectBadge(Farmer farmer, Badges badge);
+	public boolean hasBees(Farmer farmer);
 }

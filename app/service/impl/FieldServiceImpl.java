@@ -1,28 +1,26 @@
 package service.impl;
 
+import models.Farmer;
 import service.FieldService;
+import dao.DaoInjector;
 import dao.FieldDao;
 import dao.impl.FieldDaoImpl;
-import models.Farmer;
 
 public class FieldServiceImpl implements FieldService{
 
 	@Override
 	public Boolean hasTensiometerSystem(Farmer farmer) {
-		FieldDao fieldDao = new FieldDaoImpl();
-		return fieldDao.hasTensiometerSystem(farmer);
+		return DaoInjector.fieldDao.hasTensiometerSystem(farmer);
 	}
 
 	@Override
 	public Boolean hasDropSystem(Farmer farmer) {
-		FieldDao fieldDao = new FieldDaoImpl();
-		return fieldDao.hasTensiometerSystem(farmer);
+		return DaoInjector.fieldDao.hasTensiometerSystem(farmer);
 	}
 
 	@Override
 	public Boolean hasBees(Farmer farmer) {
-		FieldDao fieldDao = new FieldDaoImpl();
-		return fieldDao.hasBees(farmer);
+		return DaoInjector.fieldDao.hasBees(farmer);
 	}
 	
 }

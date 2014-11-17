@@ -12,6 +12,7 @@ import service.InfoTableService;
 import service.InsuranceService;
 import service.MoneyTransactionService;
 import service.RandomGeneratorService;
+import service.ServiceInjector;
 import service.YieldService;
 import utils.RImage;
 import utils.RString;
@@ -34,9 +35,8 @@ public class InsuranceServiceImpl implements InsuranceService {
 			return farmer;
 		}
 		Double refund = odisease.desease.getRefund(farmer);
-		MoneyTransactionService moneyTrans = new TransactionServiceImpl();
 		try {
-			farmer = moneyTrans.commitMoneyTransaction(farmer, refund);
+			farmer = ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, refund);
 			InfoTableService info = new InfoTableServiceImpl();
 			info.createT1(farmer, String.format(RString.get("insurrance_refund_money"),refund.intValue()),RImage.get("insurrance_refund_money"));
 		} catch (NotEnoughMoneyException ex) {
@@ -48,8 +48,7 @@ public class InsuranceServiceImpl implements InsuranceService {
 	@Override
 	public Boolean hasInsuranceThisYear(Farmer farmer) {
 		Item insurrance = Item.find("byName", "insurrance").first();
-		DateService dS = new DateServiceImpl();
-		int year = dS.recolteYear(farmer.gameDate.date);
+		int year = ServiceInjector.dateService.recolteYear(farmer.gameDate.date);
 		ItemInstance item = ItemInstance.find("byOwnedByAndTypeAndYear", farmer,
 				insurrance, year).first();
 		if (item != null) {
@@ -59,26 +58,22 @@ public class InsuranceServiceImpl implements InsuranceService {
 	}
 
 	private Double calculatePriceOfInsurance(Farmer farmer) {
-		YieldService yieldS = new YieldServiceImpl();
-		RandomGeneratorService rS = new RandomGeneratorServiceImpl();
-		Double rApplePrice = rS.random(20.0, 25.0);
-		Double rPercent = rS.random(0.1, 0.15);
+		Double rApplePrice = ServiceInjector.randomGeneratorService.random(20.0, 25.0);
+		Double rPercent = ServiceInjector.randomGeneratorService.random(0.1, 0.15);
 		//price in euros
-		Double cost = yieldS.calculateYield(farmer) * rApplePrice * rPercent/60.0;
+		Double cost = ServiceInjector.yieldService.calculateYield(farmer) * rApplePrice * rPercent/60.0;
 		return cost;
 	}
 
 	private Farmer commitTransaction(Farmer farmer, Double cost)
 			throws NotEnoughMoneyException {
-		MoneyTransactionService moneyTrans = new TransactionServiceImpl();
-		DateService dateS = new DateServiceImpl();
-		moneyTrans.commitMoneyTransaction(farmer, -Math.round(cost));
+		ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, -Math.round(cost));
 		Item insurrance = Item.find("byName", "insurrance").first();
 		ItemInstance itemI = new ItemInstance();
 		itemI.type = insurrance;
 		itemI.ownedBy = farmer;
 		itemI.quantity = 1d;
-		itemI.year = dateS.recolteYear(farmer.gameDate.date);
+		itemI.year = ServiceInjector.dateService.recolteYear(farmer.gameDate.date);
 		itemI.save();
 		return farmer;
 	}

@@ -7,6 +7,7 @@ import models.PlantationSeedling;
 import service.ContextService;
 import service.FarmerService;
 import service.PlantingService;
+import service.ServiceInjector;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -25,8 +26,7 @@ public class PlantingServiceImpl implements PlantingService {
 		farmer.field.plantation.treePositions = addTypesOfSeedlingsToJSONArray(
 				farmer, array);
 		farmer.field.plantation.save();
-		FarmerService farmerService = new FarmerServiceImpl();
-		farmerService.gotoNextDay(farmer);
+		ServiceInjector.farmerService.gotoNextDay(farmer);
 		return farmer;
 	}
 

@@ -65,7 +65,7 @@ Game.factory('$day', [
       $location.path(farmer.currentState || '/buy_tractor');
     }
 
-    State.subscribe('farmer', '$day', onFarmer);
+    State.subscribe('farmer', '$farmer', onFarmer);
 
     return {
       get: function() {

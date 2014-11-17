@@ -4,16 +4,14 @@ import java.util.Calendar;
 import java.util.Date;
 
 import models.Day;
-import models.Disease;
 import models.ExecutedOperation;
 import models.Farmer;
-import models.OperationBestTimeInterval;
 import service.DateService;
+import service.ServiceInjector;
 
 public class DateServiceImpl implements DateService{
 
 	public Date convertDateTo70(Date date) {
-		Boolean afterNewYear = false;
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
 		if (isAfterNewYear(date)) {
@@ -89,8 +87,7 @@ public class DateServiceImpl implements DateService{
 		Calendar c = Calendar.getInstance();
 		c.setTime(result.startDate);
 		c.set(Calendar.YEAR, 1970);
-		DateService dateService = new DateServiceImpl();
-		if (dateService.isAfterNewYear(c.getTime())) {
+		if (ServiceInjector.dateService.isAfterNewYear(c.getTime())) {
 			c.add(Calendar.YEAR, 1);
 		}
 		result.startDate = c.getTime();

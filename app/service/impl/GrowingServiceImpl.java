@@ -13,6 +13,7 @@ import dao.impl.SeedlingDaoImpl;
 import dto.C;
 import service.DateService;
 import service.GrowingService;
+import service.ServiceInjector;
 
 public class GrowingServiceImpl implements GrowingService{	
 	
@@ -24,16 +25,15 @@ public class GrowingServiceImpl implements GrowingService{
 	public final static String EXTENSION_WHITE_TREE = "b";
 	
 	public String evaluatePlantImage(Farmer farmer, String color) {
-		DateService dateService = new DateServiceImpl();
 		String image_path = "/public/images/game/apple_tree/";
 		StringBuilder additional = new StringBuilder();
-		int season = dateService.season_level(farmer);
+		int season = ServiceInjector.dateService.season_level(farmer);
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(farmer.gameDate.date);
 		int year_level = 1;
 		int year = calendar.get(Calendar.YEAR);
 		int month = calendar.get(Calendar.MONTH);
-		year_level = year_tree_image(dateService.evaluateYearLevel(farmer.gameDate.date));
+		year_level = year_tree_image(ServiceInjector.dateService.evaluateYearLevel(farmer.gameDate.date));
 
 		additional.append(checkToPutApplesOnTree(farmer, year, year_level, month,
 				season, color));
@@ -82,10 +82,9 @@ public class GrowingServiceImpl implements GrowingService{
 		Item item = Item.find("byName", "BeloMaslo").first();
 		List<ExecutedOperation> operations = ExecutedOperation.find(
 				"byItemInstance.typeAndField", item, farmer.field).fetch();
-		DateService dateService = new DateServiceImpl();
 		for (ExecutedOperation operation : operations) {
-			if (dateService.isSameYear(farmer,operation.startDate)) {
-				if (dateService.diffCurDate(farmer, operation.startDate) <= 60) {
+			if (ServiceInjector.dateService.isSameYear(farmer,operation.startDate)) {
+				if (ServiceInjector.dateService.diffCurDate(farmer, operation.startDate) <= 60) {
 					result = "b";
 				}
 

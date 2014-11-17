@@ -10,6 +10,7 @@ import service.FarmerService;
 import service.HumidityService;
 import service.LandTreatmanService;
 import service.MoneyTransactionService;
+import service.ServiceInjector;
 import exceptions.NotEnoughMoneyException;
 import exceptions.SoilTooDryException;
 import exceptions.TooWaterOnFieldException;
@@ -21,8 +22,7 @@ public class LandTreatmanServiceImpl implements LandTreatmanService{
 		Item digItem = Item.findById(id);
 		Integer price = (int)(farmer.field.area * digItem.price);
 
-		MoneyTransactionService moneyTransServ = new TransactionServiceImpl();
-		moneyTransServ.commitMoneyTransaction(farmer, -price);
+		ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, -price);
 		farmer.digging_coef = 0.0;
 		farmer.productQuantity += farmer.productQuantity*0.05;
 		return farmer;
@@ -54,9 +54,8 @@ public class LandTreatmanServiceImpl implements LandTreatmanService{
 	}
 	
 	public Farmer evaluatePlowingEcoPoints(Farmer farmer) {
-		FarmerService farmerS = new FarmerServiceImpl();
 		if (!hasEcoTractor(farmer)) {
-			farmerS.subtractEcoPoints(farmer, 1);
+			ServiceInjector.farmerService.subtractEcoPoints(farmer, 1);
 		}
 		return farmer;
 	}
@@ -80,8 +79,7 @@ public class LandTreatmanServiceImpl implements LandTreatmanService{
 	
 	public Farmer determineThePlowingPrice(Farmer farmer)
 			throws SoilTooDryException, TooWaterOnFieldException, NotEnoughMoneyException {
-		HumidityService hService = new HumidityServiceImpl();
-		int level = hService.humidityLevel(farmer);
+		int level = ServiceInjector.humidityService.humidityLevel(farmer);
 		Item plowing = (Item) Item.find("byName", "PlowingItem").fetch().get(0);
 		Double coefTypeTractor =  hasEcoTractor(farmer)?0.7:1.0;
 		Integer price = 0;
@@ -101,9 +99,8 @@ public class LandTreatmanServiceImpl implements LandTreatmanService{
 			throw new TooWaterOnFieldException(Messages.get("controller.plowing.fail.toowater"));
 		}
 
-		MoneyTransactionService moneyService = new TransactionServiceImpl();
 		try {
-			moneyService.commitMoneyTransaction(farmer, -price);
+			ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, -price);
 		} catch (NotEnoughMoneyException ex ) {
 			throw ex;
 		}

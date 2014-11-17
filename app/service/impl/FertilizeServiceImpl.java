@@ -26,6 +26,7 @@ import models.OperationBestTimeInterval;
 import controllers.AuthController;
 import controllers.JsonController;
 import controllers.YieldController;
+import dao.DaoInjector;
 import dao.FertilizingDao;
 import dao.impl.FertilizingDaoImpl;
 import dto.FertilizerOperationDto;
@@ -124,30 +125,30 @@ public class FertilizeServiceImpl implements FertilizeService{
 	}
 	
 	public Double finalEvaluationItem(Farmer farmer, Item item) {
-		FertilizingDao fDao = new FertilizingDaoImpl();
+//		FertilizingDao fDao = new FertilizingDaoImpl();
 		List<FertilizationOperation> operations = item.fertilizationOperations;
 		List<FertilizerOperationDto> execs = new ArrayList<FertilizerOperationDto>();
 		for (FertilizationOperation operation: operations) {
-			List<FertilizerOperationDto> exec = fDao.getExecFertOper(farmer, operation.operation.id);
+			List<FertilizerOperationDto> exec = DaoInjector.fertilizingDao.getExecFertOper(farmer, operation.operation.id);
 			execs.addAll(exec);
 		}
 		Double allQ = FertilizerOperationDto.sumOfQuantity(execs);
-		List<FertilizerOperationDto> intervals = fDao.getFertilizationOper(farmer, item);
+		List<FertilizerOperationDto> intervals = DaoInjector.fertilizingDao.getFertilizationOper(farmer, item);
 		Double execSumQ = FertilizerOperationDto.sumOfQuantity(intervals);
 		return execSumQ/allQ;
 	}
 	
 
 	public Double evaluateFertilizer(Farmer farmer, Item item) {
-		FertilizingDao fDao = new FertilizingDaoImpl();
+//		FertilizingDao fDao = new FertilizingDaoImpl();
 		List<FertilizationOperation> operations = item.fertilizationOperations;
 		List<FertilizerOperationDto> execs = new ArrayList<FertilizerOperationDto>();
 		for (FertilizationOperation operation: operations) {
-			List<FertilizerOperationDto> exec = fDao.getExecFertOper(farmer, operation.id);
+			List<FertilizerOperationDto> exec = DaoInjector.fertilizingDao.getExecFertOper(farmer, operation.id);
 			execs.addAll(exec);
 		}
 		
-		List<FertilizerOperationDto> intervals = fDao.getFertilizationOper(farmer, item);
+		List<FertilizerOperationDto> intervals = DaoInjector.fertilizingDao.getFertilizationOper(farmer, item);
 		int correct = 0;
 		for (FertilizerOperationDto interval: intervals) {
 			for (FertilizerOperationDto exec: execs) {
@@ -245,12 +246,11 @@ public class FertilizeServiceImpl implements FertilizeService{
 	}
 
 	public Boolean checkNeedOfFertilizerType(Farmer farmer, Item item) {
-		FertilizingDao fDao = new FertilizingDaoImpl();
-		List<FertilizerOperationDto> all = fDao.getFertilizationOper(farmer, item);
+		List<FertilizerOperationDto> all = DaoInjector.fertilizingDao.getFertilizationOper(farmer, item);
 		if (all.size() == 0) {
 			return false;
 		}
-		List<FertilizerOperationDto> executed = fDao.getExecFertOper(farmer,
+		List<FertilizerOperationDto> executed = DaoInjector.fertilizingDao.getExecFertOper(farmer,
 				all.get(0).operation_id);
 		double allQuantity = FertilizerOperationDto.sumOfQuantity(all);
 		double farmerQuantity = FertilizerOperationDto.sumOfQuantity(executed);

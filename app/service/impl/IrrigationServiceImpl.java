@@ -12,6 +12,8 @@ import models.Store;
 import service.FieldService;
 import service.IrrigationService;
 import service.MoneyTransactionService;
+import service.ServiceInjector;
+import dao.DaoInjector;
 import dao.ItemsDao;
 import dao.impl.ItemsDaoImpl;
 import dto.C;
@@ -32,8 +34,7 @@ public class IrrigationServiceImpl implements IrrigationService {
 
 		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl
 				.load_hash(C.COEF_HUMIDITY_YML);
-		FieldService fieldService = new FieldServiceImpl();
-		if (fieldService.hasDropSystem(farmer)) {
+		if (ServiceInjector.fieldService.hasDropSystem(farmer)) {
 			int timeInt = time;
 			int coefSoil = farmer.coef_soil_type;
 			double parH = coefs.get(C.KEY_ONE_HOUR_IRRIGATION_VALUES).get(
@@ -43,8 +44,7 @@ public class IrrigationServiceImpl implements IrrigationService {
 					C.ENUM_DROPS)
 					* farmer.field.area * timeInt;
 
-			MoneyTransactionService moneyTransServ = new TransactionServiceImpl();
-			moneyTransServ.commitMoneyTransaction(farmer, -price);
+			ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, -price);
 		}
 		return result;
 	}
@@ -66,15 +66,13 @@ public class IrrigationServiceImpl implements IrrigationService {
 		Double price = coefs.get(C.KEY_PRICE_IRRIGATION_VALUES)
 				.get(C.ENUM_GROOVES).doubleValue()
 				* area_size * time;
-		MoneyTransactionService moneyTransServ = new TransactionServiceImpl();
-		moneyTransServ.commitMoneyTransaction(farmer, -price);
+		ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, -price);
 
 		return result;
 	}
 
 	public int tensiometerTimeForIrr(Farmer farmer) throws NotAllowedException {
-		FieldService fieldService = new FieldServiceImpl();
-		if (fieldService.hasTensiometerSystem(farmer)) {
+		if (ServiceInjector.fieldService.hasTensiometerSystem(farmer)) {
 
 			double delta = farmer.deltaCumulative;
 			HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl
@@ -94,13 +92,12 @@ public class IrrigationServiceImpl implements IrrigationService {
 	@Override
 	public ItemBoughtDto getActiveIrrigationType(Farmer farmer) {
 
-		ItemsDao dao = new ItemsDaoImpl();
-		List<ItemInstance> res = dao.getItemsByStoreNameOrdered(farmer.id,
+		List<ItemInstance> res = DaoInjector.itemsDao.getItemsByStoreNameOrdered(farmer.id,
 				"irrigation");
 		if (res == null || res.isEmpty()) {
 			ItemInstance instance = new ItemInstance();
 			instance.ownedBy = farmer;
-			instance.type = dao.findItemByName(GROOVES);
+			instance.type = DaoInjector.itemsDao.findItemByName(GROOVES);
 			instance.save();
 			return new ItemBoughtDto(instance);
 		} else {

@@ -4,19 +4,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 import java.util.Random;
 
-import controllers.DeseasesExpertSystem;
-import controllers.FertilizationController;
-import controllers.HumidityController;
-import controllers.LandTreatmanController;
-import controllers.WeatherController;
-import controllers.YieldController;
-import dto.C;
-import exceptions.NotSuchItemException;
 import models.Day;
 import models.Farmer;
 import service.BadgesService;
@@ -32,8 +21,11 @@ import service.HumidityGroovesService;
 import service.HumidityService;
 import service.LandTreatmanService;
 import service.RandomGeneratorService;
+import service.ServiceInjector;
 import service.ThiefService;
 import service.YieldService;
+import dto.C;
+import exceptions.NotSuchItemException;
 
 public class ContextServiceImpl implements ContextService {
 
@@ -50,21 +42,18 @@ public class ContextServiceImpl implements ContextService {
 
 	public double calculateHumidityLooses(Farmer farmer) {
 		double result = 0.0;
-		FieldService fieldService = new FieldServiceImpl();
-		if (!fieldService.hasDropSystem(farmer)) {
-			HumidityGroovesService hGroovesService = new HumidityServiceImpl();
-			farmer.productQuantity = hGroovesService
+		if (!ServiceInjector.fieldService.hasDropSystem(farmer)) {
+			farmer.productQuantity = ServiceInjector.humidityGroovesService
 					.grooves_irrigation_delta_impact_quantity(farmer);
-			farmer.eco_points = hGroovesService
+			farmer.eco_points = ServiceInjector.humidityGroovesService
 					.grooves_irrigation_delta_impact_eco_point(farmer);
-			result = hGroovesService.varianceBrazdi(farmer);
+			result = ServiceInjector.humidityGroovesService.varianceBrazdi(farmer);
 		} else {
-			HumidityDropsService hDropsService = new HumidityServiceImpl();
-			farmer.productQuantity = hDropsService
+			farmer.productQuantity = ServiceInjector.humidityDropsService
 					.drops_irrigation_delta_impact_quantity(farmer);
-			farmer.eco_points = hDropsService
+			farmer.eco_points = ServiceInjector.humidityDropsService
 					.drops_irrigation_delta_impact_eco_point(farmer);
-			result = hDropsService.varianceDrops(farmer);
+			result = ServiceInjector.humidityDropsService.varianceDrops(farmer);
 		}
 		return result;
 	}
@@ -91,11 +80,10 @@ public class ContextServiceImpl implements ContextService {
 		for (int i = 0; i < days; i++) {
 			long dayOrder = farmer.gameDate.dayOrder - days + i;
 			Day prevDay = Day.find("byDayOrder", dayOrder).first();
-			RandomGeneratorService rS = new RandomGeneratorServiceImpl();
 			if (prevDay != null) {
 				Calendar c = Calendar.getInstance();
 
-				Integer randm = rS.random(0.0, 12.0).intValue();
+				Integer randm = ServiceInjector.randomGeneratorService.random(0.0, 12.0).intValue();
 				result += rainCoefForMonth(c.get(Calendar.MONTH)) * randm;
 			}
 
@@ -110,9 +98,7 @@ public class ContextServiceImpl implements ContextService {
 		c.setTime(farmer.gameDate.date);
 		Day today = farmer.gameDate;
 		if (today.weatherType.id == C.WEATHER_TYPE_RAINY) {
-			RandomGeneratorService rS = new RandomGeneratorServiceImpl();
-
-			Integer randm = rS.random(0.0, 10.0).intValue();
+			Integer randm = ServiceInjector.randomGeneratorService.random(0.0, 10.0).intValue();
 			farmer.deltaCumulative += rainCoefForMonth(c.get(Calendar.MONTH))
 					* randm;
 		}
@@ -141,8 +127,7 @@ public class ContextServiceImpl implements ContextService {
 	public void calculateDiggingCoefficient(Farmer farmer) {
 		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl
 				.load_hash(C.COEF_HUMIDITY_YML);
-		HumidityService hService = new HumidityServiceImpl();
-		int level = hService.humidityLevel(farmer);
+		int level = ServiceInjector.humidityService.humidityLevel(farmer);
 		if (level >= 3) {
 			farmer.digging_coef += coefs.get(C.KEY_DIGGING_COEF).get(3);
 		} else if (level == 2) {
@@ -168,10 +153,10 @@ public class ContextServiceImpl implements ContextService {
 			farmer.digging_coef = 0.0;
 			return;
 		}
-		HumidityService hService = new HumidityServiceImpl();
+//		HumidityService hService = new HumidityServiceImpl();
 		LandTreatmanService landTreatmanS = new LandTreatmanServiceImpl();
 		DateService dateService = new DateServiceImpl();
-		int hum_level = hService.humidityLevelForSoil(hService
+		int hum_level = ServiceInjector.humidityService.humidityLevelForSoil(ServiceInjector.humidityService
 				.humidityLevel(farmer));
 		int plowing_level = landTreatmanS.plowingLevel(farmer);
 		int digging_level = landTreatmanS.diggingLevel(farmer);
@@ -185,15 +170,13 @@ public class ContextServiceImpl implements ContextService {
 	}
 
 	public void evaluatePlantImage(Farmer farmer) {
-		GrowingService growService = new GrowingServiceImpl();
-		farmer.plant_url = growService.evaluatePlantImage(farmer,"red");
-		farmer.plant_url_gold = growService.evaluatePlantImage(farmer,"gold");
-		farmer.plant_url_green = growService.evaluatePlantImage(farmer,"green");
+		farmer.plant_url = ServiceInjector.growingService.evaluatePlantImage(farmer,"red");
+		farmer.plant_url_gold = ServiceInjector.growingService.evaluatePlantImage(farmer,"gold");
+		farmer.plant_url_green = ServiceInjector.growingService.evaluatePlantImage(farmer,"green");
 	}
 
 	public void evaluateSeason(Farmer farmer) {
-		DateService dateService = new DateServiceImpl();
-		farmer.season_level = dateService.season_level(farmer);
+		farmer.season_level = ServiceInjector.dateService.season_level(farmer);
 	}
 
 	public void evaluateDisease(Farmer farmer) {
@@ -201,20 +184,18 @@ public class ContextServiceImpl implements ContextService {
 		// in winter the diseases does not occure
 		if (farmer.season_level != C.SEASON_WINTER) {
 			if (farmer.gameDate.dayOrder % 5 == 0) {
-				DiseaseService diseaseService = new DiseaseServiceImpl();
-				diseaseService.diseases(farmer);
+				ServiceInjector.diseaseService.diseases(farmer);
 			}
 		}
 	}
 
 	public void evaluateRestartState(Farmer farmer) {
-		DateService dateService = new DateServiceImpl();
 		
 		Calendar c = Calendar.getInstance();
 		c.setTime(farmer.gameDate.date);
 		int month = c.get(Calendar.MONTH);
 		int day = c.get(Calendar.DAY_OF_MONTH);
-		if (dateService.evaluateYearLevel(farmer.gameDate.date) >= 2) {
+		if (ServiceInjector.dateService.evaluateYearLevel(farmer.gameDate.date) >= 2) {
 			if (month == Calendar.OCTOBER && day == 31) {
 				triggerNewSeasonEvents(farmer);
 			}
@@ -222,24 +203,22 @@ public class ContextServiceImpl implements ContextService {
 	}
 	
 	public void triggerNewSeasonEvents(Farmer farmer) {
-		YieldService yieldService = new YieldServiceImpl();
 		FarmerService farmerS = new FarmerServiceImpl();
 		BadgesService badgesS = new BadgesServiceImpl();
 		farmerS.collectBadge(farmer, badgesS.ecologist(farmer));
 		farmerS.collectBadge(farmer, badgesS.trader(farmer));
-		farmer.productQuantity = (int) Math.round(yieldService
+		farmer.productQuantity = (int) Math.round(ServiceInjector.yieldService
 				.calculateYield(farmer));
 		farmer.eco_points = 100;
 	}
 
 	public void evaluateFertilizingState(Farmer farmer) {
-		DateService dateService = new DateServiceImpl();
 		Calendar c = Calendar.getInstance();
 		c.setTime(farmer.gameDate.date);
 		int month = c.get(Calendar.MONTH);
 		int day = c.get(Calendar.DAY_OF_MONTH);
 		if (month == Calendar.OCTOBER && day == 1
-				&& dateService.evaluateYearLevel(farmer.gameDate.date) > 1) {
+				&& ServiceInjector.dateService.evaluateYearLevel(farmer.gameDate.date) > 1) {
 			FertilizeService fertService = new FertilizeServiceImpl();
 			fertService.finalEvaluationFertilizer(farmer);
 		}
@@ -267,22 +246,21 @@ public class ContextServiceImpl implements ContextService {
 	}
 
 	public void calculateFertalizing(Farmer farmer) {
-		FertilizeService fertService = new FertilizeServiceImpl();
 		if ((farmer.gameDate.dayOrder % 8) == 0) {
 			try {
-				farmer.needN = fertService
+				farmer.needN = ServiceInjector.fertilizeService
 						.checkNeedOfN(farmer);
-				farmer.needP = fertService
+				farmer.needP = ServiceInjector.fertilizeService
 						.checkNeedOfP(farmer);
-				farmer.needK = fertService
+				farmer.needK = ServiceInjector.fertilizeService
 						.checkNeedOfK(farmer);
-				farmer.needCa = fertService
+				farmer.needCa = ServiceInjector.fertilizeService
 						.checkNeedOfCa(farmer);
-				farmer.needB = fertService
+				farmer.needB = ServiceInjector.fertilizeService
 						.checkNeedOfB(farmer);
-				farmer.needMg = fertService
+				farmer.needMg = ServiceInjector.fertilizeService
 						.checkNeedOfMg(farmer);
-				farmer.needZn = fertService
+				farmer.needZn = ServiceInjector.fertilizeService
 						.checkNeedOfZn(farmer);
 				farmer.field.plantation.save();
 			} catch (NotSuchItemException e) {
@@ -311,8 +289,7 @@ public class ContextServiceImpl implements ContextService {
 		if (farmer.lastLogIn!=null) {
 			last = farmer.lastLogIn.getTime();
 		}
-		ThiefService thief = new ThiefServiceImpl();
-		thief.checkThiefProb(farmer);
+		ServiceInjector.thiefService.checkThiefProb(farmer);
 		farmer.lastLogIn = new Date(System.currentTimeMillis());
 		farmer.save();
 	}

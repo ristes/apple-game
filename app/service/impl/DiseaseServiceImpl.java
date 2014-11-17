@@ -1,37 +1,21 @@
 package service.impl;
 
-import java.math.BigInteger;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Query;
-
-import play.db.jpa.JPA;
-import controllers.AuthController;
-import controllers.DeseasesExpertSystem;
-import models.Disease;
 import models.DeceaseProtectingOperation;
+import models.Disease;
 import models.ExecutedOperation;
 import models.Farmer;
 import models.OccurredDecease;
-import dao.DeceasesDao;
-import dao.impl.DeceasesDaoImpl;
-import de.congrace.exp4j.Calculable;
-import de.congrace.exp4j.ExpressionBuilder;
-import de.congrace.exp4j.UnknownFunctionException;
-import de.congrace.exp4j.UnparsableExpressionException;
-import dto.DiseaseOccurenceProb;
-import dto.DiseaseProtectingOperationDto;
-import service.ContextService;
 import service.DateService;
 import service.DiseaseService;
-import service.InfoTableService;
-import service.InsuranceService;
-import utils.RString;
+import service.ServiceInjector;
+import dao.DeceasesDao;
+import dao.impl.DeceasesDaoImpl;
+import dto.DiseaseOccurenceProb;
+import dto.DiseaseProtectingOperationDto;
 
 public class DiseaseServiceImpl implements DiseaseService {
 
@@ -64,12 +48,8 @@ public class DiseaseServiceImpl implements DiseaseService {
 
 	public int diseases(Farmer farmer) {
 
-		String images_url = "/public/images/diseases/";
-		String extension = ".png";
-		List<String> result = new ArrayList<String>();
 		List<DiseaseOccurenceProb> probs = getDiseasesProb(farmer);
 		for (DiseaseOccurenceProb prob : probs) {
-			Disease des = Disease.find("byName", prob.name).first();
 			if (prob.probability > (farmer.luck * 100)) {
 				OccurredDecease od = new OccurredDecease();
 				Disease d = Disease.find("byName", prob.name).first();
@@ -100,8 +80,7 @@ public class DiseaseServiceImpl implements DiseaseService {
 
 	public List<DiseaseProtectingOperationDto> getMmax(Farmer farmer,
 			Disease disease) {
-		DateService dateService = new DateServiceImpl();
-		Date curDate = dateService.convertDateTo70(farmer.gameDate.date);
+		Date curDate = ServiceInjector.dateService.convertDateTo70(farmer.gameDate.date);
 		DeceasesDao diseasesDao = new DeceasesDaoImpl();
 		return diseasesDao.getDiseaseProtectingOpersShouldBeDoneToDate(disease,
 				curDate);
@@ -124,17 +103,15 @@ public class DiseaseServiceImpl implements DiseaseService {
 
 	private void checkRefunding(Farmer farmer, OccurredDecease od) {
 		if (od.desease.isRefundable) {
-			InsuranceService insSev = new InsuranceServiceImpl();
-			if (insSev.hasInsuranceThisYear(farmer)) {
-				insSev.refundInsurance(farmer, od);
+			if (ServiceInjector.insuranceService.hasInsuranceThisYear(farmer)) {
+				ServiceInjector.insuranceService.refundInsurance(farmer, od);
 			}
 		}
 	}
 
 	private void checkInfoTable(Farmer farmer, OccurredDecease od) {
 		if (od.desease.triggersInfoTable) {
-			InfoTableService it = new InfoTableServiceImpl();
-			it.createT1(
+			ServiceInjector.infoTableService.createT1(
 					farmer,
 					String.format(od.desease.infoTableText,
 							od.demage.intValue()), od.desease.getImageUrl());
