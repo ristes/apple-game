@@ -14,6 +14,7 @@ import service.ContextService;
 import service.FarmerService;
 import service.FieldService;
 import service.IrrigationService;
+import service.ServiceInjector;
 import service.impl.ContextServiceImpl;
 import service.impl.FarmerServiceImpl;
 import service.impl.FieldServiceImpl;
@@ -34,9 +35,8 @@ public class IrrigationController extends GameController {
 	private static void returnFarmer(Farmer farmer, double deltaCul)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		FarmerService farmerService = new FarmerServiceImpl();
-		ContextService contextService = new ContextServiceImpl();
 		farmerService.addCumulative(farmer, deltaCul);
-		contextService.evaluateState(farmer);
+		ServiceInjector.contextService.evaluateState(farmer);
 		JsonController.farmerJson(farmer);
 	}
 

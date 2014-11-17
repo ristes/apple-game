@@ -6,6 +6,7 @@ import models.Farmer;
 import models.Item;
 import service.ContextService;
 import service.LandTreatmanService;
+import service.ServiceInjector;
 import service.impl.ContextServiceImpl;
 import service.impl.LandTreatmanServiceImpl;
 
@@ -21,9 +22,9 @@ public class LandTreatmanController extends GameController {
 			JsonMappingException, IOException, NotEnoughMoneyException {
 		Farmer farmer = checkFarmer();
 		LandTreatmanService landTreatmanService = new LandTreatmanServiceImpl();
-		farmer = landTreatmanService.executeDigging(farmer,id);
-		ContextService ctxService = new ContextServiceImpl();
-		ctxService.evaluateState(farmer);
+		farmer = landTreatmanService.executeDigging(farmer, id);
+
+		ServiceInjector.contextService.evaluateState(farmer);
 		StatusDto status = new StatusDto(true, null, null, farmer);
 		JsonController.toJson(status, "field", "gameDate", "weatherType");
 	}
@@ -32,8 +33,7 @@ public class LandTreatmanController extends GameController {
 		Farmer farmer = checkFarmer();
 		LandTreatmanService landService = new LandTreatmanServiceImpl();
 		farmer = landService.executePlowing(farmer);
-		ContextService ctxService = new ContextServiceImpl();
-		ctxService.evaluateState(farmer);
+		ServiceInjector.contextService.evaluateState(farmer);
 		StatusDto status = new StatusDto(true, null, null, farmer);
 		JsonController.toJson(status, "field", "gameDate", "weatherType");
 

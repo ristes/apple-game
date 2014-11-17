@@ -17,6 +17,7 @@ import models.WeatherType;
 import play.db.jpa.JPA;
 import play.mvc.Controller;
 import service.ContextService;
+import service.ServiceInjector;
 import service.impl.ContextServiceImpl;
 
 public class WeatherController extends Controller {
@@ -36,7 +37,6 @@ public class WeatherController extends Controller {
 			myday = day.get(0);
 		}
 		List<String> listDayOrders = new ArrayList<String>();
-		
 
 		for (int i = 0; i < fordaysInt; i++) {
 			long dayOrder = myday.dayOrder - fordaysInt / 2 + i;
@@ -65,9 +65,10 @@ public class WeatherController extends Controller {
 			weather.icon_url = wType.icon.name;
 			weather.uvProb = ((Double) obj[7]).doubleValue();
 			weather.humidity = ((Integer) obj[2]).intValue();
-			ContextService contextS = new ContextServiceImpl();
-			if (weather.weatherType==WeatherType.WEATHER_TYPE_RAINY || weather.weatherType==WeatherType.WEATHER_TYPE_ICY) {
-				weather.rainQuantity = contextS.rainCoefForMonth(weather.date);
+			if (weather.weatherType == WeatherType.WEATHER_TYPE_RAINY
+					|| weather.weatherType == WeatherType.WEATHER_TYPE_ICY) {
+				weather.rainQuantity = ServiceInjector.contextService
+						.rainCoefForMonth(weather.date);
 			} else {
 				weather.rainQuantity = 0.0;
 			}
@@ -88,8 +89,4 @@ public class WeatherController extends Controller {
 
 	}
 
-	
-
-	
-	
 }

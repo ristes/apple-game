@@ -16,6 +16,7 @@ import service.ContextService;
 import service.DateService;
 import service.FarmerService;
 import service.InfoTableService;
+import service.ServiceInjector;
 import service.StoreService;
 
 public class FarmerServiceImpl implements FarmerService {
@@ -40,11 +41,10 @@ public class FarmerServiceImpl implements FarmerService {
 	}
 
 	public Farmer gotoNextDay(Farmer farmer) {
-		ContextService ctxService = new ContextServiceImpl();
 		List<Day> gameDates = Day.find("byDayOrder",
 				farmer.gameDate.dayOrder + 1).fetch();
 		farmer.gameDate = gameDates.get(0);
-		ctxService.evaluateState(farmer);
+		ServiceInjector.contextService.evaluateState(farmer);
 		return farmer;
 	}
 

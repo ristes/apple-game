@@ -18,7 +18,7 @@ Game.controller('FertilizingController', [
       b: 0.35
     };
 
-    var analisysItem = BoughtItems.getByName('analyseTerain');
+    var analisysItem = BoughtItems.getByName('soil_analyse');
     if (analisysItem) {
       Planting.analyseTerain(analisysItem.id,
         function(data) {

@@ -8,6 +8,7 @@ import play.i18n.Lang;
 import play.mvc.Controller;
 import service.ContextService;
 import service.FarmerService;
+import service.ServiceInjector;
 import service.impl.ContextServiceImpl;
 import service.impl.FarmerServiceImpl;
 
@@ -19,8 +20,7 @@ public class Crafty extends Controller {
 		if (farmer == null) {
 			login("mk");
 		}
-		ContextService ctxService = new ContextServiceImpl();
-		ctxService.setAndCheckLastLoginDate(farmer);
+		ServiceInjector.contextService.setAndCheckLastLoginDate(farmer);
 		render();
 	}
 
