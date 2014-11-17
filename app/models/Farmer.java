@@ -77,15 +77,15 @@ public class Farmer extends Model {
 	/**
 	 * season labeled in WeatherController
 	 */
-	public int season_level;
+	public Integer season_level;
 
 	public double eco_points = 100;
 
-	public int apples_in_stock = 0;
+	public Integer apples_in_stock = 0;
 	
-	private int apples_in_na_fridge;
+	public Integer apples_in_na_fridge;
 	
-	private int apples_in_ca_fridge;
+	public Integer apples_in_ca_fridge;
 
 	/**
 	 * The quantity of the product he has gained, and haven't sold yet

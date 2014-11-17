@@ -1,19 +1,9 @@
 package service.impl;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-
-import play.i18n.Messages;
-import dto.C;
-import exceptions.NotEnoughApplesException;
-import exceptions.NotEnoughItemsException;
-import exceptions.NotEnoughMoneyException;
-import exceptions.PriceNotValidException;
 import models.Farmer;
 import models.Item;
 import models.ItemInstance;
+import play.i18n.Messages;
 import service.AppleSaleTransactionService;
 import service.AppleTransactionService;
 import service.DateService;
@@ -22,6 +12,11 @@ import service.IndispensibleItemTransaction;
 import service.InsuranceService;
 import service.ItemTransactionService;
 import service.MoneyTransactionService;
+import service.ServiceInjector;
+import exceptions.NotEnoughApplesException;
+import exceptions.NotEnoughItemsException;
+import exceptions.NotEnoughMoneyException;
+import exceptions.PriceNotValidException;
 
 public class TransactionServiceImpl implements MoneyTransactionService,
 		ItemTransactionService, IndispensibleItemTransaction,
@@ -87,14 +82,13 @@ public class TransactionServiceImpl implements MoneyTransactionService,
 	@Override
 	public Farmer commitAppleSaleTransaction(Farmer farmer, Integer quantity)
 			throws NotEnoughApplesException, PriceNotValidException {
-		PriceServiceImpl priceService = new PriceServiceImpl();
 		try {
 			farmer = commitAppleTransaction(farmer, quantity);
 		} catch (NotEnoughApplesException ex) {
 			throw ex;
 		}
 		try {
-			Double price = priceService.price(farmer);
+			Double price = ServiceInjector.priceService.price(farmer);
 			farmer.setBalance(farmer.getBalance() + quantity * price);
 		} catch (PriceNotValidException ex) {
 			throw ex;
@@ -134,8 +128,7 @@ public class TransactionServiceImpl implements MoneyTransactionService,
 	public Farmer commitBuyingSpecialItem(Farmer farmer, Item item,
 			Double quantity) throws NotEnoughMoneyException {
 		if (item.name.equals("insurrance")) {
-			InsuranceService insService = new InsuranceServiceImpl();
-			farmer = insService.buyInsurance(farmer);
+			farmer = ServiceInjector.insuranceService.buyInsurance(farmer);
 		}
 		return farmer;
 	}

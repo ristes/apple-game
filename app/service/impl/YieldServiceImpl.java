@@ -7,20 +7,17 @@ import java.util.List;
 
 import models.Farmer;
 import models.PlantationSeedling;
-import service.DateService;
-import service.FieldService;
+import service.ServiceInjector;
 import service.YieldService;
 import dto.C;
 
 public class YieldServiceImpl implements YieldService {
 
 	public Double calculateYield(Farmer farmer) {
-		DateService dateService = new DateServiceImpl();
-		FieldService farmerService = new FieldServiceImpl();
 		Calendar c = Calendar.getInstance();
 		c.setTime(farmer.gameDate.date);
 		int year = c.get(Calendar.YEAR);
-		Integer ord_year = dateService.evaluateYearLevel(dateService
+		Integer ord_year = ServiceInjector.dateService.evaluateYearLevel(ServiceInjector.dateService
 				.recolteYear(farmer.gameDate.date));
 		List<PlantationSeedling> seedlings = PlantationSeedling.find(
 				"byPlantation", farmer.field.plantation).fetch();
@@ -40,8 +37,8 @@ public class YieldServiceImpl implements YieldService {
 			applesPerA = terrainTypeYield * applesPerA * (seedling_coef / 100.0);
 			sum+=applesPerA;
 		}
-		if (farmerService.hasBees(farmer)) {
-			sum+= sum*20/100;
+		if (ServiceInjector.farmerService.hasBees(farmer)) {
+			sum+= sum*10/100;
 		}
 		return applesPerA;
 	}

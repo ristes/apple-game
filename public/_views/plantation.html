@@ -1,5 +1,11 @@
 <div ng-if="nextDay">
 	<div id="div_timeline_travel">
+		<div style="padding-left: 10px;">
+			<img class="img img-responsive" style="width: 100px; height: 75px"
+				ng-src="/public/images/seasons/season-{{$root.farmer.season_level}}.png" />
+			<div class="item-store ramka" style="width:100px">
+			<span class="title-text">Prolet</span></div>
+		</div>
 		<div class="btn btn-default" tooltip="Next Day" id="div_next_day"
 			ng-click="$root.next()">
 			<span style="margin-right: 5px;" id="span_next_day"></span><i
@@ -16,7 +22,8 @@
 				class="glyphicon glyphicon-fast-forward"></i>
 		</div>
 		<div>
-			<a tooltip="Restart" class="btn btn-default div_restart_game btn btn-default glyphicon glyphicon-repeat"
+			<a tooltip="Restart"
+				class="btn btn-default div_restart_game btn btn-default glyphicon glyphicon-repeat"
 				href="/fbcontroller/restart" id="div_restart_game">
 		</div>
 		</a>

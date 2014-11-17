@@ -55,6 +55,7 @@ Game.run([
   function($rootScope, $location, $farmer, BoughtItems, $day, $plantation, StoreItems, $infoTable) {
     $farmer.load();
     BoughtItems.load();
+    $rootScope.storeItems = StoreItems.getStoreItems();
     $plantation.load();
     $infoTable.getNews();
     $rootScope.visible = false;
@@ -77,7 +78,7 @@ Game.run([
       $infoTable.getNews();
       $rootScope.$emit("weather-hide");
     };
-
+    
     $location.path("/");
   }
 ]);

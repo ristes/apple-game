@@ -82,16 +82,6 @@ public class Plantation extends Model {
 	@ManyToOne
 	public TerrainAnalysis analyse;
 
-	public static Plantation buildInstance() {
-		RandomGeneratorService rgS = new RandomGeneratorServiceImpl();
-		Long rAnalyse = rgS.random(1l, 5l).longValue();
-		TerrainAnalysis ta = TerrainAnalysis.findById(rAnalyse);
-		Plantation p = new Plantation();
-		p.treePositions = "[]";
-		p.analyse = ta;
-		p.save();
-
-		return p;
-	}
+	
 
 }

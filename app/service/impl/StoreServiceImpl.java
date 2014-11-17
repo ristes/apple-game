@@ -31,6 +31,7 @@ import service.DispensibleItemTransaction;
 import service.FarmerService;
 import service.ItemTransactionService;
 import service.MoneyTransactionService;
+import service.ServiceInjector;
 import service.StoreService;
 
 public class StoreServiceImpl implements StoreService {
@@ -55,9 +56,8 @@ public class StoreServiceImpl implements StoreService {
 		StatusDto statusRes = new StatusDto(true,null,null,farmer);
 		if (farmer != null) {
 			Item item = Item.find("name", itemName).first();
-			ItemTransactionService itemTrans = new TransactionServiceImpl();
 			try {
-				farmer = itemTrans.commitBuyingItem(farmer, item, quantity);
+				farmer = ServiceInjector.itemTransactionService.commitBuyingItem(farmer, item, quantity);
 			} catch (NotEnoughMoneyException ex) {
 				ex.printStackTrace();
 			}
@@ -72,7 +72,6 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	private void checkMetaData(StatusDto status, Item item) {
-		FarmerService farmerService = new FarmerServiceImpl();
 		if (item.metadata == null) {
 			return;
 		}
@@ -97,7 +96,7 @@ public class StoreServiceImpl implements StoreService {
 		if (jsonEco!=null) {
 			int eco = jsonEco.getAsInt();
 			if (eco<0) {
-				farmerService.subtractEcoPoints(status.farmer, (double)Math.abs(eco));
+				ServiceInjector.farmerService.subtractEcoPoints(status.farmer, (double)Math.abs(eco));
 			} else {
 				status.farmer.eco_points+=eco;
 			}
@@ -126,7 +125,7 @@ public class StoreServiceImpl implements StoreService {
 
 	public Plantation createPlantation(Farmer farmer) {
 		Field field = Field.find("owner.id", farmer.id).first();
-		Plantation plantation = Plantation.buildInstance();
+		Plantation plantation = ServiceInjector.plantationService.buildInstance();
 		field.plantation = plantation;
 		plantation.field = field;
 		plantation.save();
@@ -144,8 +143,7 @@ public class StoreServiceImpl implements StoreService {
 		field.plantation = plantation;
 
 		farmer.currentState = currentState;
-		MoneyTransactionService moneyService = new TransactionServiceImpl();
-		moneyService.commitMoneyTransaction(farmer, -plantation.base.price);
+		ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, -plantation.base.price);
 
 		plantation.save();
 		field.save();
@@ -156,8 +154,6 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public Farmer buySeedling(Farmer farmer, List<PlantationSeedling> seedling,
 			String currentState) throws NotEnoughMoneyException {
-
-		MoneyTransactionService moneyService = new TransactionServiceImpl();
 		Plantation plantation = getOrCreatePlantation(farmer);
 		plantation.field = farmer.field;
 		Double value = 0d;
@@ -167,7 +163,7 @@ public class StoreServiceImpl implements StoreService {
 			numSeedlings += ps.quantity;
 		}
 		plantation.currentQuantity = numSeedlings;
-		moneyService.commitMoneyTransaction(farmer, -value);
+		ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, -value);
 
 		farmer.currentState = currentState;
 
