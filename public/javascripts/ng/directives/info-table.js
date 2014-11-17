@@ -1,16 +1,15 @@
-GameDirectives.directive('infoTable', ['jQuery','$items', function($,$items) {
-
+GameDirectives.directive('infoTable', [function() {
   return {
     restrict: 'E',
     transclude: true,
     scope: {},
     link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
-      scope.showNext = true;	
+      scope.showNext = true;
       scope.visible = false;
 
-     
-      
-     
+
+
+
 
       var unregShow = scope.$root.$on("info-show", function($scope, cfg) {
         scope.$root.$emit('side-hide');
@@ -23,11 +22,11 @@ GameDirectives.directive('infoTable', ['jQuery','$items', function($,$items) {
             scope.hideFn = cfg.onHide;
           }
         }
-       
+
         scope.visible = true;
       });
 
-     
+
 
       var unregHide = scope.$root.$on("info-hide", function() {
         scope.hide();

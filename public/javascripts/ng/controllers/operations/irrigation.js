@@ -5,6 +5,7 @@ Game.controller('IrrigationController', ['$scope', '$day', '$interval',
     $scope.visible = false;
     $scope.showNext = true;
     $scope.enableOther = true;
+
     $scope.info = {
       mmRain: $day.get().rain_values
     };

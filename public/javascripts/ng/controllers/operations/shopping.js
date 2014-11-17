@@ -6,11 +6,11 @@ Game.controller('ShoppingController', [
   'StoreItems',
   'Operations',
   '$farmer',
-  '$items',
+  'BoughtItems',
   '$plantation',
   '$weather',
   function($scope, $translate, $http, Store, StoreItems, Operations, $farmer,
-    $items, $plantation, $weather) {
+    BoughtItems, $plantation, $weather) {
 
     $plantation.load();
 
@@ -21,8 +21,7 @@ Game.controller('ShoppingController', [
         currentState: $scope.$root.farmer.currentState
       }, null, function(result) {
         if (result.status) {
-          //$items.add(item.store, item);
-          $items.load();
+          BoughtItems.load();
           $farmer.setStatus(result);
           $scope.$root.$emit('shop-hide');
         } else {

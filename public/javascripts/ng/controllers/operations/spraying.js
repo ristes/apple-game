@@ -1,10 +1,10 @@
 Game.controller('SprayingController', [
   '$scope',
   'Store',
-  '$items',
+  'BoughtItems',
   '$day',
   '$spraying',
-  function($scope, Store, $items, $day, $spraying) {
+  function($scope, Store, BoughtItems, $day, $spraying) {
 
     var showProgress = function(_scope, oper, item) {
       $spraying.spray(item);
@@ -25,10 +25,10 @@ Game.controller('SprayingController', [
       }, null, function(result) {
         if (result.balans) {
           $day.load(result);
-          $items.load(function() {
+          BoughtItems.load(function() {
             $scope.$root.$emit('shop-hide');
-            var boughtItem = $items.get($scope.sprayingOper.requires)[0];
-            showProgress($scope, $scope.sprayingOper, boughtItem);
+            var boughtItems = BoughtItems.get($scope.sprayingOper.requires)[0];
+            showProgress($scope, $scope.sprayingOper, boughtItems);
           });
 
         } else {
@@ -40,18 +40,18 @@ Game.controller('SprayingController', [
       });
     };
     var unreg = $scope.$root.$on('operation-spraying', function(_s, oper) {
-      var hasItem = $items.check('spraying');
+      var hasItem = BoughtItems.check('spraying');
       $scope.sprayingOper = oper;
       if (!hasItem) {
         $scope.$root.$emit('shop-show', {
-          items: $scope.$root.storeItems[oper.requires],
+          items: storeItems.getStoreItems()[oper.requires],
           showNext: true,
           storeUrl: oper.ico,
           onItemClick: onBuyItem
         });
 
       } else {
-        var types = $items.get(oper.requires);
+        var types = BoughtItems.get(oper.requires);
         if (types.length > 1) {
           $scope.$root.$emit('shop-show', {
             items: types,

@@ -4,13 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.h2.table.Plan;
-
 import models.Base;
 import models.Farmer;
-import models.Field;
 import models.PlantType;
-import models.Plantation;
 import models.PlantationSeedling;
 import models.Seedling;
 import models.SeedlingType;
@@ -23,11 +19,7 @@ import service.impl.PlantingServiceImpl;
 import service.impl.SoilServiceImpl;
 import service.impl.StoreServiceImpl;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-
-import dto.StatusDto;
-import exceptions.NotEnoughMoneyException;
 
 public class PlantationController extends GameController {
 
@@ -83,31 +75,32 @@ public class PlantationController extends GameController {
 	public static void buySeedlings(String nextState, Seedling s0, Integer q0,
 			Seedling s1, Integer q1, Seedling s2, Integer q2) throws Exception {
 		Farmer farmer = checkFarmer();
-		Integer totalPlants = (q0!=null?q0:0)+(q1!=null?q1:0)+(q2!=null?q2:0);
-		PlantingService plantingS = new PlantingServiceImpl();
-//		farmer = plantingS.savePlantingParams(farmer,  totalPlants);
-//		Integer percentPlanted = farmer.field.plantation.fieldPercentage;
+		Integer totalPlants = (q0 != null ? q0 : 0) + (q1 != null ? q1 : 0)
+				+ (q2 != null ? q2 : 0);
+		// PlantingService plantingS = new PlantingServiceImpl();
+		// farmer = plantingS.savePlantingParams(farmer, totalPlants);
+		// Integer percentPlanted = farmer.field.plantation.fieldPercentage;
 		StoreService service = new StoreServiceImpl();
 		List<PlantationSeedling> seedlings = new ArrayList<PlantationSeedling>();
 		if (q0 != null) {
 			PlantationSeedling ps = new PlantationSeedling();
 			ps.seedling = s0;
 			ps.quantity = q0;
-			ps.percentOfPlantedArea = q0*100/totalPlants;
+			ps.percentOfPlantedArea = q0 * 100 / totalPlants;
 			seedlings.add(ps);
 		}
 		if (q1 != null) {
 			PlantationSeedling ps = new PlantationSeedling();
 			ps.seedling = s1;
 			ps.quantity = q1;
-			ps.percentOfPlantedArea = q1*100/totalPlants;
+			ps.percentOfPlantedArea = q1 * 100 / totalPlants;
 			seedlings.add(ps);
 		}
 		if (q2 != null) {
 			PlantationSeedling ps = new PlantationSeedling();
 			ps.seedling = s2;
 			ps.quantity = q2;
-			ps.percentOfPlantedArea = q2*100/totalPlants;
+			ps.percentOfPlantedArea = q2 * 100 / totalPlants;
 			seedlings.add(ps);
 		}
 		service.buySeedling(farmer, seedlings, nextState);
@@ -121,10 +114,12 @@ public class PlantationController extends GameController {
 		JsonController.statusJson(farmer);
 	}
 
-	public static void soilanalyse() throws Exception{
+	public static void soilanalyse() throws Exception {
 		SoilService soilService = new SoilServiceImpl();
-		String res = JsonController.toJsonString(soilService.features(checkFarmer()), "field", "gameDate",
-				"weatherType", "plantation","category","analysis","fertilizingBestTimeIntervals");
-		renderJSON(res);
+		JsonController.toJson(soilService.features(checkFarmer()),
+				"terrainAnalyse", "operation", "operationBestTimeInterval",
+				"type", "attachments", "storeName", "attachedTo",
+				"fertilizationOperations", "store", "imageurl", "metadata",
+				"image", "perHa", "id", "pollutionCoefficient", "price");
 	}
 }

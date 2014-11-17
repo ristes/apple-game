@@ -1,4 +1,4 @@
-Game.factory('Planting', ['$http', '$day', 'jQuery', function($http, $day, $) {
+Game.factory('Planting', ['$http', 'State', function($http, State) {
 
   function doGet(url, callback) {
     var res = $http.get(url);
@@ -18,6 +18,12 @@ Game.factory('Planting', ['$http', '$day', 'jQuery', function($http, $day, $) {
     },
     seedlingTypes: function(callback) {
       doGet("/PlantationController/seedlingTypes", callback);
+    },
+    analyseTerain: function(id, callback) {
+      doGet("/PlantationController/soilanalyse/" + id, function(data) {
+        State.set("terrainAnalyse", data);
+        callback(data);
+      });
     },
     buySeedlings: function(seedlings, callback) {
       var url = "/PlantationController/buySeedlings";
@@ -52,7 +58,7 @@ Game.factory('Planting', ['$http', '$day', 'jQuery', function($http, $day, $) {
     buyBase: function(base, callback) {
       var url = "/PlantationController/buyBase";
       var params = {
-        base: base, 
+        base: base,
         nextState: '/plantation'
       };
       var res = $http({

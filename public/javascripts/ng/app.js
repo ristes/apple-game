@@ -47,33 +47,33 @@ Game.run([
   '$rootScope',
   '$location',
   '$farmer',
-  '$items',
+  'BoughtItems',
   '$day',
   '$plantation',
   'StoreItems',
   '$infoTable',
-  function($rootScope, $location, $farmer, $items, $day, $plantation, StoreItems, $infoTable) {
+  function($rootScope, $location, $farmer, BoughtItems, $day, $plantation, StoreItems, $infoTable) {
     $farmer.load();
-    $items.load();
+    BoughtItems.load();
     $plantation.load();
     $infoTable.getNews();
     $rootScope.visible = false;
     $rootScope.next = function() {
       $day.next();
-      $items.load();
+      BoughtItems.load();
       $infoTable.getNews();
       $rootScope.$emit("weather-hide");
 
     };
     $rootScope.nextWeek = function() {
       $day.nextWeek();
-      $items.load();
+      BoughtItems.load();
       $infoTable.getNews();
       $rootScope.$emit("weather-hide");
     };
     $rootScope.nextMonth = function() {
       $day.nextMonth();
-      $items.load();
+      BoughtItems.load();
       $infoTable.getNews();
       $rootScope.$emit("weather-hide");
     };

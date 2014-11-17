@@ -10,38 +10,34 @@ Game.factory('StoreItems', ['$rootScope', '$resource', function($rootScope, $res
     }
   };
 }]);
-Game.factory('$farmer', ['$rootScope', '$http', '$items', '$location',
-  'State',
-  function($rootScope, $http, $items, $location, State) {
-    function swap(farmer) {
-      if (farmer && farmer.hasOwnProperty('balans')) {
-        State.set('farmer', farmer);
-      }
-    }
 
-    function setStatus(status) {
-      State.set('status', status);
-      swap(status.farmer);
-    }
-    return {
-      load: function() {
-        /*
-         * if ($rootScope.farmer) { return $rootScope.farmer; } else {
-         */
-        var res = $http.get("/AuthController/farmer");
-        res.success(function(data) {
-          setStatus(data);
-          swap(data.farmer);
-        });
-        return res;
-        // }
-      },
-      swap: swap,
-      setStatus: setStatus
-    };
+Game.factory('$farmer', ['$http', 'State', function($http, State) {
 
+  function swap(farmer) {
+    if (farmer && farmer.hasOwnProperty('balans')) {
+      State.set('farmer', farmer);
+    }
   }
-]);
+
+  function setStatus(status) {
+    State.set('status', status);
+    swap(status.farmer);
+  }
+
+  return {
+    load: function() {
+      var res = $http.get("/AuthController/farmer");
+      res.success(function(data) {
+        setStatus(data);
+        swap(data.farmer);
+      });
+      return res;
+    },
+    swap: swap,
+    setStatus: setStatus
+  };
+
+}]);
 
 Game.factory('$day', [
   '$rootScope',
@@ -49,14 +45,14 @@ Game.factory('$day', [
   '$http',
   '$weather',
   'Diseases',
-  '$items',
+  'BoughtItems',
   '$location',
-  function($rootScope, State, $http, $weather, Diseases, $items,
+  function($rootScope, State, $http, $weather, Diseases, BoughtItems,
     $location) {
 
     function onFarmer(farmer) {
       if (!$rootScope.farmer && farmer.field) {
-        $items.load();
+        BoughtItems.load();
       }
       if (farmer.balans != null) {
         $rootScope.day = farmer;
@@ -80,7 +76,7 @@ Game.factory('$day', [
         res.success(function(data) {
           State.set('status', data);
           if (!$rootScope.farmer && data.farmer.field) {
-            $items.load();
+            BoughtItems.load();
           }
           if (data.balans != null) {
             $rootScope.day = data;
@@ -97,7 +93,7 @@ Game.factory('$day', [
         res.success(function(data) {
           State.set('status', data);
           if (!$rootScope.farmer && data.field) {
-            $items.load();
+            BoughtItems.load();
           }
           if (data.balans != null) {
             $rootScope.day = data;
@@ -113,7 +109,7 @@ Game.factory('$day', [
         res.success(function(data) {
           State.set('status', data);
           if (!$rootScope.farmer && data.field) {
-            $items.load();
+            BoughtItems.load();
           }
           if (data.balans != null) {
             $rootScope.day = data;
@@ -128,75 +124,7 @@ Game.factory('$day', [
   }
 ]);
 
-Game.factory('$items', ['$rootScope', '$http', function($rootScope, $http) {
-  if (!$rootScope.items) {
-    $rootScope.items = {};
-    $rootScope._items = [];
-  }
-  return {
-    load: function(callback) {
-      var res = $http.get("/storecontroller/myitems");
-      res.success(function(data) {
-        $rootScope.items = {};
-        $rootScope._items = data || [];
-        for (var i = 0; i < data.length; i++) {
-          var store = data[i].store;
-          $rootScope.items[store] = $rootScope.items[store] || [];
-          $rootScope.items[store].push(data[i]);
-        }
-        if (callback && typeof callback === 'function') {
-          callback();
-        }
-      });
-    },
-    add: function(key, val) {
-      $rootScope.items[key] = $rootScope.items[key] || [];
-      var vals = $rootScope.items[key];
-      // todo: check for duplicates
-      vals.push(val);
-      $rootScope._items.push(val);
-    },
-    check: function(key) {
-      return $rootScope.items[key] && $rootScope.items[key].length > 0;
-    },
-    get: function(key) {
-      return $rootScope.items[key];
-    },
-    use: function(key, item) {
-      $rootScope.items[key].pop();
 
-      function remove(arr) {
-        var results = [];
-        var removed = false;
-        angular.forEach(arr, function(val) {
-
-          if (!removed && val.store == key) {
-            if (!item || val.id == item.id) {
-              removed = true;
-            } else {
-              results.push(val);
-            }
-          } else {
-            results.push(val);
-          }
-        });
-        return results;
-      }
-      $rootScope._items = remove($rootScope._items);
-      $rootScope.items[key] = remove($rootScope.items[key]);
-    },
-    all: function() {
-      var results = [];
-      angular.forEach($rootScope.items, function(val) {
-        angular.forEach(val, function(v) {
-          results.push(v);
-        });
-      });
-      return results;
-    }
-
-  };
-}]);
 
 Game
   .factory(
@@ -272,11 +200,11 @@ Game.factory('Fertilize', ['State', '$http', function(State, $http) {
 Game
   .factory(
     '$spraying', [
-      '$items',
+      'BoughtItems',
       '$day',
       '$http',
       'jQuery',
-      function($items, $day, $http, $) {
+      function(BoughtItems, $day, $http, $) {
 
         return {
           spray: function(item) {
@@ -293,7 +221,7 @@ Game
               if (res.data && res.data.balans) {
                 $day.load(res.data);
               }
-              $items.load();
+              BoughtItems.load();
             });
           }
         }

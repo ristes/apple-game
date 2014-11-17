@@ -8,23 +8,25 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import play.db.jpa.Model;
 
 @Entity
-@Table(name="fertilizationoperation")
+@Table(name = "fertilizationoperation")
 public class FertilizationOperation extends Model {
-	
+
 	@ManyToOne
 	public Item fertilizer;
-	
+
 	@ManyToOne
 	public Operation operation;
-	
-	@OneToMany(mappedBy="fertilizationBestTime")
+
+	@OneToMany(mappedBy = "fertilizationBestTime")
 	public List<OperationBestTimeInterval> operationBestTimeInterval;
-	
+
 	public String toString() {
-		return fertilizer.name + "-"+operation.name;
+		return fertilizer.name + "-" + operation.name;
 	}
 
 }

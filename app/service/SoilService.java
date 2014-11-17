@@ -3,10 +3,11 @@ package service;
 import java.util.List;
 
 import models.Farmer;
+import models.OperationBestTimeInterval;
 import models.TerrainFeature;
 
 public interface SoilService {
 	
-	public List<TerrainFeature> features(Farmer farmer);
+	public List<OperationBestTimeInterval> features(Farmer farmer);
 
 }

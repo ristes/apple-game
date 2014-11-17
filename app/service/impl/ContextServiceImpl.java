@@ -115,8 +115,8 @@ public class ContextServiceImpl implements ContextService {
 			Integer randm = rS.random(0.0, 10.0).intValue();
 			farmer.deltaCumulative += rainCoefForMonth(c.get(Calendar.MONTH))
 					* randm;
-			farmer.rain_values = calculateRainForPrevDays(farmer, 5);
 		}
+		farmer.rain_values = calculateRainForPrevDays(farmer, 5);
 
 		if (farmer.gameDate.dayOrder % 8 == 0) {
 			double variance = calculateHumidityLooses(farmer);

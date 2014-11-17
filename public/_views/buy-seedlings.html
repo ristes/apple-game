@@ -22,7 +22,7 @@
 						</div>
 					</div>
 				</td>
-				<td ng-repeat="s in seedlings | filter: { type: at } | orderBy: seedlingType.id" class="td-price">
+				<td ng-repeat="s in seedlings | filter: { type: at }: true | orderBy: seedlingType.id" class="td-price">
 					<span class="seedling-price badge" ng-click="select(s)">{{s.price}}</span>
 				</td>
 			</tr>

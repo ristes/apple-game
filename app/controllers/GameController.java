@@ -25,6 +25,7 @@ public class GameController extends Controller {
 	@Catch
 	public static void notEnoughMoney(final Exception ex) {
 		response.status = Http.StatusCode.BAD_REQUEST;
+		ex.printStackTrace();
 		renderJSON(new ExceptionStatus(ex));
 	}
 

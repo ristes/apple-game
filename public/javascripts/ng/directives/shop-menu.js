@@ -1,11 +1,10 @@
-GameDirectives.directive('shopMenu', ['jQuery','$items', function($,$items) {
-
+GameDirectives.directive('shopMenu', ['jQuery', 'BoughtItems', function($, BoughtItems) {
   return {
     restrict: 'E',
     transclude: true,
     scope: {},
     link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
-      scope.showNext = true;	
+      scope.showNext = true;
       scope.visible = false;
       scope.buying = false;
 
@@ -18,14 +17,14 @@ GameDirectives.directive('shopMenu', ['jQuery','$items', function($,$items) {
           }
         }
       };
-      
+
       scope.executeItem = function(item) {
-    	 console.log("Item bought");
+        console.log("Item bought");
       }
 
       var unregBought = scope.$root.$on("item-bought", function($scope) {
-        if(scope.$root.day.field) {
-          $items.load();
+        if (scope.$root.day.field) {
+          BoughtItems.load();
         }
         scope.buying = false;
       });

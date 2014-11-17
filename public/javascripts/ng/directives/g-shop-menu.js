@@ -1,4 +1,4 @@
-GameDirectives.directive('gShopMenu', ['jQuery', '$items', function($, $items) {
+GameDirectives.directive('gShopMenu', ['jQuery', 'BoughtItems', function($, BoughtItems) {
 
   return {
     restrict: 'E',
@@ -25,7 +25,7 @@ GameDirectives.directive('gShopMenu', ['jQuery', '$items', function($, $items) {
 
       var unregBought = scope.$root.$on("item-bought", function($scope) {
         if (scope.$root.day.field) {
-          $items.load();
+          BoughtItems.load();
         }
         scope.buying = false;
       });
