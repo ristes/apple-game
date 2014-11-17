@@ -55,7 +55,7 @@ Game.controller('ShoppingController', [
           name: 'shop'
         },
         storeUrl: '/public/images/game/operations/shop.png',
-        onItemClick: showStoreItems
+        onItemClick: onBuyItem
       });
     });
 
