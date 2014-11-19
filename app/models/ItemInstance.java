@@ -14,7 +14,7 @@ import play.db.jpa.Model;
  * 
  */
 @Entity
-@Table(name="iteminstance")
+@Table(name = "iteminstance")
 public class ItemInstance extends Model {
 
 	/**
@@ -23,17 +23,14 @@ public class ItemInstance extends Model {
 	@ManyToOne
 	public Item type;
 
-	@OneToOne
-	public ExecutedOperation operation;
-	
 	/**
 	 * Who owns the instance
 	 */
 	@ManyToOne
 	public Farmer ownedBy;
-	
+
 	public Double quantity;
-	
+
 	public Integer year;
 
 }

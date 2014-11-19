@@ -3,173 +3,203 @@
   "pollutionCoefficient": 2,
   "price": 2500,
   "storeName": "tractor",
-  "imageurl": "/public/images/game/items/tractor.png"
+  "imageurl": "/public/images/game/items/tractor.png", 
+  "typeName":""
+  
 }, {
   "name": "EkoTraktor",
   "pollutionCoefficient": 0,
   "price": 3500,
   "storeName": "tractor",
-  "imageurl": "/public/images/game/items/eco-tractor.png"
+  "imageurl": "/public/images/game/items/eco-tractor.png", 
+  "typeName":""
 }, {
   "name": "organic-fertilizer",
   "pollutionCoefficient": 0,
   "price": 35,
   "storeName": "fertilizer",
-  "imageurl": "/public/images/game/items/fertilizer.png"
+  "imageurl": "/public/images/game/items/fertilizer.png", 
+  "typeName":""
 }, {
   "name": "NPK",
   "pollutionCoefficient": 3,
   "price": 30,
   "storeName": "fertilizer",
-  "imageurl": "/public/images/game/items/fertilizer.png"
+  "imageurl": "/public/images/game/items/fertilizer.png", 
+  "typeName":""
 }, {
   "name": "Ca",
   "pollutionCoefficient": 1,
   "price": 50,
   "storeName": "fertilizer",
-  "imageurl": "/public/images/game/items/fertilizer.png"
+  "imageurl": "/public/images/game/items/fertilizer.png", 
+  "typeName":""
 }, {
   "name": "B",
   "pollutionCoefficient": 1,
   "price": 50,
   "storeName": "fertilizer",
-  "imageurl": "/public/images/game/items/fertilizer.png"
+  "imageurl": "/public/images/game/items/fertilizer.png", 
+  "typeName":""
 }, {
   "name": "Mg",
   "pollutionCoefficient": 1,
   "price": 50,
   "storeName": "fertilizer",
-  "imageurl": "/public/images/game/items/fertilizer.png"
+  "imageurl": "/public/images/game/items/fertilizer.png", 
+  "typeName":""
 }, {
   "name": "N",
   "pollutionCoefficient": 0,
   "price": 1,
   "storeName": "fertilizer",
-  "imageurl": "/public/images/game/items/fertilizer.png"
+  "imageurl": "/public/images/game/items/fertilizer.png", 
+  "typeName":""
 }, {
   "name": "P",
   "pollutionCoefficient": 0,
   "price": 1,
   "storeName": "fertilizer",
-  "imageurl": "/public/images/game/items/fertilizer.png"
+  "imageurl": "/public/images/game/items/fertilizer.png", 
+  "typeName":""
 }, {
   "name": "K",
   "pollutionCoefficient": 0,
   "price": 1,
   "storeName": "fertilizer",
-  "imageurl": "/public/images/game/items/fertilizer.png"
+  "imageurl": "/public/images/game/items/fertilizer.png", 
+  "typeName":""
 }, {
   "name": "pheromone",
   "pollutionCoefficient": 0,
   "price": 10,
   "storeName": "spraying",
-  "imageurl": "/public/images/game/items/pheromone.png"
+  "imageurl": "/public/images/game/items/pheromone.png", 
+  "typeName":""
 }, {
   "name": "white-oil",
   "pollutionCoefficient": 1,
   "price": 50,
   "storeName": "spraying",
-  "imageurl": "/public/images/game/items/white-oil.png"
+  "imageurl": "/public/images/game/items/white-oil.png", 
+  "typeName":""
 }, {
   "name": "insecticide",
   "pollutionCoefficient": 2,
   "price": 50,
   "storeName": "spraying",
-  "imageurl": "/public/images/game/items/insecticide.png"
+  "imageurl": "/public/images/game/items/insecticide.png", 
+  "typeName":""
 }, {
   "name": "copper_fungicide",
   "pollutionCoefficient": 2,
   "price": 50,
   "storeName": "spraying",
-  "imageurl": "/public/images/game/items/copper-fungicide.png"
+  "imageurl": "/public/images/game/items/copper-fungicide.png", 
+  "typeName":""
 }, {
   "name": "digging",
   "pollutionCoefficient": 0,
   "price": 150,
   "storeName": "digging",
-  "imageurl": "/public/images/game/items/digging.png"
+  "imageurl": "/public/images/game/items/digging.png", 
+  "typeName":""
 }, {
   "name": "cultivator",
   "pollutionCoefficient": 0,
   "price": 250,
   "storeName": "digging",
-  "imageurl": "/public/images/game/items/kultivator.png"
+  "imageurl": "/public/images/game/items/kultivator.png", 
+  "typeName":""
 }, {
   "name": "herbicid",
   "pollutionCoefficient": 0,
   "price": 250,
   "storeName": "digging",
-  "imageurl": "/public/images/game/items/herbicid.png"
+  "imageurl": "/public/images/game/items/herbicid.png", 
+  "typeName":""
 }, {
   "name": "grooves",
   "pollutionCoefficient": 0,
   "price": 100,
   "storeName": "irrigation",
-  "imageurl": "/public/images/game/items/grooves.png"
+  "imageurl": "/public/images/game/items/grooves.png", 
+  "typeName":""
 }, {
   "name": "drops",
   "pollutionCoefficient": 0,
   "price": 2000,
   "storeName": "irrigation",
-  "imageurl": "/public/images/game/items/drop.png"
+  "imageurl": "/public/images/game/items/drop.png", 
+  "typeName":""
 }, {
   "name": "tensiometers",
   "pollutionCoefficient": 0,
   "price": 500,
   "storeName": "irrigation",
-  "imageurl": "/public/images/game/items/tensiometer.png"
+  "imageurl": "/public/images/game/items/tensiometer.png", 
+  "typeName":""
 }, {
   "name": "bees",
   "pollutionCoefficient": 0,
   "price": 100,
   "storeName": "other",
-  "imageurl": "/public/images/game/items/bees.png"
+  "imageurl": "/public/images/game/items/bees.png", 
+  "typeName":""
 }, {
   "name": "insurance",
   "pollutionCoefficient": 0,
   "price": 100,
   "storeName": "other",
-  "imageurl": "/public/images/game/items/insurance.png"
+  "imageurl": "/public/images/game/items/insurance.png", 
+  "typeName":""
 }, {
   "name": "protecting_net",
   "pollutionCoefficient": 0,
   "price": 400,
   "storeName": "other",
-  "imageurl": "/public/images/game/items/protecting-net.png"
+  "imageurl": "/public/images/game/items/protecting-net.png", 
+  "typeName":""
 }, {
   "name": "guard",
   "pollutionCoefficient": 0,
   "price": 15,
   "storeName": "other",
-  "imageurl": "/public/images/game/items/guard.png"
+  "imageurl": "/public/images/game/items/guard.png", 
+  "typeName":""
 }, {
   "name": "guard",
   "pollutionCoefficient": 0,
   "price": 15,
   "storeName": "other",
-  "imageurl": "/public/images/game/items/guard.png"
+  "imageurl": "/public/images/game/items/guard.png", 
+  "typeName":""
 }, {
   "name": "artificial_rain",
   "pollutionCoefficient": 0,
   "price": 15,
   "storeName": "other",
-  "imageurl": "/public/images/game/items/artificial-rain.png"
+  "imageurl": "/public/images/game/items/artificial-rain.png", 
+  "typeName":""
 }, {
   "name": "na_ridge",
   "pollutionCoefficient": 0,
   "price": 45,
   "storeName": "other",
-  "imageurl": "/public/images/game/items/fridge.png"
+  "imageurl": "/public/images/game/items/fridge.png", 
+  "typeName":""
 }, {
   "name": "ca_fridge",
   "pollutionCoefficient": 0,
   "price": 80,
   "storeName": "other",
-  "imageurl": "/public/images/game/items/fridge.png"
+  "imageurl": "/public/images/game/items/fridge.png", 
+  "typeName":""
 }, {
   "name": "soil_analyse",
   "pollutionCoefficient": 0,
   "price": 80,
   "storeName": "other",
-  "imageurl": "/public/images/game/items/fridge.png"
+  "imageurl": "/public/images/game/items/fridge.png", 
+  "typeName":""
 }]

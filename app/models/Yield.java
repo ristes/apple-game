@@ -14,25 +14,19 @@ import play.db.jpa.Model;
  * 
  */
 @Entity
-@Table(name="yield")
+@Table(name = "yield")
 public class Yield extends Model {
 
 	/**
 	 * The maximum expected quantity, obtained with perfect care and conditions
 	 */
 	public int quantity;
-	
+
 	@ManyToOne
 	public Farmer farmer;
-	
+
 	public Integer year;
 
-	/**
-	 * The apple base
-	 */
-	@ManyToOne
-	public Base base;
-	
 	@ManyToOne
 	public PlantationSeedling plantation;
 

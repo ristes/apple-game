@@ -8,12 +8,10 @@ import javax.persistence.Table;
 
 import play.db.jpa.Model;
 
-@Entity
-@Table(name = "itemtype")
 public class ItemType extends Model {
 
-	public String name;
+	public static final int INDISPANSIBLE = -1;
+	public static final int ONE_YEAR = 1;
+	public static final int FIVE_YEARS = 5;
 
-	@OneToMany(mappedBy = "type")
-	public List<Item> items;
 }

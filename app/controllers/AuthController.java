@@ -18,6 +18,7 @@ import play.mvc.Http;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import dao.DaoInjector;
 import dao.ItemsDao;
 import dao.impl.ItemsDaoImpl;
 import dto.PlantationDto;
@@ -26,11 +27,9 @@ import dto.StatusDto;
 public class AuthController extends GameController {
 
 	public static void farmer() throws Exception {
-//		JsonController.farmerJson(getFarmer());
+		// JsonController.farmerJson(getFarmer());
 		JsonController.statusJson(getFarmer());
 	}
-
-	
 
 	public static void plantation() throws JsonGenerationException,
 			JsonMappingException, IOException {
@@ -53,8 +52,7 @@ public class AuthController extends GameController {
 			JsonMappingException, IOException {
 		Farmer farmer = getFarmer();
 		if (farmer != null) {
-			ItemsDao itemsDao = new ItemsDaoImpl();
-			renderJSON(itemsDao.getBoughtAndUnusedItems(farmer));
+			renderJSON(DaoInjector.itemsDao.getFarmerCurrentItems(farmer));
 		} else {
 			response.status = 401;
 			renderJSON(null);

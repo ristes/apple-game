@@ -9,6 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -31,10 +32,10 @@ public class Item extends Model {
 	 */
 	public String name;
 
+	/**
+	 * The item description
+	 */
 	public String description;
-
-	@ManyToOne
-	public ItemType type;
 
 	/**
 	 * The price for the item
@@ -42,13 +43,25 @@ public class Item extends Model {
 	public int price;
 
 	/**
+	 * Tells if the price is per Ha
+	 */
+	public Boolean perHa;
+
+	/**
+	 * Where can we buy the item
+	 */
+	@ManyToOne
+	public Store store;
+
+	/**
 	 * JSON object that describes the object
 	 */
 	public String metadata;
 
+	/**
+	 * The image that will be displayed for the item
+	 */
 	public String imageurl;
-
-	public Boolean perHa;
 
 	/**
 	 * How this item affects the ecology. Ranges from 0 to 10, where 0 is the
@@ -57,24 +70,18 @@ public class Item extends Model {
 	@Range(min = 0, max = 10)
 	public int pollutionCoefficient;
 
-	@ManyToOne
-	public SpriteImage image;
+	/**
+	 * When the item will be shown in the store
+	 */
+	public int activationRecolteYear;
 
 	/**
-	 * Where can we buy the item
+	 * How long the item will be active. If -1, it lasts forever.
 	 */
-	@ManyToOne
-	public Store store;
+	public int expirationInYears;
 
 	@OneToMany(mappedBy = "fertilizer")
 	public List<FertilizationOperation> fertilizationOperations;
-
-	/**
-	 * If the item function as attachment of other item. If the other item is
-	 * not owned, this can't be acquired.
-	 */
-	@ManyToOne
-	public Item attachedTo;
 
 	/**
 	 * The operation which is executed with this item
@@ -82,16 +89,11 @@ public class Item extends Model {
 	@ManyToOne
 	public Operation operation;
 
-	/**
-	 * The list of additional items that can be attached to this item
-	 */
-	@OneToMany(mappedBy = "attachedTo")
-	public List<Item> attachments;
-
 	public String toString() {
 		return name;
 	}
 
+	@JsonIgnore
 	@Transient
 	public String storeName;
 

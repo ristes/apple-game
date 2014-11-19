@@ -12,6 +12,7 @@ import service.DateService;
 import service.FarmerService;
 import service.ServiceInjector;
 import service.StoreService;
+import dao.DaoInjector;
 import dao.ItemsDao;
 import dao.impl.ItemsDaoImpl;
 import dto.C;
@@ -143,13 +144,9 @@ public class FarmerServiceImpl implements FarmerService {
 		farmer.save();
 		return farmer;
 	}
-	
+
 	public List<ItemBoughtDto> getCurrentItems(Farmer farmer) {
-		ItemsDao itemDao = new ItemsDaoImpl();
-		List<ItemBoughtDto> result = itemDao
-				.getAllItemsBoughtAndUnunsedByFarmer(farmer);
-		result.addAll(itemDao.getOneYearDurationItems(farmer));
-		return result;
+		return DaoInjector.itemsDao.getFarmerCurrentItems(farmer);
 	}
 
 	@Override
@@ -159,7 +156,7 @@ public class FarmerServiceImpl implements FarmerService {
 
 	@Override
 	public Farmer collectBadge(Farmer farmer, Badges badge) {
-		if (badge==null) {
+		if (badge == null) {
 			return farmer;
 		}
 		DateService dateService = new DateServiceImpl();
@@ -167,15 +164,17 @@ public class FarmerServiceImpl implements FarmerService {
 		farmerBadge.year = dateService.evaluateYearLevel(farmer.gameDate.date);
 		farmerBadge.badge = badge;
 		farmerBadge.farmer = farmer;
-		ServiceInjector.infoTableService.createT1(farmer, badge.description, badge.image_url);
+		ServiceInjector.infoTableService.createT1(farmer, badge.description,
+				badge.image_url);
 		farmerBadge.save();
 		return farmer;
 	}
 
 	@Override
 	public boolean hasBees(Farmer farmer) {
-		ItemInstance bees = ItemInstance.find("byType.nameAndOwnedBy", "bees",farmer).first();
-		if (bees==null) {
+		ItemInstance bees = ItemInstance.find("byType.nameAndOwnedBy", "bees",
+				farmer).first();
+		if (bees == null) {
 			return false;
 		}
 		return true;

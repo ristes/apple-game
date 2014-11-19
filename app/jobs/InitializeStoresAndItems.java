@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import models.Item;
+import models.ItemType;
 import models.Store;
 import play.Play;
 import play.jobs.Job;
@@ -20,11 +21,12 @@ import com.google.gson.reflect.TypeToken;
 @OnApplicationStart
 public class InitializeStoresAndItems extends Job {
 
+	Map<String, Store> storeMap = new HashMap<String, Store>();
+	Map<String, Item> itemsMap = new HashMap<String, Item>();
+	Map<String, ItemType> itemsTypes = new HashMap<String, ItemType>();
+
 	@Override
 	public void doJob() throws Exception {
-
-		Map<String, Store> storeMap = new HashMap<String, Store>();
-		Map<String, Item> itemsMap = new HashMap<String, Item>();
 
 		List<Store> stores = readStores("/data/stores.json");
 		List<Item> items = readItems("data/storeItems.json");

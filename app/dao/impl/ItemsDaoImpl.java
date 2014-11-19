@@ -2,7 +2,9 @@ package dao.impl;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Query;
 
@@ -12,6 +14,7 @@ import models.ItemInstance;
 import models.ItemType;
 import play.db.jpa.JPA;
 import service.DateService;
+import service.ServiceInjector;
 import service.impl.DateServiceImpl;
 import dao.ItemsDao;
 import dto.ItemBoughtDto;
@@ -19,71 +22,30 @@ import dto.ItemBoughtDto;
 public class ItemsDaoImpl implements ItemsDao {
 
 	@Override
-	public List<ItemInstance> getBoughtAndUnusedItems(Farmer farmer) {
-		String sqlSelect = "select * from iteminstance  where ownedBy_id=:farmer_id and id NOT IN (select DISTINCT(itemInstance_id) FROM executedoperation where field_id=:field_id and  not(isnull(iteminstance_id)))";
-		Query query = JPA.em().createNativeQuery(sqlSelect, ItemInstance.class);
-		query.setParameter("farmer_id", farmer.id);
-		query.setParameter("field_id", farmer.field.id);
-		List<ItemInstance> items = query.getResultList();
-		return items;
-	}
+	public List<ItemBoughtDto> getFarmerCurrentItems(Farmer farmer) {
 
-	@Override
-	public List<ItemBoughtDto> getAllItemsBoughtAndUnunsedByFarmer(Farmer farmer) {
-
-		String sql = "select t1.id, t1.type_id,  item.name, item.imageurl, count(t1.type_id) as count, t1.quantity, store.name as store, item.id as item_id from (select * from iteminstance where iteminstance.ownedBy_id = :farmer_id) as t1 left join item ON t1.type_id = item.id left join store ON item.store_id = store.id where item.type_id not in (:item_type_one_year) and t1.id not in (select DISTINCT (itemInstance_id) FROM executedoperation where field_id = :field_id and not (isnull(iteminstance_id))) GROUP BY t1.type_id order by t1.id";
-
+		List<ItemInstance> farmerItems = ItemInstance.find("ownedBy.id",
+				farmer.id).fetch();
 		List<ItemBoughtDto> result = new ArrayList<ItemBoughtDto>();
-		ItemType one_year_type = ItemType.find("name", "oneyear").first();
-		if (null==farmer.field) {
-			return new ArrayList<ItemBoughtDto>();
-		}
-		List<Object[]> resultSql = JPA.em().createNativeQuery(sql)
-				.setParameter("farmer_id", farmer.id)
-				.setParameter("field_id", farmer.field.id)
-				.setParameter("item_type_one_year", one_year_type.id)
-				.getResultList();
-		for (Object[] obj : resultSql) {
-			ItemBoughtDto item = new ItemBoughtDto();
-			item.id = ((BigInteger) obj[0]).longValue();
-			item.type_id = ((BigInteger) obj[1]).longValue();
-			item.name = (String) obj[2];
-			item.url = (String) obj[3];
-			item.count = ((BigInteger) obj[4]).intValue();
-			if (obj[5] != null) {
-				item.quantity = ((Double) obj[5]).doubleValue();
-			} else {
-				item.quantity = null;
+		Map<String, ItemBoughtDto> boughtItems = new HashMap<String, ItemBoughtDto>();
+		for (ItemInstance item : farmerItems) {
+			// item.type.expirationInYears
+			int recolteYear = ServiceInjector.dateService
+					.recolteYear(farmer.gameDate.date);
+			if (item.type.expirationInYears != 0
+					&& item.year + item.type.expirationInYears <= recolteYear) {
+				if (boughtItems.containsKey(item.type.name)) {
+					boughtItems.get(item.type.name).count++;
+				} else {
+					ItemBoughtDto dto = new ItemBoughtDto(item);
+					dto.count = 1;
+					boughtItems.put(item.type.name, dto);
+				}
 			}
-			item.store = (String) obj[6];
-			item.item_id = ((BigInteger) obj[7]).longValue();
-			result.add(item);
-
 		}
+
 		return result;
 	}
-
-	@Override
-	public List<ItemBoughtDto> getOneYearDurationItems(Farmer farmer) {
-		List<ItemBoughtDto> result = new ArrayList<ItemBoughtDto>();
-		ItemType iType = ItemType.find("name", "oneyear").first();
-		DateService dS = new DateServiceImpl();
-		List<ItemInstance> items = ItemInstance.find(
-				"byType.typeAndYearAndOwnedBy", iType,
-				dS.recolteYear(farmer.gameDate.date), farmer).fetch();
-		for (ItemInstance item : items) {
-			ItemBoughtDto it = new ItemBoughtDto();
-			it.id = item.id;
-			it.type_id = item.type.id;
-			it.name = item.type.name;
-			it.url = item.type.imageurl;
-			it.store = item.type.store.name;
-			result.add(it);
-		}
-		return result;
-	}
-	
-	
 
 	@Override
 	public List<ItemInstance> getItemsByStoreNameOrdered(Long farmerId,
@@ -105,32 +67,28 @@ public class ItemsDaoImpl implements ItemsDao {
 
 	@Override
 	public List<Item> getUnboughtItem(Farmer farmer) {
-		ItemsDao itemDao = new ItemsDaoImpl();
-		List<ItemBoughtDto> result = itemDao
-				.getAllItemsBoughtAndUnunsedByFarmer(farmer);
-		result.addAll(itemDao.getOneYearDurationItems(farmer));
-		
+
+		List<ItemBoughtDto> result = getFarmerCurrentItems(farmer);
+
 		List<Item> all = Item.findAll();
 		List<Item> results = new ArrayList<Item>();
-		
-		for (Item item:all) {
+
+		for (Item item : all) {
 			if (!isIn(item, result)) {
 				results.add(item);
 			}
 		}
 		return results;
-		
+
 	}
-	
-	public Boolean isIn(Item item, List<ItemBoughtDto> result) {
-		for (ItemBoughtDto i:result) {
+
+	private Boolean isIn(Item item, List<ItemBoughtDto> result) {
+		for (ItemBoughtDto i : result) {
 			if (item.getId().equals(i.item_id)) {
 				return true;
 			}
 		}
 		return false;
 	}
-
-	
 
 }

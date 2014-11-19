@@ -12,8 +12,6 @@ import play.mvc.Controller;
  */
 public class Home extends Controller {
 
-	private static Farmer currentFarmer;
-
 	public static void ownedItems() {
 
 	}
