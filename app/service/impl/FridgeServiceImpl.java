@@ -3,9 +3,11 @@ package service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.FridgeUsageDto;
 import models.Farmer;
 import models.Fridge;
 import models.FridgeSeedlingType;
+import models.PlantType;
 import models.PlantationSeedling;
 import service.FridgeService;
 
@@ -46,6 +48,36 @@ public class FridgeServiceImpl implements FridgeService{
 		
 		
 		
+	}
+
+	@Override
+	public void buyFridgeCapacity(Farmer farmer, int capacity, int fridgeType) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addToFridge(Farmer farmer, PlantType type, int quantity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeFromFridge(Farmer farmer, PlantType type, int quantity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public FridgeUsageDto getFridgeUsage(Farmer farmer, int fridgeType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<FridgeUsageDto> getFarmerFridges(Farmer farmer) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
