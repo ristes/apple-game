@@ -12,6 +12,7 @@ import models.Seedling;
 import models.SeedlingType;
 import service.FarmerService;
 import service.PlantingService;
+import service.ServiceInjector;
 import service.SoilService;
 import service.StoreService;
 import service.impl.FarmerServiceImpl;
@@ -80,7 +81,6 @@ public class PlantationController extends GameController {
 		// PlantingService plantingS = new PlantingServiceImpl();
 		// farmer = plantingS.savePlantingParams(farmer, totalPlants);
 		// Integer percentPlanted = farmer.field.plantation.fieldPercentage;
-		StoreService service = new StoreServiceImpl();
 		List<PlantationSeedling> seedlings = new ArrayList<PlantationSeedling>();
 		if (q0 != null) {
 			PlantationSeedling ps = new PlantationSeedling();
@@ -103,7 +103,8 @@ public class PlantationController extends GameController {
 			ps.percentOfPlantedArea = q2 * 100 / totalPlants;
 			seedlings.add(ps);
 		}
-		service.buySeedling(farmer, seedlings, nextState);
+		ServiceInjector.storeService.buySeedling(farmer, seedlings, nextState);
+		ServiceInjector.fridgeService.setFridgesSeedlingType(farmer, seedlings);
 		JsonController.statusJson(farmer);
 	}
 

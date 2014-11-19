@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import models.Farmer;
+import models.PlantationSeedling;
 import models.SeedlingType;
 import service.HarvestService;
 import service.impl.HarvestServiceImpl;
@@ -20,13 +21,14 @@ import exceptions.NotEnoughMoneyException;
 public class HarvestingController extends GameController {
 
 	public static void harvest(int goodcollected, int goodtotal,
-			int badcollected, int badtotal) throws Exception {
+			int badcollected, int badtotal, long plantationseedling) throws Exception {
 
 		Farmer farmer = checkFarmer();
+		PlantationSeedling ps = PlantationSeedling.findById(plantationseedling);
 		HarvestService hService = new HarvestServiceImpl();
 		double goodper = goodcollected / (double) goodtotal;
 		double badper = badcollected / (double) badtotal;
-		farmer = hService.makeHarvesting(farmer, goodper, badper);
+		farmer = hService.makeHarvesting(farmer, ps, goodper, badper);
 
 		StatusDto status = new StatusDto(true, "Успешна берба",
 				"", farmer);

@@ -7,6 +7,7 @@ import service.impl.DiseaseServiceImpl;
 import service.impl.FarmerServiceImpl;
 import service.impl.FertilizeServiceImpl;
 import service.impl.FieldServiceImpl;
+import service.impl.FridgeServiceImpl;
 import service.impl.GrowingServiceImpl;
 import service.impl.HarvestServiceImpl;
 import service.impl.HumidityServiceImpl;
@@ -60,6 +61,7 @@ public class ServiceInjector {
 	public static YieldService yieldService = new YieldServiceImpl();
 	public static YmlService ymlService = new YmlServiceImpl();
 	public static PlantationService plantationService = new PlantationServiceImpl();
+	public static FridgeService fridgeService = new FridgeServiceImpl();
 	
 
 }

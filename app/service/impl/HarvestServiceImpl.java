@@ -3,6 +3,7 @@ package service.impl;
 import java.util.Calendar;
 
 import models.Farmer;
+import models.PlantationSeedling;
 import models.Yield;
 import exceptions.NotAllowedException;
 import exceptions.NotEnoughMoneyException;
@@ -12,7 +13,7 @@ import service.ServiceInjector;
 
 public class HarvestServiceImpl implements HarvestService {
 
-	public Farmer makeHarvesting(Farmer farmer, Double goodper, Double badper) throws NotEnoughMoneyException, NotAllowedException{
+	public Farmer makeHarvesting(Farmer farmer, PlantationSeedling plantationSeedling, Double goodper, Double badper) throws NotEnoughMoneyException, NotAllowedException{
 		double expense = farmer.field.area * 3000;
 		ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, -expense);
 		Calendar cal = Calendar.getInstance();
@@ -37,6 +38,7 @@ public class HarvestServiceImpl implements HarvestService {
 		farmer.save();
 		Yield yield = new Yield();
 		yield.farmer = farmer;
+		yield.plantation = plantationSeedling;
 		yield.quantity = q;
 		yield.year = year;
 		yield.save();

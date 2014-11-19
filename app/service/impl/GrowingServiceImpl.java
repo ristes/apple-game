@@ -57,7 +57,7 @@ public class GrowingServiceImpl implements GrowingService{
 				result = EXTENSION_SMALL_APPLES;
 			} else if (month == Calendar.SEPTEMBER) {
 				// has been harvested this year to show apples on plant
-				if (Yield.find("byFarmerAndYear", farmer, year).fetch().size() == 0) {
+				if (Yield.find("byFarmerAndYearAndSeedling", farmer, year).fetch().size() == 0) {
 					result = checkAppleColor(farmer, color);
 				}
 			}

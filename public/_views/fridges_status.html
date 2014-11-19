@@ -1,15 +1,4 @@
-<div id="user_tile">
-	<div id="div_user_icon">
-		<img ng-src="{{$root.farmer.picture}}" class="img-user-info" />
-		<div class="img-user-info-ramka">
-			<span id="span_user_name">{{$root.farmer.name}}</span>
-		</div>
-	</div>
-	<div id="div_apple_in_stock_info" class="div-user-info-general">
-		<img class="user_icons_info"
-			src="/public/images/home/apple_icon_in_stock.png" /> <span
-			class="span-user-info-details">{{$root.day.productQuantity}}</span>
-		<button
+<button
 			ng-hide="($root.day.capacityNAFridges + $root.day.capacityCAFridges)==0"
 			type="button" style="padding: 3px 3px"
 			class="btn btn-default dropdown-toggle span-user-info-details"
@@ -36,19 +25,3 @@
 				</div></li>
 			<li><button class="btn btn-primary">Sold</button></li>
 		</ul>
-	</div>
-	<div id="div_money_in_stock_info" class="div-user-info-general">
-		<img class="user_icons_info"
-			src="/public/images/home/money_in_stock.png" /> <span
-			class="span-user-info-details">{{$root.day.balans | integer}}</span>
-	</div>
-	<div id="div_eco_points_info" class="div-user-info-general">
-		<img class="user_icons_info"
-			src="/public/images/home/eco_points_in_stock.png" /> <span
-			class="span-user-info-details">{{$root.day.eco_points |
-			integer}}</span>
-	</div>
-	<!-- <div id="div_next_day" ng-click="$root.next()">
-		<span id="span_next_day">Next day</span>
-	</div> -->
-</div>
