@@ -62,7 +62,7 @@ public class WeatherController extends Controller {
 			weather.lowTemp = lowTemp;
 			WeatherType wType = WeatherType.findById(weatherTypeLong);
 			weather.weatherType = wType.id;
-			weather.icon_url = wType.icon.name;
+			weather.icon_url = wType.icon_url;
 			weather.uvProb = ((Double) obj[7]).doubleValue();
 			weather.humidity = ((Integer) obj[2]).intValue();
 			if (weather.weatherType == WeatherType.WEATHER_TYPE_RAINY

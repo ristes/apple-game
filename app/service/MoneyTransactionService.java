@@ -1,7 +1,7 @@
 package service;
 
-import exceptions.NotEnoughMoneyException;
 import models.Farmer;
+import exceptions.NotEnoughMoneyException;
 
 public interface MoneyTransactionService {
 	public Farmer commitMoneyTransaction(Farmer farmer, double value) throws NotEnoughMoneyException;

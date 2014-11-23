@@ -1,34 +1,20 @@
 package service.impl;
 
-import java.math.BigInteger;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Query;
-
-import play.db.jpa.JPA;
-import service.DateService;
-import service.FarmerService;
-import service.FertilizeService;
-import service.MoneyTransactionService;
-import service.YieldService;
-import service.impl.DateServiceImpl;
-import service.impl.FarmerServiceImpl;
 import models.ExecutedOperation;
 import models.Farmer;
 import models.FertilizationOperation;
 import models.Item;
 import models.ItemInstance;
 import models.OperationBestTimeInterval;
-import controllers.AuthController;
-import controllers.JsonController;
-import controllers.YieldController;
+import service.FarmerService;
+import service.FertilizeService;
+import service.MoneyTransactionService;
+import service.YieldService;
 import dao.DaoInjector;
-import dao.FertilizingDao;
-import dao.impl.FertilizingDaoImpl;
 import dto.FertilizerOperationDto;
 import exceptions.NotEnoughMoneyException;
 import exceptions.NotSuchItemException;

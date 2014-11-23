@@ -6,14 +6,11 @@ import java.util.List;
 import models.ExecutedOperation;
 import models.Farmer;
 import models.Item;
+import models.PlantType;
 import models.Yield;
-import controllers.WeatherController;
-import dao.SeedlingDao;
-import dao.impl.SeedlingDaoImpl;
-import dto.C;
-import service.DateService;
 import service.GrowingService;
 import service.ServiceInjector;
+import dto.C;
 
 public class GrowingServiceImpl implements GrowingService{	
 	
@@ -24,7 +21,7 @@ public class GrowingServiceImpl implements GrowingService{
 
 	public final static String EXTENSION_WHITE_TREE = "b";
 	
-	public String evaluatePlantImage(Farmer farmer, String color) {
+	public String evaluatePlantImage(Farmer farmer, Long plantType) {
 		String image_path = "/public/images/game/apple_tree/";
 		StringBuilder additional = new StringBuilder();
 		int season = ServiceInjector.dateService.season_level(farmer);
@@ -36,7 +33,7 @@ public class GrowingServiceImpl implements GrowingService{
 		year_level = year_tree_image(ServiceInjector.dateService.evaluateYearLevel(farmer.gameDate.date));
 
 		additional.append(checkToPutApplesOnTree(farmer, year, year_level, month,
-				season, color));
+				season, plantType));
 		additional.append(checkWhiteSprayed(farmer, year_level));
 		return image_path + String.valueOf(year_level) + String.valueOf(season)
 				+ additional + ".png";
@@ -49,24 +46,26 @@ public class GrowingServiceImpl implements GrowingService{
 		return year_level;
 	}
 	
-	public String checkToPutApplesOnTree(Farmer farmer, int year,
-			int year_level, int month, int season, String color) {
+	public String checkToPutApplesOnTree(Farmer farmer, Integer year,
+			int year_level, int month, int season, Long plantType) {
 		String result = "";
 		if (year_level == 3) {
 			if (month == Calendar.AUGUST) {
 				result = EXTENSION_SMALL_APPLES;
 			} else if (month == Calendar.SEPTEMBER) {
 				// has been harvested this year to show apples on plant
-				if (Yield.find("byFarmerAndYearAndSeedling", farmer, year).fetch().size() == 0) {
-					result = checkAppleColor(farmer, color);
+				if (Yield.find("byFarmerAndYearAndPlantation.seedling.type.id", farmer, year, plantType).fetch().size() == 0) {
+					result = checkAppleColor(farmer, plantType);
 				}
 			}
 		}
 		return result;
 	}
 
-	public String checkAppleColor(Farmer farmer,String color) {
+	public String checkAppleColor(Farmer farmer,Long plantType) {
 		String result = "";
+		PlantType plantTypeIns = PlantType.findById(plantType);
+		String color = plantTypeIns.apple_color;
 		if (color.equals(C.APPLE_COLOR_GOLD)) {
 			result = EXTENSION_BIG_APPLES_GOLD;
 		} else if (color.equals(C.APPLE_COLOR_GREEN)) {

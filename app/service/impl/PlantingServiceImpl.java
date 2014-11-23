@@ -4,8 +4,6 @@ import java.util.List;
 
 import models.Farmer;
 import models.PlantationSeedling;
-import service.ContextService;
-import service.FarmerService;
 import service.PlantingService;
 import service.ServiceInjector;
 
@@ -47,8 +45,8 @@ public class PlantingServiceImpl implements PlantingService {
 		for (int i = 0; i < mySeedlPercs.length; i++) {
 			for (int j = globalCounter; j < globalCounter + mySeedlPercs[i]; j++) {
 				JsonObject jsonObject = jsonAr.get(j).getAsJsonObject();
-				jsonObject.addProperty("color",
-						mySeedls.get(i).seedling.type.apple_color);
+				jsonObject.addProperty("planttype",
+						mySeedls.get(i).seedling.type.id);
 				resultArr.add(jsonObject);
 			}
 			globalCounter += mySeedlPercs[i];

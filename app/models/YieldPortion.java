@@ -2,7 +2,6 @@ package models;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import play.db.jpa.Model;
@@ -16,6 +15,19 @@ public class YieldPortion extends Model {
 	@ManyToOne
 	public Fridge fridge;
 
-	@OneToMany
+	@ManyToOne
 	public Yield yield;
+	
+	/**
+	 *
+	 * @param quantity
+	 * @return the rest of apples that the portions does not have 
+	 */
+	public Integer removeFromPortion(int quantity) {
+		this.quantity -= quantity;
+		if (this.quantity < 0) {
+			return Math.abs(this.quantity);
+		}
+		return 0;
+	}
 }

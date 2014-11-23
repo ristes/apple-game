@@ -1,6 +1,5 @@
 package controllers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,14 +8,8 @@ import models.PlantationSeedling;
 import models.SeedlingType;
 import service.HarvestService;
 import service.impl.HarvestServiceImpl;
-
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
 import dto.HarvestingInfo;
 import dto.StatusDto;
-import exceptions.NotAllowedException;
-import exceptions.NotEnoughMoneyException;
 
 public class HarvestingController extends GameController {
 

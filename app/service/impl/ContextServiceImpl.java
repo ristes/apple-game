@@ -160,10 +160,22 @@ public class ContextServiceImpl implements ContextService {
 		farmer.soil_url = tile_name;
 	}
 
+	@Deprecated
 	public void evaluatePlantImage(Farmer farmer) {
-		farmer.plant_url = ServiceInjector.growingService.evaluatePlantImage(farmer,"red");
-		farmer.plant_url_gold = ServiceInjector.growingService.evaluatePlantImage(farmer,"gold");
-		farmer.plant_url_green = ServiceInjector.growingService.evaluatePlantImage(farmer,"green");
+		
+//		farmer.plant_url = ServiceInjector.growingService.evaluatePlantImage(farmer,"red");
+//		farmer.plant_url_gold = ServiceInjector.growingService.evaluatePlantImage(farmer,"gold");
+//		farmer.plant_url_green = ServiceInjector.growingService.evaluatePlantImage(farmer,"green");
+	}
+	
+	public void evaluatePlantState(Farmer farmer) {
+		
+		farmer.plant_ajdaret = ServiceInjector.growingService.evaluatePlantImage(farmer,ContextService.AJDARET);
+		farmer.plant_crven_delishes = ServiceInjector.growingService.evaluatePlantImage(farmer,ContextService.CRVEN_DELISHES);
+		farmer.plant_zlaten_delishes = ServiceInjector.growingService.evaluatePlantImage(farmer,ContextService.ZLATEN_DELISHES);
+		farmer.plant_jonalgold = ServiceInjector.growingService.evaluatePlantImage(farmer,ContextService.JONALGOLD);
+		farmer.plant_greni_smit = ServiceInjector.growingService.evaluatePlantImage(farmer,ContextService.GRENI_SMIT);
+		farmer.plant_mucu = ServiceInjector.growingService.evaluatePlantImage(farmer,ContextService.MUCU);
 	}
 
 	public void evaluateSeason(Farmer farmer) {
@@ -231,8 +243,10 @@ public class ContextServiceImpl implements ContextService {
 		evaluateSoilImage(farmer);
 		evaluateSeason(farmer);
 		evaluateDisease(farmer);
-		evaluatePlantImage(farmer);
+		evaluatePlantState(farmer);
+//		evaluatePlantImage(farmer);
 		calculateDiggingCoefficient(farmer);
+		evaluateApplesInStock(farmer);
 		farmer.save();
 	}
 
@@ -283,6 +297,11 @@ public class ContextServiceImpl implements ContextService {
 		ServiceInjector.thiefService.checkThiefProb(farmer);
 		farmer.lastLogIn = new Date(System.currentTimeMillis());
 		farmer.save();
+	}
+	
+	public void evaluateApplesInStock(Farmer farmer) {
+		farmer.apples_in_stock = ServiceInjector.fridgeService.getTotalApplesInStock(farmer);
+		
 	}
 
 }

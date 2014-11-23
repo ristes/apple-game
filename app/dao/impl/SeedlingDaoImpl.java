@@ -1,7 +1,7 @@
 package dao.impl;
 
-import dao.SeedlingDao;
 import models.Farmer;
+import dao.SeedlingDao;
 
 public class SeedlingDaoImpl implements SeedlingDao{
 

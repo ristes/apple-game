@@ -1,10 +1,10 @@
 package controllers;
 
-import exceptions.UnauthorizedException;
 import models.Farmer;
 import play.mvc.Catch;
 import play.mvc.Controller;
 import play.mvc.Http;
+import exceptions.UnauthorizedException;
 
 public class GameController extends Controller {
 

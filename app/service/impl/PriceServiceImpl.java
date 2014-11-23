@@ -3,7 +3,6 @@ package service.impl;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Random;
 
 import models.Farmer;
 import service.PriceService;

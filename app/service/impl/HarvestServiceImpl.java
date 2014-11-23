@@ -20,21 +20,20 @@ public class HarvestServiceImpl implements HarvestService {
 		cal.setTime(farmer.gameDate.date);
 		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH);
-		Yield yieldDone = Yield.find("byYearAndFarmer", year, farmer).first();
+		Yield yieldDone = Yield.find("byYearAndFarmerAndPlantation", year, farmer, plantationSeedling).first();
 		if (yieldDone != null) {
 			throw new NotAllowedException();
 		}
 		if (month != 8) {
 			throw new NotAllowedException();
 		}
+		int quantity = (int)(farmer.productQuantity * plantationSeedling.percentOfPlantedArea/100.0);
 		//scaling to decrease the looses harvesting bad apples
 		badper = badper*0.2;
-		int q = (int)(farmer.productQuantity*goodper-farmer.productQuantity*badper);
+		int q = (int)(quantity*goodper-quantity*badper);
 		if (q < 0) {
 			q = 0;
 		}
-		farmer.apples_in_stock += q;
-		farmer.productQuantity = 0;
 		farmer.save();
 		Yield yield = new Yield();
 		yield.farmer = farmer;

@@ -32,6 +32,8 @@ public class WeatherType extends Model {
 	 */
 	public String name;
 	
+	public String icon_url;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy="weatherType")
 	public List<Day> days;

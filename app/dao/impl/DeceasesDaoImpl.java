@@ -8,16 +8,15 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
-import play.db.jpa.JPA;
 import models.Base;
+import models.DeceaseImpact;
+import models.Disease;
+import models.ExecutedOperation;
 import models.Farmer;
 import models.Field;
 import models.Seedling;
-import models.Disease;
-import models.DeceaseImpact;
-import models.ExecutedOperation;
+import play.db.jpa.JPA;
 import dao.DeceasesDao;
 import dto.DiseaseProtectingOperationDto;
 

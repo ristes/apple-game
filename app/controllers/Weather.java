@@ -6,11 +6,9 @@ import java.io.FileReader;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Random;
 
 import models.Day;
 import models.WeatherType;
-
 import play.Play;
 import play.mvc.Controller;
 

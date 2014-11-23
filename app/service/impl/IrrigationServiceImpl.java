@@ -4,21 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import controllers.AuthController;
 import models.Farmer;
-import models.Item;
 import models.ItemInstance;
-import models.Store;
-import service.FieldService;
 import service.IrrigationService;
-import service.MoneyTransactionService;
 import service.ServiceInjector;
 import dao.DaoInjector;
-import dao.ItemsDao;
-import dao.impl.ItemsDaoImpl;
 import dto.C;
 import dto.ItemBoughtDto;
-import dto.StoreItemDto;
 import exceptions.NotAllowedException;
 import exceptions.NotEnoughMoneyException;
 

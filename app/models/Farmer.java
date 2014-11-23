@@ -1,43 +1,18 @@
 package models;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.swing.text.Position.Bias;
+import javax.persistence.Transient;
 
-import org.apache.commons.collections.map.HashedMap;
+import play.db.jpa.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
-import controllers.DeseasesExpertSystem;
-import controllers.FertilizationController;
-import controllers.HumidityController;
-import controllers.IrrigationController;
-import controllers.LandTreatmanController;
-import controllers.WeatherController;
-import controllers.YieldController;
-import dto.C;
-import dto.DiseaseOccurenceProb;
-import dto.DiseasesOccured;
-import dto.FertilizationItem;
-import play.db.jpa.Model;
-import service.DateService;
-import service.GrowingService;
-import service.impl.DateServiceImpl;
-import service.impl.GrowingServiceImpl;
-import utils.GameUtils;
 
 /**
  * The player in the game
@@ -81,11 +56,10 @@ public class Farmer extends Model {
 
 	public double eco_points = 100;
 
+	
+	@Transient
 	public Integer apples_in_stock = 0;
 	
-	public Integer apples_in_na_fridge;
-	
-	public Integer apples_in_ca_fridge;
 
 	/**
 	 * The quantity of the product he has gained, and haven't sold yet
@@ -116,9 +90,28 @@ public class Farmer extends Model {
 	public String plant_url_gold;
 	public String plant_url_green;
 	
+	@Transient
+	public String plant_ajdaret;
+	
+	@Transient
+	public String plant_crven_delishes;
+	
+	@Transient
+	public String plant_zlaten_delishes;
+	
+	@Transient
+	public String plant_jonalgold;
+	
+	@Transient
+	public String plant_mucu;
+	
+	@Transient
+	public String plant_greni_smit;
+	
 	public Integer plants_green;
 	public Integer plants_red;
 	public Integer plants_gold;
+	
 	
 	public Integer capacityNAFridges;
 	
@@ -200,40 +193,6 @@ public class Farmer extends Model {
 		this.apples_in_stock = apples_in_stock;
 		
 	}
-	
-	public void addToApples_in_stock(int apples) {
-		
-		int rest_capacity_ca = capacityCAFridges - this.apples_in_ca_fridge;
-		if (rest_capacity_ca>=apples) {
-			this.apples_in_ca_fridge += apples;
-		} else {
-			this.apples_in_ca_fridge = capacityCAFridges;
-			int rest_app_ca = apples - rest_capacity_ca;
-			int rest_capacity_na = capacityNAFridges - this.apples_in_na_fridge;
-			if (rest_capacity_na>=rest_app_ca) {
-				this.apples_in_na_fridge += rest_app_ca;
-			} else {
-				this.apples_in_na_fridge = capacityNAFridges;
-				int rest_app_na = rest_app_ca - rest_capacity_na;
-				this.apples_in_stock += rest_app_na;
-			}
-		}
-		
-		
-	}
-	
-	public int sumOfApples() {
-		return this.apples_in_stock + this.apples_in_na_fridge + this.apples_in_ca_fridge;
-	}
-
-	public int getApples_in_na_fridge() {
-		return apples_in_na_fridge;
-	}
-
-	public int getApples_in_ca_fridge() {
-		return apples_in_ca_fridge;
-	}
-
 	
 
 }

@@ -14,8 +14,14 @@ public class Fridge extends Model{
 	
 	public Integer type;
 	
+	public Integer price;
+	
 	@ManyToOne
 	public Farmer farmer;
+	
+	public void addCapacity(Integer deltacapacity) {
+		this.capacity  += deltacapacity;
+	}
 	
 	
 

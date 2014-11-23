@@ -156,7 +156,7 @@ Game.controller('PlantingStateController', [
           var p = r.cols[i];
           if (p.active && isInCoords(p)) {
             //r.cols[i].tree = $scope.$root.farmer.plant_url;
-        	  r.cols[i].tree = p.color;
+        	  r.cols[i].tree = p.plantType;
             r.cols[i].treeCls = 'seedling no-mouse-event';
           }
         }

@@ -54,7 +54,7 @@ Game.controller('GrowingStateController', [
         for (var i = 0; i < arr.length; i++) {
           var el = arr[i];
           if (el.x === p.x && el.y === p.y) {
-            p.color = el.color;
+            p.color = el.planttype;
             return true;
           }
         }
@@ -93,7 +93,6 @@ Game.controller('GrowingStateController', [
             staticV: false,
             x: i,
             y: j,
-
             terrain: $scope.$root.farmer.soil_url,
             cls: 'pocva'
           })

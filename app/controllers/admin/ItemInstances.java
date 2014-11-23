@@ -1,8 +1,8 @@
 package controllers.admin;
 
+import models.ItemInstance;
 import controllers.CRUD;
 import controllers.CRUD.For;
-import models.ItemInstance;
 
 @For(ItemInstance.class)
 public class ItemInstances extends CRUD{

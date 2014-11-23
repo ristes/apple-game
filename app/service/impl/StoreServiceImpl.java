@@ -1,16 +1,9 @@
 package service.impl;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.h2.table.Plan;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-
-import controllers.JsonController;
 import models.Base;
 import models.Farmer;
 import models.Field;
@@ -18,21 +11,20 @@ import models.Item;
 import models.PlantType;
 import models.Plantation;
 import models.PlantationSeedling;
-import models.Seedling;
 import models.SeedlingType;
 import models.Store;
 import models.Terrain;
 import models.TerrainSize;
+import service.ServiceInjector;
+import service.StoreService;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
 import dto.StatusDto;
 import dto.StoreDto;
 import dto.StoreItemDto;
 import exceptions.NotEnoughMoneyException;
-import service.DispensibleItemTransaction;
-import service.FarmerService;
-import service.ItemTransactionService;
-import service.MoneyTransactionService;
-import service.ServiceInjector;
-import service.StoreService;
 
 public class StoreServiceImpl implements StoreService {
 
@@ -45,7 +37,7 @@ public class StoreServiceImpl implements StoreService {
 			dto.id = store.id;
 			dto.name = store.name;
 			dto.description = store.description;
-			dto.url = store.image.url;
+			dto.url = store.imageurl;
 			result.add(dto);
 		}
 		return result;

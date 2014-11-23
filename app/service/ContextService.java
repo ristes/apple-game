@@ -6,6 +6,14 @@ import models.Farmer;
 
 public interface ContextService {
 
+	public static final Long AJDARET = 1L;
+	public static final Long CRVEN_DELISHES = 2L;
+	public static final Long ZLATEN_DELISHES = 3L;
+	public static final Long JONALGOLD = 4L;
+	public static final Long MUCU = 5L;
+	public static final Long GRENI_SMIT =6L;
+	
+	
 	public void calculateLuck(Farmer farmer);
 	public void calculateCumulatives(Farmer farmer);
 	public void calculateGrassGrowth(Farmer farmer);

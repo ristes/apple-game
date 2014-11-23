@@ -1,7 +1,7 @@
 package service;
 
-import exceptions.PriceNotValidException;
 import models.Farmer;
+import exceptions.PriceNotValidException;
 
 public interface PriceService {
 

@@ -2,14 +2,13 @@ package controllers;
 
 import java.io.IOException;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
-import play.mvc.Controller;
-import play.mvc.Http;
 import models.Farmer;
 import models.Item;
 import models.ItemInstance;
+import play.mvc.Controller;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 public class ExecutedOperationController extends Controller {
 

@@ -8,11 +8,11 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import models.Farmer;
+import models.Item;
 import play.db.jpa.JPA;
 import service.DateService;
 import service.impl.DateServiceImpl;
-import models.Farmer;
-import models.Item;
 import dao.FertilizingDao;
 import dto.FertilizerOperationDto;
 

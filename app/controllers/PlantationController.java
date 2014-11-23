@@ -104,7 +104,8 @@ public class PlantationController extends GameController {
 			seedlings.add(ps);
 		}
 		ServiceInjector.storeService.buySeedling(farmer, seedlings, nextState);
-		ServiceInjector.fridgeService.setFridgesSeedlingType(farmer, seedlings);
+		ServiceInjector.fridgeService.setFridges(farmer, seedlings);
+		
 		JsonController.statusJson(farmer);
 	}
 

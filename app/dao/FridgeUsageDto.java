@@ -1,8 +1,7 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import models.PlantType;
 
 public class FridgeUsageDto {
 
@@ -13,4 +12,8 @@ public class FridgeUsageDto {
 	public int used;
 
 	public int capacity;
+	
+	public FridgeUsageDto() {
+		shelfs  = new ArrayList<FridgeShelf>();
+	}
 }

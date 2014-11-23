@@ -1,9 +1,8 @@
 package service;
 
-import exceptions.NotEnoughMoneyException;
-import models.Disease;
 import models.Farmer;
 import models.OccurredDecease;
+import exceptions.NotEnoughMoneyException;
 
 public interface InsuranceService {
 	

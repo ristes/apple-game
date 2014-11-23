@@ -3,7 +3,6 @@ package service;
 import java.util.Date;
 import java.util.List;
 
-import dto.FertilizerOperationDto;
 import models.Farmer;
 import models.Item;
 import models.OperationBestTimeInterval;
