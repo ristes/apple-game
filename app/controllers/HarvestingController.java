@@ -22,9 +22,7 @@ public class HarvestingController extends GameController {
 		double goodper = goodcollected / (double) goodtotal;
 		double badper = badcollected / (double) badtotal;
 		farmer = hService.makeHarvesting(farmer, ps, goodper, badper);
-
-		StatusDto status = new StatusDto(true, "Успешна берба",
-				"", farmer);
+		StatusDto status = new StatusDto(true, "Uspesha berba","", farmer);
 		JsonController.toJson(status, FARMER_EXCLUDES);
 	}
 

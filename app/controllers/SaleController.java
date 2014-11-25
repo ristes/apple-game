@@ -1,36 +1,33 @@
 package controllers;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-
-import org.yaml.snakeyaml.Yaml;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import dto.C;
 import dto.StatusDto;
 import exceptions.NotEnoughApplesException;
+import exceptions.NotEnoughMoneyException;
 import exceptions.PriceNotValidException;
 import models.Farmer;
-import play.Play;
-import play.cache.Cache;
-import play.i18n.Messages;
-import play.mvc.Controller;
-import service.AppleSaleTransactionService;
-import service.impl.TransactionServiceImpl;
-import service.impl.YmlServiceImpl;
+import models.Fridge;
+import models.PlantType;
+import service.ServiceInjector;
 
-public class SaleController extends Controller {
+public class SaleController extends GameController {
 
+	public static void sale(Integer fridge_type_id, Long plant_id,  int quantity) throws NotEnoughMoneyException, NotEnoughApplesException, PriceNotValidException, JsonGenerationException, JsonMappingException, IOException{
+		Farmer farmer = checkFarmer();
+		PlantType plantType = PlantType.findById(plant_id);
+		Fridge fridge = Fridge.find("byFarmerAndType",farmer,fridge_type_id).first();
+		ServiceInjector.sellService.sell(farmer, fridge, plantType, quantity);
+		StatusDto statusDto = new StatusDto(true);
+		statusDto.farmer = farmer;
+		statusDto.additionalInfo = String.valueOf(quantity);
+		JsonController.statusJson(statusDto);
+	}
 
+	/*
 	public static void sale(Integer quantity) throws JsonGenerationException,
 			JsonMappingException, IOException {
 		Boolean status = false;
@@ -60,6 +57,6 @@ public class SaleController extends Controller {
 		JsonController.toJson(statusDto, "gameDate", "field", "weatherType","plantation");
 
 	}
-
+	*/
 
 }

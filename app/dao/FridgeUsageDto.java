@@ -3,6 +3,8 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.FridgeShelf;
+
 public class FridgeUsageDto {
 
 	public int fridgeType;

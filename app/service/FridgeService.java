@@ -6,6 +6,8 @@ import models.Farmer;
 import models.Fridge;
 import models.PlantType;
 import models.PlantationSeedling;
+import models.Yield;
+import models.YieldPortion;
 import dao.FridgeUsageDto;
 import exceptions.InvalidYield;
 import exceptions.NotEnoughApplesException;
@@ -31,11 +33,18 @@ public interface FridgeService {
 
 	public void removeFromFridge(Farmer farmer, Fridge fridge, PlantType type,
 			int quantity) throws NotEnoughApplesException;
+	
 
 	public FridgeUsageDto getFridgeUsage(Farmer farmer, int fridgeType);
 
 	public List<FridgeUsageDto> getFarmerFridges(Farmer farmer);
 
 	public Integer getTotalApplesInStock(Farmer farmer);
+	
+	public void checkApplesState(Farmer farmer);
+	
+	public void checkApplesStateForFridge(Farmer farmer, Fridge fridge, List<Yield> yields);
+	
+	public Boolean deadlineApples(Farmer farmer, Fridge fridge, YieldPortion portion);
 
 }

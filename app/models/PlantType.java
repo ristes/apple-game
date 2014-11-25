@@ -31,6 +31,7 @@ public class PlantType extends Model {
 
 	public String imageurl;
 	
+	
 	@ManyToOne
 	public HarvestingPeriod period;
 

@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import models.Farmer;
+import models.PlantType;
 import service.PriceService;
 import service.ServiceInjector;
 import dto.C;
@@ -17,6 +18,7 @@ public class PriceServiceImpl implements PriceService{
 	 * @see service.PriceService#price(models.Farmer)
 	 * y = a.*randn(31,1) + b; a=0.05; b=avg price
 	 */
+	@Deprecated
 	@Override
 	public Double price(Farmer farmer) throws PriceNotValidException{
 		HashMap<Integer,ArrayList<Double>> monthPrice = YmlServiceImpl.load_hash_key_int(C.COEF_SALES_YML);
@@ -24,6 +26,19 @@ public class PriceServiceImpl implements PriceService{
 		calendar.setTime(farmer.gameDate.date);
 		Double randV = ServiceInjector.randomGeneratorService.randomGausseGenerator(31.0,1.0);
 		Double avgPrice = monthPrice.get(farmer.field.plantation.seadlings.type.id.intValue()).get(calendar.get(Calendar.MONTH));
+		if (avgPrice==0.0 || avgPrice==null) {
+			throw new PriceNotValidException();
+		}
+		return 0.05*randV + avgPrice;
+	}
+	
+	@Override
+	public Double price(Farmer farmer, PlantType plantType) throws PriceNotValidException {
+		HashMap<Integer,ArrayList<Double>> monthPrice = YmlServiceImpl.load_hash_key_int(C.COEF_SALES_YML);
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(farmer.gameDate.date);
+		Double randV = ServiceInjector.randomGeneratorService.randomGausseGenerator(31.0,1.0);
+		Double avgPrice = monthPrice.get(plantType.getId().intValue()).get(calendar.get(Calendar.MONTH));
 		if (avgPrice==0.0 || avgPrice==null) {
 			throw new PriceNotValidException();
 		}

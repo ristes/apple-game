@@ -28,7 +28,7 @@ public class TipServiceImpl implements TipService{
 	public String randomTip(List<String> tips) {
 		Random rand = new Random();
 		Double random = rand.nextDouble();
-		if (random < 0.8) {
+		if (random < 0.7) {
 			return null;
 		}
 		if (tips.size()>0) {

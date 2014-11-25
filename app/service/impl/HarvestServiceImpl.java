@@ -1,30 +1,43 @@
 package service.impl;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import models.Farmer;
+import models.HarvestingPeriod;
+import models.PlantType;
 import models.PlantationSeedling;
 import models.Yield;
+import service.HarvestService;
+import service.ServiceInjector;
 import exceptions.NotAllowedException;
 import exceptions.NotEnoughMoneyException;
-import service.HarvestService;
-import service.MoneyTransactionService;
-import service.ServiceInjector;
 
 public class HarvestServiceImpl implements HarvestService {
+	
+	public Boolean isInHarvestingPeriod(Farmer farmer, PlantType plantType) {
+		Date dateCurIn70s = ServiceInjector.dateService.convertDateTo70(farmer.gameDate.date);
+		if (dateCurIn70s.after(plantType.period.startFrom)) {
+			if (dateCurIn70s.before(plantType.period.endTo)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public Farmer makeHarvesting(Farmer farmer, PlantationSeedling plantationSeedling, Double goodper, Double badper) throws NotEnoughMoneyException, NotAllowedException{
 		double expense = farmer.field.area * 3000;
 		ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, -expense);
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(farmer.gameDate.date);
-		int year = cal.get(Calendar.YEAR);
+//		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH);
-		Yield yieldDone = Yield.find("byYearAndFarmerAndPlantation", year, farmer, plantationSeedling).first();
+		int recolteYear = ServiceInjector.dateService.recolteYearByPlantType(farmer.gameDate.date, plantationSeedling.seedling.type);
+		Yield yieldDone = Yield.find("byYearAndFarmerAndPlantation", recolteYear, farmer, plantationSeedling).first();
 		if (yieldDone != null) {
 			throw new NotAllowedException();
 		}
-		if (month != 8) {
+		if (!isInHarvestingPeriod(farmer, plantationSeedling.seedling.type)) {
 			throw new NotAllowedException();
 		}
 		int quantity = (int)(farmer.productQuantity * plantationSeedling.percentOfPlantedArea/100.0);
@@ -39,7 +52,7 @@ public class HarvestServiceImpl implements HarvestService {
 		yield.farmer = farmer;
 		yield.plantation = plantationSeedling;
 		yield.quantity = q;
-		yield.year = year;
+		yield.year = recolteYear;
 		yield.save();
 		return farmer;
 	}
@@ -48,6 +61,27 @@ public class HarvestServiceImpl implements HarvestService {
 	public Farmer makeShtarjfTest(Farmer farmer) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Boolean isInHarvestingPeriod(Farmer farmer, Long plantType) {
+		PlantType plant = PlantType.findById(plantType);
+		return isInHarvestingPeriod(farmer, plant);
+	}
+
+	@Override
+	public Boolean isAfterHarvestingPeriod(Farmer farmer, PlantType plantType) {
+		Date dateCurIn70s = ServiceInjector.dateService.convertDateTo70(farmer.gameDate.date);
+		if (dateCurIn70s.after(plantType.period.endTo)) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public Boolean isAfterHarvestingPeriod(Farmer farmer, Long plantType) {
+		PlantType plant = PlantType.findById(plantType);
+		return isAfterHarvestingPeriod(farmer, plant);
 	}
 
 }

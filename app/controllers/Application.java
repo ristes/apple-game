@@ -23,7 +23,8 @@ public class Application extends GameController {
 			ServiceInjector.farmerService.gotoNextDay(farmer);
 		}
 		farmer.save();
-		JsonController.statusJson(farmer);
+		String tip = ServiceInjector.tipService.randomTip(ServiceInjector.tipService.tipgenerator(farmer));
+		JsonController.statusJson(farmer, tip);
 	}
 
 	public static void nextweek() throws IOException {
@@ -32,7 +33,8 @@ public class Application extends GameController {
 		} else {
 			ServiceInjector.farmerService.gotoNextWeek(farmer);
 		}
-		JsonController.statusJson(farmer);
+		String tip = ServiceInjector.tipService.randomTip(ServiceInjector.tipService.tipgenerator(farmer));
+		JsonController.statusJson(farmer, tip);
 	}
 
 	public static void nextmonth() throws IOException {
@@ -41,7 +43,8 @@ public class Application extends GameController {
 		} else {
 			farmer = ServiceInjector.farmerService.gotoNextMonth(farmer);
 		}
-		JsonController.statusJson(farmer);
+		String tip = ServiceInjector.tipService.randomTip(ServiceInjector.tipService.tipgenerator(farmer));
+		JsonController.statusJson(farmer, tip);
 	}
 
 	public static void restartGame() throws JsonGenerationException,
@@ -52,7 +55,6 @@ public class Application extends GameController {
 		}
 		farmer = ServiceInjector.farmerService.restartGame(farmer);
 		redirect("/iso");
-		JsonController.statusJson(farmer);
 	}
 
 	protected static Farmer getFarmer() {

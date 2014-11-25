@@ -8,10 +8,8 @@ import java.util.Random;
 
 import models.Day;
 import models.Farmer;
-import service.BadgesService;
 import service.ContextService;
 import service.DateService;
-import service.FarmerService;
 import service.FertilizeService;
 import service.LandTreatmanService;
 import service.ServiceInjector;
@@ -206,13 +204,13 @@ public class ContextServiceImpl implements ContextService {
 	}
 	
 	public void triggerNewSeasonEvents(Farmer farmer) {
-		FarmerService farmerS = new FarmerServiceImpl();
-		BadgesService badgesS = new BadgesServiceImpl();
-		farmerS.collectBadge(farmer, badgesS.ecologist(farmer));
-		farmerS.collectBadge(farmer, badgesS.trader(farmer));
+		ServiceInjector.farmerService.collectBadge(farmer, ServiceInjector.badgesService.ecologist(farmer));
+		ServiceInjector.farmerService.collectBadge(farmer, ServiceInjector.badgesService.irrigator(farmer));
+		ServiceInjector.farmerService.collectBadge(farmer, ServiceInjector.badgesService.fertilizer(farmer));
 		farmer.productQuantity = (int) Math.round(ServiceInjector.yieldService
 				.calculateYield(farmer));
 		farmer.eco_points = 100;
+		farmer.irrigation_misses = 0;
 	}
 
 	public void evaluateFertilizingState(Farmer farmer) {
@@ -233,6 +231,15 @@ public class ContextServiceImpl implements ContextService {
 		}
 	}
 
+	
+	public void onLoadEvaluateState(Farmer farmer) {
+		evaluatePlantState(farmer);
+		evaluateFridgesState(farmer);
+		evaluateFertilizingState(farmer);
+		evaluateSoilImage(farmer);
+		evaluateApplesInStock(farmer);
+	}
+	
 	public void evaluateState(Farmer farmer) {
 		calculateCumulatives(farmer);
 		calculateFertalizing(farmer);
@@ -244,7 +251,7 @@ public class ContextServiceImpl implements ContextService {
 		evaluateSeason(farmer);
 		evaluateDisease(farmer);
 		evaluatePlantState(farmer);
-//		evaluatePlantImage(farmer);
+		evaluateFridgesState(farmer);
 		calculateDiggingCoefficient(farmer);
 		evaluateApplesInStock(farmer);
 		farmer.save();
@@ -302,6 +309,14 @@ public class ContextServiceImpl implements ContextService {
 	public void evaluateApplesInStock(Farmer farmer) {
 		farmer.apples_in_stock = ServiceInjector.fridgeService.getTotalApplesInStock(farmer);
 		
+	}
+	
+	public void evaluateFridgesState(Farmer farmer) {
+		ServiceInjector.fridgeService.checkApplesState(farmer);
+	}
+	
+	public String evaluateTip(Farmer farmer) {
+		return ServiceInjector.tipService.randomTip(ServiceInjector.tipService.tipgenerator(farmer));
 	}
 
 }

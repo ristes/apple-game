@@ -106,6 +106,7 @@ public class FarmerServiceImpl implements FarmerService {
 		farmer.luck_dev = 0.3;
 		farmer.luck_avg = 0.7;
 		farmer.apples_in_stock = 0;
+		farmer.irrigation_misses = 0;
 		Double luck = generateLuck(farmer);
 		farmer.luck = luck;
 //		farmer.plant_url = "/public/images/game/plant.png";

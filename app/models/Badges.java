@@ -18,4 +18,6 @@ public class Badges extends Model{
 	public String metadata;
 	
 	public String akka;
+	
+	public Integer triggerrer;
 }

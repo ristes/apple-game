@@ -11,7 +11,7 @@ public interface BadgesService {
 	
 	public Badges harvester(Farmer farmer, Integer yield, Integer harvested);
 	
-	public Badges fertilizer(Farmer farmer, Double percent);
+	public Badges fertilizer(Farmer farmer);
 	
 	public Badges irrigator(Farmer farmer);
 	

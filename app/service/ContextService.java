@@ -25,10 +25,12 @@ public interface ContextService {
 	public void evaluateRestartState(Farmer farmer);
 	public void evaluateFertilizingState(Farmer farmer);
 	public void evaluateState(Farmer farmer);
+	public void onLoadEvaluateState(Farmer farmer);
 	public void calculateFertalizing(Farmer farmer);
 	public int seasionLevelSoilImage(int season_level);
 	public Double rainCoefForMonth(Date date);
 	public Double rainCoefForMonth(Integer month);
 	public double calculateHumidityLooses(Farmer farmer);
 	public void setAndCheckLastLoginDate(Farmer farmer);
+	public void evaluateFridgesState(Farmer farmer);
 }

@@ -6,6 +6,8 @@ import java.util.Date;
 import models.Day;
 import models.ExecutedOperation;
 import models.Farmer;
+import models.HarvestingPeriod;
+import models.PlantType;
 import service.DateService;
 import service.ServiceInjector;
 
@@ -27,16 +29,39 @@ public class DateServiceImpl implements DateService{
 		c.setTime(date);
 		int month = c.get(Calendar.MONTH);
 		int day = c.get(Calendar.DAY_OF_MONTH);
-		if (month <= Calendar.DECEMBER && month >= Calendar.OCTOBER) {
+		if (month <= Calendar.DECEMBER && month >= Calendar.NOVEMBER) {
 			return false;
 		}
-		if (month == Calendar.SEPTEMBER) {
-			if (day > 15) {
+		if (month == Calendar.NOVEMBER) {
+			if (day > 1) {
 				return false;
 			}
 		}
 		return true;
 	}
+	
+	public int recolteYearByPlantType(Date date, PlantType type) {
+		HarvestingPeriod hp = type.period;
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		int monthCur = cal.get(Calendar.MONTH);
+		int dayCur = cal.get(Calendar.DAY_OF_MONTH);
+		int yearCur = cal.get(Calendar.YEAR);
+		cal.setTime(type.period.startFrom);
+		int monthStart = cal.get(Calendar.MONTH);
+		int dayStart = cal.get(Calendar.DAY_OF_MONTH);
+		if (monthCur<monthStart) {
+			return yearCur - 1;
+		} else if (monthCur==monthStart) {
+			if (dayCur<dayStart) {
+				return yearCur-1;
+			} else {
+				return yearCur;
+			}
+		}
+		return yearCur;
+	}
+	
 	/**
 	 * 
 	 * @param farmer
@@ -127,7 +152,7 @@ public class DateServiceImpl implements DateService{
 		case 8:
 			return 4;
 		case 9:
-			return 2;
+			return 4;
 		case 10:
 			return 2;
 		case 11:

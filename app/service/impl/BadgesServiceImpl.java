@@ -4,17 +4,20 @@ import models.Badges;
 import models.Farmer;
 import service.BadgesService;
 import service.YieldService;
+import utils.JsonExcluder;
 
 public class BadgesServiceImpl implements BadgesService{
 
 	@Override
 	public Badges yield(Farmer farmer, Integer harvested) {
 		YieldService yieldService = new YieldServiceImpl();
+		
+		Badges badge = Badges.find("byAkka","yield").first();
+		Double trigger = Double.parseDouble(JsonExcluder.byField(badge.metadata, "yield"));
 		double total = yieldService.calculateYield(farmer);
 		double per = (harvested / total)*100;
 		
-		if (per>90) {
-			Badges badge = Badges.find("byAkka","yield").first();
+		if (per>trigger) {
 			return badge;
 		}
 		return null;
@@ -28,18 +31,20 @@ public class BadgesServiceImpl implements BadgesService{
 
 	@Override
 	public Badges harvester(Farmer farmer, Integer yield, Integer harvested) {
+		Badges badge = Badges.find("byAkka","harvester").first();
+		Double trigger = Double.parseDouble(JsonExcluder.byField(badge.metadata, "yield_collector"));
 		double per = (harvested / (double)yield)*100;
-		if (per>90){
-			Badges badge = Badges.find("byAkka","harvester").first();
+		if (per>trigger){
 			return badge;
 		} 
 		return null;
 	}
 
 	@Override
-	public Badges fertilizer(Farmer farmer, Double percent) {
-		if (percent > 95) {
-			Badges badge = Badges.find("byAkka","fertilizer").first();
+	public Badges fertilizer(Farmer farmer) {
+		Badges badge = Badges.find("byAkka","fertilizer").first();
+		Double percent = Double.parseDouble(JsonExcluder.byField(badge.metadata, "fertilizer_hit"));
+		if (percent > percent) {
 			return badge;
 		}
 		return null;
@@ -47,7 +52,11 @@ public class BadgesServiceImpl implements BadgesService{
 
 	@Override
 	public Badges irrigator(Farmer farmer) {
-		// TODO Auto-generated method stub
+		Badges badge = Badges.find("byAkka","irrigator").first();
+		Integer trigger = Integer.parseInt(JsonExcluder.byField(badge.metadata, "irrigation_misses"));
+		if (farmer.irrigation_misses<trigger) {
+			return badge;
+		}
 		return null;
 	}
 

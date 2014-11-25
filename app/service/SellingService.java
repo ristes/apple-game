@@ -1,10 +1,14 @@
 package service;
 
+import exceptions.NotEnoughApplesException;
+import exceptions.NotEnoughMoneyException;
+import exceptions.PriceNotValidException;
 import models.Farmer;
+import models.Fridge;
 import models.PlantType;
 
 public interface SellingService {
 
-	public void sell(Farmer farmer, PlantType plantType, int fridgeType,
-			int quantity);
+	public double sell(Farmer farmer, Fridge fridge, PlantType plantType,
+			Integer quantity) throws PriceNotValidException, NotEnoughApplesException, NotEnoughMoneyException;
 }

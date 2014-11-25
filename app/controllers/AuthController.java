@@ -14,6 +14,7 @@ import play.cache.Cache;
 import play.db.jpa.JPA;
 import play.mvc.Controller;
 import play.mvc.Http;
+import service.ServiceInjector;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -65,6 +66,7 @@ public class AuthController extends GameController {
 		if (fid != null) {
 			Farmer farmer = Farmer.findById(fid);
 			if (farmer.is_active) {
+				ServiceInjector.contextService.onLoadEvaluateState(farmer);
 				return farmer;
 			}
 		}
@@ -76,7 +78,7 @@ public class AuthController extends GameController {
 		if (farmer == null) {
 			redirect("/login");
 		}
-		JsonController.farmerJson(farmer);
+		JsonController.statusJson(farmer);
 	}
 
 	protected static GameContext getContext() {

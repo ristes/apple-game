@@ -14,6 +14,8 @@ import play.db.jpa.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import dto.WarningInfo;
+
 /**
  * The player in the game
  * 
@@ -166,6 +168,11 @@ public class Farmer extends Model {
 	public Boolean needB;
 	public Boolean needZn;
 	public Boolean needMg;
+	
+	public Integer irrigation_misses;
+	
+	@Transient
+	public WarningInfo warningInfo;
 	
 	/**
 	 * The items he owns

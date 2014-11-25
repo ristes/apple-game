@@ -38,6 +38,7 @@ public abstract class JsonController extends Controller {
 		
 		toJson(status, excludeFields);
 	}
+	
 
 	protected static void toJson(Object o, String... excludeFields) {
 		String encoding = Http.Response.current().encoding;
@@ -111,11 +112,24 @@ public abstract class JsonController extends Controller {
 		toJson(farmer, "field", "plantation");
 	}
 
+	protected static void statusJson(Farmer farmer, String tip)
+			throws JsonGenerationException, JsonMappingException, IOException {
+		StatusDto status = new StatusDto(farmer != null, null, null, farmer);
+		if (tip!=null && !tip.equals("")) {
+			status.tip = tip;
+		} else {
+			status = new StatusDto(farmer!=null, null, null, farmer);
+		}
+		toJson(status, "field", "plantation");
+	}
+	
 	protected static void statusJson(Farmer farmer)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		StatusDto status = new StatusDto(farmer != null, null, null, farmer);
 		toJson(status, "field", "plantation");
 	}
+	
+	
 	
 	protected static void statusJson(StatusDto status)
 			throws JsonGenerationException, JsonMappingException, IOException {

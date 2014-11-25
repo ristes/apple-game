@@ -16,6 +16,8 @@ public class Fridge extends Model{
 	
 	public Integer price;
 	
+	public String name;
+	
 	@ManyToOne
 	public Farmer farmer;
 	

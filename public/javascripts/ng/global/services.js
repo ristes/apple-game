@@ -33,6 +33,8 @@ Game.factory('$farmer', ['$http', 'State', function($http, State) {
       res.success(function(data) {
         setStatus(data);
         swap(data.farmer);
+//        State.set("farmer",data);
+//        $day.load(data);
       });
       return res;
     },

@@ -24,7 +24,7 @@ public class HumidityServiceImpl implements HumidityService,HumidityGroovesServi
 
 		if (coef_hum > 0.0) {
 			double impact = farmer.deltaCumulative * 100 / coef_hum - 100;
-			return looses_q(farmer.productQuantity, impact);
+			return looses_q(farmer, impact);
 		}
 		return farmer.productQuantity;
 	}
@@ -57,7 +57,7 @@ public class HumidityServiceImpl implements HumidityService,HumidityGroovesServi
 				c.get(Calendar.MONTH));
 		if (coef_hum > 0.0) {
 			double impact = farmer.deltaCumulative * 100 / coef_hum - 100;
-			return looses_q(farmer.productQuantity, impact);
+			return looses_q(farmer, impact);
 		}
 		return farmer.productQuantity;
 	}
@@ -79,18 +79,23 @@ public class HumidityServiceImpl implements HumidityService,HumidityGroovesServi
 		return farmer.eco_points;
 	}
 
-	public int looses_q(int value, Double variation) {
+	public int looses_q(Farmer farmer, Double variation) {
+		int value = farmer.productQuantity;
 		Double loose_q = 0.0;
 		if (variation > 0.0) {
 			if (variation >= 10 && variation < 20) {
 				loose_q = -12.0;
 			} else if (variation >= 20 && variation < 30) {
+				farmer.irrigation_misses++;
 				loose_q = -20.0;
 			} else if (variation >= 30 && variation < 40) {
+				farmer.irrigation_misses++;
 				loose_q = -26.0;
 			} else if (variation >= 40 && variation < 50) {
+				farmer.irrigation_misses+=2;
 				loose_q = -33.0;
 			} else if (variation >= 50) {
+				farmer.irrigation_misses+=2;
 				loose_q = -50.0;
 			}
 			// divide with the number of milestones every 8 days

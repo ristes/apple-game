@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -7,15 +9,17 @@ import javax.persistence.Table;
 import play.db.jpa.Model;
 
 @Entity
-@Table(name = "yield_portion")
-public class YieldPortion extends Model {
+@Table(name = "plant_type_deadline")
+public class PlantTypeDeadine extends Model {
+	
+	public Date date;
 
-	public int quantity;
-
+	@ManyToOne
+	public PlantType plantType;
+	
 	@ManyToOne
 	public Fridge fridge;
 
-	@ManyToOne
-	public Yield yield;
-	
+
+
 }

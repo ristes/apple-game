@@ -7,6 +7,7 @@ import java.util.List;
 
 import models.Farmer;
 import models.PlantationSeedling;
+import models.Yield;
 import service.ServiceInjector;
 import service.YieldService;
 import dto.C;
@@ -41,6 +42,12 @@ public class YieldServiceImpl implements YieldService {
 			sum+= sum*10/100;
 		}
 		return applesPerA;
+	}
+
+	@Override
+	public List<Yield> getPreviousYearYield(Farmer farmer) {
+		int year = ServiceInjector.dateService.evaluateYearLevel(farmer.gameDate.date);
+		return Yield.find("byFarmerAndYear", farmer, year-1).fetch();
 	}
 
 }

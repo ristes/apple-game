@@ -2,6 +2,7 @@ package service;
 
 import service.impl.BadgesServiceImpl;
 import service.impl.ContextServiceImpl;
+import service.impl.ConversionServiceImpl;
 import service.impl.DateServiceImpl;
 import service.impl.DiseaseServiceImpl;
 import service.impl.FarmerServiceImpl;
@@ -19,11 +20,13 @@ import service.impl.PlantationServiceImpl;
 import service.impl.PlantingServiceImpl;
 import service.impl.PriceServiceImpl;
 import service.impl.RandomGeneratorServiceImpl;
+import service.impl.SellingServiceImpl;
 import service.impl.SoilServiceImpl;
 import service.impl.StoreServiceImpl;
 import service.impl.ThiefServiceImpl;
 import service.impl.TipServiceImpl;
 import service.impl.TransactionServiceImpl;
+import service.impl.YieldPortionServiceImpl;
 import service.impl.YieldServiceImpl;
 import service.impl.YmlServiceImpl;
 
@@ -62,6 +65,8 @@ public class ServiceInjector {
 	public static YmlService ymlService = new YmlServiceImpl();
 	public static PlantationService plantationService = new PlantationServiceImpl();
 	public static FridgeService fridgeService = new FridgeServiceImpl();
+	public static YieldPortionService yieldPortionService = new YieldPortionServiceImpl();
+	public static MoneyConversionService moneyConversionService = new ConversionServiceImpl();
+	public static SellingService sellService = new SellingServiceImpl();
 	
-
 }
