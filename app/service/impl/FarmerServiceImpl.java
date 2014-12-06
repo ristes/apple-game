@@ -3,6 +3,7 @@ package service.impl;
 import java.util.List;
 import java.util.Random;
 
+import play.i18n.Messages;
 import models.Badges;
 import models.Day;
 import models.Farmer;
@@ -178,6 +179,16 @@ public class FarmerServiceImpl implements FarmerService {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public void subtractProductQuantity(Farmer farmer, double percent, Boolean showInfoTable, String reason) {
+		int beforeQuantity = farmer.productQuantity;
+		farmer.productQuantity -= farmer.productQuantity * percent / 100.0;
+		double demage = beforeQuantity - farmer.productQuantity;
+		if (showInfoTable) {
+			ServiceInjector.infoTableService.createT1(farmer, Messages.getMessage("en", "lost_quantity_message", String.valueOf(demage),reason), "");
+		}
 	}
 
 }

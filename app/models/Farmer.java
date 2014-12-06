@@ -174,6 +174,9 @@ public class Farmer extends Model {
 	@Transient
 	public WarningInfo warningInfo;
 	
+	@Transient
+	public Integer month_level;
+	
 	/**
 	 * The items he owns
 	 */
@@ -198,7 +201,6 @@ public class Farmer extends Model {
 
 	public void setApples_in_stock(int apples_in_stock) {
 		this.apples_in_stock = apples_in_stock;
-		
 	}
 	
 

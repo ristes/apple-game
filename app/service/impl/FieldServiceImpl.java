@@ -22,5 +22,15 @@ public class FieldServiceImpl implements FieldService{
 	public Boolean hasBees(Farmer farmer) {
 		return DaoInjector.fieldDao.hasBees(farmer);
 	}
+
+	@Override
+	public Boolean hasUVProtectingNet(Farmer farmer) {
+		return DaoInjector.fieldDao.hasUVProtectingNet(farmer);
+	}
+
+	@Override
+	public Boolean hasArtificialRain(Farmer farmer) {
+		return DaoInjector.fieldDao.hasArtificalRain(farmer);
+	}
 	
 }

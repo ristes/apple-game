@@ -1,13 +1,13 @@
 Game.controller('GrowingStateController', [
   '$scope',
-  'Operations',
+  'MonthOperations',
   '$farmer',
   '$weather',
   '$window',
   '$day',
   '$plantation',
   'Diseases',
-  function($scope, Operations, $farmer, $weather, $window, $day, $plantation, Diseases) {
+  function($scope, MonthOperations, $farmer, $weather, $window, $day, $plantation, Diseases) {
 
     $scope.nextDay = true;
 
@@ -37,9 +37,9 @@ Game.controller('GrowingStateController', [
     $weather.load();
     Diseases.load();
 
-    $scope.$root.$watch('day.season_level', function(n) {
+    $scope.$root.$watch('day.month_level', function(n) {
       if (!n) return;
-      $scope.actions = Operations['season-' + n];
+      $scope.actions = MonthOperations['month-' + n];
       $scope.season = n;
     })
 

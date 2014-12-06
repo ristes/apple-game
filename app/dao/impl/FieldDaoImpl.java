@@ -1,8 +1,8 @@
 package dao.impl;
 
-import dao.FieldDao;
 import models.Farmer;
 import models.ItemInstance;
+import dao.FieldDao;
 
 public class FieldDaoImpl implements FieldDao{
 
@@ -28,6 +28,24 @@ public class FieldDaoImpl implements FieldDao{
 		ItemInstance bees = ItemInstance.find("byType.nameAndownedBy",
 				"Bees", farmer).first();
 		if (bees == null) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public Boolean hasUVProtectingNet(Farmer farmer) {
+		ItemInstance uv_prot_net = ItemInstance.find("byType.nameAndownedBy", "uv_protecting_net", farmer).first();
+		if (uv_prot_net == null) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public Boolean hasArtificalRain(Farmer farmer) {
+		ItemInstance artificial_rain = ItemInstance.find("byType.nameAndownedBy", "artificial_rain", farmer).first();
+		if (artificial_rain == null) {
 			return false;
 		}
 		return true;

@@ -14,6 +14,7 @@ public interface DateService {
 	public Long diffCurDate(Farmer farmer, Date date);
 	public ExecutedOperation changeYear(ExecutedOperation operation);
 	public int season_level(Farmer farmer);
+	public int monthLevel(Date date);
 	public int evaluateYearLevel(Date date);
 	public int evaluateYearLevel(int year);
 	public int recolteYear(Date date);

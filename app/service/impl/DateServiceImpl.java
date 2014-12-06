@@ -77,6 +77,12 @@ public class DateServiceImpl implements DateService{
 		return c.get(Calendar.YEAR);
 	}
 	
+	public int monthLevel(Date date) {
+		Calendar c= Calendar.getInstance();
+		c.setTime(date);
+		return c.get(Calendar.MONTH)+1;
+	}
+	
 	public Boolean isSameYear(Farmer farmer, Date date) {
 
 		Calendar c = Calendar.getInstance();

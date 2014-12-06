@@ -115,7 +115,7 @@ public class FridgeServiceImpl implements FridgeService{
 			shelf.quantity = portion.quantity;
 			usage.shelfs.add(shelf);
 		}
-		usage.capacity = fridge.capacity;
+//		usage.capacity = fridge.capacity;
 		return usage;
 	
 	}

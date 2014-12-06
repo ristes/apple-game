@@ -168,21 +168,14 @@
   "imageurl": "/public/images/game/items/guard.png", 
   "typeName":""
 }, {
-  "name": "guard",
-  "pollutionCoefficient": 0,
-  "price": 15,
-  "storeName": "other",
-  "imageurl": "/public/images/game/items/guard.png", 
-  "typeName":""
-}, {
   "name": "artificial_rain",
   "pollutionCoefficient": 0,
   "price": 15,
   "storeName": "other",
-  "imageurl": "/public/images/game/items/artificial-rain.png", 
+  "imageurl": "/public/images/game/items/sprinkler-rain.png", 
   "typeName":""
 }, {
-  "name": "na_ridge",
+  "name": "na_fridge",
   "pollutionCoefficient": 0,
   "price": 45,
   "storeName": "other",
@@ -200,6 +193,20 @@
   "pollutionCoefficient": 0,
   "price": 80,
   "storeName": "other",
-  "imageurl": "/public/images/game/items/fridge.png", 
+  "imageurl": "/public/images/game/items/terrain-analysis.png", 
   "typeName":""
+},  {
+  "name": "uv_protecting_net",
+  "pollutionCoefficient": 0,
+  "price": 200,
+  "storeName": "other",
+  "imageurl": "/public/images/game/items/protecting_net.png", 
+  "typeName":""
+}, {
+	"name": "PlowingItem",
+	"pollutionCoefficient":1,
+	"price":15,
+	"storeName": "other",
+	"imageurl":"/public/images/game/operations/plowing.png",
+	"typeName":""
 }]

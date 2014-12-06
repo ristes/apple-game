@@ -12,6 +12,7 @@ import service.impl.FridgeServiceImpl;
 import service.impl.GrowingServiceImpl;
 import service.impl.HarvestServiceImpl;
 import service.impl.HumidityServiceImpl;
+import service.impl.IceServiceImpl;
 import service.impl.InfoTableServiceImpl;
 import service.impl.InsuranceServiceImpl;
 import service.impl.IrrigationServiceImpl;
@@ -26,6 +27,7 @@ import service.impl.StoreServiceImpl;
 import service.impl.ThiefServiceImpl;
 import service.impl.TipServiceImpl;
 import service.impl.TransactionServiceImpl;
+import service.impl.UVServiceImpl;
 import service.impl.YieldPortionServiceImpl;
 import service.impl.YieldServiceImpl;
 import service.impl.YmlServiceImpl;
@@ -68,5 +70,7 @@ public class ServiceInjector {
 	public static YieldPortionService yieldPortionService = new YieldPortionServiceImpl();
 	public static MoneyConversionService moneyConversionService = new ConversionServiceImpl();
 	public static SellingService sellService = new SellingServiceImpl();
+	public static UVService uvService = new UVServiceImpl();
+	public static IceService iceService  = new IceServiceImpl();
 	
 }

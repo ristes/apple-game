@@ -19,6 +19,7 @@ import service.DateService;
 import service.DiseaseService;
 import service.PriceService;
 import service.RandomGeneratorService;
+import service.ServiceInjector;
 import service.YieldService;
 import service.impl.DateServiceImpl;
 import service.impl.DiseaseServiceImpl;
@@ -205,7 +206,7 @@ public class Disease extends Model implements DeseaseRisk {
 		result = value.calculate();
 		result = addBaseProb(context, this, result);
 		if (name.equals("IceDemage")) {
-			if (dateS.season_level(context)!=C.SEASON_SUMMER) {
+			if (dateS.season_level(context)!=C.SEASON_SUMMER || ServiceInjector.fieldService.hasUVProtectingNet(context)) {
 				result=0.0;			}
 		}
 		if (result < 0.0) {
