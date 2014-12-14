@@ -171,6 +171,8 @@ public class Farmer extends Model {
 	
 	public Integer irrigation_misses;
 	
+	public Boolean isNewSeason;
+	
 	@Transient
 	public WarningInfo warningInfo;
 	

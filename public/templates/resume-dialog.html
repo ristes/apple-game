@@ -1,0 +1,63 @@
+
+<div class="side-screen-bg" style='width:{{bgw}}px;height:{{bgh}}px' ng-click='hide()'></div>
+<div class="side-screen" ng-animate="slide"
+		ng-class="{true: 'slide-enter', false: 'slide-leave'}[visible]">
+
+	
+	<div class="side-arrow" ng-click="close()" ng-animate="{enter: 'rotateCounterwise', leave: 'rotate'}"
+		ng-class="{false: 'rotate', true: 'rotateCounterwise'}[visible]"></div>
+		
+		
+	
+	<div class="resume-dialog">
+	<div class="container" style="color: white;">
+			<h2>Resume for previous year</h2>
+			<br/>
+			<h3>Money</h3>
+			<div class="row">
+			<span class="col-md-3">Money earned</span>
+			<span class="col-md-3">{{resumeData.data.intTypes.moneyEarned.message[0]}}</span>
+			</div>
+			<div class="row">
+			<span class="col-md-3">Money spent</span>
+			<span class="col-md-3">{{resumeData.data.intTypes.moneySpent.message[0]}}</span>
+			</div>
+			<h3>Apples</h3>
+			<div class="row">
+				<span class="col-md-3">Apples sold</span>
+				<span class="col-md-3">{{resumeData.data.intTypes.applesSold.message[0]}}</span>
+			</div>
+			<div class="row">
+				<span class="col-md-3">Apples burned</span>
+				<span class="col-md-3">{{resumeData.data.intTypes.applesBurned.message[0]}}</span>
+			</div>
+			<h3>Diseases</h3>
+			<div class="row">
+				<span class="col-md-3">FireBlight</span>
+				<span class="col-md-3">{{resumeData.data.hashTypes.diseasesOccurred.message['FireBlight']}}</span>
+			</div>
+			<div class="row">
+				<span class="col-md-3">Aphid</span>
+				<span class="col-md-3">{{resumeData.data.hashTypes.diseasesOccurred.message['Aphid']}}</span>
+			</div>
+			<div class="row">
+				<span class="col-md-3">CodlingMoth</span>
+				<span class="col-md-3">{{resumeData.data.hashTypes.diseasesOccurred.message['CodlingMoth']}}</span>
+			</div>
+			<div class="row">
+				<span class="col-md-3">Konidia</span>
+				<span class="col-md-3">{{resumeData.data.hashTypes.diseasesOccurred.message['Konidia']}}</span>
+			</div>
+			<div class="row">
+				<span class="col-md-3">Ascospore</span>
+				<span class="col-md-3">{{resumeData.data.hashTypes.diseasesOccurred.message['Ascospore']}}</span>
+			</div>
+		</div>
+		
+	</div>
+	
+	
+		
+		
+	
+</div>

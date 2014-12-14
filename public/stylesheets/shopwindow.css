@@ -582,6 +582,14 @@ body {
 	left: 23%;
 }
 
+.resume-dialog {
+	position: absolute;
+	width: 75%;
+	height: 50%;
+	top: 15%;
+	left: 23%;
+}
+
 .side-operations-grid-item {
 	width: 32%;
 	height: 48%;

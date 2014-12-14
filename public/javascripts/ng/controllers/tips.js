@@ -5,14 +5,18 @@ Game.controller('TipsController', ['$scope', 'State', '$modal',
       State.subscribe('status', 'TipsController', function(data) {
         $scope.message = data.tip;
         if (data.tip && data.tip!="") {
-        	var notification = $modal.open({
-        		backdrop: 'false',
-        		templateUrl: windowTemplateUrl,
-        		scope: $scope
-        	});
-        	$timeout(function() {
-        		notification.dismiss('cancel');
-        	}, 5000);
+        	$scope.$root.tip = data.tip;
+//        	var notification = $modal.open({
+//        		backdrop: 'false',
+//        		templateUrl: windowTemplateUrl,
+//        		scope: $scope,
+//        		windowClass :'tip-dialog'
+//        	});
+//        	$timeout(function() {
+//        		notification.dismiss('cancel');
+//        	}, 4000);
+        } else {
+        	$scope.$root.tip = null;
         }
        });
 

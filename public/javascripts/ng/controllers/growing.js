@@ -41,6 +41,7 @@ Game.controller('GrowingStateController', [
       if (!n) return;
       $scope.actions = MonthOperations['month-' + n];
       $scope.season = n;
+
     })
 
     $plantation.load(function() {

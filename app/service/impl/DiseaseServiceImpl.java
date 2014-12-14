@@ -61,11 +61,13 @@ public class DiseaseServiceImpl implements DiseaseService {
 					farmer.productQuantity -= demage;
 					od.demage = demage;
 				} else {
-					farmer.productQuantity -= farmer.productQuantity
+					od.demage = farmer.productQuantity
 							* (d.defaultDiminishingFactor / 100.0);
+					farmer.productQuantity -= od.demage;
 				}
 				farmer.save();
 				od.save();
+				ServiceInjector.logFarmerDataService.logOccurredDisease(farmer, d, od.demage.intValue());
 				checkInfoTable(farmer, od);
 				checkRefunding(farmer, od);
 			}

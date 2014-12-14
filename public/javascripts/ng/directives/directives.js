@@ -210,4 +210,21 @@ GameDirectives.directive(
                 },
                 templateUrl: '/public/templates/weather-info.html'
               };
-            }]);
+            }]).directive('alertDialog', [
+                                  		'jQuery',
+                                		function($) {
+                                			return {
+                                				transclude : false,
+                                				restrict : 'EA',
+                                				scope : {
+                                					tip: '=',
+                                					imageurl: '='
+                                				},
+                                				link: function(scope, element, attrs) {
+                                					scope.closeTip = function() {
+                                						scope.tip=null;
+                                					};
+                                				},
+                                				templateUrl : '/public/templates/tip-dialog.html'
+                                			};
+                                		} ]);

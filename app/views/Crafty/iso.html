@@ -77,6 +77,7 @@
 	<script src="/public/javascripts/ng/services/planting.js"></script>
 	<script src="/public/javascripts/ng/services/plowing.js"></script>
 	<script src="/public/javascripts/ng/services/diseases.js"></script>
+	<script src="/public/javascripts/ng/services/resume.js"></script>
 	<script src="/public/javascripts/ng/controllers/preloader.js"></script>
 	
 	<!-- facebook dependencies -->
@@ -110,7 +111,9 @@
 					<!-- <ng-include src="'/public/templates/notification-dialog'"></ng-include> -->
 				</div>
 				<shop-menu items="items"></shop-menu>
+				<resume-dialog></resume-dialog>
 				<info-table></info-table>
+				<alert-dialog tip="$root.tip"></alert-dialog>
 				<div class="div_wrapper">
 
 					<div ng-view></div>

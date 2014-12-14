@@ -17,10 +17,12 @@ import service.impl.InfoTableServiceImpl;
 import service.impl.InsuranceServiceImpl;
 import service.impl.IrrigationServiceImpl;
 import service.impl.LandTreatmanServiceImpl;
+import service.impl.LogFarmerDataServiceImpl;
 import service.impl.PlantationServiceImpl;
 import service.impl.PlantingServiceImpl;
 import service.impl.PriceServiceImpl;
 import service.impl.RandomGeneratorServiceImpl;
+import service.impl.ResumeServiceImpl;
 import service.impl.SellingServiceImpl;
 import service.impl.SoilServiceImpl;
 import service.impl.StoreServiceImpl;
@@ -72,5 +74,7 @@ public class ServiceInjector {
 	public static SellingService sellService = new SellingServiceImpl();
 	public static UVService uvService = new UVServiceImpl();
 	public static IceService iceService  = new IceServiceImpl();
+	public static LogFarmerDataService logFarmerDataService = new LogFarmerDataServiceImpl();
+	public static ResumeService resumeService = new ResumeServiceImpl();
 	
 }

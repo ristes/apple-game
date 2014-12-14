@@ -22,6 +22,8 @@ import play.db.jpa.Model;
 public class Operation extends Model {
 
 	public String name;
+	
+	public String requires;
 
 	/**
 	 * The default time needed to perform the operation on a single unit of

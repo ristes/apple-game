@@ -5,11 +5,9 @@ import java.util.List;
 import models.Farmer;
 import models.Item;
 import models.ItemInstance;
+import models.Operation;
 import play.i18n.Messages;
-import service.FarmerService;
-import service.HumidityService;
 import service.LandTreatmanService;
-import service.MoneyTransactionService;
 import service.ServiceInjector;
 import exceptions.NotEnoughMoneyException;
 import exceptions.SoilTooDryException;
@@ -25,6 +23,7 @@ public class LandTreatmanServiceImpl implements LandTreatmanService{
 		ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, -price);
 		farmer.digging_coef = 0.0;
 		farmer.productQuantity += farmer.productQuantity*0.05;
+		ServiceInjector.logFarmerDataService.logExecutedOperation(farmer, (Operation)Operation.find("byName","digging").first());
 		return farmer;
 	}
 	
@@ -50,6 +49,7 @@ public class LandTreatmanServiceImpl implements LandTreatmanService{
 		farmer = evaluatePlowingEcoPoints(farmer);
 		farmer.grass_growth = 0.0;
 		farmer.save();
+		ServiceInjector.logFarmerDataService.logExecutedOperation(farmer, (Operation)Operation.find("byName","digging").first());
 		return farmer;
 	}
 	

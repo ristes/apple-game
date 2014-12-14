@@ -6,6 +6,7 @@ import java.util.List;
 
 import models.Farmer;
 import models.ItemInstance;
+import models.Operation;
 import service.IrrigationService;
 import service.ServiceInjector;
 import dao.DaoInjector;
@@ -37,6 +38,7 @@ public class IrrigationServiceImpl implements IrrigationService {
 					* farmer.field.area * timeInt;
 
 			ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, -price);
+			ServiceInjector.logFarmerDataService.logExecutedOperation(farmer, (Operation)Operation.find("byName","irrigation").first());
 		}
 		return result;
 	}
@@ -59,7 +61,7 @@ public class IrrigationServiceImpl implements IrrigationService {
 				.get(C.ENUM_GROOVES).doubleValue()
 				* area_size * time;
 		ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, -price);
-
+		ServiceInjector.logFarmerDataService.logExecutedOperation(farmer, (Operation)Operation.find("byName","irrigation").first());
 		return result;
 	}
 

@@ -9,10 +9,12 @@ import models.Farmer;
 import models.FertilizationOperation;
 import models.Item;
 import models.ItemInstance;
+import models.Operation;
 import models.OperationBestTimeInterval;
 import service.FarmerService;
 import service.FertilizeService;
 import service.MoneyTransactionService;
+import service.ServiceInjector;
 import service.YieldService;
 import dao.DaoInjector;
 import dto.FertilizerOperationDto;
@@ -48,6 +50,7 @@ public class FertilizeServiceImpl implements FertilizeService{
 		saveItem(B, farmer, b);
 		saveItem(Mg, farmer, mg);
 		farmer.save();
+		ServiceInjector.logFarmerDataService.logExecutedOperation(farmer, (Operation)Operation.find("byName","fertilizing").first());
 		return farmer;
 		
 	}

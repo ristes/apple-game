@@ -33,6 +33,10 @@ public class TransactionServiceImpl implements MoneyTransactionService,
 				throw new NotEnoughMoneyException();
 			}
 			value = -value;
+			ServiceInjector.logFarmerDataService.logMoneySpent(farmer, (int)value);
+		}
+		if (value>0.0) {
+			ServiceInjector.logFarmerDataService.logMoneyEarned(farmer, (int)value);
 		}
 		farmer.setBalance(farmer.getBalance() + value);
 		farmer.save();

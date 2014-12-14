@@ -10,6 +10,7 @@ import java.util.Map;
 
 import models.Item;
 import models.ItemType;
+import models.Operation;
 import models.Store;
 import play.Play;
 import play.jobs.Job;
@@ -23,6 +24,7 @@ public class InitializeStoresAndItems extends Job {
 
 	Map<String, Store> storeMap = new HashMap<String, Store>();
 	Map<String, Item> itemsMap = new HashMap<String, Item>();
+	Map<String, Operation> operationsMap = new HashMap<String, Operation>();
 	Map<String, ItemType> itemsTypes = new HashMap<String, ItemType>();
 
 	@Override
@@ -30,6 +32,7 @@ public class InitializeStoresAndItems extends Job {
 
 		List<Store> stores = readStores("/data/stores.json");
 		List<Item> items = readItems("data/storeItems.json");
+		List<Operation> operations = readOperations("data/operations.json");
 		System.out.println(stores);
 
 		List<Store> dbStores = Store.all().fetch();
@@ -40,6 +43,10 @@ public class InitializeStoresAndItems extends Job {
 		List<Item> dbItems = Item.all().fetch();
 		for (Item vs : dbItems) {
 			itemsMap.put(vs.name, vs);
+		}
+		List<Operation> dbOperations = Operation.all().fetch();
+		for (Operation op: dbOperations) {
+			operationsMap.put(op.name, op);
 		}
 
 		for (Store s : stores) {
@@ -55,6 +62,14 @@ public class InitializeStoresAndItems extends Job {
 				item.save();
 				itemsMap.put(item.name, item);
 				System.out.println("Saving item: " + item.name);
+			}
+		}
+		
+		for (Operation operation: operations) {
+			if (!operationsMap.containsKey(operation.name)) {
+				operation.save();
+				operationsMap.put(operation.name, operation);
+				System.out.println("Saving item: " + operation.name);
 			}
 		}
 		super.doJob();
@@ -76,6 +91,16 @@ public class InitializeStoresAndItems extends Job {
 		}.getType();
 		System.out.println(listType);
 		ArrayList<Item> res = new GsonBuilder().create().fromJson(
+				new FileReader(storesJson), listType);
+		return res;
+	}
+	
+	private List<Operation> readOperations(String jsonFileName) throws Exception {
+		File storesJson = Play.getFile(jsonFileName);
+		Type listType = new TypeToken<ArrayList<Operation>>() {
+		}.getType();
+		System.out.println(listType);
+		ArrayList<Operation> res = new GsonBuilder().create().fromJson(
 				new FileReader(storesJson), listType);
 		return res;
 	}

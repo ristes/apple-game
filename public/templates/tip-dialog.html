@@ -1,10 +1,9 @@
-<div>
-	<div style="background: none; margin-top: 0px">
-	    <div class="game-dialog" >	
-		    <div style="margin:0 70px 0 70px; padding-top: 60px">
-				<div style="text-color:white">{{message}}</div>
-			</div>
+<div class="alert alert-info tip-dialog alert-dismissible row" ng-show="tip" role="alert">
+		<div class="col-md-4">
 			
+			<img class="img img-responsive" ng-src="/public/images/master.png"/>
+			<span><b>PrespaVille Expert</b> says:</span>
 		</div>
+		<div class="col-md-7"><span>{{tip}}</span></div>
+		 <button type="button" ng-click="closeTip()" class="close col-md-1"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 	</div>
-</div>

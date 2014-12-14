@@ -205,6 +205,7 @@ public class ContextServiceImpl implements ContextService {
 	}
 	
 	public void triggerNewSeasonEvents(Farmer farmer) {
+		farmer.isNewSeason = true;
 		ServiceInjector.farmerService.collectBadge(farmer, ServiceInjector.badgesService.ecologist(farmer));
 		ServiceInjector.farmerService.collectBadge(farmer, ServiceInjector.badgesService.irrigator(farmer));
 		ServiceInjector.farmerService.collectBadge(farmer, ServiceInjector.badgesService.fertilizer(farmer));

@@ -15,6 +15,15 @@ public class LogFarmerData extends Model{
 	public Date logdate;
 	
 	public Long typelog;
+	
+	public Double information;
+	
+	public Integer recolteYear;
+	
+	
+	@ManyToOne
+	public Disease disease;
+	
 
 	@ManyToOne
 	public Farmer farmer;

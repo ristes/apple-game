@@ -78,7 +78,6 @@ Game.run([
       $infoTable.getNews();
       $rootScope.$emit("weather-hide");
     };
-    
     $location.path("/");
   }
 ]);

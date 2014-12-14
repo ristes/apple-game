@@ -22,7 +22,7 @@ public class SellingServiceImpl implements SellingService{
 		double sum_money = price * quantity;
 		MoneyTransactionService moneyTransaction = new TransactionServiceImpl();
 		moneyTransaction.commitMoneyTransaction(farmer, ServiceInjector.moneyConversionService.toEuros(sum_money));
-		
+		ServiceInjector.logFarmerDataService.logApplesSold(farmer, quantity);
 		return sum_money;
 		
 	}

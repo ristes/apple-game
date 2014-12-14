@@ -1,0 +1,19 @@
+[ {
+	"name": "digging",
+	"requires": "{}"
+},
+{
+	"name": "plowing",
+	"requires": "{}"
+},
+{
+	"name": "irrigation"
+},
+{
+	"name": "spraying"
+},
+{
+	"name": "prunning"
+}, {
+	"name":"fertilizing"
+}]
