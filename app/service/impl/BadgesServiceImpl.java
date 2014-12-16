@@ -3,6 +3,7 @@ package service.impl;
 import models.Badges;
 import models.Farmer;
 import service.BadgesService;
+import service.ServiceInjector;
 import service.YieldService;
 import utils.JsonExcluder;
 
@@ -39,12 +40,14 @@ public class BadgesServiceImpl implements BadgesService{
 		} 
 		return null;
 	}
+	
 
 	@Override
 	public Badges fertilizer(Farmer farmer) {
 		Badges badge = Badges.find("byAkka","fertilizer").first();
 		Double percent = Double.parseDouble(JsonExcluder.byField(badge.metadata, "fertilizer_hit"));
-		if (percent > percent) {
+		Double percent_hits = ServiceInjector.fertilizeService.badgeEvaluate(farmer);
+		if (percent_hits >= percent) {
 			return badge;
 		}
 		return null;

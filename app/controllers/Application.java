@@ -69,5 +69,11 @@ public class Application extends GameController {
 		return null;
 	}
 	
+	public static void badges() {
+		Farmer farmer = getFarmer();
+		ServiceInjector.badgesService.fertilizer(farmer);
+		renderJSON(new StatusDto(true));
+	}
+	
 	
 }

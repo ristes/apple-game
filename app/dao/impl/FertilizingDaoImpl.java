@@ -29,7 +29,7 @@ public class FertilizingDaoImpl implements FertilizingDao{
 		formatter.applyPattern("yyyy-MM-dd");
 		query.setParameter("id", item.id);
 		query.setParameter("date", formatter.format(dateService.convertDateTo70(farmer.gameDate.date)));
-		query.setParameter("terrain_analyse_id",farmer.field.terrain.analysis.id);
+		query.setParameter("terrain_analyse_id",farmer.field.plantation.analyse.id);
 		List<Object[]> fertilizing = query.getResultList();
 		for (Object[] o : fertilizing) {
 			FertilizerOperationDto f = new FertilizerOperationDto();
@@ -39,7 +39,7 @@ public class FertilizingDaoImpl implements FertilizingDao{
 			f.startFrom = (Timestamp) (o[5]);
 			f.endTo = (Timestamp) (o[4]);
 			//default value is for 1ha field, so we multiply the quantity with area size to gain the required value of the fertilizer
-			f.quantity = ((Double) (o[8])).doubleValue()*farmer.field.area;
+			f.quantity = ((Double) (o[8])).doubleValue();
 			fertilizationOper.add(f);
 		}
 		return fertilizationOper;

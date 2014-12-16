@@ -1,11 +1,13 @@
 package service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Random;
 
 import play.i18n.Messages;
 import models.Badges;
 import models.Day;
+import models.Disease;
 import models.Farmer;
 import models.FarmerBadges;
 import models.ItemInstance;
@@ -110,7 +112,7 @@ public class FarmerServiceImpl implements FarmerService {
 		farmer.irrigation_misses = 0;
 		Double luck = generateLuck(farmer);
 		farmer.luck = luck;
-//		farmer.plant_url = "/public/images/game/plant.png";
+		// farmer.plant_url = "/public/images/game/plant.png";
 		farmer.soil_url = C.soil_urls[0];
 		farmer.coef_soil_type = 1;
 		farmer.grass_growth = 5.0;
@@ -182,13 +184,20 @@ public class FarmerServiceImpl implements FarmerService {
 	}
 
 	@Override
-	public void subtractProductQuantity(Farmer farmer, double percent, Boolean showInfoTable, String reason) {
+	public Double subtractProductQuantity(Farmer farmer, double percent,
+			Boolean showInfoTable, String reason) {
 		int beforeQuantity = farmer.productQuantity;
 		farmer.productQuantity -= farmer.productQuantity * percent / 100.0;
-		double demage = beforeQuantity - farmer.productQuantity;
-		if (showInfoTable) {
-			ServiceInjector.infoTableService.createT1(farmer, Messages.getMessage("en", "lost_quantity_message", String.valueOf(demage),reason), "");
+		Double demage = (double)(beforeQuantity - farmer.productQuantity);
+		if (demage != 0.0) {
+			if (showInfoTable) {
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				ServiceInjector.infoTableService.createT1(farmer, Messages
+						.getMessage("en", "lost_quantity_message",
+								formatter.format(farmer.gameDate.date), String.valueOf(demage), reason), "");
+			}
 		}
+		return demage;
 	}
 
 }

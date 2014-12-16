@@ -2,7 +2,7 @@ Game.controller('TipsController', ['$scope', 'State', '$modal',
     '$timeout', function($scope, State, $modal, $timeout) {
       var windowTemplateUrl = '/public/templates/tip-dialog.html';
 
-      State.subscribe('status', 'TipsController', function(data) {
+      $scope.subscribe = State.subscribe('status', 'TipsController', function(data) {
         $scope.message = data.tip;
         if (data.tip && data.tip!="") {
         	$scope.$root.tip = data.tip;
@@ -16,7 +16,7 @@ Game.controller('TipsController', ['$scope', 'State', '$modal',
 //        		notification.dismiss('cancel');
 //        	}, 4000);
         } else {
-        	$scope.$root.tip = null;
+        	//$scope.$root.tip = null;
         }
        });
 

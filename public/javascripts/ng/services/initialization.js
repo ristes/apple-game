@@ -71,7 +71,7 @@ Game.factory('State', [function() {
       var topic = subscribers[field] || {};
       subscribers[field] = topic;
       if (topic.hasOwnProperty(id)) {
-        throw exception('duplicate subscription id: ' + id);
+//        throw exception('duplicate subscription id: ' + id);
     	  return;
       } else {
         topic[id] = callback;

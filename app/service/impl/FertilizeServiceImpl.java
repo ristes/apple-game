@@ -43,12 +43,24 @@ public class FertilizeServiceImpl implements FertilizeService{
 		farmer.eco_points -= N.pollutionCoefficient + P.pollutionCoefficient
 				+ K.pollutionCoefficient + Ca.pollutionCoefficient
 				+ B.pollutionCoefficient + Mg.pollutionCoefficient;
+		if (n!=0.0) {
 		saveItem(N, farmer, n);
+		}
+		if (p!=0.0) {
 		saveItem(P, farmer, p);
+		}
+		if (k!=0.0) {
 		saveItem(K, farmer, k);
+		}
+		if (ca!=0.0) {
 		saveItem(Ca, farmer, ca);
+		}
+		if (b!=0.0) {
 		saveItem(B, farmer, b);
+		}
+		if (mg!=0.0) {
 		saveItem(Mg, farmer, mg);
+		}
 		farmer.save();
 		ServiceInjector.logFarmerDataService.logExecutedOperation(farmer, (Operation)Operation.find("byName","fertilizing").first());
 		return farmer;
@@ -113,8 +125,29 @@ public class FertilizeServiceImpl implements FertilizeService{
 		return farmer;
 	}
 	
+	public Double badgeEvaluate(Farmer farmer) {
+		Double evalN = badgeEvaluateByItem(farmer, (Item)Item.find("byName","N").first());
+		Double evalP = badgeEvaluateByItem(farmer, (Item)Item.find("byName","P").first());
+		Double evalK = badgeEvaluateByItem(farmer, (Item)Item.find("byName","K").first());
+		Double evalMg = badgeEvaluateByItem(farmer, (Item)Item.find("byName","Mg").first());
+		Double evalCa = badgeEvaluateByItem(farmer, (Item)Item.find("byName","Ca").first());
+		Double evalZn = badgeEvaluateByItem(farmer, (Item)Item.find("byName","Zn").first());
+		
+		return (evalN+evalP+evalK+evalMg+evalCa+evalZn)/6.0;
+		
+	}
+	
+	public Double badgeEvaluateByItem(Farmer farmer, Item item) {
+		double res  = Math.abs(1-finalEvaluationItem(farmer, item));
+		
+		if (res <= BADGE_THRESHOLD) {
+			return 100-res*100;
+		}
+		
+		return 0.0;
+	}
+	
 	public Double finalEvaluationItem(Farmer farmer, Item item) {
-//		FertilizingDao fDao = new FertilizingDaoImpl();
 		List<FertilizationOperation> operations = item.fertilizationOperations;
 		List<FertilizerOperationDto> execs = new ArrayList<FertilizerOperationDto>();
 		for (FertilizationOperation operation: operations) {
@@ -124,7 +157,7 @@ public class FertilizeServiceImpl implements FertilizeService{
 		Double allQ = FertilizerOperationDto.sumOfQuantity(execs);
 		List<FertilizerOperationDto> intervals = DaoInjector.fertilizingDao.getFertilizationOper(farmer, item);
 		Double execSumQ = FertilizerOperationDto.sumOfQuantity(intervals);
-		return execSumQ/allQ;
+		return allQ/execSumQ;
 	}
 	
 

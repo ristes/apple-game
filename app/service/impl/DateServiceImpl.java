@@ -96,7 +96,7 @@ public class DateServiceImpl implements DateService{
 		if (date.after(c.getTime())) {
 			c.add(Calendar.YEAR, 1);
 			c.set(Calendar.DAY_OF_MONTH, 1);
-			c.set(Calendar.MONTH, Calendar.OCTOBER);
+			c.set(Calendar.MONTH, Calendar.NOVEMBER);
 			if (date.before(c.getTime())) {
 				return true;
 			}

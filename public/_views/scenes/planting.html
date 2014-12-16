@@ -10,7 +10,7 @@
 				 style="width: {{atom}}px; height: {{atom}}px">
 				<img ng-show="c.show"  ng-if="!c.staticV" ng-src="{{$root.day.soil_url}}" class="{{c.cls}}" ng-click="soilClick(c)"/>
 				<img ng-show="c.show"  ng-if="c.staticV" ng-src="{{c.terrain}}" class="{{c.cls}}"/>
-				<!-- <img ng-show="c.tree"  ng-src="{{c.tree}}" class="{{c.treeCls}}" ng-click="portionClick(c)"/> -->
+				<img ng-show="planting" src="/public/images/game/apple_tree/11.png" class="{{c.treeCls}}" ng-click="portionClick(c)"/>
 				<img ng-if="c.tree===1"  ng-src="{{$root.day.plant_ajdaret}}" class="{{c.treeCls}}" ng-click="treeClick(c)"/>
 				<img ng-if="c.tree===2"  ng-src="{{$root.day.plant_crven_delishes}}" class="{{c.treeCls}}" ng-click="treeClick(c)"/>
 				<img ng-if="c.tree===3"  ng-src="{{$root.day.plant_zlaten_delishes}}" class="{{c.treeCls}}" ng-click="treeClick(c)"/>
