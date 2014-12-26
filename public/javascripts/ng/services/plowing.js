@@ -1,7 +1,7 @@
 Game.factory('Plowing', ['$http', 'State', function($http, State) {
   return {
-    plowing: function(callback) {
-      var res = $http.get("/LandTreatmanController/plowing");
+    plowing: function(deep,callback) {
+      var res = $http.get("/LandTreatmanController/plowing?deep="+deep);
       res.success(function(data) {
         if (data.status === true) {
           State.set('farmer', data.farmer);

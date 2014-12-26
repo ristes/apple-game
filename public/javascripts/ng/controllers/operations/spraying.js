@@ -17,14 +17,18 @@ Game.controller('SprayingController', [
 
     $scope.quantity = 1;
 
+    var onUseSprayingItem = function(item) {
+    	
+    }
+    
     var onBuyItem = function(item) {
       Store['buyItem']({
         itemName: item.name,
         quantity: item.perHa ? $scope.plantation.area : 1,
         currentState: $scope.$root.farmer.currentState
       }, null, function(result) {
-        if (result.balans) {
-          $day.load(result);
+        if (result.farmer.balans) {
+          $day.load(result.farmer);
           BoughtItems.load(function() {
             $scope.$root.$emit('shop-hide');
             var boughtItems = BoughtItems.get($scope.sprayingOper.requires)[0];
@@ -35,8 +39,7 @@ Game.controller('SprayingController', [
           $scope.$root.$emit('insuficient-funds');
         }
       }).$promise['finally'](function() {
-        $scope.$root.$emit('item-bought');
-
+    	  $scope.$root.$emit('item-bought');
       });
     };
     var unreg = $scope.$root.$on('operation-spraying', function(_s, oper) {
@@ -44,7 +47,7 @@ Game.controller('SprayingController', [
       $scope.sprayingOper = oper;
       if (!hasItem) {
         $scope.$root.$emit('shop-show', {
-          items: storeItems.getStoreItems()[oper.requires],
+          items: $scope.$root.storeItems[oper.requires],
           showNext: true,
           storeUrl: oper.ico,
           onItemClick: onBuyItem

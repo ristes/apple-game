@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import models.Farmer;
 import models.Item;
@@ -9,7 +10,7 @@ import dto.ItemBoughtDto;
 
 public interface ItemsDao {
 
-	public List<ItemBoughtDto> getFarmerCurrentItems(Farmer farmer);
+	public Map<String,ItemBoughtDto> getFarmerCurrentItems(Farmer farmer);
 
 	public List<ItemInstance> getItemsByStoreNameOrdered(Long id, String string);
 

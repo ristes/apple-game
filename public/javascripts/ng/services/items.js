@@ -1,13 +1,15 @@
-Game.factory('BoughtItems', ['$http', function($http) {
+Game.factory('BoughtItems', ['$http', 'State', function($http, State) {
 
   var storeItems = {};
   var boughtItems = [];
   var namedItems = {};
+  var items = [];
   return {
     load: function(callback) {
       var res = $http.get("/storecontroller/myitems");
       res.success(function(data) {
         storeItems = {};
+        State.set('boughtItems', data);
         boughtItems = data || [];
         for (var i = 0; i < boughtItems.length; i++) {
           var item = data[i];

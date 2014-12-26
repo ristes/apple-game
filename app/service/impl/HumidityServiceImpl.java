@@ -178,7 +178,7 @@ public class HumidityServiceImpl implements HumidityService,HumidityGroovesServi
 		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl.load_hash(C.COEF_HUMIDITY_YML);
 		Calendar c = Calendar.getInstance();
 		c.setTime(farmer.gameDate.date);
-		return  (farmer.deltaCumulative - coefs.get(C.KEY_GROOVES_HUM).get(c.get(Calendar.MONTH)));
+		return  (farmer.deltaCumulative - coefs.get(C.KEY_GROOVES_HUM).get(c.get(Calendar.MONTH))*2);
 	}
 	
 	public double varianceDrops(Farmer farmer) {

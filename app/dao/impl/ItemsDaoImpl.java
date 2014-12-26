@@ -3,8 +3,10 @@ package dao.impl;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.persistence.Query;
 
@@ -22,29 +24,31 @@ import dto.ItemBoughtDto;
 public class ItemsDaoImpl implements ItemsDao {
 
 	@Override
-	public List<ItemBoughtDto> getFarmerCurrentItems(Farmer farmer) {
+	public Map<String, ItemBoughtDto> getFarmerCurrentItems(Farmer farmer) {
 
 		List<ItemInstance> farmerItems = ItemInstance.find("ownedBy.id",
 				farmer.id).fetch();
-		List<ItemBoughtDto> result = new ArrayList<ItemBoughtDto>();
+		// List<ItemBoughtDto> result = new ArrayList<ItemBoughtDto>();
 		Map<String, ItemBoughtDto> boughtItems = new HashMap<String, ItemBoughtDto>();
 		for (ItemInstance item : farmerItems) {
 			// item.type.expirationInYears
 			int recolteYear = ServiceInjector.dateService
 					.recolteYear(farmer.gameDate.date);
-			if (item.type.expirationInYears != 0
-					&& item.year + item.type.expirationInYears <= recolteYear) {
-				if (boughtItems.containsKey(item.type.name)) {
-					boughtItems.get(item.type.name).count++;
-				} else {
-					ItemBoughtDto dto = new ItemBoughtDto(item);
-					dto.count = 1;
-					boughtItems.put(item.type.name, dto);
+			if (item != null && item.type != null && item.year != null) {
+				if (item.type.expirationInYears == 0
+						|| (item.year + item.type.expirationInYears >= recolteYear)) {
+					if (boughtItems.containsKey(item.type.name)) {
+						boughtItems.get(item.type.name).count++;
+					} else {
+						ItemBoughtDto dto = new ItemBoughtDto(item);
+						dto.count = 1;
+						boughtItems.put(item.type.name, dto);
+					}
 				}
 			}
 		}
 
-		return result;
+		return boughtItems;
 	}
 
 	@Override
@@ -68,13 +72,17 @@ public class ItemsDaoImpl implements ItemsDao {
 	@Override
 	public List<Item> getUnboughtItem(Farmer farmer) {
 
-		List<ItemBoughtDto> result = getFarmerCurrentItems(farmer);
-
+		Map<String, ItemBoughtDto> result = getFarmerCurrentItems(farmer);
+		List<ItemBoughtDto> boughtItems = new ArrayList<ItemBoughtDto>();
+		for (Entry<String, ItemBoughtDto> entry : result.entrySet()) {
+			boughtItems.add(entry.getValue());
+		}
 		List<Item> all = Item.findAll();
 		List<Item> results = new ArrayList<Item>();
+		
 
 		for (Item item : all) {
-			if (!isIn(item, result)) {
+			if (!isIn(item, boughtItems)) {
 				results.add(item);
 			}
 		}
@@ -84,7 +92,7 @@ public class ItemsDaoImpl implements ItemsDao {
 
 	private Boolean isIn(Item item, List<ItemBoughtDto> result) {
 		for (ItemBoughtDto i : result) {
-			if (item.getId().equals(i.item_id)) {
+			if (item.id.equals(i.item_id)) {
 				return true;
 			}
 		}

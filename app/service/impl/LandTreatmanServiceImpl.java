@@ -12,6 +12,7 @@ import service.ServiceInjector;
 import exceptions.NotEnoughMoneyException;
 import exceptions.SoilTooDryException;
 import exceptions.TooWaterOnFieldException;
+import exceptions.TypeOfPlowingNotRecognized;
 
 public class LandTreatmanServiceImpl implements LandTreatmanService{
 
@@ -35,21 +36,23 @@ public class LandTreatmanServiceImpl implements LandTreatmanService{
 		return coef.intValue()+1;
 	}
 
-	public Farmer executePlowing(Farmer farmer) throws TooWaterOnFieldException, SoilTooDryException, NotEnoughMoneyException{
+	public Farmer executePlowing(Farmer farmer, Integer type) throws TooWaterOnFieldException, SoilTooDryException, NotEnoughMoneyException, TypeOfPlowingNotRecognized{
 		
 		try {
-			farmer = determineThePlowingPrice(farmer);
+			farmer = determineThePlowingPrice(farmer, type);
 		} catch (TooWaterOnFieldException ex) {
 			throw ex;
 		} catch (SoilTooDryException ex) {
 			throw ex;
 		} catch (NotEnoughMoneyException ex) {
 			throw ex;
+		} catch (TypeOfPlowingNotRecognized ex) {
+			throw ex;
 		}
 		farmer = evaluatePlowingEcoPoints(farmer);
 		farmer.grass_growth = 0.0;
 		farmer.save();
-		ServiceInjector.logFarmerDataService.logExecutedOperation(farmer, (Operation)Operation.find("byName","digging").first());
+		ServiceInjector.logFarmerDataService.logExecutedOperation(farmer, (Operation)Operation.find("byName","deep_plowing").first());
 		return farmer;
 	}
 	
@@ -77,10 +80,18 @@ public class LandTreatmanServiceImpl implements LandTreatmanService{
 		return 1;
 	}
 	
-	public Farmer determineThePlowingPrice(Farmer farmer)
-			throws SoilTooDryException, TooWaterOnFieldException, NotEnoughMoneyException {
+	public Farmer determineThePlowingPrice(Farmer farmer, Integer deep)
+			throws SoilTooDryException, TooWaterOnFieldException, NotEnoughMoneyException, TypeOfPlowingNotRecognized {
+		if (deep==null) {
+			throw new TypeOfPlowingNotRecognized();
+		}
+		String type = LandTreatmanService.SHALLOW_PLOWING;
+		if (deep>45){
+			type = LandTreatmanService.DEEP_PLOWING;
+		}
 		int level = ServiceInjector.humidityService.humidityLevel(farmer);
-		Item plowing = (Item) Item.find("byName", "PlowingItem").fetch().get(0);
+		
+		Item plowing = (Item) Item.find("byName", type).fetch().get(0);
 		Double coefTypeTractor =  hasEcoTractor(farmer)?0.7:1.0;
 		Integer price = 0;
 		switch (level) {
@@ -99,6 +110,8 @@ public class LandTreatmanServiceImpl implements LandTreatmanService{
 			throw new TooWaterOnFieldException(Messages.get("controller.plowing.fail.toowater"));
 		}
 
+		
+		
 		try {
 			ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, -price);
 		} catch (NotEnoughMoneyException ex ) {
@@ -116,5 +129,7 @@ public class LandTreatmanServiceImpl implements LandTreatmanService{
 		}
 		return false;
 	}
+
+
 
 }

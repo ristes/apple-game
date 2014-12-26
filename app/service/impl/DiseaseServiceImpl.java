@@ -51,6 +51,7 @@ public class DiseaseServiceImpl implements DiseaseService {
 		List<DiseaseOccurenceProb> probs = getDiseasesProb(farmer);
 		for (DiseaseOccurenceProb prob : probs) {
 			if (prob.probability > (farmer.luck * 100)) {
+				farmer.hasNewDisease = true;
 				OccurredDecease od = new OccurredDecease();
 				Disease d = Disease.find("byName", prob.name).first();
 				od.desease = d;

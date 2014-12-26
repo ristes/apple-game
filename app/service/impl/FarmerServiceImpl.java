@@ -2,22 +2,20 @@ package service.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
-import play.i18n.Messages;
 import models.Badges;
 import models.Day;
-import models.Disease;
 import models.Farmer;
 import models.FarmerBadges;
 import models.ItemInstance;
+import play.i18n.Messages;
 import service.DateService;
 import service.FarmerService;
 import service.ServiceInjector;
 import service.StoreService;
 import dao.DaoInjector;
-import dao.ItemsDao;
-import dao.impl.ItemsDaoImpl;
 import dto.C;
 import dto.ItemBoughtDto;
 
@@ -148,12 +146,12 @@ public class FarmerServiceImpl implements FarmerService {
 		return farmer;
 	}
 
-	public List<ItemBoughtDto> getCurrentItems(Farmer farmer) {
+	public Map<String,ItemBoughtDto> getCurrentItems(Farmer farmer) {
 		return DaoInjector.itemsDao.getFarmerCurrentItems(farmer);
 	}
 
 	@Override
-	public List<ItemBoughtDto> farmersItems(Farmer farmer) {
+	public Map<String,ItemBoughtDto> farmersItems(Farmer farmer) {
 		return getCurrentItems(farmer);
 	}
 

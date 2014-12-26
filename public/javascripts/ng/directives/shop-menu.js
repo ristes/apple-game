@@ -1,4 +1,4 @@
-GameDirectives.directive('shopMenu', ['jQuery', 'BoughtItems', function($, BoughtItems) {
+GameDirectives.directive('shopMenu', ['jQuery', 'BoughtItems','$spraying', function($, BoughtItems, $spraying) {
   return {
     restrict: 'E',
     transclude: true,

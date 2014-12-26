@@ -1,6 +1,6 @@
 package service;
 
-import java.util.List;
+import java.util.Map;
 
 import models.Badges;
 import models.Farmer;
@@ -19,7 +19,7 @@ public interface FarmerService {
 	public Farmer buildFbInstance(String username, String access_token, String name, String surname, String email, String picture);
 	public Farmer addCumulative(Farmer farmer, double deltaCumulative);
 	public Farmer setState(Farmer farmer, String state);
-	public List<ItemBoughtDto> farmersItems(Farmer farmer);
+	public Map<String,ItemBoughtDto> farmersItems(Farmer farmer);
 	public Farmer restartGame(Farmer farmer);
 	public Farmer collectBadge(Farmer farmer, Badges badge);
 	public boolean hasBees(Farmer farmer);

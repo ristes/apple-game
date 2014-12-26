@@ -94,7 +94,7 @@ public class FridgeServiceImpl implements FridgeService{
 	
 	public void removeAllPlantTypeFromFridge(Farmer farmer, Fridge fridge, PlantType type) {
 		YieldPortion yieldPortion = YieldPortion.find("byFarmerAndPlantation.seedling.typeAndYear", farmer, type, ServiceInjector.dateService.recolteYear(fridge.farmer.gameDate.date)).first();
-		ServiceInjector.logFarmerDataService.logApplesBurned(farmer, yieldPortion.quantity);
+		ServiceInjector.logFarmerDataService.logApplesBurnedInFridge(farmer, yieldPortion.quantity);
 		yieldPortion.quantity = 0;
 		yieldPortion.save();
 	}

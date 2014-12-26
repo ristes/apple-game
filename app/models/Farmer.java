@@ -169,6 +169,8 @@ public class Farmer extends Model {
 	public Boolean needZn;
 	public Boolean needMg;
 	
+	public Boolean hasNewDisease;
+	
 	public Integer irrigation_misses;
 	
 	public Boolean isNewSeason;

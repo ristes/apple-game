@@ -10,7 +10,7 @@ public class UVServiceImpl implements UVService{
 
 	@Override
 	public void impact(Farmer farmer) {
-		if (farmer.gameDate.uvProb>0.55 && !ServiceInjector.fieldService.hasUVProtectingNet(farmer)) {
+		if (farmer.gameDate.uvProb>0.65 && !ServiceInjector.fieldService.hasUVProtectingNet(farmer)) {
 			double randV = ServiceInjector.randomGeneratorService.random(5.0, 20.0);
 			Double demage =	ServiceInjector.farmerService.subtractProductQuantity(farmer, randV, true, Messages.getMessage("en", "uv_demage", ""));
 			if (demage.equals(0.0)) {

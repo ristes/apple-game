@@ -9,9 +9,9 @@
 		
 		
 		
-	<div class="side-items-grid">
+	<div class="side-items-grid" ng-controller="BoughtItemsController">
 		<div class="side-items-grid-item" 
-				ng-repeat="a in $root._items" ng-click="executeItem(a)">
+				ng-repeat="a in boughtItems" ng-click="executeItem(a)">
 			<div class="side-item-top">
 				<img ng-src="{{a.url}}"></img>
 				 

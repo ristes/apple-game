@@ -7,6 +7,13 @@ import models.Farmer;
 import models.PlantType;
 
 public interface DateService {
+	
+
+	
+	public final static Integer SEASON_WINTER = 1;
+	public final static Integer SEASON_SPRING = 3;
+	public final static Integer SEASON_SUMMER = 4;
+	public final static Integer SEASON_AUTUMN = 2;
 
 	public Date convertDateTo70(Date date);
 	public Boolean isAfterNewYear(Date date);
@@ -19,4 +26,5 @@ public interface DateService {
 	public int evaluateYearLevel(int year);
 	public int recolteYear(Date date);
 	public int recolteYearByPlantType(Date date, PlantType type);
+	public int getCalendarFieldOfDate(Date date, int fieldType);
 }

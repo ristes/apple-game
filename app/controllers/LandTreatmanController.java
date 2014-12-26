@@ -29,10 +29,10 @@ public class LandTreatmanController extends GameController {
 		JsonController.toJson(status, "field", "gameDate", "weatherType");
 	}
 
-	public static void plowing() throws Exception {
+	public static void plowing(Integer deep) throws Exception {
 		Farmer farmer = checkFarmer();
 		LandTreatmanService landService = new LandTreatmanServiceImpl();
-		farmer = landService.executePlowing(farmer);
+		farmer = landService.executePlowing(farmer, deep);
 		ServiceInjector.contextService.evaluateState(farmer);
 		StatusDto status = new StatusDto(true, null, null, farmer);
 		JsonController.toJson(status, "field", "gameDate", "weatherType");

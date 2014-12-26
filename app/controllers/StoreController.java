@@ -62,7 +62,7 @@ public class StoreController extends GameController {
 			renderJSON("");
 		}
 		FarmerService farmerService = new FarmerServiceImpl();
-		renderJSON(farmerService.farmersItems(farmer));
+		renderJSON(farmerService.farmersItems(farmer).values());
 	}
 
 }

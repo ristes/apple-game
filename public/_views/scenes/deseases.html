@@ -6,7 +6,7 @@
 		<div class="shop_icon">
 			<img ng-src="{{url}}" style="width:75%;"></img>
 			<div class="shop-label ramka">
-				<span class="shop-label-text" translate="deseases"></span> 
+				<span class="shop-label-text" translate="State"></span> 
 			</div>
 		</div>
 		
@@ -14,22 +14,19 @@
 		
 		<div class="shop_menu_grid fa-stack-2x fa-inverse">
 		
-			<div id="disease-info" ng-show="hasDecease">
-				{{ 'decease_occured' | translate }} 
+			<div id="disease-info" ng-show="!hasProblem">
+				{{ 'The plantation is in good condition.' | translate }} 
 			</div>
-			<div id="irrigation-slider-container" ng-show="hasDecease">
+			<div id="irrigation-slider-container" ng-show="hasProblem">
 				<div class="shop_menu_grid" style="top:20%">
 					<div class="shop_item_in_grid" ng-repeat="item in deceases">
 						<img ng-src="{{item.url}}"></img>
 						<button class="btn btn-xs" ng-click="showDeseaseHelp(item)">{{ 'disease.get_help' | translate }}</button>
 						<div ng-show="item.help">{{ item.help}}</div>
 					</div>
-					
 				</div>
 			</div>
-			<div id="irrigation-slider-container" ng-show="!hasDecease">
-				{{ 'no_decease' | translate }}
-			</div>
+			
 			
 		</div>
 	</div>

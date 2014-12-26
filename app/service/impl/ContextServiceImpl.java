@@ -184,6 +184,7 @@ public class ContextServiceImpl implements ContextService {
 	public void evaluateDisease(Farmer farmer) {
 		// check for diseases every 5 days triggered by the farmer luck
 		// in winter the diseases does not occure
+		farmer.hasNewDisease = false;
 		if (farmer.season_level != C.SEASON_WINTER) {
 			if (farmer.gameDate.dayOrder % 5 == 0) {
 				ServiceInjector.diseaseService.diseases(farmer);

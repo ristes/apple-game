@@ -1,8 +1,13 @@
 package service.impl;
 
+import java.util.Calendar;
+import java.util.List;
+
 import models.Badges;
 import models.Farmer;
+import models.LogFarmerData;
 import service.BadgesService;
+import service.LogFarmerDataService;
 import service.ServiceInjector;
 import service.YieldService;
 import utils.JsonExcluder;
@@ -26,9 +31,21 @@ public class BadgesServiceImpl implements BadgesService{
 
 	@Override
 	public Badges trader(Farmer farmer) {
-		// TODO Auto-generated method stub
+		List<LogFarmerData> logs = LogFarmerData.find("byTypelog",LogFarmerDataService.APPLES_SOLD).fetch();
+		List<LogFarmerData> logsBurned = LogFarmerData.find("byTypelog", LogFarmerDataService.APPLES_BURNED_IN_FRIDGE).fetch();
+		int total = logs.size()+logsBurned.size();
+		int success = 0;
+		for (LogFarmerData log:logs) {
+			if (ServiceInjector.dateService.getCalendarFieldOfDate(log.logdate, Calendar.MONTH)==Calendar.JUNE) {
+				success++;
+			}
+ 		}
+		if ((success/(double)total)>BadgesService.BADGE_TRADER_THRESHOLDER) {
+			return Badges.find("byAkka","trader").first();
+		}
 		return null;
 	}
+	
 
 	@Override
 	public Badges harvester(Farmer farmer, Integer yield, Integer harvested) {

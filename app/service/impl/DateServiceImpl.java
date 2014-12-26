@@ -135,34 +135,35 @@ public class DateServiceImpl implements DateService{
 	 * @param farmer
 	 */
 	public int season_level(Farmer farmer) {
-		Calendar c = Calendar.getInstance();
-		c.setTime(farmer.gameDate.date);
-		int month = c.get(Calendar.MONTH);
+//		Calendar c = Calendar.getInstance();
+//		c.setTime(farmer.gameDate.date);
+//		int month = c.get(Calendar.MONTH);
+		int month = getCalendarFieldOfDate(farmer.gameDate.date, Calendar.MONTH);
 		switch (month) {
-		case 0:
-			return 1;
-		case 1:
-			return 1;
-		case 2:
-			return 3;
-		case 3:
-			return 3;
-		case 4:
-			return 4;
-		case 5:
-			return 4;
-		case 6:
-			return 4;
-		case 7:
-			return 4;
-		case 8:
-			return 4;
-		case 9:
-			return 4;
-		case 10:
-			return 2;
-		case 11:
-			return 1;
+		case Calendar.JANUARY:
+			return DateService.SEASON_WINTER;
+		case Calendar.FEBRUARY:
+			return DateService.SEASON_WINTER;
+		case Calendar.MARCH:
+			return DateService.SEASON_SPRING;
+		case Calendar.APRIL:
+			return DateService.SEASON_SPRING;
+		case Calendar.MAY:
+			return DateService.SEASON_SPRING;
+		case Calendar.JUNE:
+			return DateService.SEASON_SUMMER;
+		case Calendar.JULY:
+			return DateService.SEASON_SUMMER;
+		case Calendar.AUGUST:
+			return DateService.SEASON_SUMMER;
+		case Calendar.SEPTEMBER:
+			return DateService.SEASON_AUTUMN;
+		case Calendar.OCTOBER:
+			return DateService.SEASON_AUTUMN;
+		case Calendar.NOVEMBER:
+			return DateService.SEASON_AUTUMN;
+		case Calendar.DECEMBER:
+			return DateService.SEASON_WINTER;
 		}
 		return -1;
 	}
@@ -197,6 +198,16 @@ public class DateServiceImpl implements DateService{
 			year_level = 5;
 		}
 		return year_level;
+	}
+
+	@Override
+	public int getCalendarFieldOfDate(Date date, int fieldType) {
+		Calendar c = Calendar.getInstance();
+		if (date==null) {
+			return 0;
+		}
+		c.setTime(date);
+		return c.get(Calendar.MONTH);
 	}
 	
 }

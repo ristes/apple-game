@@ -1,5 +1,5 @@
-GameDirectives.directive('sideMenu', ['jQuery', '$window',
-    function($, $window) {
+GameDirectives.directive('sideMenu', ['jQuery', '$window','BoughtItems',
+    function($, $window,BoughtItems) {
 
       return {
         restrict: 'E',
@@ -68,7 +68,6 @@ GameDirectives.directive('sideMenu', ['jQuery', '$window',
            var windowTemplateUrl = '/public/templates/resume-dialog.html';
             scope.visible = false;
            scope.$root.$on("resume-open", function() {
-        	   scope.resumeData = 'Koki';
         	   Resume.load();
         	   State.subscribe('resume','resumeDirective',function(data) {
         		   scope.resumeData = data;
