@@ -28,12 +28,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # using a specific IP.
   config.vm.network "private_network", ip: "192.168.33.10"
 
+  # config.vm.provision "shell", path: "provision/update.sh"
 
+  config.omnibus.chef_version = :latest
   config.vm.provision "chef_solo" do |chef|
     chef.cookbooks_path = "provision/chef/cookbooks"
     chef.roles_path = "provision/chef/roles"
     chef.data_bags_path = "provision/chef/data_bags"
 
+    chef.add_recipe "apt"
     chef.add_recipe "mysql::server"
     chef.add_recipe "mysql::client"
     chef.add_recipe "java"
@@ -45,6 +48,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     }
   end
 
-  config.vm.provision "shell", path: "provision/install_play.sh"
+
+  config.vm.provision "shell", path: "provision/setup.sh"
 
 end
