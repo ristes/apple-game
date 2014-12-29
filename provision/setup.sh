@@ -27,7 +27,7 @@ mysql -u root -pilikerandompasswords -Bse "GRANT ALL ON applegame.* to root iden
 # Import db dump
 
 cd /vagrant
-mysql -u root -pilikerandompasswords applegame < provision/data/applegame1611.sql
+mysql -u root -pilikerandompasswords applegame < provision/data/agame2612.sql
 # drop
 # mysqladmin -u root -pilikerandompasswords drop applegame
 # mysql -u root -pilikerandompasswords -e 'drop database applegame;'
