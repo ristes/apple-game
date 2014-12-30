@@ -43,9 +43,9 @@ Game.controller('SprayingController', [
       });
     };
     var unreg = $scope.$root.$on('operation-spraying', function(_s, oper) {
-      var hasItem = BoughtItems.check('spraying');
+//      var hasItem = BoughtItems.check('spraying');
       $scope.sprayingOper = oper;
-      if (!hasItem) {
+//      if (!hasItem) {
         $scope.$root.$emit('shop-show', {
           items: $scope.$root.storeItems[oper.requires],
           showNext: true,
@@ -53,27 +53,27 @@ Game.controller('SprayingController', [
           onItemClick: onBuyItem
         });
 
-      } else {
-        var types = BoughtItems.get(oper.requires);
-        if (types.length > 1) {
-          $scope.$root.$emit('shop-show', {
-            items: types,
-            showNext: true,
-            storeUrl: oper.ico,
-            shop: {
-              name: oper.requires
-            },
-            onItemClick: function(t) {
-              $scope.type = t;
-              $scope.$root.$emit('shop-hide');
-              showProgress($scope, oper, t);
-            }
-          });
-        } else {
-          $scope.type = types[0];
-          showProgress($scope, oper, types[0]);
-        }
-      }
+//      } else {
+//        var types = BoughtItems.get(oper.requires);
+//        if (types.length > 1) {
+//          $scope.$root.$emit('shop-show', {
+//            items: types,
+//            showNext: true,
+//            storeUrl: oper.ico,
+//            shop: {
+//              name: oper.requires
+//            },
+//            onItemClick: function(t) {
+//              $scope.type = t;
+//              $scope.$root.$emit('shop-hide');
+//              showProgress($scope, oper, t);
+//            }
+//          });
+//        } else {
+//          $scope.type = types[0];
+//          showProgress($scope, oper, types[0]);
+//        }
+//      }
 
     });
 

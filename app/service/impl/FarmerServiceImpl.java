@@ -37,6 +37,7 @@ public class FarmerServiceImpl implements FarmerService {
 		if (farmer.eco_points < 0) {
 			farmer.eco_points = 0;
 		}
+		farmer.save();
 		return farmer.eco_points;
 	}
 

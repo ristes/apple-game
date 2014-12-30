@@ -16,6 +16,9 @@ Game.factory('BoughtItems', ['$http', 'State', function($http, State) {
           var store = item.store;
           storeItems[store] = storeItems[store] || [];
           storeItems[store].push(data[i]);
+          storeItems[store].sort(function(a,b) {
+        	  return b.id-a.id;
+          });
           namedItems[item.name] = item;
         }
         if (callback && typeof callback === 'function') {

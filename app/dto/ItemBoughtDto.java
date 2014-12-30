@@ -33,7 +33,9 @@ public class ItemBoughtDto {
 		type_id = instance.type.id;
 		name = instance.type.name;
 		url = instance.type.imageurl;
-		store = instance.type.store.name;
+		if (instance.type.store!=null){
+			store = instance.type.store.name;
+		}
 	}
 
 }

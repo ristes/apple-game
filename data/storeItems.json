@@ -23,15 +23,7 @@
   "imageurl": "/public/images/game/items/fertilizer.png", 
   "typeName":"",
   "expirationInYears":1
-}, {
-  "name": "NPK",
-  "pollutionCoefficient": 3,
-  "price": 30,
-  "storeName": "fertilizer",
-  "imageurl": "/public/images/game/items/fertilizer.png", 
-  "typeName":"",
-  "expirationInYears":3
-}, {
+},{
   "name": "Ca",
   "pollutionCoefficient": 1,
   "price": 50,
@@ -86,7 +78,8 @@
   "storeName": "spraying",
   "imageurl": "/public/images/game/items/pheromone.png", 
   "typeName":"",
-  "expirationInYears":3
+  "expirationInYears":3,
+  "operation_id":24
 }, {
   "name": "white-oil",
   "pollutionCoefficient": 1,
@@ -94,7 +87,8 @@
   "storeName": "spraying",
   "imageurl": "/public/images/game/items/white-oil.png", 
   "typeName":"",
-  "expirationInYears":3
+  "expirationInYears":3,
+  "operation_id":7
 }, {
   "name": "insecticide",
   "pollutionCoefficient": 2,
@@ -102,7 +96,8 @@
   "storeName": "spraying",
   "imageurl": "/public/images/game/items/insecticide.png", 
   "typeName":"",
-  "expirationInYears":3
+  "expirationInYears":3,
+  "operation_id":8
 }, {
   "name": "copper_fungicide",
   "pollutionCoefficient": 2,
@@ -110,7 +105,8 @@
   "storeName": "spraying",
   "imageurl": "/public/images/game/items/copper-fungicide.png", 
   "typeName":"",
-  "expirationInYears":3
+  "expirationInYears":3,
+  "operation_id":9
 }, {
   "name": "digging",
   "pollutionCoefficient": 0,

@@ -77,7 +77,7 @@ public class ItemsDaoImpl implements ItemsDao {
 		for (Entry<String, ItemBoughtDto> entry : result.entrySet()) {
 			boughtItems.add(entry.getValue());
 		}
-		List<Item> all = Item.findAll();
+		List<Item> all = Item.find("byStore.name","other").fetch();
 		List<Item> results = new ArrayList<Item>();
 		
 

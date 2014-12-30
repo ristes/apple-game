@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import models.Farmer;
+import models.Item;
 import models.Plantation;
 import models.PlantationSeedling;
 import dto.StatusDto;
@@ -24,9 +25,11 @@ public interface StoreService {
 	public Farmer buySeedling(Farmer farmer, List<PlantationSeedling> seedling,
 			String currentState) throws NotEnoughMoneyException;
 
-	public HashMap<String, List<StoreItemDto>> storeItems();
+	public HashMap<String, List<StoreItemDto>> storeItems(Farmer farmer);
 
 	Plantation getOrCreatePlantation(Farmer farmer);
 
 	Plantation createPlantation(Farmer farmer);
+	
+	public StoreItemDto toStoreItemDto(Item item);
 }

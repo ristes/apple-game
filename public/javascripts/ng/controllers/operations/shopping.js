@@ -22,6 +22,7 @@ Game.controller('ShoppingController', [
       }, null, function(result) {
         if (result.status) {
           BoughtItems.load();
+          StoreItems.load();
           $farmer.setStatus(result);
           $scope.$root.$emit('shop-hide');
         } else {

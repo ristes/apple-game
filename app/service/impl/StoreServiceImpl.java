@@ -21,6 +21,7 @@ import service.StoreService;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
+import dao.DaoInjector;
 import dto.StatusDto;
 import dto.StoreDto;
 import dto.StoreItemDto;
@@ -169,7 +170,7 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public HashMap<String, List<StoreItemDto>> storeItems() {
+	public HashMap<String, List<StoreItemDto>> storeItems(Farmer farmer) {
 		HashMap<String, List<StoreItemDto>> result = new HashMap<String, List<StoreItemDto>>();
 		result.put("tractor", tractorStoreItems());
 		result.put("terrain", terrainStoreItems());
@@ -179,13 +180,24 @@ public class StoreServiceImpl implements StoreService {
 		result.put("seedlings", plantTypes());
 		result.put("seedling-type", seedlingTypes());
 		result.put("irrigation", irrigationStoreItems());
-		result.put("other", otherStoreItems());
+		result.put("other", otherUnboughtStoreItems(farmer));
 		result.put("spraying", sprayingStoreItems());
 		result.put("stores", allStores());
 		result.put("fertilizer", fertilizerStoreItems());
 		result.put("digging", diggingStoreItems());
 		return result;
 
+	}
+	
+	public List<StoreItemDto> otherUnboughtStoreItems(Farmer farmer) {
+		List<StoreItemDto> result = new ArrayList<StoreItemDto>();
+		List<Item> items = DaoInjector.itemsDao.getUnboughtItem(farmer);
+		List<StoreItemDto> resultUnbought = new ArrayList<StoreItemDto>();
+		for (Item item : items) {
+			StoreItemDto storeDto = toStoreItemDto(item);
+			resultUnbought.add(storeDto);
+		}
+		return resultUnbought;
 	}
 
 	public List<StoreItemDto> tractorStoreItems() {
@@ -361,6 +373,7 @@ public class StoreServiceImpl implements StoreService {
 			storeDto.store = item.store.name;
 			result.add(storeDto);
 		}
+		
 		return result;
 	}
 
@@ -375,6 +388,18 @@ public class StoreServiceImpl implements StoreService {
 			result.add(storeDto);
 		}
 		return result;
+	}
+
+	
+	public StoreItemDto toStoreItemDto(Item item) {
+		StoreItemDto storeDto = new StoreItemDto();
+		storeDto.id = item.id;
+		storeDto.name = item.name;
+		storeDto.description = item.description;
+		storeDto.url = item.imageurl;
+		storeDto.price = (double) item.price;
+		storeDto.store = item.store.name;
+		return storeDto;
 	}
 
 }

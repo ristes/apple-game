@@ -1,19 +1,24 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import models.Farmer;
+import models.Item;
 import models.Store;
 import service.FarmerService;
 import service.ServiceInjector;
-import service.StoreService;
 import service.impl.FarmerServiceImpl;
-import service.impl.StoreServiceImpl;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import dao.DaoInjector;
 import dto.StatusDto;
+import dto.StoreItemDto;
 
 public class StoreController extends GameController {
 
@@ -23,13 +28,15 @@ public class StoreController extends GameController {
 	}
 
 	public static void allNg() {
-		StoreService storeSer = new StoreServiceImpl();
-		renderJSON(storeSer.findAllStores());
+		renderJSON(ServiceInjector.storeService.findAllStores());
 	}
 
 	public static void storeitems() throws JsonGenerationException, JsonMappingException, IOException {
-		StoreService service = new StoreServiceImpl();
-		renderJSON(service.storeItems());
+		Farmer farmer = AuthController.getFarmer();
+		if (farmer == null) {
+			renderJSON("");
+		}
+		renderJSON(ServiceInjector.storeService.storeItems(farmer));
 	}
 	
 	public static void show(Long storeId) throws JsonGenerationException,
@@ -53,7 +60,17 @@ public class StoreController extends GameController {
 		JsonController.statusJson(status);
 	}
 
+	
+	public static void unboughtitems() throws JsonGenerationException {
+		Farmer farmer = AuthController.getFarmer();
+		if (farmer == null) {
+			renderJSON("");
+		}
 
+		renderJSON(ServiceInjector.storeService.storeItems(farmer));
+	}
+	
+	
 
 	public static void myitems() throws JsonGenerationException,
 			JsonMappingException, IOException {
@@ -61,8 +78,7 @@ public class StoreController extends GameController {
 		if (farmer == null) {
 			renderJSON("");
 		}
-		FarmerService farmerService = new FarmerServiceImpl();
-		renderJSON(farmerService.farmersItems(farmer).values());
+		renderJSON(ServiceInjector.farmerService.farmersItems(farmer).values());
 	}
 
 }

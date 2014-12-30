@@ -11,7 +11,14 @@ Game.factory('MonthOperations', ['$resource', '$rootScope',
 		 * order: 2 }, { ico: "/public/images/game/operations/plowing.png",
 		 * name: 'plowing', price: 2000, duration: 20, order: 3 }], /** Leto
 		 */
-        'month-1': [],
+        'month-1': [{
+            ico: "/public/images/game/operations/spraying.png",
+            name: 'spraying',
+            requires: 'spraying',
+            price: 0,
+            duration: 30,
+            order: 3
+          }],
         'month-2': [ {
             ico: "/public/images/game/operations/plowing.png",
             name: 'plowing',
@@ -31,7 +38,14 @@ Game.factory('MonthOperations', ['$resource', '$rootScope',
                 price: 100,
                 duration: 50,
                 order: 4
-              }],
+              },{
+                  ico: "/public/images/game/operations/spraying.png",
+                  name: 'spraying',
+                  requires: 'spraying',
+                  price: 0,
+                  duration: 30,
+                  order: 3
+                }],
         'month-3': [ {
             ico: "/public/images/game/operations/plowing.png",
             name: 'plowing',
@@ -310,8 +324,13 @@ Game.factory('MonthOperations', ['$resource', '$rootScope',
               order: 3
             }],
         'month-12':[{
-        	
-        }],
+            ico: "/public/images/game/operations/spraying.png",
+            name: 'spraying',
+            requires: 'spraying',
+            price: 0,
+            duration: 30,
+            order: 4
+          }],
         'season-4': [{
           ico: "/public/images/game/operations/irrigation.png",
           name: 'irrigation',
@@ -445,6 +464,13 @@ Game.factory('MonthOperations', ['$resource', '$rootScope',
           price: 100,
           duration: 50,
           order: 4
-        }]
+        },{
+            ico: "/public/images/game/operations/spraying.png",
+            name: 'spraying',
+            requires: 'spraying',
+            price: 0,
+            duration: 30,
+            order: 3
+          }]
       };
     }]);
