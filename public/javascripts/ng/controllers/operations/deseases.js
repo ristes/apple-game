@@ -3,7 +3,8 @@ Game.controller('DeseaseController', [
     'Diseases',
     'State',
     '$day',
-    function($scope, Diseases, State, $day) {
+    'Quiz',
+    function($scope, Diseases, State, $day, Quiz) {
 
       $scope.visible = false;
       $scope.url = '/public/images/game/operations/desease-analysis.png';
@@ -12,6 +13,11 @@ Game.controller('DeseaseController', [
         $scope.visible = false;
       }
 
+      $scope.showQuiz = function() {
+    	  Quiz.load();
+    	  $scope.$root.$emit("quiz-start");
+      }
+      
       $scope.showDeseaseHelp = function(item) {
         Diseases.getHintAsync(item.name, function(hint) {
           item.help = hint;

@@ -29,6 +29,7 @@ public interface FertilizeService {
 	public Boolean checkNeedOfB(Farmer farmer) throws NotSuchItemException;
 	public Boolean checkNeedOfZn(Farmer farmer) throws NotSuchItemException;
 	public Boolean checkNeedOfMg(Farmer farmer) throws NotSuchItemException;
+	public List<Item> checkTheRequiredItemsFromContext(Farmer farmer);
 	public Boolean checkNeedOfFertilizerType(Farmer farmer, Item item);
 	public Double badgeEvaluate(Farmer farmer);
 }

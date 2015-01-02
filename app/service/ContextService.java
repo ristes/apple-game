@@ -19,7 +19,6 @@ public interface ContextService {
 	public void calculateGrassGrowth(Farmer farmer);
 	public void calculateDiggingCoefficient(Farmer farmer);
 	public void evaluateSoilImage(Farmer farmer);
-	public void evaluatePlantImage(Farmer farmer);
 	public void evaluateSeason(Farmer farmer);
 	public void evaluateDisease(Farmer farmer);
 	public void evaluateRestartState(Farmer farmer);

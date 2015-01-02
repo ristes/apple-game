@@ -16,6 +16,7 @@ public class FertilizationController extends GameController {
 		farmer = ferDao.fertilize(farmer, n, p, k, ca, b, mg);
 		JsonController.statusJson(farmer);
 	}
+	
 
 	/**
 	 * 

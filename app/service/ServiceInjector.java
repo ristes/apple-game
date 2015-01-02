@@ -21,6 +21,7 @@ import service.impl.LogFarmerDataServiceImpl;
 import service.impl.PlantationServiceImpl;
 import service.impl.PlantingServiceImpl;
 import service.impl.PriceServiceImpl;
+import service.impl.QuizServiceImpl;
 import service.impl.RandomGeneratorServiceImpl;
 import service.impl.ResumeServiceImpl;
 import service.impl.SellingServiceImpl;
@@ -76,5 +77,6 @@ public class ServiceInjector {
 	public static IceService iceService  = new IceServiceImpl();
 	public static LogFarmerDataService logFarmerDataService = new LogFarmerDataServiceImpl();
 	public static ResumeService resumeService = new ResumeServiceImpl();
+	public static QuizService quizService = new QuizServiceImpl();
 	
 }

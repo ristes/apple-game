@@ -35,6 +35,21 @@ public class DeceasesDaoImpl implements DeceasesDao {
 				"type.id=?1 and base.id=?2 and decease.id=?3",
 				seadlings.type.id, base.id, decease.id).first();
 	}
+	
+	public List<Disease> getOccurredDiseasesEntitiesLast15Days(Farmer farmer) {
+		List<Disease> result = new ArrayList<Disease>();
+		String sql = "select DISTINCT(desease_id) from ((select * from occurreddecease where plantation_id=:plantation_id and date > DATE_SUB(date(:date), INTERVAL 15 DAY)) as t LEFT JOIN decease ON t.desease_id=decease.id)";
+		Query q = JPA.em().createNativeQuery(sql);
+		q.setParameter("plantation_id", farmer.field.plantation.id);
+		q.setParameter("date", farmer.gameDate.date);
+		List<Object> res = q.getResultList();
+		for (Object r: res) {
+			Long id = ((BigInteger)r).longValue();
+			Disease dis = Disease.findById(id);
+			result.add(dis);
+		}
+		return result;
+	}
 
 	public List<String> getOccurredDiseasesLast15Days(Farmer farmer) {
 		List<String> result = new ArrayList<String>();

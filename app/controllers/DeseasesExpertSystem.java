@@ -7,6 +7,7 @@ import models.Farmer;
 import play.mvc.Controller;
 import service.DiseaseService;
 import service.MoneyTransactionService;
+import service.ServiceInjector;
 import service.impl.DiseaseServiceImpl;
 import service.impl.TransactionServiceImpl;
 import de.congrace.exp4j.UnknownFunctionException;
@@ -36,8 +37,7 @@ public class DeseasesExpertSystem extends GameController {
 		if (farmer == null) {
 			error("Not logged in");
 		}
-		DiseaseService diseaseService = new DiseaseServiceImpl();
-		renderJSON(diseaseService.getOccurredDiseasesLast15Days(farmer));
+		renderJSON(ServiceInjector.diseaseService.getOccurredDiseasesLast15Days(farmer));
 	}
 
 	public static class DiseaseHint {

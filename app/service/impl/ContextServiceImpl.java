@@ -9,9 +9,7 @@ import java.util.Random;
 import models.Day;
 import models.Farmer;
 import service.ContextService;
-import service.DateService;
 import service.FertilizeService;
-import service.LandTreatmanService;
 import service.ServiceInjector;
 import dto.C;
 import exceptions.NotSuchItemException;
@@ -30,22 +28,19 @@ public class ContextServiceImpl implements ContextService {
 	}
 
 	public double calculateHumidityLooses(Farmer farmer) {
+
 		double result = 0.0;
 		if (!ServiceInjector.fieldService.hasDropSystem(farmer)) {
-			farmer.productQuantity = ServiceInjector.humidityGroovesService
-					.grooves_irrigation_delta_impact_quantity(farmer);
-			farmer.eco_points = ServiceInjector.humidityGroovesService
-					.grooves_irrigation_delta_impact_eco_point(farmer);
+			ServiceInjector.humidityGroovesService.calculateGroovesVarianceImpact(farmer);
 			result = ServiceInjector.humidityGroovesService.varianceBrazdi(farmer);
 		} else {
-			farmer.productQuantity = ServiceInjector.humidityDropsService
-					.drops_irrigation_delta_impact_quantity(farmer);
-			farmer.eco_points = ServiceInjector.humidityDropsService
-					.drops_irrigation_delta_impact_eco_point(farmer);
+			ServiceInjector.humidityDropsService.calculateDropsVarianceImpact(farmer);
 			result = ServiceInjector.humidityDropsService.varianceDrops(farmer);
 		}
 		return result;
 	}
+	
+	
 
 	public Double rainCoefForMonth(Date date) {
 		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl
@@ -72,7 +67,7 @@ public class ContextServiceImpl implements ContextService {
 			if (prevDay != null) {
 				Calendar c = Calendar.getInstance();
 
-				Integer randm = ServiceInjector.randomGeneratorService.random(0.0, 12.0).intValue();
+				Integer randm = ServiceInjector.randomGeneratorService.random(0.0, 7.0).intValue();
 				result += rainCoefForMonth(c.get(Calendar.MONTH)) * randm;
 			}
 
@@ -86,8 +81,8 @@ public class ContextServiceImpl implements ContextService {
 		Calendar c = Calendar.getInstance();
 		c.setTime(farmer.gameDate.date);
 		Day today = farmer.gameDate;
-		if (today.weatherType.id == C.WEATHER_TYPE_RAINY) {
-			Integer randm = ServiceInjector.randomGeneratorService.random(0.0, 10.0).intValue();
+		if (today.weatherType.id.equals(C.WEATHER_TYPE_RAINY)) {
+			Integer randm = ServiceInjector.randomGeneratorService.random(0.1, 10.0).intValue();
 			farmer.deltaCumulative += rainCoefForMonth(c.get(Calendar.MONTH))
 					* randm;
 		}
@@ -107,6 +102,7 @@ public class ContextServiceImpl implements ContextService {
 		if (farmer.deltaCumulative > max_humidity) {
 			farmer.deltaCumulative = max_humidity;
 		}
+		farmer.save();
 	}
 
 	public void calculateGrassGrowth(Farmer farmer) {
@@ -142,14 +138,11 @@ public class ContextServiceImpl implements ContextService {
 			farmer.digging_coef = 0.0;
 			return;
 		}
-//		HumidityService hService = new HumidityServiceImpl();
-		LandTreatmanService landTreatmanS = new LandTreatmanServiceImpl();
-		DateService dateService = new DateServiceImpl();
 		int hum_level = ServiceInjector.humidityService.humidityLevelForSoil(ServiceInjector.humidityService
 				.humidityLevel(farmer));
-		int plowing_level = landTreatmanS.plowingLevel(farmer);
-		int digging_level = landTreatmanS.diggingLevel(farmer);
-		int season_level = seasionLevelSoilImage(dateService
+		int plowing_level = ServiceInjector.landTreatmanService.plowingLevel(farmer);
+		int digging_level = ServiceInjector.landTreatmanService.diggingLevel(farmer);
+		int season_level = seasionLevelSoilImage(ServiceInjector.dateService
 				.season_level(farmer));
 		String tile_name = folder_path + name_prefix + separator + hum_level
 				+ separator + plowing_level + separator + digging_level
@@ -158,14 +151,7 @@ public class ContextServiceImpl implements ContextService {
 		farmer.soil_url = tile_name;
 	}
 
-	@Deprecated
-	public void evaluatePlantImage(Farmer farmer) {
-		
-//		farmer.plant_url = ServiceInjector.growingService.evaluatePlantImage(farmer,"red");
-//		farmer.plant_url_gold = ServiceInjector.growingService.evaluatePlantImage(farmer,"gold");
-//		farmer.plant_url_green = ServiceInjector.growingService.evaluatePlantImage(farmer,"green");
-	}
-	
+
 	public void evaluatePlantState(Farmer farmer) {
 		
 		farmer.plant_ajdaret = ServiceInjector.growingService.evaluatePlantImage(farmer,ContextService.AJDARET);
@@ -286,7 +272,7 @@ public class ContextServiceImpl implements ContextService {
 			}
 		}
 	}
-
+	
 	public void evaluateIce(Farmer farmer) {
 		ServiceInjector.iceService.impactLowTemp(farmer);
 	}
@@ -333,5 +319,7 @@ public class ContextServiceImpl implements ContextService {
 	public void evaluateLowTemps(Farmer farmer) {
 		ServiceInjector.iceService.impactLowTemp(farmer);
 	}
+
+	
 
 }

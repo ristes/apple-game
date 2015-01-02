@@ -10,111 +10,43 @@ import service.HumidityGroovesService;
 import service.HumidityService;
 import dto.C;
 
-public class HumidityServiceImpl implements HumidityService,HumidityGroovesService, HumidityDropsService{
-	
-	public int drops_irrigation_delta_impact_quantity(Farmer farmer) {
-		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl.load_hash(C.COEF_HUMIDITY_YML);
+public class HumidityServiceImpl implements HumidityService,
+		HumidityGroovesService, HumidityDropsService {
 
-		Calendar c = Calendar.getInstance();
-		c.setTime(farmer.gameDate.date);
+	public void looses_q_less_water(Farmer farmer, Double variation) {
 
-		Double coef_eva = coefs.get(C.KEY_DROPS_EVAP)
-				.get(c.get(Calendar.MONTH));
-		Double coef_hum = coefs.get(C.KEY_DROPS_HUM).get(c.get(Calendar.MONTH));
-
-		if (coef_hum > 0.0) {
-			double impact = farmer.deltaCumulative * 100 / coef_hum - 100;
-			return looses_q(farmer, impact);
-		}
-		farmer.save();
-		return farmer.productQuantity;
+		farmer.productQuantity += (farmer.productQuantity * (variation / 100) * 1.2)
+				/ (32.0 / 8);
 	}
 
-	public double drops_irrigation_delta_impact_eco_point(Farmer farmer) {
-		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl.load_hash(C.COEF_HUMIDITY_YML);
-
-		Calendar c = Calendar.getInstance();
-		c.setTime(farmer.gameDate.date);
-
-		Double coef_eva = coefs.get(C.KEY_DROPS_EVAP)
-				.get(c.get(Calendar.MONTH));
-		Double coef_hum = coefs.get(C.KEY_DROPS_HUM).get(c.get(Calendar.MONTH));
-		double impact = 0.0;
-		if (coef_hum > 0.0) {
-			impact = farmer.deltaCumulative * 100 / coef_hum - 100;
-		}
-		farmer.save();
-		return looses_eco(farmer.eco_points, impact);
-	}
-
-	public int grooves_irrigation_delta_impact_quantity(Farmer farmer) {
-		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl.load_hash(C.COEF_HUMIDITY_YML);
-
-		Calendar c = Calendar.getInstance();
-		c.setTime(farmer.gameDate.date);
-
-		Double coef_eva = coefs.get(C.KEY_GROOVES_EVAP).get(
-				c.get(Calendar.MONTH));
-		Double coef_hum = coefs.get(C.KEY_GROOVES_HUM).get(
-				c.get(Calendar.MONTH));
-		if (coef_hum > 0.0) {
-			double impact = farmer.deltaCumulative * 100 / coef_hum - 100;
-			return looses_q(farmer, impact);
-		}
-		farmer.save();
-		return farmer.productQuantity;
-	}
-
-	public double grooves_irrigation_delta_impact_eco_point(Farmer farmer) {
-		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl.load_hash(C.COEF_HUMIDITY_YML);
-
-		Calendar c = Calendar.getInstance();
-		c.setTime(farmer.gameDate.date);
-
-		Double coef_eva = coefs.get(C.KEY_GROOVES_EVAP).get(
-				c.get(Calendar.MONTH));
-		Double coef_hum = coefs.get(C.KEY_GROOVES_HUM).get(
-				c.get(Calendar.MONTH));
-		if (coef_hum > 0.0) {
-			double impact = farmer.deltaCumulative * 100 / coef_hum - 100;
-			return looses_eco(farmer.eco_points, impact);
-		}
-		farmer.save();
-		return farmer.eco_points;
-	}
-
-	public int looses_q(Farmer farmer, Double variation) {
-		int value = farmer.productQuantity;
+	public void looses_q_more_water(Farmer farmer, Double variation) {
 		Double loose_q = 0.0;
-		if (variation > 0.0) {
-			if (variation >= 10 && variation < 20) {
-				loose_q = -12.0;
-			} else if (variation >= 20 && variation < 30) {
-				farmer.irrigation_misses++;
-				loose_q = -20.0;
-			} else if (variation >= 30 && variation < 40) {
-				farmer.irrigation_misses++;
-				loose_q = -26.0;
-			} else if (variation >= 40 && variation < 50) {
-				farmer.irrigation_misses+=2;
-				loose_q = -33.0;
-			} else if (variation >= 50) {
-				farmer.irrigation_misses+=2;
-				loose_q = -50.0;
-			}
-			farmer.save();
-			// divide with the number of milestones every 8 days
-			return (int) (value + ((value * (loose_q/100.0)) / (365.0 / 8)));
-		}
 
-		return (int) (value + (value * (variation / 100) * 1.2) / (365.0 / 8));
+		if (variation >= 10 && variation < 20) {
+			loose_q = -8.0;
+		} else if (variation >= 20 && variation < 30) {
+			farmer.irrigation_misses++;
+			loose_q = -10.0;
+		} else if (variation >= 30 && variation < 40) {
+			farmer.irrigation_misses++;
+			loose_q = -16.0;
+		} else if (variation >= 40 && variation < 50) {
+			farmer.irrigation_misses += 2;
+			loose_q = -23.0;
+		} else if (variation >= 50) {
+			farmer.irrigation_misses += 2;
+			loose_q = -30.0;
+		}
+		farmer.productQuantity += farmer.productQuantity * (loose_q / 100.0)
+				/ (32.0 / 8);
+		// divide with the number of milestones every 8 days
 
 	}
 
-	public double looses_eco(double value, Double variation) {
+	public void looses_eco(Farmer farmer, Double variation) {
 		Double loose_eco = 0.0;
 		if (variation <= 0.0) {
-			return value;
+			return;
 		}
 		if (variation >= 10 && variation < 20) {
 			loose_eco = -5.0;
@@ -127,24 +59,21 @@ public class HumidityServiceImpl implements HumidityService,HumidityGroovesServi
 		} else if (variation >= 50) {
 			loose_eco = -15.0;
 		}
-		return (double) (value + (value * (loose_eco/100)) / (365.0 / 8));
+		farmer.eco_points = (farmer.eco_points + (farmer.eco_points * (loose_eco / 100))
+				/ (32.0 / 8));
 	}
 
 	/**
-	 * determinate humidity level of soil  
-	 * 0 - dry 
-	 * 1 - normal 
-	 * 2 - low 
-	 * 3 - medium 
-	 * 4 - high
-	 * 0, 1 and 2 have same visual component
-	 * 3 and 4 different
+	 * determinate humidity level of soil 0 - dry 1 - normal 2 - low 3 - medium
+	 * 4 - high 0, 1 and 2 have same visual component 3 and 4 different
+	 * 
 	 * @param farmer
 	 * @return level coef
 	 */
 
 	public int humidityLevel(Farmer farmer) {
-		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl.load_hash(C.COEF_HUMIDITY_YML);
+		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl
+				.load_hash(C.COEF_HUMIDITY_YML);
 		Double lmtM1 = coefs.get(C.KEY_HUMIDITY_LEVEL).get(0);
 		Double lmt0 = coefs.get(C.KEY_HUMIDITY_LEVEL).get(1);
 		Double lmt1 = coefs.get(C.KEY_HUMIDITY_LEVEL).get(2);
@@ -152,14 +81,11 @@ public class HumidityServiceImpl implements HumidityService,HumidityGroovesServi
 		Double cumVal = farmer.deltaCumulative;
 		if (cumVal < lmtM1) {
 			return 0;
-		}
-		else if (cumVal <= lmt0 && cumVal > lmtM1) {
+		} else if (cumVal <= lmt0 && cumVal > lmtM1) {
 			return 1;
-		}
-		else if (cumVal <= lmt1 && cumVal > lmt0) {
+		} else if (cumVal <= lmt1 && cumVal > lmt0) {
 			return 2;
-		}
-		else if (cumVal >= lmt1 && cumVal < lmt2) {
+		} else if (cumVal >= lmt1 && cumVal < lmt2) {
 			return 3;
 		}
 		return 4;
@@ -178,29 +104,80 @@ public class HumidityServiceImpl implements HumidityService,HumidityGroovesServi
 		}
 		return farmer;
 	}
-	
+
 	public double varianceBrazdi(Farmer farmer) {
-		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl.load_hash(C.COEF_HUMIDITY_YML);
+		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl
+				.load_hash(C.COEF_HUMIDITY_YML);
 		Calendar c = Calendar.getInstance();
 		c.setTime(farmer.gameDate.date);
-		return  (farmer.deltaCumulative - coefs.get(C.KEY_GROOVES_HUM).get(c.get(Calendar.MONTH))*2);
+		return farmer.deltaCumulative
+				- coefs.get(C.KEY_GROOVES_HUM).get(c.get(Calendar.MONTH));
 	}
-	
+
 	public double varianceDrops(Farmer farmer) {
-		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl.load_hash(C.COEF_HUMIDITY_YML);
+		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl
+				.load_hash(C.COEF_HUMIDITY_YML);
 		Calendar c = Calendar.getInstance();
 		c.setTime(farmer.gameDate.date);
-		return  (farmer.deltaCumulative - coefs.get(C.KEY_DROPS_HUM).get(c.get(Calendar.MONTH)));
+		return (farmer.deltaCumulative - coefs.get(C.KEY_DROPS_HUM).get(
+				c.get(Calendar.MONTH)));
 	}
 
 	public int humidityLevelForSoil(int humidityLevel) {
-		if (humidityLevel==0 || humidityLevel==1 || humidityLevel==2) {
+		if (humidityLevel == 0 || humidityLevel == 1 || humidityLevel == 2) {
 			return 1;
-		}
-		else if (humidityLevel==3) {
+		} else if (humidityLevel == 3) {
 			return 2;
-		} 
+		}
 		return 3;
+	}
+
+	public void calculateGroovesVarianceImpact(Farmer farmer) {
+		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl
+				.load_hash(C.COEF_HUMIDITY_YML);
+
+		Calendar c = Calendar.getInstance();
+		c.setTime(farmer.gameDate.date);
+
+		Double coef_hum = coefs.get(C.KEY_GROOVES_HUM).get(
+				c.get(Calendar.MONTH));
+
+		double impact = 0.0;
+		if (coef_hum > 0.0) {
+			if (coef_hum <= farmer.deltaCumulative) {
+				impact = farmer.deltaCumulative * 100 / coef_hum - 100;
+				looses_q_more_water(farmer, impact);
+				looses_eco(farmer, impact);
+			} else {
+				impact = 100 - farmer.deltaCumulative * 100 / coef_hum;
+				looses_q_less_water(farmer, impact);
+			}
+		}
+	}
+
+	public void calculateDropsVarianceImpact(Farmer farmer) {
+		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl
+				.load_hash(C.COEF_HUMIDITY_YML);
+
+		Calendar c = Calendar.getInstance();
+		c.setTime(farmer.gameDate.date);
+
+		Double coef_hum = coefs.get(C.KEY_DROPS_HUM).get(c.get(Calendar.MONTH));
+		double impact = 0.0;
+		if (coef_hum > 0.0) {
+			if (coef_hum <= farmer.deltaCumulative) {
+				impact = farmer.deltaCumulative * 100 / coef_hum - 100;
+				looses_q_more_water(farmer, impact);
+				looses_eco(farmer, impact);
+			} else {
+				double deltaC = farmer.deltaCumulative;
+				if (farmer.deltaCumulative < 0.0) {
+					deltaC = 0.0;
+				}
+				impact = 100 - deltaC * 100 / coef_hum;
+				looses_q_less_water(farmer, impact);
+			}
+		}
 	}
 
 }

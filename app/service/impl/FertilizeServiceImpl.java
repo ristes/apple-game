@@ -284,6 +284,34 @@ public class FertilizeServiceImpl implements FertilizeService{
 		}
 		return false;
 	}
+
+	@Override
+	public List<Item> checkTheRequiredItemsFromContext(Farmer farmer) {
+		List<Item> items = new ArrayList<Item>();
+		if (farmer.needN) {
+			items.add((Item)Item.find("byName","N").first());
+		}
+		if (farmer.needP) {
+			items.add((Item)Item.find("byName","P").first());
+		}
+		if (farmer.needK) {
+			items.add((Item)Item.find("byName","K").first());
+		}
+		if (farmer.needB) {
+			items.add((Item)Item.find("byName","B").first());
+		}
+		if (farmer.needCa) {
+			items.add((Item)Item.find("byName","Ca").first());
+		}
+		if (farmer.needMg) {
+			items.add((Item)Item.find("byName","Mg").first());
+		}
+		if (farmer.needZn) {
+			items.add((Item)Item.find("byName","Zn").first());
+		}
+		return items;
+		
+	}
 	
 
 }

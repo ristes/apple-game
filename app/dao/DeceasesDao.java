@@ -25,6 +25,7 @@ public interface DeceasesDao {
 			Seedling seadlings, Base base);
 	
 	public List<String> getOccurredDiseasesLast15Days(Farmer farmer);
+	public List<Disease> getOccurredDiseasesEntitiesLast15Days(Farmer farmer);
 	public List<DiseaseProtectingOperationDto> getDiseaseProtectingOpersShouldBeDoneToDate(Disease disease, Date curDate);
 
 }

@@ -25,7 +25,10 @@ Game.config(['$routeProvider', function($routeProvider) {
   }).when('/growing', {
     templateUrl: '/public/_views/plantation.html',
     controller: 'GrowingStateController'
-  }).otherwise({
+  }).when('/quiz', {
+	    templateUrl: '/public/_views/plantation.html',
+	    controller: 'QuizController'
+	  }).otherwise({
     redirectTo: '/'
   });
 

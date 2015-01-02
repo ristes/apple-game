@@ -12,6 +12,7 @@ import models.OccurredDecease;
 import service.DateService;
 import service.DiseaseService;
 import service.ServiceInjector;
+import dao.DaoInjector;
 import dao.DeceasesDao;
 import dao.impl.DeceasesDaoImpl;
 import dto.DiseaseOccurenceProb;
@@ -76,9 +77,9 @@ public class DiseaseServiceImpl implements DiseaseService {
 		return 1;
 	}
 
-	public List<String> getOccurredDiseasesLast15Days(Farmer farmer) {
-		DeceasesDao diseaseDao = new DeceasesDaoImpl();
-		return diseaseDao.getOccurredDiseasesLast15Days(farmer);
+	public List<Disease> getOccurredDiseasesEntitiesLast15Days(Farmer farmer) {
+		
+		return DaoInjector.deceasesDao.getOccurredDiseasesEntitiesLast15Days(farmer);
 	}
 
 	public List<DiseaseProtectingOperationDto> getMmax(Farmer farmer,
@@ -120,5 +121,12 @@ public class DiseaseServiceImpl implements DiseaseService {
 							od.demage.intValue()), od.desease.getImageUrl());
 		}
 	}
+
+	@Override
+	public List<String> getOccurredDiseasesLast15Days(Farmer farmer) {
+		return DaoInjector.deceasesDao.getOccurredDiseasesLast15Days(farmer);
+	}
+
+
 
 }
