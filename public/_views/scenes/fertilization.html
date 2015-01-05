@@ -3,20 +3,19 @@
 
 	<div class="shop-menu" ng-animate="shop"
 			ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
-		
-		
+
+
 		<div class="shop_icon">
 			<img src="{{fertilizationUrl}}" style="width:75%;"></img>
 			<div class="shop-label ramka">
-				<span class="shop-label-text" translate="fertilizing"></span> 
+				<span class="shop-label-text" translate="fertilizing"></span>
 			</div>
 		</div>
-		
+
 		<div class="shop_arrow" ng-show="!fertilizeProgress" ng-click="hide()"></div>
-		
-		<div class="shop_menu_grid fa-stack-2x fa-inverse">
-		
-			
+
+		<div class="shop_menu_grid fa-inverse">
+
 			<div id="irrigation-slider-container" ng-show="fertilizeProgress">
 				<div id="fertilization-info">
 					{{ 'fertilization.progress' | translate }}
@@ -68,7 +67,7 @@
 						</td>
 						<td class="fertilizer-price">
 							<span>
-								<img style="height:20px" src="/public/images/home/money_in_stock.png"> 
+								<img style="height:20px" src="/public/images/home/money_in_stock.png">
 								{{fertilizer.p * prices.p}}
 							</span>
 						</td>
@@ -82,7 +81,7 @@
 						</td>
 						<td class="fertilizer-price">
 							<span>
-								<img style="height:20px" src="/public/images/home/money_in_stock.png"> 
+								<img style="height:20px" src="/public/images/home/money_in_stock.png">
 								{{fertilizer.k * prices.k}}
 							</span>
 						</td>
@@ -96,7 +95,7 @@
 						</td>
 						<td class="fertilizer-price">
 							<span>
-								<img style="height:20px" src="/public/images/home/money_in_stock.png"> 
+								<img style="height:20px" src="/public/images/home/money_in_stock.png">
 								{{fertilizer.ca * prices.ca}}
 							</span>
 						</td>
@@ -110,7 +109,7 @@
 						</td>
 						<td class="fertilizer-price">
 							<span>
-								<img style="height:20px" src="/public/images/home/money_in_stock.png"> 
+								<img style="height:20px" src="/public/images/home/money_in_stock.png">
 								{{fertilizer.b * prices.b}}
 							</span>
 						</td>
@@ -124,7 +123,7 @@
 						</td>
 						<td class="fertilizer-price">
 							<span>
-								<img style="height:20px" src="/public/images/home/money_in_stock.png"> 
+								<img style="height:20px" src="/public/images/home/money_in_stock.png">
 								{{fertilizer.mg * prices.mg}}
 							</span>
 						</td>
@@ -135,7 +134,7 @@
 						</td>
 						<td colspan="2" class="fertilizer-price" style="font-size:0.8em">
 							<span>
-								<img style="height:30px" src="/public/images/home/money_in_stock.png"> 
+								<img style="height:30px" src="/public/images/home/money_in_stock.png">
 								{{price}}
 							</span>
 						</td>

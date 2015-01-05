@@ -293,53 +293,22 @@ body {
 	height: 70px;
 }
 
-#div_next_day {
-	padding: 10px;
-	position: absolute;
-	width:50px;
-	top: 110px;
-	left: 20px;
+.time-ctrl-btn{
+	float: left;
 	z-index: 100;
-}
-#div_next_week {
-	padding: 10px;
-	position: absolute;
-	top: 110px;
-	width:50px;
-	left: 70px;
-	z-index: 100;
+	margin-right: 10px;
+	color: white;
 }
 
-#div_next_month {
-	padding: 10px;
-	position: absolute;
-	top: 110px;
-	width:50px;
-	left: 120px;
-	z-index: 100;
-}
-
-
-
-
-#div_restart_game {
-	padding: 10px;
-	position: absolute;
-	top: 160px;
-	left: 20px;
-	z-index: 100;
-}
-
-#div_next_day:hover {
+.time-ctrl-btn:hover, .time-ctrl-btn a:hover{
 	cursor: pointer;
+	color: #ddd;
 }
 
-#div_next_week:hover {
-	cursor: pointer;
-}
 
-#div_next_month:hover {
-	cursor: pointer;
+.time-ctrl-btn a{
+	text-decoration: none;
+	color: white;
 }
 
 .weather-info-text {
@@ -405,6 +374,8 @@ body {
 	position: absolute;
 	width: 70%;
 	height: 80%;
+	overflow-y: auto;
+	overflow-x: hidden;
 	top: 10%;
 	left: 25%;
 }
