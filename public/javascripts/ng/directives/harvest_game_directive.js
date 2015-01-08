@@ -4,12 +4,13 @@ Game.directive('harvestGame', ['$interval', function($interval) {
     scope: {
       game: '=',
       apples: '=',
-      basketPosition: '='
+      gameOver: '='
     },
     templateUrl: '/public/_views/harvest_game.html',
 
     link: function($scope, element, attrs){
-      var width = 1000;
+      $scope.basketPosition = [{x: 50}];
+      var width = 400;
       var height = 500;
       var padding = 50;
       var basketHeight = 20;
@@ -68,16 +69,19 @@ Game.directive('harvestGame', ['$interval', function($interval) {
           .enter().append("g")
             .attr("class", "apple")
             .attr("transform", function(d) { return "translate(" + xScale(d.x) + "," + yScale(d.y) + ")"; })
-            .append('circle')
-              .attr('r', 15)
-              .style('fill', function(d){ return d.type == 'good' ? 'green' : 'red'})
+            .append("image")
+              .attr("xlink:href", function(d) {
+                return '/public/images/mini-games/collect-game-' + d.type + '-apple.png';
+              })
+              .attr('width', 50)
+              .attr('height', 50)
         $scope.vis
           .exit().remove();
 
         var basketPosition = function(d, i){
           var basketPos = xScale(d.x);
           basketPos = basketPos - xScale($scope.game.basketWidth)/2;
-          return "translate(" + basketPos + "," + yScale(100) + ")";
+          return "translate(" + basketPos + "," + (yScale(100) - 50) + ")";
         }
 
         // basket
@@ -88,10 +92,10 @@ Game.directive('harvestGame', ['$interval', function($interval) {
         $scope.basket.enter().append("g")
           .attr("class", "basket")
           .attr("transform", basketPosition)
-          .append("rect")
+          .append("image")
+            .attr("xlink:href", '/public/images/mini-games/collect-game-basket.png')
             .attr("width", xScale($scope.game.basketWidth))
-            .attr("height", basketHeight)
-            .style("fill", "blue")
+            .attr("height", xScale($scope.game.basketWidth))
         $scope.basket.exit().remove()
 
         // update game stats indicators
@@ -103,9 +107,94 @@ Game.directive('harvestGame', ['$interval', function($interval) {
           .text("Time left: " + $scope.game.timeLeft)
       }
 
-      tick = $interval(function() {
+      $scope.tick = function() {
+        // update timer
+        if ($scope.ticks % 60 == 0){
+          $scope.game.timeLeft--;
+          if ($scope.game.timeLeft <= 0){
+            $scope.gameOver();
+            return;
+          }
+
+          $scope.game.dropAppleInterval = $scope.game.timeLeft + 10;
+        }
+        // update apple positions
+        $scope.apples.forEach(function(apple, i){
+          if (apple){
+            apple.y += apple.v;
+            if (apple.y >= 100){
+              // check if apple was caught
+              if ((apple.x > $scope.basketPosition[0].x-$scope.game.basketWidth+2/2) && (apple.x < $scope.basketPosition[0].x + $scope.game.basketWidth+2/2) ){
+                // update game stats
+                if (apple.type == 'good'){
+                  $scope.game.goodCaught++;
+                } else {
+                  $scope.game.badCaught++;
+                }
+              }
+              $scope.apples.splice(i,1);
+            }
+          }
+        });
+
+        // add an apple every x frames
+        if ($scope.ticks % $scope.game.dropAppleInterval == 0){
+          var type = (Math.random() > 0.3) ? 'good' : 'bad';
+          var apple = {
+            id: $scope.appleId++,
+            type: type,
+            x: Math.round(Math.random()*100),
+            y: 0,
+            v: (Math.random() * $scope.maxSpeedThreshold) + 0.7
+          }
+          $scope.apples.push(apple);
+
+          // update game stats
+          if (apple.type == 'good'){
+            $scope.game.totalGood++;
+          } else {
+            $scope.game.totalBad++;
+          }
+        }
+        $scope.ticks++;
+
         $scope.render();
-      }, 1000/60); // 60 FPS
+      };
+
+      $scope.gameOver = function(){
+        $interval.cancel($scope.currentGame);
+        $scope.apples = [];
+        $scope.basketPosition = [];
+        $scope.appleId = 1;
+        console.log('gameOver');
+      }
+
+      $scope.startGame = function(){
+        console.log("starting");
+        $scope.gameOver();
+
+        $scope.appleId = 1;
+        $scope.apples = [];
+        $scope.maxSpeedThreshold = 1;
+        $scope.basketPosition = [{x: 50}];
+        $scope.game = {
+          score: 0,
+          totalGood: 0,
+          totalBad: 0,
+          goodCaught: 0,
+          badCaught: 0,
+          basketWidth: 6,
+          timeLeft: 60,
+          dropAppleInterval: 60
+        }
+
+        $scope.ticks = 0;
+
+        $scope.currentGame = $interval($scope.tick, 1000/60);
+      }
+
+      $scope.startGame();
+
     }
   };
 }]);

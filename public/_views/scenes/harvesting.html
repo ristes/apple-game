@@ -16,9 +16,11 @@
 		<div class="shop_menu_grid fa-inverse" ng-show="!gameActive"></div>
 
 		<div class="shop_menu_grid fa-inverse" ng-if="gameActive">
-			<harvest-game game="game" 
-						  active="gameActive">
-			</harvest-game>
+			<div class="harvest">
+				<harvest-game game="game" apples="apples" gameOver="function(){}"
+							  active="gameActive">
+				</harvest-game>
+			</div>
 		</div>
 
 	</div>
