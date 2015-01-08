@@ -1,0 +1,26 @@
+<div ng-controller="HarvestingController">
+
+	<div class="shop-menu" ng-animate="shop"
+		ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
+
+		<div class="shop_icon">
+			<img src="{{type.url}}" style="width: 75%;"></img>
+			<div class="shop-label ramka">
+				<span class="shop-label-text"> {{ 'harvesting' | translate }}
+				</span>
+			</div>
+		</div>
+
+		<div class="shop_arrow" ng-click="hide()"></div>
+
+		<div class="shop_menu_grid fa-inverse" ng-show="!gameActive"></div>
+
+		<div class="shop_menu_grid fa-inverse" ng-if="gameActive">
+			<harvest-game game="game" 
+						  active="gameActive">
+			</harvest-game>
+		</div>
+
+	</div>
+
+</div>

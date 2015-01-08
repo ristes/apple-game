@@ -1,4 +1,4 @@
-app.directive('harvestGame', ['$interval', function($interval) {
+Game.directive('harvestGame', ['$interval', function($interval) {
   return {
     restrict: 'E',
     scope: {
@@ -6,7 +6,7 @@ app.directive('harvestGame', ['$interval', function($interval) {
       apples: '=',
       basketPosition: '='
     },
-    templateUrl: '/assets/javascripts/components/harvest_game.html',
+    templateUrl: '/public/_views/harvest_game.html',
 
     link: function($scope, element, attrs){
       var width = 1000;
