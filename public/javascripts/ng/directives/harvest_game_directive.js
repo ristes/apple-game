@@ -112,7 +112,7 @@ Game.directive('harvestGame', ['$interval', function($interval) {
         if ($scope.ticks % 60 == 0){
           $scope.game.timeLeft--;
           if ($scope.game.timeLeft <= 0){
-            $scope.gameOver();
+            $scope.gameEnd();
             return;
           }
 
@@ -161,17 +161,19 @@ Game.directive('harvestGame', ['$interval', function($interval) {
         $scope.render();
       };
 
-      $scope.gameOver = function(){
+      $scope.gameEnd = function(){
         $interval.cancel($scope.currentGame);
         $scope.apples = [];
         $scope.basketPosition = [];
         $scope.appleId = 1;
-        console.log('gameOver');
+        console.log('gameEnd');
+        $scope.gameOver($scope.game);
+
       }
 
       $scope.startGame = function(){
         console.log("starting");
-        $scope.gameOver();
+        $scope.gameEnd();
 
         $scope.appleId = 1;
         $scope.apples = [];
