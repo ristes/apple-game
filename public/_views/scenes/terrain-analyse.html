@@ -1,19 +1,17 @@
 <div ng-controller="TerrainAnalysisController">
 	<div class="shop-menu" ng-animate="shop"
 			ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
-			
-		
-		
+
 		<div class="shop_icon">
 			<img ng-src="{{url}}"></img>
 			<div class="shop-label trapezoid-bigger">
-				<span class="shop-label-text" translate="terrainAnalysis"></span> 
+				<span class="shop-label-text" translate="terrainAnalysis"></span>
 			</div>
 		</div>
-		
+
 		<div class="shop_arrow"  ng-click="hide()"></div>
 
-		<div class="shop_menu_grid fa-stack-2x fa-inverse" ng-show="!haveAnalysis">
+		<div class="shop_menu_grid fa-inverse" ng-show="!haveAnalysis">
 			<div>
 				<span class="text-info">
 					Price: 1000
@@ -22,7 +20,7 @@
 			<div>
 				<button class="btn btn-xs" ng-click="analyse()">Analyse</button>
 			</div>
-			
+
 		</div>
 		<div class="shop_menu_grid" ng-show="haveAnalysis">
 			<div class="text-info">

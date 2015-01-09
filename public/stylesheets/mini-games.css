@@ -1,0 +1,25 @@
+.harvest svg{
+  background: url(/public/images/mini-games/collect-game-bg.png);
+  background-size: 1000px 500px;
+}
+
+.harvest .stats{
+  fill: #000;
+  font-family: Tahoma, Verdana, Arial;
+  font-weight: bold;
+}
+
+.prune svg{
+  background: #fff;
+}
+
+.prune .cut-point{
+  fill: red;
+  opacity: 0.4;
+  cursor: pointer;
+}
+
+
+.prune .cut{
+  fill: green;
+}

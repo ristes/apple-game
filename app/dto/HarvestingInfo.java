@@ -1,5 +1,6 @@
 package dto;
 
+import models.PlantType;
 import models.SeedlingType;
 
 public class HarvestingInfo {
@@ -12,6 +13,6 @@ public class HarvestingInfo {
 
 	public double rfValue;
 
-	public SeedlingType type;
+	public PlantType type;
 
 }

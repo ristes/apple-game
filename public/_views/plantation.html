@@ -6,26 +6,29 @@
 			<div class="item-store ramka" style="width:100px">
 			<span class="title-text">{{"season."+$root.farmer.season_level | translate}}</span></div>
 		</div>
-		<div class="btn btn-default" tooltip="Next Day" id="div_next_day"
-			ng-click="$root.next()">
-			<span style="margin-right: 5px;" id="span_next_day"></span><i
-				class="glyphicon glyphicon-step-forward"></i>
+		<div class="time-controls ramka">
+			<div class="time-ctrl-btn" tooltip="Next Day" id="div_next_day"
+				ng-click="$root.next()">
+				<span style="margin-right: 5px;" id="span_next_day"></span><i
+					class="glyphicon glyphicon-step-forward"></i>
+			</div>
+			<div class="time-ctrl-btn" tooltip="Next Week" id="div_next_week"
+				ng-click="$root.nextWeek()">
+				<span style="margin-right: 5px;" id="span_next_week"></span><i
+					class="glyphicon glyphicon-forward"></i>
+			</div>
+			<div class="time-ctrl-btn" tooltip="Next Month" id="div_next_month"
+				ng-click="$root.nextMonth()">
+				<span style="margin-right: 5px;"></span><i
+					class="glyphicon glyphicon-fast-forward"></i>
+			</div>
+			<div class="time-ctrl-btn">
+				<a tooltip="Restart"
+					class="div_restart_game glyphicon glyphicon-repeat"
+					href="/fbcontroller/restart" id="div_restart_game"></a>
+			</div>
 		</div>
-		<div class="btn btn-default" tooltip="Next Week" id="div_next_week"
-			ng-click="$root.nextWeek()">
-			<span style="margin-right: 5px;" id="span_next_week"></span><i
-				class="glyphicon glyphicon-forward"></i>
-		</div>
-		<div class="btn btn-default" tooltip="Next Month" id="div_next_month"
-			ng-click="$root.nextMonth()">
-			<span style="margin-right: 5px;"></span><i
-				class="glyphicon glyphicon-fast-forward"></i>
-		</div>
-		<div>
-			<a tooltip="Restart"
-				class="btn btn-default div_restart_game btn btn-default glyphicon glyphicon-repeat"
-				href="/fbcontroller/restart" id="div_restart_game"></a>
-		</div>
+
 	</div>
 </div>
 <div id="div_next_day" ng-if="planting">
@@ -47,7 +50,6 @@
 <div ng-controller="PlowingController"></div>
 <div ng-controller="DeepPlowingController"></div>
 <div ng-controller="DiggingController"></div>
-<div ng-controller="HarvestingController"></div>
 <div ng-controller="SprayingController"></div>
 <div ng-controller="ClothingController"></div>
 <div ng-controller="TipsController"></div>
@@ -58,6 +60,7 @@
 <ng-include src="'/public/_views/scenes/plowing.html'"></ng-include>
 <ng-include src="'/public/_views/scenes/terrain-analyse.html'"></ng-include>
 <ng-include src="'/public/_views/scenes/deseases.html'"></ng-include>
+<ng-include src="'/public/_views/scenes/harvesting.html'"></ng-include>
 
 
 <div ng-controller="PlantingController"></div>

@@ -1,21 +1,21 @@
 <div ng-controller="DeseaseController">
 	<div class="shop-menu" ng-animate="shop"
 			ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
-		
-		
+
+
 		<div class="shop_icon">
 			<img ng-src="{{url}}" style="width:75%;"></img>
 			<div class="shop-label ramka">
-				<span class="shop-label-text" translate="State"></span> 
+				<span class="shop-label-text" translate="State"></span>
 			</div>
 		</div>
-		
+
 		<div class="shop_arrow" ng-click="hide()"></div>
-		
-		<div class="shop_menu_grid fa-stack-2x fa-inverse">
-		
+
+		<div class="shop_menu_grid fa-inverse">
+
 			<div id="disease-info" ng-show="!hasProblem">
-				{{ 'The plantation is in good condition.' | translate }} 
+				{{ 'The plantation is in good condition.' | translate }}
 			</div>
 			<div id="irrigation-slider-container" ng-show="hasProblem">
 				<div class="shop_menu_grid" style="top:20%">
@@ -26,10 +26,12 @@
 					</div>
 				</div>
 			</div>
+
+
 			<button class="btn btn-xs" ng-click="showQuiz()">Start Quiz</button>
 			
 			
 		</div>
 	</div>
-	
+
 </div>

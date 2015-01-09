@@ -3,6 +3,32 @@
 	src: url("ag.otf");
 }
 
+.popover{
+	color: #666;
+}
+
+.btn, .btn-default{
+	background: #7e571a;
+	color: white;
+	-webkit-box-shadow: 3px 3px 0px 0px rgba(0,0,0,0.17);
+	-moz-box-shadow: 3px 3px 0px 0px rgba(0,0,0,0.17);
+	box-shadow: 3px 3px 0px 0px rgba(0,0,0,0.17);
+	border-color: #503306;
+}
+
+input{
+	color: #666 !important;
+}
+
+.clear{
+	clear:both;
+}
+
+.btn:hover, .btn-default:hover{
+	color: #ddd;
+	background: #7e571a;
+}
+
 .body-scale-background {
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -320,19 +346,29 @@ img.ograda-gore {
 	margin-top: 0px;
 }
 
+.board-bg{
+	background-image: url('/public/images/home/tip-board-bg.png');
+	position:fixed;
+	top: 100px;
+	left: 150px;
+	width: 700px;
+	height: 600px;
+	background-size: 100% 100%;
+	padding: 50px;
+}
+
+.select-seedling-quantity{
+	color: white;
+}
+
 .seedling-planting {
 	z-index: 5000;
-	background-color: white;
-	position: fixed;
-	left: 10%;
-	top: 10%;
-	width: 700px;
-	height: 80%;
-	overflow: scroll;
+	height: 100%;
+	overflow-y: auto;
+	overflow-x:hidden;
 }
 
 #div_timeline_travel {
-	background:brown;
 	position:absolute;
 	top:150px;
 	z-index:100;
@@ -341,12 +377,21 @@ img.ograda-gore {
 	opacity: 0.9;
 }
 
+.time-controls{
+	width: 125px;
+	height: 30px;
+	margin: 10px;
+	padding: 5px;
+}
+
 .seedling-type-header {
 	height: 80px;
 }
 
 .seedling-price {
 	cursor: pointer;
+	font-size: 18px;
+	background: #3f8f04;
 }
 
 .td-price {
@@ -387,6 +432,10 @@ div.select-seedling-quantity td{
     width:250px;
 	z-index: 99999;
 	font-size: x-small;
+	background-image: url('/public/images/home/tip-board-bg.png');
+	background-size: 100% 100%;
+	padding: 15px;
+	color: white;
 }
 
 .green {
