@@ -82,9 +82,13 @@ public class ContextServiceImpl implements ContextService {
 		c.setTime(farmer.gameDate.date);
 		Day today = farmer.gameDate;
 		if (today.weatherType.id.equals(C.WEATHER_TYPE_RAINY)) {
-			Integer randm = ServiceInjector.randomGeneratorService.random(0.1, 10.0).intValue();
+			Integer randm = ServiceInjector.randomGeneratorService.random(0.1, 8.0).intValue();
 			farmer.deltaCumulative += rainCoefForMonth(c.get(Calendar.MONTH))
 					* randm;
+		} else if (today.weatherType.id.equals(C.WEATHER_TYPE_SUNNY)) {
+			farmer.deltaCumulative -= 5;
+		} else if (today.weatherType.id.equals(C.WEATHER_TYPE_CLOUDY)) {
+			farmer.deltaCumulative -= 2;
 		}
 		farmer.rain_values = calculateRainForPrevDays(farmer, 5);
 
@@ -99,8 +103,12 @@ public class ContextServiceImpl implements ContextService {
 		}
 		// do not allow humidity above the max
 		double max_humidity = coefs.get(C.KEY_MAX_HUMIDITY).get(0);
+		double min_humidity = coefs.get(C.KEY_MIN_HUMIDITY).get(0);
 		if (farmer.deltaCumulative > max_humidity) {
 			farmer.deltaCumulative = max_humidity;
+		}
+		if (farmer.deltaCumulative < min_humidity) {
+			farmer.deltaCumulative = min_humidity;
 		}
 		farmer.save();
 	}

@@ -20,8 +20,8 @@ Game.config(['$routeProvider', function($routeProvider) {
     templateUrl: '/public/_views/plantation.html',
     controller: 'PlantingStateController'
   }).when('/plowing', {
-	templateUrl: '/public/_views/plowing.html',
-	controller: 'PlowingController' 
+	templateUrl: '/public/_views/plowing_scene.html',
+	controller: 'PlowingSceneController' 
   }).when('/growing', {
     templateUrl: '/public/_views/plantation.html',
     controller: 'GrowingStateController'
