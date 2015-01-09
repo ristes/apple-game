@@ -1,0 +1,1431 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"game",
+				"gameOver"
+			],
+			[
+				"name",
+				"namedItems"
+			],
+			[
+				"ana",
+				"analisysItem"
+			],
+			[
+				"curr",
+				"CurrentPlayer"
+			],
+			[
+				"callb",
+				"callbacks"
+			],
+			[
+				"cur",
+				"currentPlayer"
+			],
+			[
+				"cu",
+				"currentPlayer"
+			],
+			[
+				"topi",
+				"topicType"
+			],
+			[
+				"state",
+				"stateParams"
+			],
+			[
+				"di",
+				"dislikeAction"
+			],
+			[
+				"dis",
+				"dislikePlayerStat"
+			],
+			[
+				"text-a",
+				"text-align"
+			],
+			[
+				"ri",
+				"right"
+			],
+			[
+				"pad",
+				"padding-left"
+			],
+			[
+				"padin",
+				"padding-right"
+			],
+			[
+				"fo",
+				"font-size"
+			],
+			[
+				"stat",
+				"stateParams"
+			],
+			[
+				"clic",
+				"clickable"
+			],
+			[
+				"reload",
+				"reloadAbsences"
+			],
+			[
+				"he",
+				"height"
+			],
+			[
+				"item",
+				"itemLabel"
+			],
+			[
+				"timeli",
+				"timelineItems"
+			],
+			[
+				"mini",
+				"miniScaleY"
+			],
+			[
+				"mainsca",
+				"mainScaleY"
+			],
+			[
+				"iteme",
+				"itemEnd"
+			],
+			[
+				"Traini",
+				"TrainingEmployee"
+			],
+			[
+				"Tra",
+				"TrainingEmployee"
+			],
+			[
+				"crud",
+				"crudService"
+			],
+			[
+				"previ",
+				"previewAssign"
+			],
+			[
+				"assi",
+				"assign"
+			],
+			[
+				"le",
+				"length"
+			],
+			[
+				"to",
+				"toaster"
+			],
+			[
+				"empl",
+				"employees"
+			],
+			[
+				"fil",
+				"filter"
+			],
+			[
+				"rou",
+				"routeParams"
+			],
+			[
+				"con",
+				"controller"
+			],
+			[
+				"grade",
+				"gradeComment"
+			],
+			[
+				"in",
+				"invalid"
+			],
+			[
+				"assign",
+				"assignment"
+			],
+			[
+				"appr",
+				"appraisal_assignments"
+			],
+			[
+				"for",
+				"forEach"
+			],
+			[
+				"load",
+				"loadKeyPerformanceIndicators"
+			],
+			[
+				"Hr",
+				"HR"
+			],
+			[
+				"anon",
+				"anonimousEvaluators"
+			],
+			[
+				"modal",
+				"modalDelete"
+			],
+			[
+				"leve",
+				"leveledCategories"
+			],
+			[
+				"lev",
+				"leveledCategories"
+			],
+			[
+				"wei",
+				"weightCoef"
+			],
+			[
+				"cumu",
+				"cumulativeFromChildren"
+			],
+			[
+				"cal",
+				"calculateRelevance"
+			],
+			[
+				"new",
+				"newNode"
+			],
+			[
+				"inde",
+				"indexOf"
+			],
+			[
+				"fin",
+				"findCycles"
+			],
+			[
+				"chi",
+				"children"
+			],
+			[
+				"max",
+				"maxVal"
+			],
+			[
+				"developc",
+				"developCategory"
+			],
+			[
+				"len",
+				"length"
+			],
+			[
+				"newnode",
+				"newNodeUris"
+			],
+			[
+				"re",
+				"release"
+			],
+			[
+				"de",
+				"defaultGateway"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"acti",
+				"action	Attr"
+			],
+			[
+				"na",
+				"name	Attr"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "public/javascripts/ng/services/harvesting.js",
+			"settings":
+			{
+				"buffer_size": 711,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/javascripts/ng/controllers/operations/harvesting.js",
+			"settings":
+			{
+				"buffer_size": 1594,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/_views/scenes/harvesting.html",
+			"settings":
+			{
+				"buffer_size": 1351,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/templates/shop-menu.html",
+			"settings":
+			{
+				"buffer_size": 1041,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "public/javascripts/ng/directives/harvest_game_directive.js",
+			"settings":
+			{
+				"buffer_size": 8322,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 81.0,
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"bower",
+				"Bower: Configure project"
+			],
+			[
+				"prettify",
+				"HTMLPrettify: Set Prettify Preferences"
+			],
+			[
+				"prettif",
+				"HTMLPrettify: Set Prettify Preferences"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"bowerinsta",
+				"Bower: Install"
+			],
+			[
+				"bowern",
+				"Bower: Install"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 153.0,
+		"history":
+		[
+			"cd webapp",
+			"bower install",
+			"dir",
+			"ls\n",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/workspaces/web/apple-game/public"
+	],
+	"file_history":
+	[
+		"/C/workspaces/web/apple-game/public/javascripts/terrainShop.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/operations/shopping.js",
+		"/C/workspaces/web/apple-game/public/templates/side-menu.html",
+		"/C/workspaces/web/apple-game/public/_views/harvest_game.html",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/directives/harvest_game_directive.js",
+		"/C/workspaces/web/apple-game/public/_views/scenes/harvesting.html",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/operations/harvesting.js",
+		"/C/workspaces/android/snt/Fusion/app/src/main/java/mk/ichatme/services/RefreshChatService.java",
+		"/C/workspaces/android/snt/Fusion/app/src/main/java/mk/ichatme/shared/SharedPrefsUtil.java",
+		"/C/workspaces/android/snt/Fusion/app/src/main/java/mk/ichatme/android_websock/HybiParser.java",
+		"/C/workspaces/android/snt/Fusion/app/src/main/res/layout/chat_activity.xml",
+		"/C/workspaces/android/snt/Fusion/app/src/main/java/mk/ichatme/receivers/WifiStateChangedBroadcastReceiver.java",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/services/items.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/services/store.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/operations/fertilizing.js",
+		"/C/workspaces/web/apple-game/public/_views/scenes/fertilization.html",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/services/initialization.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/app.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/services/interceptors.js",
+		"/C/workspaces/web/apple-game/public/bower_components/angular-strap/package.json",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/services/planting.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/operations/planting.js",
+		"/C/workspaces/web/apple-game/public/bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/store.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/state-test.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/global/services.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/mock/items.json",
+		"/C/workspaces/web/apple-game/public/javascripts/itemstore.js",
+		"/C/workspaces/web/apple-game/public/templates/info-table.html",
+		"/C/workspaces/web/apple-game/public/_views/scenes/irrigation.html",
+		"/C/workspaces/web/apple-game/public/bower_components/select2/select2_locale_ro.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/planting.js",
+		"/C/workspaces/web/apple-game/data/coefs_irrigation.yml",
+		"/C/workspaces/web/apple-game/data/._coefs_irrigation.yml3417985707461257759.tmp",
+		"/C/workspaces/web/apple-game/public/bower_components/select2/select2_locale_id.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/operations/spraying.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/directives/info-table.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/directives/shop-menu.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/directives/g-shop-menu.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/operations/digging.js",
+		"/C/workspaces/web/apple-game/public/javascripts/sprites.js",
+		"/C/workspaces/web/apple-game/public/bower_components/select2/select2_locale_pl.js",
+		"/C/workspaces/web/apple-game/public/bower_components/jquery/src/dimensions.js",
+		"/C/workspaces/web/apple-game/public/_views/scenes/deseases.html",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/services.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/operations/irrigation.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/growing.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/services/irrigation.js",
+		"/C/workspaces/web/apple-game/public/_views/fb.html",
+		"/C/workspaces/web/apple-game/public/_views/index.html",
+		"/C/workspaces/web/apple-game/public/_views/plantation.html",
+		"/C/workspaces/web/apple-game/public/images/game/badges/BEDJ ZA NAJDOBAR EKOLOGIST/SLIKI/Eco with Bio elements of Stickers and icon vector 04.rar",
+		"/C/workspaces/web/apple-game/public/_views/buy-seedlings.html",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/buy-seedlings.js",
+		"/C/workspaces/web/apple-game/public/_views/scenes/planting.html",
+		"/C/workspaces/web/apple-game/public/_views/login.html",
+		"/C/workspaces/web/apple-game/public/bootstrap/fonts/glyphicons-halflings-regular.svg",
+		"/C/workspaces/web/apple-game/public/javascripts/game.js",
+		"/C/workspaces/web/apple-game/public/_views/buy-base.html",
+		"/C/workspaces/web/apple-game/public/bower_components/bootstrap/test-infra/sauce_browsers.yml",
+		"/C/Users/riste_000/Desktop/haos/haos/template.txt",
+		"/C/Users/riste_000/Desktop/haos/links.json",
+		"/C/Users/riste_000/Documents/papers/nlp/data/clauses.txt",
+		"/C/Users/riste_000/Documents/papers/nlp/data/clauseIE.txt",
+		"/C/workspaces/web/apple-game/public/i18n/mk.json",
+		"/C/workspaces/web/apple-game/public/i18n/en.json",
+		"/C/workspaces/web/apple-game/public/_views/scenes/terrain-analyse.html",
+		"/C/workspaces/web/apple-game/data/storeItems.json",
+		"/C/workspaces/web/apple-game/data/stores.json",
+		"/C/workspaces/web/apple-game/public/javascripts/add-or-relpace-plant-callback.js",
+		"/C/workspaces/web/apple-game/public/javascripts/actions.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/operations/terrain-analyzis.js",
+		"/C/workspaces/web/apple-game/public/bower_components/angular-motion/src/slide/docs/slide.demo.html",
+		"/C/workspaces/web/apple-game/public/javascripts/isometric.js",
+		"/C/workspaces/web/apple-game/public/templates/shop-menu.html",
+		"/C/workspaces/web/apple-game/public/stylesheets/shopwindow.css",
+		"/C/workspaces/web/apple-game/public/javascripts/shopwindow.js",
+		"/C/workspaces/web/apple-game/public/bower_components/select2/select2_locale_he.js",
+		"/C/workspaces/web/apple-game/public/javascripts/scenes/baseShop.js",
+		"/C/workspaces/web/apple-game/public/javascripts/scenes/loadingScene.js",
+		"/C/workspaces/web/apple-game/public/javascripts/scenes/seedlingShop.js",
+		"/C/workspaces/web/apple-game/public/javascripts/scenes/shop.js",
+		"/C/workspaces/web/apple-game/public/bower_components/bootstrap/test-infra/npm-shrinkwrap.canonical.json",
+		"/C/workspaces/web/apple-game/public/bower_components/select2/select2_locale_el.js",
+		"/C/workspaces/web/apple-game/public/javascripts/toolbar.js",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/resources/js/directives/stats.js",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/directives/stats.html",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/basketball/teams.json",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/cruds/players.html",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/cruds/template/photo-browser.html",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/cruds/playerstat-view-all-by-player-id.html",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/resources/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/menu/left-slider.html",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/cruds/template/career.html",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/resources/css/template/my-app.css",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/resources/js/app.js",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/menu/user.html",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/resources/js/controllers.js",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/WEB-INF/jsp/index.jsp",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/cruds/template/myleaf.html",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/resources/bower_components/angular-cookies/angular-cookies.js",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/resources/bower_components/angular-loading-bar/package.json",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/resources/bower_components/select2/select2_locale_id.js",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/resources/bower_components/angular-loading-bar/LICENSE",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/cruds/template/myoffice.html",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/resources/bower_components/select2/select2_locale_el.js",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/resources/js/controllers/player.js",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/resources/js/controllers/galery.js",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/cruds/template/services.html",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/resources/bower_components/jquery/src/serialize.js",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/cruds/playercomments.html",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/cruds/player-add.html",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/directives/page-header.html",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/cruds/people.html",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/cruds/playernews-view-article.html",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/resources/bower_components/angular-strap/dist/modules/datepicker.tpl.js",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/resources/bower_components/angular-ui-select2/CONTRIBUTING.md",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/cruds/template/galery.html",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/resources/bower_components/bootstrap/fonts/glyphicons-halflings-regular.svg",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/resources/bower_components/bootstrap/less/component-animations.less",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/resources/bower_components/select2/select2_locale_th.js",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/cruds/template/about.html",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/directives/employeeSmall.html",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/directives/inputField.html",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/directives/combo.html",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/directives/radio.html",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/resources/bower_components/jquery/src/dimensions.js",
+		"/C/workspaces/sporty/sportlifefeed/src/main/webapp/directives/dateField.html"
+	],
+	"find":
+	{
+		"height": 36.0
+	},
+	"find_in_files":
+	{
+		"height": 96.0,
+		"where_history":
+		[
+			"*.js",
+			"*.html",
+			"*.js",
+			"*",
+			"*.html",
+			"*",
+			"*.js",
+			"*.html",
+			"*.js"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"\"\n",
+			"\".basket",
+			".basket",
+			"apples",
+			"store",
+			"other",
+			"other ",
+			"^",
+			"$items",
+			"day",
+			"$rootScope._items",
+			"$rootScope.items",
+			"$root._items",
+			"$root.items",
+			"$rootScope.items",
+			"BoughtItems.check",
+			"StoreItems",
+			"$items",
+			"$(",
+			"$.",
+			"jQuery",
+			"$items",
+			"BoughtItem",
+			"$items",
+			"'$items'",
+			"items",
+			"$items",
+			"'$items'",
+			"items",
+			"window",
+			"timeout",
+			"$day",
+			"operation-",
+			"day",
+			"info",
+			"$farmer",
+			"info",
+			"click",
+			"!n",
+			"season-",
+			"dropsIrrigation",
+			"grooves",
+			"GROOVES",
+			"$irrigate",
+			"$(",
+			"$",
+			"$irrigate",
+			"Brazdi",
+			"src=\"{{url}}",
+			"{{url}}",
+			"src=\"{{",
+			"<<<<<<< HEAD",
+			"grooves",
+			"store",
+			"imageurl",
+			"store",
+			"price",
+			"pollutionCoeficient",
+			"name",
+			"=",
+			"^",
+			"StoreItems.load()",
+			"load",
+			"storeitems",
+			"$root.storeItems",
+			"'StoreItems'",
+			"StoreItems",
+			"{\n",
+			"storeitems",
+			"pop",
+			"Followers",
+			"followers",
+			"teamscontr",
+			"follow",
+			"toaster",
+			"follow",
+			"allplayerscon",
+			"leaf",
+			"playerid",
+			".message ",
+			".message",
+			"chat",
+			"leaf",
+			".playerstat",
+			"playerstat",
+			"career",
+			"cookie",
+			"cache",
+			".dots",
+			"dots",
+			".center",
+			"center",
+			"playerstat",
+			"    \n",
+			"slide-img",
+			"slide",
+			".animate-",
+			"\n    ",
+			"icon",
+			"      <",
+			">\n",
+			"h4",
+			"          \n",
+			"size",
+			"          <!--<",
+			"\n          ",
+			"center",
+			"}}\n",
+			"\n//===========================================",
+			">-->\n",
+			"myleaf",
+			"career",
+			"{id",
+			"desc",
+			"{\n",
+			"laneid",
+			"brush",
+			"display",
+			"items",
+			"text",
+			"fill",
+			"sublane",
+			"color",
+			"click",
+			"reloadAbse",
+			"ApprovalController",
+			".absence",
+			"absence."
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"{\n    name: \"\\2\",\n    img: \"\\1\"\n},",
+			"{\n    name: \"\\2\",\n    img: \"\\1\"\n}",
+			"\":",
+			"{\\n\\tname: '\\1', \\n\\tcity: { \\n\\t\\tname: '\\2'\\n\\t}\\n}, ",
+			"{\\n\\tname: '\\1', \\n\\tcity: { \\n\\t\\tname: '\\2'\\n\\t},\\n",
+			"'\\1'",
+			"'\\1',",
+			"{\n	name: '\\1'\n},",
+			"\\1, ",
+			"<option value=\"\\1\"><i class=\"\\1\"></i>\\1</option>",
+			"\\1",
+			"secuniv.finki.ukim.mk",
+			",",
+			"11",
+			"^11",
+			"11",
+			"^11",
+			",",
+			"->"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 4,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "public/javascripts/ng/services/harvesting.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 711,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14,
+								24
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "public/javascripts/ng/controllers/operations/harvesting.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1594,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								526,
+								526
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "public/_views/scenes/harvesting.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1351,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1238,
+								1238
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "public/templates/shop-menu.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1041,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								764,
+								678
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "public/javascripts/ng/directives/harvest_game_directive.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8322,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								756,
+								756
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2040.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "apple-game.sublime-project",
+	"replace":
+	{
+		"height": 186.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"shop.html",
+				"templates\\shop-menu.html"
+			],
+			[
+				"harvest_game_dir",
+				"javascripts\\ng\\directives\\harvest_game_directive.js"
+			],
+			[
+				"harvest_game",
+				"_views\\harvest_game.html"
+			],
+			[
+				"harvest_",
+				"javascripts\\ng\\directives\\harvest_game_directive.js"
+			],
+			[
+				"harvesting.html",
+				"_views\\scenes\\harvesting.html"
+			],
+			[
+				"harvesting.sj",
+				"javascripts\\ng\\controllers\\operations\\harvesting.js"
+			],
+			[
+				"harvesting.js",
+				"javascripts\\ng\\services\\harvesting.js"
+			],
+			[
+				"app.js",
+				"javascripts\\ng\\app.js"
+			],
+			[
+				"shopping",
+				"javascripts\\ng\\controllers\\operations\\shopping.js"
+			],
+			[
+				"planting",
+				"javascripts\\ng\\services\\planting.js"
+			],
+			[
+				"store.js",
+				"javascripts\\ng\\services\\store.js"
+			],
+			[
+				"items.js",
+				"javascripts\\ng\\services\\items.js"
+			],
+			[
+				"service",
+				"javascripts\\ng\\global\\services.js"
+			],
+			[
+				"fertil",
+				"_views\\scenes\\fertilization.html"
+			],
+			[
+				"side",
+				"templates\\side-menu.html"
+			],
+			[
+				"spraying",
+				"javascripts\\ng\\controllers\\operations\\spraying.js"
+			],
+			[
+				"digging",
+				"javascripts\\ng\\controllers\\operations\\digging.js"
+			],
+			[
+				"fertili",
+				"javascripts\\ng\\controllers\\operations\\fertilizing.js"
+			],
+			[
+				"services.js",
+				"javascripts\\ng\\global\\services.js"
+			],
+			[
+				"irrigation",
+				"javascripts\\ng\\controllers\\operations\\irrigation.js"
+			],
+			[
+				"irrigation.js",
+				"javascripts\\ng\\services\\irrigation.js"
+			],
+			[
+				"service.js",
+				"javascripts\\ng\\global\\services.js"
+			],
+			[
+				"planting.js",
+				"javascripts\\ng\\controllers\\planting.js"
+			],
+			[
+				"initiali",
+				"javascripts\\ng\\services\\initialization.js"
+			],
+			[
+				"irrigatio",
+				"_views\\scenes\\irrigation.html"
+			],
+			[
+				"growi",
+				"javascripts\\ng\\controllers\\growing.js"
+			],
+			[
+				"services",
+				"javascripts\\ng\\global\\services.js"
+			],
+			[
+				"growing",
+				"javascripts\\ng\\controllers\\growing.js"
+			],
+			[
+				"by-see",
+				"_views\\buy-seedlings.html"
+			],
+			[
+				"mk.jso",
+				"i18n\\mk.json"
+			],
+			[
+				"irriga",
+				"_views\\scenes\\irrigation.html"
+			],
+			[
+				"shop",
+				"javascripts\\ng\\controllers\\operations\\shopping.js"
+			],
+			[
+				"team.js",
+				"resources\\js\\controllers\\team.js"
+			],
+			[
+				"stats",
+				"resources\\js\\directives\\stats.js"
+			],
+			[
+				"team",
+				"cruds\\template\\team.html"
+			],
+			[
+				"players.html",
+				"cruds\\players.html"
+			],
+			[
+				"index.jsp",
+				"WEB-INF\\jsp\\index.jsp"
+			],
+			[
+				"controllers",
+				"resources\\js\\controllers.js"
+			],
+			[
+				"chatwin",
+				"cruds\\chatWindow.html"
+			],
+			[
+				"controller.js",
+				"resources\\js\\controllers.js"
+			],
+			[
+				"myleaf",
+				"cruds\\template\\myleaf.html"
+			],
+			[
+				"player.js",
+				"resources\\js\\controllers\\player.js"
+			],
+			[
+				"mylea",
+				"cruds\\template\\myleaf.html"
+			],
+			[
+				"stat",
+				"directives\\stats.html"
+			],
+			[
+				"stats.js",
+				"resources\\js\\directives\\stats.js"
+			],
+			[
+				"app",
+				"resources\\css\\template\\my-app.css"
+			],
+			[
+				"controllers.js",
+				"resources\\js\\controllers.js"
+			],
+			[
+				"my-a",
+				"resources\\css\\template\\my-app.css"
+			],
+			[
+				"galer",
+				"resources\\js\\controllers\\galery.js"
+			],
+			[
+				"caree",
+				"cruds\\template\\career.html"
+			],
+			[
+				"photo",
+				"cruds\\template\\photo-browser.html"
+			],
+			[
+				"galery",
+				"cruds\\template\\galery.html"
+			],
+			[
+				"stats.h",
+				"directives\\stats.html"
+			],
+			[
+				"combo.js",
+				"resources\\bower_components\\momentjs\\bower.json"
+			],
+			[
+				"snap",
+				"resources\\bower_components\\angular-snap\\angular-snap.js"
+			],
+			[
+				"myapp.cs",
+				"resources\\css\\template\\my-app.css"
+			],
+			[
+				"main.css",
+				"resources\\css\\main.css"
+			],
+			[
+				"filter",
+				"resources\\js\\filters.js"
+			],
+			[
+				"filters.js",
+				"resources\\js\\filters.js"
+			],
+			[
+				"absences",
+				"views\\hr\\absences.html"
+			],
+			[
+				"barchart",
+				"resources\\js\\directives\\barchart.js"
+			],
+			[
+				"bar",
+				"directives\\barChart.html"
+			],
+			[
+				"timeline",
+				"resources\\js\\directives\\timeline.js"
+			],
+			[
+				"my-list",
+				"src\\main\\webapp\\directives\\my-list.html"
+			],
+			[
+				"appraisal.html",
+				"src\\main\\webapp\\views\\hr\\appraisals\\appraisal.html"
+			],
+			[
+				"pom.xml",
+				"pom.xml"
+			],
+			[
+				"en.json",
+				"src\\main\\webapp\\i18n\\en.json"
+			],
+			[
+				"adming",
+				"src\\main\\resources\\data\\admin_pages.json"
+			],
+			[
+				"reset",
+				"src\\main\\resources\\cfg\\reset.sql"
+			],
+			[
+				"admin",
+				"src\\main\\resources\\data\\admin_pages.json"
+			],
+			[
+				"travel-order",
+				"src\\main\\webapp\\forms\\approval\\travel-order.html"
+			],
+			[
+				"self_disc",
+				"src\\main\\webapp\\views\\self\\self_dischargements.html"
+			],
+			[
+				"mtm-dire",
+				"src\\main\\webapp\\resources\\js\\directives\\mtm-directive.js"
+			],
+			[
+				"sub-",
+				"src\\main\\webapp\\directives\\sub-crud.html"
+			],
+			[
+				"crud-dir",
+				"src\\main\\webapp\\resources\\js\\crud-directive.js"
+			],
+			[
+				"pages.html",
+				"src\\main\\webapp\\views\\admin\\navigation\\pages.html"
+			],
+			[
+				"router",
+				"src\\main\\webapp\\resources\\js\\router.js"
+			],
+			[
+				"controllers.s",
+				"src\\main\\webapp\\resources\\js\\hr\\controllers.js"
+			],
+			[
+				"assign_",
+				"src\\main\\webapp\\forms\\hr\\assign_appraisal.html"
+			],
+			[
+				"training.html",
+				"src\\main\\webapp\\forms\\trainings.html"
+			],
+			[
+				"trainings.html",
+				"src\\main\\webapp\\forms\\trainings.html"
+			],
+			[
+				"router.js",
+				"src\\main\\webapp\\resources\\js\\router.js"
+			],
+			[
+				"my",
+				"src\\main\\webapp\\views\\hr\\tasks\\my_tasks.html"
+			],
+			[
+				"assign_task",
+				"src\\main\\webapp\\forms\\hr\\assign_task.html"
+			],
+			[
+				"evaluate",
+				"src\\main\\webapp\\views\\hr\\appraisals\\evaluate_form.html"
+			],
+			[
+				"crud-dire",
+				"src\\main\\webapp\\resources\\js\\crud-directive.js"
+			],
+			[
+				"router.sj",
+				"src\\main\\webapp\\resources\\js\\router.js"
+			],
+			[
+				"translates.html",
+				"src\\main\\webapp\\views\\admin\\navigation\\translates.html"
+			],
+			[
+				"translates.htl",
+				"src\\main\\webapp\\forms\\translates.html"
+			],
+			[
+				"languages.html",
+				"src\\main\\webapp\\views\\admin\\navigation\\languages.html"
+			],
+			[
+				"rotuer.js",
+				"src\\main\\webapp\\resources\\js\\router.js"
+			],
+			[
+				"employee_pages",
+				"src\\main\\resources\\data\\employee_pages.json"
+			],
+			[
+				"admin_",
+				"src\\main\\resources\\data\\admin_pages.json"
+			],
+			[
+				"dependenci",
+				"src\\main\\webapp\\resources\\js\\dependencies.js"
+			],
+			[
+				"mainc.ss",
+				"src\\main\\webapp\\resources\\css\\main.css"
+			],
+			[
+				"my_t",
+				"src\\main\\webapp\\views\\hr\\tasks\\my_tasks.html"
+			],
+			[
+				"absence.html",
+				"src\\main\\webapp\\forms\\request\\absence.html"
+			],
+			[
+				"ervices.js",
+				"src\\main\\webapp\\resources\\js\\hr\\services.js"
+			],
+			[
+				"task",
+				"src\\main\\webapp\\views\\hr\\tasks\\tasks.html"
+			],
+			[
+				"radio.js",
+				"src\\main\\webapp\\resources\\js\\directives\\radio.js"
+			],
+			[
+				"radio",
+				"src\\main\\webapp\\directives\\radio.html"
+			],
+			[
+				"cfilter",
+				"src\\main\\webapp\\resources\\js\\cfilter.js"
+			],
+			[
+				"tasks.html",
+				"src\\main\\webapp\\forms\\tasks.html"
+			],
+			[
+				"tasks.tml",
+				"src\\main\\webapp\\forms\\tasks.html"
+			],
+			[
+				"crud",
+				"src\\main\\webapp\\directives\\crud.html"
+			],
+			[
+				"directi",
+				"src\\main\\webapp\\resources\\js\\directives.js"
+			],
+			[
+				"assign_page",
+				"src\\main\\webapp\\forms\\hr\\assign_page.html"
+			],
+			[
+				"appraisa",
+				"src\\main\\webapp\\forms\\employee_appraisals.html"
+			],
+			[
+				"department",
+				"src\\main\\webapp\\forms\\departmentgroups.html"
+			],
+			[
+				"appraisal",
+				"src\\main\\webapp\\forms\\employee_appraisals.html"
+			],
+			[
+				"assign_app",
+				"src\\main\\webapp\\forms\\hr\\assign_appraisal.html"
+			],
+			[
+				"admin_pages",
+				"src\\main\\resources\\data\\admin_pages.json"
+			],
+			[
+				"direcit",
+				"src\\main\\webapp\\resources\\js\\directives.js"
+			],
+			[
+				"employeesmall",
+				"src\\main\\webapp\\resources\\js\\directives\\employee-small.js"
+			],
+			[
+				"organization",
+				"src\\main\\webapp\\resources\\js\\directives\\organization-structure.js"
+			],
+			[
+				"radio.html",
+				"src\\main\\webapp\\directives\\radio.html"
+			],
+			[
+				"depend",
+				"src\\main\\webapp\\resources\\js\\dependencies.js"
+			],
+			[
+				"dependen",
+				"src\\main\\webapp\\resources\\js\\dependencies.js"
+			],
+			[
+				"employeesimple.html",
+				"src\\main\\webapp\\directives\\employeeSimple.html"
+			],
+			[
+				"employee-combo",
+				"src\\main\\webapp\\resources\\js\\directives\\employee-combo.js"
+			],
+			[
+				"employeesmal",
+				"src\\main\\webapp\\directives\\employeeSmall.html"
+			],
+			[
+				"employeesm",
+				"src\\main\\webapp\\resources\\js\\directives\\employee-small.js"
+			],
+			[
+				"employee-small.js",
+				"src\\main\\webapp\\resources\\js\\directives\\employee-small.js"
+			],
+			[
+				"employeesmall.js",
+				"src\\main\\webapp\\resources\\js\\directives\\employee-small.js"
+			],
+			[
+				"inputfiel",
+				"src\\main\\webapp\\directives\\inputField.html"
+			],
+			[
+				"input-field",
+				"src\\main\\webapp\\resources\\js\\directives\\input-field.js"
+			],
+			[
+				"inputfield",
+				"src\\main\\webapp\\directives\\inputField.html"
+			],
+			[
+				"personal",
+				"src\\main\\webapp\\forms\\employee\\personal.html"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"C:\\workspaces\\snt\\hr.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+		],
+		"width": 512.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 257.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
