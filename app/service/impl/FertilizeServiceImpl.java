@@ -62,7 +62,7 @@ public class FertilizeServiceImpl implements FertilizeService{
 		saveItem(Mg, farmer, mg);
 		}
 		farmer.save();
-		ServiceInjector.logFarmerDataService.logExecutedOperation(farmer, (Operation)Operation.find("byName","fertilizing").first());
+		ServiceInjector.logFarmerDataService.logExecutedOperation(farmer, (Operation)Operation.find("byName","fertilizing").first(),null);
 		return farmer;
 		
 	}

@@ -76,13 +76,16 @@ public class LogFarmerDataServiceImpl implements LogFarmerDataService{
 
 	@Override
 	public void logExecutedOperation(Farmer farmer, 
-			Operation operation) {
+			Operation operation, Double information) {
 		LogFarmerData data = new LogFarmerData();
 		data.farmer = farmer;
 		data.logdate = farmer.gameDate.date;
 		data.operation = operation;
 		data.recolteYear = ServiceInjector.dateService.recolteYear(farmer.gameDate.date);
 		data.typelog = LogFarmerDataService.OPERATION_EXECUTED;
+		if (information!=null) {
+			data.information = information;
+		}
 		data.save();
 	}
 

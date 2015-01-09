@@ -27,7 +27,7 @@ public interface LogFarmerDataService {
 	public void logApplesBurned(Farmer farmer, Integer ammount);
 	public void logApplesBurnedInFridge(Farmer farmer, Integer ammount);
 	public void logOccurredDisease(Farmer farmer, Disease disease, Integer applesBurned);
-	public void logExecutedOperation(Farmer farmer,  Operation operation);
+	public void logExecutedOperation(Farmer farmer,  Operation operation, Double deep);
 	public void logApplesSold(Farmer farmer, Integer quantity);
 	public void logQuizAnswered(Farmer farmer, QuizResultsDto answer);
 	

@@ -41,7 +41,16 @@ public class YieldServiceImpl implements YieldService {
 		if (ServiceInjector.farmerService.hasBees(farmer)) {
 			sum+= sum*10/100;
 		}
-		return applesPerA;
+		if (!ServiceInjector.landTreatmanService.isFirstDeepPlowed(farmer)) {
+			sum-=sum*10/100;
+		}
+		if (!ServiceInjector.landTreatmanService.hasDeepPlowed(farmer)) {
+			sum-=sum*5/100;
+		}
+		if (!ServiceInjector.landTreatmanService.hasDeepPlowed(farmer)) {
+			sum-=sum*5/100;
+		}
+		return sum;
 	}
 
 	@Override

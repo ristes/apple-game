@@ -32,6 +32,8 @@ public class Field extends Model {
 	 * plantation)
 	 */
 	public double area;
+	
+	public Integer firstDeepPlow;
 
 	/**
 	 * The owner of the field (the one that bought it)

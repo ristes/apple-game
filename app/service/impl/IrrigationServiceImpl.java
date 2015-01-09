@@ -38,7 +38,7 @@ public class IrrigationServiceImpl implements IrrigationService {
 					* farmer.field.area * timeInt;
 
 			ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, -price);
-			ServiceInjector.logFarmerDataService.logExecutedOperation(farmer, (Operation)Operation.find("byName","irrigation").first());
+			ServiceInjector.logFarmerDataService.logExecutedOperation(farmer, (Operation)Operation.find("byName","irrigation").first(),null);
 		}
 		return result;
 	}
@@ -61,7 +61,7 @@ public class IrrigationServiceImpl implements IrrigationService {
 				.get(C.ENUM_GROOVES).doubleValue()
 				* area_size * time;
 		ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, -price);
-		ServiceInjector.logFarmerDataService.logExecutedOperation(farmer, (Operation)Operation.find("byName","irrigation").first());
+		ServiceInjector.logFarmerDataService.logExecutedOperation(farmer, (Operation)Operation.find("byName","irrigation").first(),null);
 		return result;
 	}
 

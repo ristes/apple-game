@@ -1,0 +1,29 @@
+<div class="seedling-planting" >
+
+	<div class="shop-menu" ng-animate="shop"
+			ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
+
+
+		<div class="shop_icon">
+			<img src="{{type.url}}" style="width:75%;"></img>
+			<div class="shop-label ramka">
+				<span class="shop-label-text">
+					{{ 'plowing' | translate }}
+				</span>
+			</div>
+		</div>
+
+
+		<div class="shop_menu_grid fa-inverse">
+			<h2>{{'plowing.deep' | translate}}</h2>
+			<div id="irrigation-slider-container">
+				<div slider class="slider" cfg="cfg" value="holder.deep"></div>
+			</div>
+			<div>
+				<span ng-show="!td" > {{holder.deep}} cm</span>
+				<button class="btn btn-xs" ng-click="plow()">{{ 'plowing.plow' | translate }}</button>
+
+		</div>
+	</div>
+
+</div>
