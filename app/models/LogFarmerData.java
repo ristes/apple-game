@@ -20,6 +20,8 @@ public class LogFarmerData extends Model{
 	
 	public Integer recolteYear;
 	
+	public String jsonDataInfo;
+	
 	
 	@ManyToOne
 	public Disease disease;

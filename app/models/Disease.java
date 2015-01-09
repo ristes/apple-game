@@ -150,12 +150,9 @@ public class Disease extends Model implements DeseaseRisk {
 		}
 		Calculable value = null;
 		try {
-			RandomGeneratorService rgS = new RandomGeneratorServiceImpl();
-			YieldService yS = new YieldServiceImpl();
-			PriceService pS = new PriceServiceImpl();
-			Double rand = rgS.random(0.0, 1.0);
-			Double maxYield = yS.calculateYield(context);
-			Double avgPrice = pS.price(context);
+			Double rand = ServiceInjector.randomGeneratorService.random(0.0, 1.0);
+			Double maxYield = ServiceInjector.yieldService.calculateYield(context);
+			Double avgPrice = ServiceInjector.priceService.price(context);
 			value = new ExpressionBuilder(refundValue)
 					.withVariable("rand", rand)
 					.withVariable("maxYield", maxYield)
@@ -178,18 +175,16 @@ public class Disease extends Model implements DeseaseRisk {
 		}
 
 		Calculable value = null;
-		DateService dateS = new DateServiceImpl();
 		try {
 			
-			RandomGeneratorService rGS = new RandomGeneratorServiceImpl();
-			Double randn02015 = rGS.randomGausseGenerator(0.2, 0.15);
+			Double randn02015 = ServiceInjector.randomGeneratorService.randomGausseGenerator(0.2, 0.15);
 			value = new ExpressionBuilder(expression)
 					.withVariable("humidity", context.gameDate.humidity)
 					.withVariable("tempLow", context.gameDate.tempLow)
 					.withVariable("tempHigh", context.gameDate.tempHigh)
 					.withVariable("iceProb", context.gameDate.iceProb)
 					.withVariable("heavyRain", context.gameDate.heavyRain)
-					.withVariable("season_type_id", dateS.season_level(context))
+					.withVariable("season_type_id", ServiceInjector.dateService.season_level(context))
 					.withVariable("rain_type_id",
 							context.gameDate.weatherType.id)
 					.withVariable("randn02015", randn02015)
@@ -206,7 +201,7 @@ public class Disease extends Model implements DeseaseRisk {
 		result = value.calculate();
 		result = addBaseProb(context, this, result);
 		if (name.equals("IceDemage")) {
-			if (dateS.season_level(context)!=C.SEASON_SUMMER || ServiceInjector.fieldService.hasUVProtectingNet(context)) {
+			if (ServiceInjector.dateService.season_level(context)!=C.SEASON_SUMMER || ServiceInjector.fieldService.hasUVProtectingNet(context)) {
 				result=0.0;			}
 		}
 		if (result < 0.0) {
@@ -237,16 +232,14 @@ public class Disease extends Model implements DeseaseRisk {
 		if (context.field == null) {
 			return 0;
 		}
-		DateService dateService = new DateServiceImpl();
-		DiseaseService diseaseService = new DiseaseServiceImpl();
 		List<ExecutedOperation> operations = context.field.executedOperations;
 		List<ExecutedOperation> operationsThisYear = new ArrayList<ExecutedOperation>();
 		for (ExecutedOperation operation : operations) {
-			if (dateService.isSameYear(context, operation.startDate)) {
-				operationsThisYear.add(dateService.changeYear(operation));
+			if (ServiceInjector.dateService.isSameYear(context, operation.startDate)) {
+				operationsThisYear.add(ServiceInjector.dateService.changeYear(operation));
 			}
 		}
-		List<DiseaseProtectingOperationDto> protections = diseaseService
+		List<DiseaseProtectingOperationDto> protections = ServiceInjector.diseaseService
 				.getMmax(context, Disease.this);
 		for (DiseaseProtectingOperationDto protection : protections) {
 			if (protection.isMatched(operationsThisYear)) {
@@ -274,10 +267,8 @@ public class Disease extends Model implements DeseaseRisk {
 		}
 		Calculable value = null;
 		try {
-			RandomGeneratorService rgS = new RandomGeneratorServiceImpl();
-			YieldService yS = new YieldServiceImpl();
-			Double rand = rgS.random(0.0, 1.0);
-			Double maxYield = yS.calculateYield(context);
+			Double rand = ServiceInjector.randomGeneratorService.random(0.0, 1.0);
+			Double maxYield = ServiceInjector.yieldService.calculateYield(context);
 			value = new ExpressionBuilder(demageVarExp)
 					.withVariable("rand", rand)
 					.withVariable("maxYield", maxYield)

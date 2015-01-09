@@ -99,6 +99,7 @@ GameDirectives.directive('sideMenu', ['jQuery', '$window','BoughtItems',
         	   if (n===true) {
         		   scope.$root.$emit("resume-open");
         	   }
+        	   
            })
            
          

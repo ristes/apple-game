@@ -3,14 +3,21 @@ package service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.QuestionnaireDto;
 import models.Answer;
 import models.Disease;
 import models.Farmer;
 import models.Item;
+import models.LogFarmerData;
 import models.Questionnaire;
+import service.LogFarmerDataService;
 import service.QuizService;
 import service.ServiceInjector;
+
+import com.google.gson.Gson;
+
+import dto.QuestionnaireDto;
+import dto.QuizResultsDto;
+import dto.StatusDto;
 
 
 public class QuizServiceImpl implements QuizService{
@@ -39,6 +46,7 @@ public class QuizServiceImpl implements QuizService{
 
 	@Override
 	public List<Questionnaire> questionsByFarmer(Farmer farmer) {
+		
 		List<Questionnaire> qS = new ArrayList<Questionnaire>();
 		List<Disease> diseases = ServiceInjector.diseaseService.getOccurredDiseasesEntitiesLast15Days(farmer);
 		qS.addAll(questionsByDiseases(diseases));
@@ -61,6 +69,32 @@ public class QuizServiceImpl implements QuizService{
 			ordnum++;
 		}
 		
+	}
+
+	@Override
+	public QuizResultsDto submitAnswers(Farmer farmer, int correct, int wrong) {
+		Integer plusQuantity = (farmer.productQuantity / 10) * correct/(wrong+correct);
+		Integer plusEco = 10 * correct/(wrong+correct);
+		farmer.productQuantity += plusQuantity;
+		farmer.eco_points += plusEco;
+		farmer.save();
+		QuizResultsDto results = new QuizResultsDto();
+		results.hits = correct;
+		results.misses = wrong;
+		results.apples_gained = plusQuantity;
+		results.eco_gained = plusEco;
+		return results;
+		
+	}
+
+	@Override
+	public QuizResultsDto isQuizAnsweredThisYear(Farmer farmer) {
+		LogFarmerData data = LogFarmerData.find("byTypelogAndRecolteYear",LogFarmerDataService.QUIZ_ANSWERED,ServiceInjector.dateService.recolteYear(farmer.gameDate.date)).first();
+		if (data==null) {
+			return null;
+		}
+		QuizResultsDto result = new Gson().fromJson(data.jsonDataInfo, QuizResultsDto.class);
+		return result;
 	}
 
 }

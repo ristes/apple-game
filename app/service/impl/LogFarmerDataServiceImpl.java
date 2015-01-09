@@ -2,6 +2,9 @@ package service.impl;
 
 import java.util.Date;
 
+import com.google.gson.Gson;
+
+import dto.QuizResultsDto;
 import models.Disease;
 import models.Farmer;
 import models.LogFarmerData;
@@ -90,6 +93,7 @@ public class LogFarmerDataServiceImpl implements LogFarmerDataService{
 		data.logdate = farmer.gameDate.date;
 		data.recolteYear = ServiceInjector.dateService.recolteYear(farmer.gameDate.date);
 		data.information = quantity.doubleValue();
+		data.typelog = LogFarmerDataService.APPLES_SOLD;
 		data.save();
 	}
 
@@ -100,9 +104,24 @@ public class LogFarmerDataServiceImpl implements LogFarmerDataService{
 		data.logdate = farmer.gameDate.date;
 		data.recolteYear = ServiceInjector.dateService.recolteYear(farmer.gameDate.date);
 		data.information = ammount.doubleValue();
+		data.typelog = LogFarmerDataService.APPLES_BURNED_IN_FRIDGE;
 		data.save();
 		
 	}
+
+	@Override
+	public void logQuizAnswered(Farmer farmer, QuizResultsDto result) {
+		LogFarmerData data = new LogFarmerData();
+		data.farmer = farmer;
+		data.logdate = farmer.gameDate.date;
+		data.recolteYear = ServiceInjector.dateService.recolteYear(farmer.gameDate.date);
+		data.jsonDataInfo = new Gson().toJson(result);
+		data.typelog = LogFarmerDataService.QUIZ_ANSWERED;
+		data.save();
+		
+	}
+	
+	 
 
 	
 }

@@ -42,7 +42,7 @@
 
 .div-weather-past-future {
 	width: 85%;
-	/*	min-width: 50px; 
+	/*	min-width: 50px;
 	min-height: 50px;
 	*/
 	height: 100%;
@@ -191,7 +191,7 @@ body {
 
 .img-user-info-ramka {
 	position: relative;
-	top: -2%; 
+	top: -2%;
 	background : url("/public/images/home/ramka.png");
 	background-size: 100% 100%;
 	height: 25px;
@@ -625,12 +625,85 @@ body {
 }
 
 .progress_div {
-	margin-top: 30%;
-	margin-left: 25%;
-	margin-right: 25%;
-	
+	margin-top: 30px;
+	text-align: center;
+	padding-top: 50px;
 }
 
+.progress_div .progress-striped{
+	margin-left: 25%;
+	margin-right: 25%;
+}
+
+.loading-label{
+	text-transform: uppercase;
+	color: #c91e1e;
+	font-size: 32px;
+	font-weight: bold;
+}
+
+.welcome-screen{
+	clear:both;
+	margin: 0 auto;
+	width: 980px;
+}
+
+.welcome-sign{
+	margin-top: 100px;
+}
+
+.cloud{
+	position: absolute;
+}
+
+@keyframes cloud-enter-left {
+    0%   {left: -1000px;}
+}
+
+@-webkit-keyframes cloud-enter-left {
+    0%   {left: -1000px;}
+}
+
+@keyframes cloud-enter-right {
+    0%   {left: 2000px;}
+}
+
+@-webkit-keyframes cloud-enter-right {
+    0%   {left: 2000px;}
+}
+
+.cloud-show-left{
+	animation-name: cloud-enter-left;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-play-state: running;
+
+  -webkit-animation-name: cloud-enter-left;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-play-state: running;
+}
+
+.cloud-show-right{
+	animation-name: cloud-enter-right;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-play-state: running;
+
+  -webkit-animation-name: cloud-enter-right;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-play-state: running;
+}
+
+.cloud-1{	top: 100px;	left: 100px; 	right: auto; 		width: 300px}
+.cloud-2{	top: 3px;		left: 633px; 	right: auto; 		width: 350px}
+.cloud-3{	top: 263;		left: 1300px; right: auto; 		width: 200px}
+.cloud-4{	top: 500px;	left: 800px; 	right: auto; 		width: 310px}
+.cloud-5{	top: 350px;	left: 400px; 	right: auto; 		width: 360px}
+.cloud-6{	top: 222px;	left: 610px; 	right: auto; 		width: 410px}
+.cloud-7{	top: 600px;	left: 0px; 		right: auto; 		width: 380px}
+.cloud-8{	top: 700px;	left: 1100px; 	right: auto; 		width: 280px}
 
 @media ( max-width : 1200px) {
 	.weather-info-text {
@@ -680,7 +753,7 @@ body {
 	.shop-item-price {
 		font-size: 1.0em;
 	}
-	
+
 }
 
 @media ( max-width : 800px) {
@@ -699,7 +772,7 @@ body {
 	}
 	.shop-label {
 		height:7%;
-	} 
+	}
 }
 
 @media ( max-width : 700px) {
@@ -727,11 +800,11 @@ body {
 		font-size: 0.6em;
 		top: 38%;
 	}
-	
+
 	.title-text {
 		font-size: 0.7em;
 	}
-	
+
 	.title-text-larger {
 		font-size:1em;
 	}

@@ -5,12 +5,12 @@
 	<link rel="stylesheet" type="text/css" href="/public/stylesheets/animations.css" />
 	<link rel="stylesheet" type="text/css" href="/public/bower_components/jquery-ui/themes/smoothness/jquery-ui.css" />
 	<link href="/public/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
-		
+
 	<link href="/public/bower_components/bootstrap/dist/css/font-awesome.min.css" rel="stylesheet"/>
 	<link href="/public/bower_components/ng-slider/src/css/ng-slider.css" rel="stylesheet"/>
 	<link rel="stylesheet" type="text/css" href="/public/stylesheets/main.css" />
-	
-	
+
+
 	<script type="text/javascript" src="/public/javascripts/modelStore.js"></script>
 	<script type="text/javascript" src="/public/javascripts/crafty.js"></script>
 	<script type="text/javascript" src="/public/javascripts/callback-manager.js"></script>
@@ -82,13 +82,13 @@
 	<script src="/public/javascripts/ng/services/resume.js"></script>
 	<script src="/public/javascripts/ng/services/quiz.js"></script>
 	<script src="/public/javascripts/ng/controllers/preloader.js"></script>
-	
+
 	<!-- facebook dependencies -->
 	<script src="/public/javascripts/FB/lodash.compat.js"></script>
 	<script src="/public/javascripts/FB/angular-easyfb.js"></script>
 	<script src="/public/javascripts/ng/controllers/fb.js"></script>
 	<!-- facebook dependencies END -->
-			
+
 	<title>Iso</title>
 	<style>
 		body,html {
@@ -96,43 +96,64 @@
 			padding: 0;
 			/* background: url("/public/images/sky.png"); */
 		}
+		.fixed {
+			position:fixed;
+		}
 	</style>
 </head>
 
 <body ng-app="Game" ng-animate="slide" class="body-transition-bkg"
 	style="background: url('{{$root.farmer.gameDate.weatherType.background_url}}'); -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;">
-	
+
 	<div ng-controller="PreloadController">
-		<div ng-switch="isLoading">
 
-			<p ng-switch-when="true" ng-show="isLoading" class="progress_div">
-					<progressbar class="progress-striped active" value="percentLoaded">
-					{{percentLoaded | integer}} %</progressbar>
-			</p>
-			<div ng-switch-when="false" ng-switch="isSuccessful">
-				<div ng-controller="NotificationController">
-					<!-- <ng-include src="'/public/templates/notification-dialog'"></ng-include> -->
-				</div>
-				<shop-menu items="items"></shop-menu>
-				<resume-dialog></resume-dialog>
-				<info-table></info-table>
-				<alert-dialog tip="$root.tip"></alert-dialog>
-				<div class="div_wrapper">
+		<div ng-if="isLoading" class="progress_div">
+			<img src="/public/images/game/welcome_screen/planeta.png" />
+			<progressbar class="progress-striped active" value="percentLoaded">
+			{{percentLoaded | integer}} %</progressbar>
+			<div class="loading-label">Loading...</div>
+		</div>
 
-					<div ng-view></div>
+		<div ng-if="isWelcoming" class="progress_div welcome-screen">
+			<img src="/public/images/game/welcome_screen/oblak-1.png" class="cloud cloud-show-right cloud-1 fixed" />
+			<img src="/public/images/game/welcome_screen/oblak-1.png" class="cloud cloud-show-left cloud-2 fixed" />
+			<img src="/public/images/game/welcome_screen/oblak-1.png" class="cloud cloud-show-right cloud-3 fixed" />
+			<img src="/public/images/game/welcome_screen/oblak-1.png" class="cloud cloud-show-left cloud-4 fixed" />
+			<img src="/public/images/game/welcome_screen/oblak-1.png" class="cloud cloud-show-right cloud-5 fixed" />
+			<img src="/public/images/game/welcome_screen/oblak-1.png" class="cloud cloud-show-left cloud-6 fixed" />
+			<img src="/public/images/game/welcome_screen/oblak-1.png" class="cloud cloud-show-right cloud-7 fixed" />
+			<img src="/public/images/game/welcome_screen/oblak-1.png" class="cloud cloud-show-left cloud-8 fixed" />
 
-					<login ng-if="!$root.farmer.id"></login>
-					<user-info ng-if="$root.farmer.id"></user-info>
-
-				</div>
-				<weather-info-details w='w' visible="visible"></weather-info-details>
-				<weather-info weather="weather"></weather-info>
-				<progress-dialog prefix="global"></progress-dialog>
-				<quiz-window></quiz-window>
-
-				<toaster-container toaster-options="{'time-out': 3000}"></toaster-container>
-				<ng-include src="'/public/_views/fb.html'"></ng-include>
+			<div class="pull-left welcome-sign">
+				<img src="/public/images/game/welcome_screen/welcome.png" />
 			</div>
+			<div class="pull-right">
+				<img src="/public/images/game/welcome_screen/planeta.png" />
+			</div>
+		</div>
+
+		<div ng-if="isSuccessful">
+			<div ng-controller="NotificationController">
+				<!-- <ng-include src="'/public/templates/notification-dialog'"></ng-include> -->
+			</div>
+			<shop-menu items="items"></shop-menu>
+			<resume-dialog></resume-dialog>
+			<info-table></info-table>
+			<alert-dialog tip="$root.tip"></alert-dialog>
+			<div class="div_wrapper">
+
+				<div ng-view></div>
+
+				<login ng-if="!$root.farmer.id"></login>
+				<user-info ng-if="$root.farmer.id"></user-info>
+
+			</div>
+			<weather-info-details w='w' visible="visible"></weather-info-details>
+			<weather-info weather="weather"></weather-info>
+			<progress-dialog prefix="global"></progress-dialog>
+			<quiz-window></quiz-window>
+			<toaster-container toaster-options="{'time-out': 3000}"></toaster-container>
+			<ng-include src="'/public/_views/fb.html'"></ng-include>
 		</div>
 	</body>
 </html>

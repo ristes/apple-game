@@ -303,7 +303,7 @@ img.ograda-gore {
 }
 
 .li-inner {
-	
+
 }
 
 .modal-content {
@@ -387,4 +387,14 @@ div.select-seedling-quantity td{
     width:250px;
 	z-index: 99999;
 	font-size: x-small;
+}
+
+.green {
+	background-color:green;
+}
+.red {
+	background-color:red;
+}
+.padding15 {
+	padding-left:15%;
 }

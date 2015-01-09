@@ -11,16 +11,18 @@ import service.ResumeService;
 import service.ServiceInjector;
 import dto.ResumeMessageDto;
 
-public class ResumeServiceImpl implements ResumeService{
+public class ResumeServiceImpl implements ResumeService {
 
 	@Override
 	public ResumeMessageDto moneySpent(Farmer farmer, Integer year) {
 		Integer sum = 0;
 		ResumeMessageDto<List<String>> dto = new ResumeMessageDto<List<String>>();
 		dto.message = new ArrayList<String>();
-		List<LogFarmerData> logs = LogFarmerData.find("byFarmerAndRecolteYearAndTypelog", farmer, year, ServiceInjector.logFarmerDataService.MONEY_SPENT).fetch();
-		for (LogFarmerData log:logs) {
-			sum+=log.information.intValue();
+		List<LogFarmerData> logs = LogFarmerData.find(
+				"byFarmerAndRecolteYearAndTypelog", farmer, year,
+				ServiceInjector.logFarmerDataService.MONEY_SPENT).fetch();
+		for (LogFarmerData log : logs) {
+			sum += log.information.intValue();
 		}
 		dto.message.add(sum.toString());
 		dto.typeResume = ResumeService.MONEY_SPENT;
@@ -31,10 +33,12 @@ public class ResumeServiceImpl implements ResumeService{
 	public ResumeMessageDto moneyEarned(Farmer farmer, Integer year) {
 		Integer sum = 0;
 		ResumeMessageDto<List<String>> dto = new ResumeMessageDto<List<String>>();
-		dto.message= new ArrayList<String>();
-		List<LogFarmerData> logs = LogFarmerData.find("byFarmerAndRecolteYearAndTypelog", farmer, year, ServiceInjector.logFarmerDataService.MONEY_EARNED).fetch();
-		for (LogFarmerData log:logs) {
-			sum+=log.information.intValue();
+		dto.message = new ArrayList<String>();
+		List<LogFarmerData> logs = LogFarmerData.find(
+				"byFarmerAndRecolteYearAndTypelog", farmer, year,
+				ServiceInjector.logFarmerDataService.MONEY_EARNED).fetch();
+		for (LogFarmerData log : logs) {
+			sum += log.information.intValue();
 		}
 		dto.message.add(sum.toString());
 		dto.typeResume = ResumeService.MONEY_EARNED;
@@ -44,14 +48,20 @@ public class ResumeServiceImpl implements ResumeService{
 	@Override
 	public ResumeMessageDto operationsExecuted(Farmer farmer, Integer year) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		ResumeMessageDto<Map<String,Integer>> dto = new ResumeMessageDto<Map<String,Integer>>();
+		ResumeMessageDto<Map<String, Integer>> dto = new ResumeMessageDto<Map<String, Integer>>();
 		dto.message = new HashMap<String, Integer>();
-		List<LogFarmerData> logs = LogFarmerData.find("byFarmerAndRecolteYearAndTypelog", farmer, year, ServiceInjector.logFarmerDataService.OPERATION_EXECUTED).fetch();
-		for (LogFarmerData log:logs) {
-			if (map.containsKey(log.operation.name)) {
-				map.put(log.operation.name,new Integer(map.get(log.operation.name)+1));
-			} else {
-				map.put(log.operation.name,1);
+		List<LogFarmerData> logs = LogFarmerData.find(
+				"byFarmerAndRecolteYearAndTypelog", farmer, year,
+				ServiceInjector.logFarmerDataService.OPERATION_EXECUTED)
+				.fetch();
+		for (LogFarmerData log : logs) {
+			if (log.operation != null) {
+				if (map.containsKey(log.operation.name)) {
+					map.put(log.operation.name,
+							new Integer(map.get(log.operation.name) + 1));
+				} else {
+					map.put(log.operation.name, 1);
+				}
 			}
 		}
 		dto.message = map;
@@ -62,14 +72,17 @@ public class ResumeServiceImpl implements ResumeService{
 	@Override
 	public ResumeMessageDto diseasesOccured(Farmer farmer, Integer year) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		ResumeMessageDto<Map<String,Integer>> dto = new ResumeMessageDto<Map<String,Integer>>();
+		ResumeMessageDto<Map<String, Integer>> dto = new ResumeMessageDto<Map<String, Integer>>();
 		dto.message = new HashMap<String, Integer>();
-		List<LogFarmerData> logs = LogFarmerData.find("byFarmerAndRecolteYearAndTypelog", farmer, year, ServiceInjector.logFarmerDataService.DISEASES_OCCURED).fetch();
-		for (LogFarmerData log:logs) {
+		List<LogFarmerData> logs = LogFarmerData.find(
+				"byFarmerAndRecolteYearAndTypelog", farmer, year,
+				ServiceInjector.logFarmerDataService.DISEASES_OCCURED).fetch();
+		for (LogFarmerData log : logs) {
 			if (map.containsKey(log.disease.name)) {
-				map.put(log.disease.name,new Integer(map.get(log.disease.name)+log.information.intValue()));
+				map.put(log.disease.name, new Integer(map.get(log.disease.name)
+						+ log.information.intValue()));
 			} else {
-				map.put(log.disease.name,log.information.intValue());
+				map.put(log.disease.name, log.information.intValue());
 			}
 		}
 		dto.message = map;
@@ -82,9 +95,11 @@ public class ResumeServiceImpl implements ResumeService{
 		Integer sum = 0;
 		ResumeMessageDto<List<String>> dto = new ResumeMessageDto<List<String>>();
 		dto.message = new ArrayList<String>();
-		List<LogFarmerData> logs = LogFarmerData.find("byFarmerAndRecolteYearAndTypelog", farmer, year, ServiceInjector.logFarmerDataService.APPLES_SOLD).fetch();
-		for (LogFarmerData log:logs) {
-			sum+=log.information.intValue();
+		List<LogFarmerData> logs = LogFarmerData.find(
+				"byFarmerAndRecolteYearAndTypelog", farmer, year,
+				ServiceInjector.logFarmerDataService.APPLES_SOLD).fetch();
+		for (LogFarmerData log : logs) {
+			sum += log.information.intValue();
 		}
 		dto.message.add(sum.toString());
 		dto.typeResume = ResumeService.APPLES_SOLD;
@@ -96,9 +111,11 @@ public class ResumeServiceImpl implements ResumeService{
 		Integer sum = 0;
 		ResumeMessageDto<List<String>> dto = new ResumeMessageDto<List<String>>();
 		dto.message = new ArrayList<String>();
-		List<LogFarmerData> logs = LogFarmerData.find("byFarmerAndRecolteYearAndTypelog", farmer, year, ServiceInjector.logFarmerDataService.APPLES_BURNT).fetch();
-		for (LogFarmerData log:logs) {
-			sum+=log.information.intValue();
+		List<LogFarmerData> logs = LogFarmerData.find(
+				"byFarmerAndRecolteYearAndTypelog", farmer, year,
+				ServiceInjector.logFarmerDataService.APPLES_BURNT).fetch();
+		for (LogFarmerData log : logs) {
+			sum += log.information.intValue();
 		}
 		dto.message.add(sum.toString());
 		dto.typeResume = ResumeService.APPLES_BURNT;

@@ -25,8 +25,7 @@ public class DeseasesExpertSystem extends GameController {
 		if (farmer == null) {
 			redirect("crafty/login");
 		}
-		DiseaseService diseaseService = new DiseaseServiceImpl();
-		List<DiseaseOccurenceProb> disProbs = diseaseService
+		List<DiseaseOccurenceProb> disProbs = ServiceInjector.diseaseService
 				.getDiseasesProb(farmer);
 		renderJSON(disProbs);
 	}

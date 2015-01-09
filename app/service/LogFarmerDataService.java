@@ -3,6 +3,7 @@ package service;
 import models.Disease;
 import models.Farmer;
 import models.Operation;
+import dto.QuizResultsDto;
 
 public interface LogFarmerDataService {
 	
@@ -17,6 +18,7 @@ public interface LogFarmerDataService {
 	public final static Long OPERATION_EXECUTED = 8l;
 	public final static Long APPLES_SOLD = 9l;
 	public final static long APPLES_BURNED_IN_FRIDGE = 10l;
+	public final static Long QUIZ_ANSWERED = 11l;
 	
 	
 	public void logSetMaxYield(Farmer farmer,  double yield);
@@ -27,5 +29,8 @@ public interface LogFarmerDataService {
 	public void logOccurredDisease(Farmer farmer, Disease disease, Integer applesBurned);
 	public void logExecutedOperation(Farmer farmer,  Operation operation);
 	public void logApplesSold(Farmer farmer, Integer quantity);
+	public void logQuizAnswered(Farmer farmer, QuizResultsDto answer);
+	
+	
 
 }
