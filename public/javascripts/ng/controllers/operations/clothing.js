@@ -1,18 +1,23 @@
 Game.controller('ClothingController', ['$scope', function($scope) {
 
-  var unreg = $scope.$root.$on('clothing-plowing', function(_s, oper) {
-
-    $scope.$root.$emit('show-progress-global', {
-      title: 'progress_clothing',
-      duration: 20
+    var unreg = $scope.$root.$on('operation-clothing', function(_s, oper) {
+        $scope.type = oper;
+        $scope.gameActive = true;
+        $scope.visible = true;
+        $scope.$root.$emit("side-hide");
     });
-    // $plowing.plowing();
-  });
 
-  $scope.$on("$destroy", function() {
-    if (unreg) {
-      unreg();
+    $scope.gameOver = function(gameResult) {
+        $scope.gameActive = false;
+        // TODO: call the clothing service with the result
     }
-  });
+
+    $scope.$on("$destroy", function() {
+        if (unreg) {
+            unreg();
+        }
+    });
+
+
 
 }]);

@@ -8,7 +8,6 @@ Game.controller('HarvestingController', [
             function(_s, oper) {
                 $scope.type = oper;
 
-                console.log(oper)
                 $scope.apples = [];
                 $scope.gameActive = false;
                 $scope.basketPosition = [{
@@ -42,8 +41,8 @@ Game.controller('HarvestingController', [
         };
 
         $scope.gameOver = function() {
-            console.log("gameOver")
             $scope.gameActive = false;
+            // TODO: call harvest service with the result
         }
 
         $scope.$on("$destroy", function() {
