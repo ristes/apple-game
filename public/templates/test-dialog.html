@@ -1,6 +1,6 @@
 <div>
 	<div style="text-align: center">
-		<span style="font-size: x-large">{{$root.day.gameDate.date}}</span>
+		<span style="font-size: x-large">{{gameState.gameDate.date}}</span>
 	</div>
 	<div style="float:left">
 		<h3>Basic Farmer Info</h3>
@@ -9,7 +9,7 @@
 				<span>Username: </span>
 			</div>
 			<div style="float:left;margin-left: 5px;">
-				{{$root.day.username}}
+				{{gameState.username}}
 			</div>
 		</div>
 		<div style="clear:both">
@@ -17,7 +17,7 @@
 				<span>Balance: </span>
 			</div>
 			<div style="float:left;margin-left: 5px;">
-				{{$root.day.balans}}
+				{{gameState.balans}}
 			</div>
 		</div>
 		<div style="clear:both">
@@ -25,7 +25,7 @@
 				<span>Eco-points:</span>
 			</div>
 			<div style="float:left;margin-left: 5px;">
-				{{$root.day.eco_points}}
+				{{gameState.eco_points}}
 			</div>
 		</div>
 		<div style="clear:both">
@@ -33,7 +33,7 @@
 				<span>Farmer-Luck: </span>
 			</div>
 			<div style="float:left;margin-left: 5px;">
-				{{($root.day.luck*100).toFixed(2)}}
+				{{(gameState.luck*100).toFixed(2)}}
 			</div>
 		</div>
 	</div>
@@ -44,7 +44,7 @@
 				<span>Cum. humidity:</span>
 			</div>
 			<div style="float:left">
-				<span>{{$root.day.cumulativeHumidity}} mm</span>
+				<span>{{gameState.cumulativeHumidity}} mm</span>
 			</div>
 		</div>
 		<div>
@@ -52,7 +52,7 @@
 				<span>Cum. Leaf Humidity:</span>
 			</div>
 			<div style="float:left">
-				<span>{{$root.day.cumulativeLeafHumidity}} min</span>
+				<span>{{gameState.cumulativeLeafHumidity}} min</span>
 			</div>
 		</div>
 	</div>
@@ -67,37 +67,34 @@
 		<h3>Day Info</h3>
 		<div>
 			<span>Weather Type:</span>
-			<span>{{$root.day.gameDate.weatherType}}</span>
+			<span>{{gameState.gameDate.weatherType}}</span>
 		</div>
 		<div>
 			<span>Temp Low:</span>
-			<span>{{$root.day.gameDate.tempLow.toFixed(0)}} C</span>
+			<span>{{gameState.gameDate.tempLow.toFixed(0)}} C</span>
 		</div>
 		<div>
 			<span>Temp High:</span>
-			<span>{{$root.day.gameDate.tempHigh.toFixed(0)}} C</span>
+			<span>{{gameState.gameDate.tempHigh.toFixed(0)}} C</span>
 		</div>
 		<div>
 			<span>humidity:</span>
-			<span>{{$root.day.gameDate.humidity}}</span>
+			<span>{{gameState.gameDate.humidity}}</span>
 		</div>
 		<div>
 			<span>humidityOfLeaf:</span>
-			<span>{{$root.day.gameDate.humidityOfLeaf}}</span>
+			<span>{{gameState.gameDate.humidityOfLeaf}}</span>
 		</div>
 		<div>
 			<span>UV:</span>
-			<span>{{($root.day.gameDate.uvProb*10).toFixed(0)}}</span>
+			<span>{{(gameState.gameDate.uvProb*10).toFixed(0)}}</span>
 		</div>
 		<div>
 			<span>iceProb:</span>
-			<span>{{$root.day.gameDate.iceProb.toFixed(2)}}</span>
+			<span>{{gameState.gameDate.iceProb.toFixed(2)}}</span>
 		</div>
 	</div>
 	<div style="float:left; margin-left: 40px;">
 		<span>{{report}}</span>
-		<!-- <div ng-repeat="diseaseinfo in $root.oneyearreport">
-			<span>{{diseaseinfo.FireBlight}}</span>
-		</div>	 -->	
 	</div>
 </div>

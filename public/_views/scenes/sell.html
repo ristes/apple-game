@@ -1,0 +1,21 @@
+<div ng-controller="SellController">
+
+    <div class="shop-menu" ng-animate="shop" ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
+
+        <div class="shop_icon">
+            <img src="{{type.ico}}" style="width: 75%;"></img>
+            <div class="shop-label ramka">
+                <span class="shop-label-text"> {{ 'sell' | translate }}
+				</span>
+            </div>
+        </div>
+
+        <div class="shop_arrow" ng-click="hide()"></div>
+
+        <div class="shop_menu_grid fa-inverse">
+	        <!-- Show game result -->
+
+        </div>
+    </div>
+
+</div>

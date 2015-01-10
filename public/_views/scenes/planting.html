@@ -8,14 +8,14 @@
 			<div ng-class="{false: 'pocva-bg', true: 'ograda-bg'}[c.staticV || !planting]" 
 				 ng-repeat="c in r.cols"
 				 style="width: {{atom}}px; height: {{atom}}px">
-				<img ng-show="c.show"  ng-if="!c.staticV" ng-src="{{$root.day.soil_url}}" class="{{c.cls}}" ng-click="soilClick(c)"/>
+				<img ng-show="c.show"  ng-if="!c.staticV" ng-src="{{gameState.soil_url}}" class="{{c.cls}}" ng-click="soilClick(c)"/>
 				<img ng-show="c.show"  ng-if="c.staticV" ng-src="{{c.terrain}}" class="{{c.cls}}"/>
 				<img ng-show="planting" src="/public/images/game/apple_tree/11.png" class="{{c.treeCls}}" ng-click="portionClick(c)"/>
-				<img ng-if="c.tree===1"  ng-src="{{$root.day.plant_ajdaret}}" class="{{c.treeCls}}" ng-click="treeClick(c)"/>
-				<img ng-if="c.tree===2"  ng-src="{{$root.day.plant_crven_delishes}}" class="{{c.treeCls}}" ng-click="treeClick(c)"/>
-				<img ng-if="c.tree===3"  ng-src="{{$root.day.plant_zlaten_delishes}}" class="{{c.treeCls}}" ng-click="treeClick(c)"/>
-				<img ng-if="c.tree===4"  ng-src="{{$root.day.plant_jonalgold}}" class="{{c.treeCls}}" ng-click="treeClick(c)"/>
-				<img ng-if="c.tree===5"  ng-src="{{$root.day.plant_mucu}}" class="{{c.treeCls}}" ng-click="treeClick(c)"/>
+				<img ng-if="c.tree===1"  ng-src="{{gameState.plant_ajdaret}}" class="{{c.treeCls}}" ng-click="treeClick(c)"/>
+				<img ng-if="c.tree===2"  ng-src="{{gameState.plant_crven_delishes}}" class="{{c.treeCls}}" ng-click="treeClick(c)"/>
+				<img ng-if="c.tree===3"  ng-src="{{gameState.plant_zlaten_delishes}}" class="{{c.treeCls}}" ng-click="treeClick(c)"/>
+				<img ng-if="c.tree===4"  ng-src="{{gameState.plant_jonalgold}}" class="{{c.treeCls}}" ng-click="treeClick(c)"/>
+				<img ng-if="c.tree===5"  ng-src="{{gameState.plant_mucu}}" class="{{c.treeCls}}" ng-click="treeClick(c)"/>
 			</div>
 			
 		</div>
@@ -23,5 +23,5 @@
 </div>
 
 <img src="/public/images/backgrounds/side-trees.png" class="side-trees"/>
-<img ng-show="$root.day.eco_points>50" src="/public/images/backgrounds/lake-2.png" class="lake"/>
-<img ng-show="$root.day.eco_points<=50" src="/public/images/backgrounds/lake-1.png" class="lake"/>
+<img ng-show="gameState.eco_points>50" src="/public/images/backgrounds/lake-2.png" class="lake"/>
+<img ng-show="gameState.eco_points<=50" src="/public/images/backgrounds/lake-1.png" class="lake"/>
