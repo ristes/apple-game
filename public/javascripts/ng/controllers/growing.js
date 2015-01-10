@@ -4,13 +4,12 @@ Game.controller('GrowingStateController', [
     '$farmer',
     '$weather',
     '$window',
-    '$plantation',
+    'Plantation',
     'Diseases',
     'State',
-    function($scope, MonthOperations, $farmer, $weather, $window, $plantation, Diseases, State) {
+    function($scope, MonthOperations, $farmer, $weather, $window, Plantation, Diseases, State) {
 
         $scope.nextDay = true;
-
 
         $scope.gameState = State.gameState();
 
@@ -47,8 +46,8 @@ Game.controller('GrowingStateController', [
 
 
 
-        $plantation.load(function() {
-            $scope.coords = JSON.parse($scope.$root.plantation.treePositions);
+        Plantation.load(function() {
+            $scope.coords = JSON.parse(State.getByField("plantation").treePositions);
             $scope.seedling = $scope.coords.length;
             $scope.totalSeedling = $scope.coords.length;
 

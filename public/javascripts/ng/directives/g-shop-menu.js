@@ -50,8 +50,9 @@ GameDirectives.directive('gShopMenu', [
                 });
 
                 scope.price = function(item) {
-                    if (item.perHa && item.price && scope.$root.plantation) {
-                        return item.price * scope.$root.plantation.area;
+                    scope.plantation = State.getByField("plantation");
+                    if (item.perHa && item.price && scope.plantation) {
+                        return item.price * scope.plantation.area;
                     } else {
                         return item.price;
                     }

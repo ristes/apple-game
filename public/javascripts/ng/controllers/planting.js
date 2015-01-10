@@ -2,12 +2,12 @@ Game.controller('PlantingStateController', [
     '$scope',
     'Operations',
     '$farmer',
-    '$plantation',
+    'Plantation',
     '$weather',
     '$window',
     'Planting',
     'State',
-    function($scope, Operations, $farmer, $plantation, $weather, $window,
+    function($scope, Operations, $farmer, Plantation, $weather, $window,
         Planting, State) {
 
         $scope.availableSeedlings = 0;
@@ -43,12 +43,18 @@ Game.controller('PlantingStateController', [
         $farmer.load();
         $scope.actions = Operations['planting'];
 
-        if (!$scope.$root.plantation) {
-            $plantation.load();
+        $scope.plantation = State.getByField("plantation");
+
+        if (!$scope.plantation) {
+            Plantation.load(function(data) {
+                $scope.plantation = data;
+                $scope.coords = JSON.parse($scope.plantation.treePositions);
+            });
             $scope.coords = [];
         } else {
-            $scope.coords = JSON.parse($scope.$root.plantation.treePositions);
+            $scope.coords = JSON.parse($scope.plantation.treePositions);
         }
+
         $scope.seedling = $scope.coords.length;
         $scope.totalSeedling = 40;
 
@@ -72,7 +78,7 @@ Game.controller('PlantingStateController', [
                 }
             }
 
-            var data = $plantation.save(JSON.stringify($scope.coords),
+            var data = Plantation.save(JSON.stringify($scope.coords),
                 $scope.seedling, successPlanting);
             $scope.planting = false;
 
@@ -153,7 +159,7 @@ Game.controller('PlantingStateController', [
                     staticV: false,
                     x: i,
                     y: j,
-                    terrain: $scope.$root.farmer.soil_url,
+                    terrain: State.gameState().soil_url,
                     cls: 'pocva clickable'
                 })
 

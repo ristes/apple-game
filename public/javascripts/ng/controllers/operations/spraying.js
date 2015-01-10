@@ -3,11 +3,11 @@ Game.controller('SprayingController', [
   'Store',
   'BoughtItems',
   '$day',
-  '$spraying',
-  function($scope, Store, BoughtItems, $day, $spraying) {
+  'Spraying',
+  function($scope, Store, BoughtItems, $day, Spraying) {
 
     var showProgress = function(_scope, oper, item) {
-      $spraying.spray(item);
+      Spraying.spray(item);
 
       $scope.$root.$emit('show-progress-global', {
         title: 'progress.' + oper.name,
@@ -42,6 +42,7 @@ Game.controller('SprayingController', [
     	  $scope.$root.$emit('item-bought');
       });
     };
+    
     var unreg = $scope.$root.$on('operation-spraying', function(_s, oper) {
 //      var hasItem = BoughtItems.check('spraying');
       $scope.sprayingOper = oper;

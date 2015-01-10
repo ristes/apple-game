@@ -1,47 +1,44 @@
-4<div ng-if="nextDay">
-	<div id="div_timeline_travel">
-		<div style="padding-left: 10px;">
-			<img class="img img-responsive" style="width: 100px; height: 75px"
-				ng-src="/public/images/seasons/season-{{$root.farmer.season_level}}.png" />
-			<div class="item-store ramka" style="width:100px">
-			<span class="title-text">{{"season."+$root.farmer.season_level | translate}}</span></div>
-		</div>
-		<div class="time-controls ramka">
-			<div class="time-ctrl-btn" tooltip="Next Day" id="div_next_day"
-				ng-click="$root.next()">
-				<span style="margin-right: 5px;" id="span_next_day"></span><i
-					class="glyphicon glyphicon-step-forward"></i>
-			</div>
-			<div class="time-ctrl-btn" tooltip="Next Week" id="div_next_week"
-				ng-click="$root.nextWeek()">
-				<span style="margin-right: 5px;" id="span_next_week"></span><i
-					class="glyphicon glyphicon-forward"></i>
-			</div>
-			<div class="time-ctrl-btn" tooltip="Next Month" id="div_next_month"
-				ng-click="$root.nextMonth()">
-				<span style="margin-right: 5px;"></span><i
-					class="glyphicon glyphicon-fast-forward"></i>
-			</div>
-			<div class="time-ctrl-btn">
-				<a tooltip="Restart"
-					class="div_restart_game glyphicon glyphicon-repeat"
-					href="/fbcontroller/restart" id="div_restart_game"></a>
-			</div>
-		</div>
+4
+<div ng-if="nextDay">
+    <div id="div_timeline_travel">
+        <div style="padding-left: 10px;">
+            <img class="img img-responsive" style="width: 100px; height: 75px" ng-src="/public/images/seasons/season-{{$root.farmer.season_level}}.png" />
+            <div class="item-store ramka" style="width:100px">
+                <span class="title-text">{{"season."+$root.farmer.season_level | translate}}</span>
+            </div>
+        </div>
+        <div class="time-controls ramka">
+            <div class="time-ctrl-btn" tooltip="Next Day" id="div_next_day" ng-click="$root.next()">
+                <span style="margin-right: 5px;" id="span_next_day"></span><i class="glyphicon glyphicon-step-forward"></i>
+            </div>
+            <div class="time-ctrl-btn" tooltip="Next Week" id="div_next_week" ng-click="$root.nextWeek()">
+                <span style="margin-right: 5px;" id="span_next_week"></span><i class="glyphicon glyphicon-forward"></i>
+            </div>
+            <div class="time-ctrl-btn" tooltip="Next Month" id="div_next_month" ng-click="$root.nextMonth()">
+                <span style="margin-right: 5px;"></span><i class="glyphicon glyphicon-fast-forward"></i>
+            </div>
+            <div class="time-ctrl-btn">
+                <a tooltip="Restart" class="div_restart_game glyphicon glyphicon-repeat" href="/fbcontroller/restart" id="div_restart_game"></a>
+            </div>
+        </div>
 
-	</div>
+    </div>
 </div>
 
-<div id="div_next_day" ng-if="planting">
-	<div id="span_next_day">{{availableSeedlings}} {{
-		'seedlings_left' | translate }}</div>
-	<div id="span_next_day">{{ 'base' | translate}} :
-		{{$root.plantation.base}}</div>
-	<div id="span_next_day">
-		<button ng-click="plantingDone()">{{ 'planting_done' |
-			translate}}</button>
-	</div>
+<div class="tip-dialog alert-dismissible row" ng-if="planting" role="alert">
+    <div class="col-md-12">
+        {{availableSeedlings}} {{ 'seedlings_left' | translate }}
+    </div>
+    <div class="col-md-12">
+        {{ 'base' | translate}} : {{plantation.base}}
+    </div>
+    <div class="col-md-12">
+    	{{plantation.base.description}}
+    </div>
+    <button class="btn btn-primary" ng-click="plantingDone()">{{ 'planting_done' | translate}} </button>
 </div>
+
+
 <side-menu weather="weather" actions="actions"></side-menu>
 
 
@@ -69,6 +66,3 @@
 <!-- <div ng-controller="PlantingController"></div> -->
 
 <ng-include src="'/public/_views/scenes/planting.html'"></ng-include>
-
-
-
