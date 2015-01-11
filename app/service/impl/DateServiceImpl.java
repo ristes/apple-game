@@ -29,10 +29,10 @@ public class DateServiceImpl implements DateService{
 		c.setTime(date);
 		int month = c.get(Calendar.MONTH);
 		int day = c.get(Calendar.DAY_OF_MONTH);
-		if (month <= Calendar.DECEMBER && month >= Calendar.NOVEMBER) {
+		if (month >= Calendar.SEPTEMBER) {
 			return false;
 		}
-		if (month == Calendar.NOVEMBER) {
+		if (month == Calendar.SEPTEMBER) {
 			if (day > 1) {
 				return false;
 			}
@@ -41,7 +41,6 @@ public class DateServiceImpl implements DateService{
 	}
 	
 	public int recolteYearByPlantType(Date date, PlantType type) {
-		HarvestingPeriod hp = type.period;
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		int monthCur = cal.get(Calendar.MONTH);

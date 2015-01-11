@@ -9,7 +9,11 @@ import models.HarvestingPeriod;
 import models.PlantType;
 import models.PlantationSeedling;
 import models.SeedlingType;
+import models.Yield;
+import models.YieldPortion;
+import models.YieldPortionSold;
 import service.HarvestService;
+import service.ServiceInjector;
 import service.impl.HarvestServiceImpl;
 import dto.HarvestingInfo;
 import dto.StatusDto;
@@ -26,8 +30,7 @@ public class HarvestingController extends GameController {
 		double goodper = goodcollected / (double) goodtotal;
 		double badper = badcollected / (double) badtotal;
 		farmer = hService.makeHarvesting(farmer, ps, goodper, badper);
-		StatusDto status = new StatusDto(true, "Uspesha berba", "", farmer);
-		JsonController.toJson(status, FARMER_EXCLUDES);
+		JsonController.statusJson(farmer);
 	}
 
 	public static void harvestingPeriod() {
@@ -39,6 +42,14 @@ public class HarvestingController extends GameController {
 
 		List<HarvestingInfo> info = new ArrayList<HarvestingInfo>();
 		for (PlantationSeedling ps : seedlings) {
+			int recolteYear = ServiceInjector.dateService
+					.recolteYear(farmer.gameDate.date);
+			Yield yieldDone = Yield.find(
+					"byYearAndFarmerAndPlantationSeedling", recolteYear,
+					farmer, ps).first();
+			if (yieldDone != null) {
+				continue;
+			}
 			HarvestingPeriod period = ps.seedling.type.period;
 			Calendar gameDate = Calendar.getInstance();
 			gameDate.setTime(farmer.gameDate.date);
@@ -48,8 +59,8 @@ public class HarvestingController extends GameController {
 			start.set(Calendar.YEAR, gameDate.get(Calendar.YEAR));
 
 			HarvestingInfo hi = new HarvestingInfo();
-			long time = start.getTimeInMillis() - gameDate.getTimeInMillis();
-			long days = time / 864000;
+			long time = gameDate.getTimeInMillis() - start.getTimeInMillis();
+			long days = time / 86400000;
 
 			if (days > 9) {
 				hi.iodineStarchUrl = "/public/images/game/harvest-test/9.png";
@@ -68,6 +79,25 @@ public class HarvestingController extends GameController {
 			info.add(hi);
 		}
 		JsonController.toJson(info);
+	}
 
+	public static void getYield() {
+		Farmer farmer = checkFarmer();
+		int recolteYear = ServiceInjector.dateService
+				.recolteYear(farmer.gameDate.date);
+		List<Yield> yieldDone = Yield.find("year=?1 And farmer=?2",
+				recolteYear, farmer).fetch();
+		for (Yield y : yieldDone) {
+			y.storedQuantity = 0;
+			for (YieldPortion yp : y.yieldPortions) {
+				y.storedQuantity += yp.quantity;
+			}
+			for (YieldPortionSold yp : y.yieldPortionsSold) {
+				y.storedQuantity += yp.quantity;
+			}
+		}
+
+		JsonController.toJson(yieldDone, "farmer", "plantation",
+				"percentOfPlantedArea", "price", "period", "seedlingType");
 	}
 }

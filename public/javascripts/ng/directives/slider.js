@@ -35,6 +35,11 @@ GameDirectives.directive('slider', ['jQuery', function($) {
         $(element).slider("value", n);
       });
 
+      scope.$watch('cfg', function(n, o) {
+        if (n == o) { return; }
+        $(element).slider(n);
+      });
+
       $(element).slider(scope.cfg);
     }
   };

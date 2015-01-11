@@ -22,18 +22,21 @@ public class YieldPortionServiceImpl implements YieldPortionService {
 	}
 
 	@Override
-	public Boolean checkDeadline(Farmer farmer, Fridge fridge, YieldPortion portion) {
-		PlantTypeDeadine deadline = PlantTypeDeadine.find("byPlantTypeAndFridge", portion.yield.plantation.seedling.type, fridge).first();
+	public Boolean checkDeadline(Farmer farmer, Fridge fridge,
+			YieldPortion portion) {
+		PlantTypeDeadine deadline = PlantTypeDeadine.find(
+				"byPlantTypeAndFridge",
+				portion.yield.plantationSeedling.seedling.type, fridge).first();
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(farmer.gameDate.date);
 		int monthToday = cal.get(Calendar.MONTH);
 		int dayToday = cal.get(Calendar.DAY_OF_MONTH);
 		cal.setTime(deadline.date);
-		int monthDeadline= cal.get(Calendar.MONTH);
+		int monthDeadline = cal.get(Calendar.MONTH);
 		int dayDeadline = cal.get(Calendar.DAY_OF_MONTH);
-		if (monthDeadline==monthToday && dayDeadline ==dayToday) {
+		if (monthDeadline == monthToday && dayDeadline == dayToday) {
 			return true;
-		} 
+		}
 		return false;
 	}
 

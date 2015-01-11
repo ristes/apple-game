@@ -1,8 +1,15 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import play.db.jpa.Model;
 
@@ -28,12 +35,22 @@ public class Yield extends Model {
 	public Integer year;
 
 	@ManyToOne
-	public PlantationSeedling plantation;
+	@JoinColumn(name = "plantation_id")
+	public PlantationSeedling plantationSeedling;
 
 	/**
 	 * The apple type
 	 */
 	@ManyToOne
 	public SeedlingType type;
+
+	@Transient
+	public int storedQuantity;
+
+	@OneToMany(mappedBy = "yield")
+	public List<YieldPortion> yieldPortions;
+
+	@OneToMany(mappedBy = "yield")
+	public List<YieldPortionSold> yieldPortionsSold;
 
 }

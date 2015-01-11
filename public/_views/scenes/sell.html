@@ -6,7 +6,7 @@
             <img src="{{type.ico}}" style="width: 75%;"></img>
             <div class="shop-label ramka">
                 <span class="shop-label-text"> {{ 'sell' | translate }}
-				</span>
+                </span>
             </div>
         </div>
 
@@ -14,12 +14,13 @@
 
         <div class="shop_menu_grid fa-inverse">
 
-            <div ng-repeat="type in plantation.plantTypes">
-                Unsotred quantity of {{type.name}}:
+            <div ng-repeat="type in plantation.plantTypes" ng-show="storeCfg[type.name].max>0">
+                Unsotred quantity of {{type.name}} ({{storeCfg[type.name].max}} kg): 
+                <button class="btn btn-primary btn-xs" ng-click="sell(type, storeCfg[type.name])">Sell</button>
                 <div slider class="slider" cfg="storeCfg[type.name]" value="storeCfg[type.name].quantity" ng-show="storeCfg[type.name].max"></div>
                 <div>
                     <div>
-                    Store {{storeCfg[type.name].quantity || 0}} kg in:
+                        Store {{storeCfg[type.name].quantity || 0}} kg in:
                     </div>
                     <div class="shop_item_in_grid" ng-repeat="item in fridges">
                         <button class="btn btn-primary btn-xs" ng-click="store(item, type, storeCfg[type.name])">Store here</button>
@@ -30,24 +31,28 @@
             <!-- Prikaz na frizderite -->
             <div class="shop_item_in_grid" ng-repeat="item in fridges">
                 <div class="shop-item-label " ng-if="item.capacity">
+                    <!-- Kupuvanje na kapacitet na frizder -->
+                    <div ng-if="item.fridgeType">
+                        <div slider class="slider" cfg="cfg[item.fridgeType]" value="fridgesCapacity[item.fridgeType].capacity"></div>
+                        <div class="price">{{fridgesCapacity[item.fridgeType].capacity}} kg ({{fridgesCapacity[item.fridgeType].capacity * item.price}} evra)</div>
+                        <button class="btn btn-primary btn-xs" ng-click="buyCapacity(item)">Buy capacity</button>
+                    </div>
                     <!-- Prikaz na raftovite -->
-                    <div ng-repeat="shelf in item.shelfs" ng-click="changeQuantity(shelf)" class="ramka">
+                    <div ng-repeat="shelf in item.shelfs" ng-click="changeQuantity(shelf)" class="ramka" ng-show="shelf.quantity>0">
                         <img ng-src="{{shelf.plantType.imageurl}}" /> {{shelf.plantType.name}}: {{shelf.quantity}}
+
+                        <!-- Remove slider div-->
                         <div ng-if="shelf.changeQuantity">
                             <div slider class="slider" cfg="shelf.cfg" value="shelf.sliderQuantity"></div>
-                            <button class="btn btn-primary btn-xs" ng-click="removeQuantity(shelf)">Move</button>
+                            <button class="btn btn-primary btn-xs" ng-click="removeQuantity(shelf,item)">Move</button>
                         </div>
+
                     </div>
 
-                    <span class="title-text" translate="{{item.fridgeName}}"></span>
+                    <span class="title-text" translate="{{item.fridgeName}} ({{item.used}} / {{item.capacity}})"></span>
+
                 </div>
-                <!-- Kupuvanje na kapacitet na frizder -->
-                <div class="shop-item-label ramka" ng-if="!item.capacity">
-                    <span class="title-text" translate="{{item.fridgeName}}"></span>
-                    <div slider class="slider" cfg="cfg[item.fridgeType]" value="fridgesCapacity[item.fridgeType].capacity"></div>
-                    <div class="price">{{fridgesCapacity[item.fridgeType].capacity * item.price}}</div>
-                    <button class="btn btn-primary btn-xs" ng-click="buyCapacity(item)">Buy capacity</button>
-                </div>
+
             </div>
         </div>
 

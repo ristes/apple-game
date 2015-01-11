@@ -8,18 +8,20 @@ Game.factory('Harvesting', ['$http', 'State', function($http, State) {
                 }
             });
         },
+        getYield: function(callback) {
+            var res = $http.get("/HarvestingController/getYield");
+            res.success(function(data) {
+                if (typeof callback === 'function') {
+                    callback(data);
+                }
+            });
+        },
         harvest: function(gameResult, callback) {
 
             var res = $http({
                 method: 'POST',
                 url: "/HarvestingController/harvest",
-                data: $.param({
-                    goodcollected: 1,
-                    goodtotal: 3,
-                    badcollected: 2,
-                    badtotal: 4,
-                    plantationseedling: 1
-                }),
+                data: $.param(gameResult),
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
@@ -32,6 +34,20 @@ Game.factory('Harvesting', ['$http', 'State', function($http, State) {
                     }
                 }
             });
+        },
+        sell: function(plantTypeId, quantity, callback) {
+            var res = $http({
+                method: 'POST',
+                url: "/SaleController/sell",
+                data: $.param({
+                    plant_id: plantTypeId,
+                    quantity: quantity
+                }),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+            res.then(callback);
         }
     };
 }]);

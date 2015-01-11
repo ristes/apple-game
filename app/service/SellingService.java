@@ -9,6 +9,7 @@ import models.PlantType;
 
 public interface SellingService {
 
-	public double sell(Farmer farmer, Fridge fridge, PlantType plantType,
-			Integer quantity) throws PriceNotValidException, NotEnoughApplesException, NotEnoughMoneyException;
+	public double sell(Farmer farmer, PlantType plantType, Integer quantity)
+			throws PriceNotValidException, NotEnoughApplesException,
+			NotEnoughMoneyException;
 }

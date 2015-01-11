@@ -55,7 +55,7 @@ public class GrowingServiceImpl implements GrowingService {
 					plantType)) {
 				// has been harvested this year to show apples on plant
 				if (Yield
-						.find("byFarmerAndYearAndPlantation.seedling.type.id",
+						.find("byFarmerAndYearAndPlantationSeedling.seedling.type.id",
 								farmer, year, plantType).fetch().size() == 0) {
 					result = checkAppleColor(farmer, plantType);
 					
@@ -64,7 +64,7 @@ public class GrowingServiceImpl implements GrowingService {
 				if (month == Calendar.AUGUST || month == Calendar.SEPTEMBER
 						|| month == Calendar.OCTOBER) {
 					if (Yield
-							.find("byFarmerAndYearAndPlantation.seedling.type.id",
+							.find("byFarmerAndYearAndPlantationSeedling.seedling.type.id",
 									farmer, year, plantType).fetch().size() == 0) {
 						if (!ServiceInjector.harvestService.isAfterHarvestingPeriod(farmer, plantType)) {
 							
