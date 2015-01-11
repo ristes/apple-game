@@ -6,20 +6,58 @@
             <img src="{{type.ico}}" style="width: 75%;"></img>
             <div class="shop-label ramka">
                 <span class="shop-label-text"> {{ 'harvesting' | translate }}
-				</span>
+                </span>
             </div>
         </div>
 
         <div class="shop_arrow" ng-click="hide()"></div>
 
-        <div class="shop_menu_grid fa-inverse" ng-show="!gameActive">
-	        <div class="shop_item_in_grid" ng-repeat="item in harvestingInfo" ng-click="harvest(item)">
-				<img ng-src="{{item.iodineStarchUrl}}" popover-trigger="mouseenter" popover-placement="bottom" popover="harvest"></img>
-				<div class="shop-item-label ramka"  ng-click="harvest(item)">
-					<span class="title-text" translate="{{item.type.name}}"></span>
-				</div>
-				<div>S:{{item.strength}}; rf: {{item.rfValue}}; is: {{item.iodineStarch}}</div>
-			</div>
+        <div class="shop_menu_grid fa-inverse" ng-show="storeHarvest">
+
+            <div>
+                Unsotred quantity:
+                <div slider class="slider" cfg="storeCfg" value="harvest.quantity" ng-show="storeCfg.max"></div>
+                <div>
+                    <div>
+                    Store {{harvest.quantity || 0}} kg in:
+                    </div>
+                    <div class="shop_item_in_grid" ng-repeat="item in fridges">
+                        <button class="btn btn-primary btn-xs" ng-click="store(item)">Store here</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prikaz na frizderite -->
+            <div class="shop_item_in_grid" ng-repeat="item in fridges">
+                <div class="shop-item-label " ng-if="item.capacity">
+                    <!-- Prikaz na raftovite -->
+                    <div ng-repeat="shelf in item.shelfs" ng-click="changeQuantity(shelf)" class="ramka">
+                        <img ng-src="{{shelf.plantType.imageurl}}" /> {{shelf.plantType.name}}: {{shelf.quantity}}
+                        <div ng-if="shelf.changeQuantity">
+                            <div slider class="slider" cfg="shelf.cfg" value="shelf.sliderQuantity"></div>
+                            <button class="btn btn-primary btn-xs" ng-click="removeQuantity(shelf)">Move</button>
+                        </div>
+                    </div>
+
+                    <span class="title-text" translate="{{item.fridgeName}}"></span>
+                </div>
+                <!-- Kupuvanje na kapacitet na frizder -->
+                <div class="shop-item-label ramka" ng-if="!item.capacity">
+                    <span class="title-text" translate="{{item.fridgeName}}"></span>
+                    <div slider class="slider" cfg="cfg[item.fridgeType]" value="fridgesCapacity[item.fridgeType].capacity"></div>
+                    <div class="price">{{fridgesCapacity[item.fridgeType].capacity * item.price}}</div>
+                    <button class="btn btn-primary btn-xs" ng-click="buyCapacity(item)">Buy capacity</button>
+                </div>
+            </div>
+        </div>
+        <div class="shop_menu_grid fa-inverse" ng-show="!gameActive && !storeHarvest">
+            <div class="shop_item_in_grid" ng-repeat="item in harvestingInfo" ng-click="harvest(item)">
+                <img ng-src="{{item.iodineStarchUrl}}" popover-trigger="mouseenter" popover-placement="bottom" popover="harvest"></img>
+                <div class="shop-item-label ramka" ng-click="harvest(item)">
+                    <span class="title-text" translate="{{item.type.name}}"></span>
+                </div>
+                <div>S:{{item.strength}}; rf: {{item.rfValue}}; is: {{item.iodineStarch}}</div>
+            </div>
         </div>
 
         <div class="shop_menu_grid fa-inverse" ng-if="gameActive">
