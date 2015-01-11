@@ -60,6 +60,7 @@ public class HarvestingController extends GameController {
 						+ ".png";
 			}
 
+			hi.plantationSeedlignId = ps.id;
 			hi.type = ps.seedling.type;
 			hi.iodineStarch = 4.8;
 			hi.strength = 6.7;

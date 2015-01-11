@@ -14,6 +14,7 @@ Game.controller('GrowingStateController', [
         $scope.gameState = State.gameState();
 
         State.subscribe("farmer", "GrowingFarmerSubscriber", function(gameState) {
+            $scope.gameState = gameState;
             $scope.actions = MonthOperations['month-' + gameState.month_level];
             $scope.season = gameState.month_level;
         });

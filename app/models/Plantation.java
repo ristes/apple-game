@@ -29,8 +29,6 @@ public class Plantation extends Model {
 	 */
 	public int currentQuantity;
 
-
-
 	/**
 	 * JSON Array representing (x,y) values of every tree positioned on the
 	 * plantation in form of String (javascript parsing) ex:
@@ -82,6 +80,7 @@ public class Plantation extends Model {
 	@ManyToOne
 	public TerrainAnalysis analyse;
 
-	
+	@OneToMany(mappedBy = "plantation")
+	public List<PlantationSeedling> seedlings;
 
 }

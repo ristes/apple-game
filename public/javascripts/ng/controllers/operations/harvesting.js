@@ -50,7 +50,7 @@ Game.controller('HarvestingController', [
         $scope.gameOver = function(result) {
             $scope.gameActive = false;
             // TODO: call harvest service with the result
-
+            Harvesting.harvest(40, 50, 5, 20, $scope.harvest.info.plantationSeedlignId);
             $scope.storeHarvest = true;
             $scope.fridges = Fridge.load();
 

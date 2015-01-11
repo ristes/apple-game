@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -10,6 +11,8 @@ import org.apache.ivy.core.module.status.Status;
 import models.Farmer;
 import models.GameContext;
 import models.ItemInstance;
+import models.PlantType;
+import models.PlantationSeedling;
 import play.cache.Cache;
 import play.db.jpa.JPA;
 import play.mvc.Controller;
@@ -43,7 +46,11 @@ public class AuthController extends GameController {
 			dto.area = farmer.field.area;
 			dto.base = farmer.field.plantation.base.name;
 			dto.treePositions = farmer.field.plantation.treePositions;
-			JsonController.toJson(dto);
+			dto.plantTypes = new ArrayList<PlantType>();
+			for (PlantationSeedling ps : farmer.field.plantation.seedlings) {
+				dto.plantTypes.add(ps.seedling.type);
+			}
+			JsonController.toJson(dto, "period");
 		} else {
 			renderJSON("");
 		}

@@ -15,4 +15,5 @@ public class HarvestingInfo {
 
 	public PlantType type;
 
+	public Long plantationSeedlignId;
 }

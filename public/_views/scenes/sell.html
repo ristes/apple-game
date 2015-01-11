@@ -14,15 +14,15 @@
 
         <div class="shop_menu_grid fa-inverse">
 
-            <div>
-                Unsotred quantity:
-                <div slider class="slider" cfg="storeCfg" value="harvest.quantity" ng-show="storeCfg.max"></div>
+            <div ng-repeat="type in plantation.plantTypes">
+                Unsotred quantity of {{type.name}}:
+                <div slider class="slider" cfg="storeCfg[type.name]" value="storeCfg[type.name].quantity" ng-show="storeCfg[type.name].max"></div>
                 <div>
                     <div>
-                    Store {{harvest.quantity || 0}} kg in:
+                    Store {{storeCfg[type.name].quantity || 0}} kg in:
                     </div>
                     <div class="shop_item_in_grid" ng-repeat="item in fridges">
-                        <button class="btn btn-primary btn-xs" ng-click="store(item)">Store here</button>
+                        <button class="btn btn-primary btn-xs" ng-click="store(item, type, storeCfg[type.name])">Store here</button>
                     </div>
                 </div>
             </div>
