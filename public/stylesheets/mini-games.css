@@ -9,17 +9,17 @@
   font-weight: bold;
 }
 
-.prune svg{
+.prune .game-bg{
   background: #fff;
 }
 
 .prune .cut-point{
-  fill: red;
+  fill: green;
   opacity: 0.4;
   cursor: pointer;
 }
 
 
 .prune .cut{
-  fill: green;
+  fill: red;
 }
