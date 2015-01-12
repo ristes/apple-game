@@ -124,7 +124,7 @@ Game.directive('harvestGame', ['$interval', '$filter',  function($interval, $fil
 
             $scope.tick = function() {
                 // update timer
-                if ($scope.ticks % 60 == 0) {
+                if ($scope.ticks % 30 == 0) {
                     $scope.game.timeLeft--;
                     if ($scope.game.timeLeft <= 0) {
                         $scope.gameEnd();
@@ -167,7 +167,7 @@ Game.directive('harvestGame', ['$interval', '$filter',  function($interval, $fil
                         type: type,
                         x: Math.round(Math.random() * 100),
                         y: 0,
-                        v: (Math.random() * $scope.maxSpeedThreshold) + 0.7,
+                        v: (Math.random() * $scope.maxSpeedThreshold) + 1.7,
                         delete: false
                     }
                     $scope.apples.push(apple);
@@ -198,7 +198,7 @@ Game.directive('harvestGame', ['$interval', '$filter',  function($interval, $fil
 
                 $scope.appleId = 1;
                 $scope.apples = [];
-                $scope.maxSpeedThreshold = 1;
+                $scope.maxSpeedThreshold = 2;
                 $scope.basketPosition = [{
                     x: 50
                 }];
@@ -216,7 +216,7 @@ Game.directive('harvestGame', ['$interval', '$filter',  function($interval, $fil
 
                 $scope.ticks = 0;
 
-                $scope.currentGame = $interval($scope.tick, 1000 / 60);
+                $scope.currentGame = $interval($scope.tick, 1000 / 30);
             }
 
             $scope.startGame();
