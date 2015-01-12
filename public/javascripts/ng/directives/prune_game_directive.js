@@ -10,22 +10,22 @@ Game.directive('pruneGame', ['$interval', function($interval) {
     },
     templateUrl: '/public/_views/prune_game.html',
 
-    link: function($scope, element, attrs){
+    link: function(scope, element, attrs){
 
-      $scope.render = function(){
+      scope.render = function(){
         element.find('.game-viewport').empty();
         var svg = d3.select('.game-viewport')
           .attr("width", 400)
           .attr("height", 400)
-          .style("background", "url(/public/images/mini-games/pruning-year-" + $scope.year + "-small.png)")
+          .style("background", "url(/public/images/mini-games/pruning-year-" + scope.year + "-small.png)")
           .on('click', function(){
-            console.log("X: " + d3.event.offsetX);
-            console.log("Y: " + d3.event.offsetY);
-            console.log("==============");
+            // console.log("X: " + d3.event.offsetX);
+            // console.log("Y: " + d3.event.offsetY);
+            // console.log("==============");
           })
 
         svg.selectAll('.cut-point')
-          .data($scope.cutPoints)
+          .data(scope.cutPoints)
           .enter()
           .append('circle')
             .classed('cut-point', true)
@@ -35,18 +35,17 @@ Game.directive('pruneGame', ['$interval', function($interval) {
             .attr('cy', function(d){ return d.y})
             .on('click', function(d){
               d.clicked = !d.clicked;
-              console.log(d.type, d.x, d.y);
-              $scope.render();
+              // console.log(d.type, d.x, d.y);
+              scope.render();
             })
 
       }
 
-      $scope.finnishGame = function(){
-        var totalBranches = $scope.cutPoints.length;
+      scope.finnishGame = function(){
+        var totalBranches = scope.cutPoints.length;
         var correctCuts = 0;
 
-        $scope.cutPoints.forEach(function(p){
-          console.log(p);
+        scope.cutPoints.forEach(function(p){
           if (p.type === 'cut'){
             if (p.clicked){
               correctCuts++
@@ -57,13 +56,12 @@ Game.directive('pruneGame', ['$interval', function($interval) {
             }
           }
         })
-
-        alert('Correct: ' + correctCuts + ' out of: ' + totalBranches);
+        scope.gameOver({total: totalBranches, correct: correctCuts});
       }
 
-      $scope.startGame = function(){
-        if ($scope.year == "1"){
-          $scope.cutPoints = [
+      scope.startGame = function(){
+        if (scope.year == "1"){
+          scope.cutPoints = [
             {x: 170, y: 212, type: 'no-cut', clicked: false},
             {x: 159, y: 136, type: 'cut', clicked: false},
             {x: 171, y: 113, type: 'no-cut', clicked: false},
@@ -72,7 +70,7 @@ Game.directive('pruneGame', ['$interval', function($interval) {
             {x: 203, y: 264, type: 'no-cut', clicked: false},
           ]
         } else {
-          $scope.cutPoints = [
+          scope.cutPoints = [
             {x: 165, y: 299, type: 'no-cut', clicked: false},
             {x: 121, y: 303, type: 'no-cut', clicked: false},
             {x: 140, y: 218 , type: 'no-cut', clicked: false},
@@ -93,13 +91,13 @@ Game.directive('pruneGame', ['$interval', function($interval) {
           ]
         }
 
-        $scope.render();
+        scope.render();
       }
 
-      $scope.startGame();
+      scope.startGame();
 
-      $scope.$watch('cutPoints', function(){
-        $scope.render();
+      scope.$watch('cutPoints', function(){
+        scope.render();
       }, true);
     }
   };

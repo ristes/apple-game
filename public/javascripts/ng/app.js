@@ -2,7 +2,7 @@
 
 // Declare app level module which depends on filters, and services
 var Game = angular.module('Game', ['Game.filters', 'Game.services',
-    'Game.directives', 'ezfb'
+    'Game.directives', 'ezfb', 'smart-table'
 ]);
 
 Game.config([

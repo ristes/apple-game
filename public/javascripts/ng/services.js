@@ -420,7 +420,7 @@ Game.factory('Operations', ['$resource', '$rootScope',
         order: 2
       }, {
         ico: "/public/images/game/operations/clothing.png",
-        name: 'clothing',
+        name: 'pruning',
         price: 100,
         duration: 50,
         order: 4

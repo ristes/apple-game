@@ -21,14 +21,14 @@
                 <div>S:{{item.strength}}; rf: {{item.rfValue}}; is: {{item.iodineStarch}}</div>
             </div>
             <div ng-if="!harvestingInfo">
-                Harvesting done :) 
+                Harvesting done :)
                 <button class="btn btn-primary" ng-click="sell()">Store and Trade apples</button>
             </div>
         </div>
 
         <div class="shop_menu_grid fa-inverse" ng-if="gameActive">
             <div class="harvest">
-                <harvest-game game="game" g-height="300" g-width="350" game-over="gameOver" apples="apples" active="gameActive">
+                <harvest-game game="game" g-height="400" g-width="350" game-over="gameOver" apples="apples" active="gameActive">
                 </harvest-game>
             </div>
         </div>

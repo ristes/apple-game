@@ -1,4 +1,4 @@
-Game.directive('harvestGame', ['$interval', function($interval) {
+Game.directive('harvestGame', ['$interval', '$filter',  function($interval, $filter) {
     return {
         restrict: 'E',
         scope: {
@@ -17,7 +17,6 @@ Game.directive('harvestGame', ['$interval', function($interval) {
             var width = $scope.gWidth || 400;
             var height = $scope.gHeight || 500;
             var padding = 50;
-            var basketHeight = 20;
             var svg = d3.select('.game-viewport')
                 .attr("width", width)
                 .attr("height", height);
@@ -74,7 +73,7 @@ Game.directive('harvestGame', ['$interval', function($interval) {
                 // apples
                 $scope.vis = $scope.appleContainer.selectAll(".apple")
                     .data($scope.apples, function(d) {
-                        return d.id
+                        return d.id;
                     })
                     .attr("transform", function(d) {
                         return "translate(" + xScale(d.x) + "," + yScale(d.y) + ")";
@@ -97,7 +96,7 @@ Game.directive('harvestGame', ['$interval', function($interval) {
                 var basketPosition = function(d, i) {
                     var basketPos = xScale(d.x);
                     // basketPos = basketPos - xScale($scope.game.basketWidth) / 2;
-                    return "translate(" + basketPos + "," + (yScale(97) - $scope.game.basketWidth) + ")";
+                    return "translate(" + basketPos + "," + (yScale(97) - $scope.game.basketHeight) + ")";
                 }
 
                 // basket
@@ -125,7 +124,7 @@ Game.directive('harvestGame', ['$interval', function($interval) {
 
             $scope.tick = function() {
                 // update timer
-                if ($scope.ticks % 60 == 0) {
+                if ($scope.ticks % 30 == 0) {
                     $scope.game.timeLeft--;
                     if ($scope.game.timeLeft <= 0) {
                         $scope.gameEnd();
@@ -138,7 +137,7 @@ Game.directive('harvestGame', ['$interval', function($interval) {
                 $scope.apples.forEach(function(apple, i) {
                     if (apple) {
                         apple.y += apple.v;
-                        var hitPoint = yScale(97) - $scope.game.basketWidth;
+                        var hitPoint = yScale(97) - $scope.game.basketHeight;
                         if (yScale(apple.y) >= hitPoint) {
                             // check if apple was caught
                             if ((apple.x > $scope.basketPosition[0].x) && (apple.x < $scope.basketPosition[0].x + $scope.game.basketWidth)) {
@@ -150,13 +149,15 @@ Game.directive('harvestGame', ['$interval', function($interval) {
                                 }
                                 $scope.hit = "_hit";
 
-                                $scope.apples.splice(i, 1);
                             } else {
                                 $scope.hit = "";
                             }
+                            apple.delete = true;
                         }
                     }
                 });
+
+                $scope.apples = $filter('filter')($scope.apples, {delete: false}, true);
 
                 // add an apple every x frames
                 if ($scope.game.timeLeft > 5 && $scope.ticks % $scope.game.dropAppleInterval == 0) {
@@ -166,7 +167,8 @@ Game.directive('harvestGame', ['$interval', function($interval) {
                         type: type,
                         x: Math.round(Math.random() * 100),
                         y: 0,
-                        v: (Math.random() * $scope.maxSpeedThreshold) + 0.7
+                        v: (Math.random() * $scope.maxSpeedThreshold) + 1.7,
+                        delete: false
                     }
                     $scope.apples.push(apple);
 
@@ -193,10 +195,10 @@ Game.directive('harvestGame', ['$interval', function($interval) {
 
             $scope.startGame = function() {
                 $interval.cancel($scope.currentGame);
-                
+
                 $scope.appleId = 1;
                 $scope.apples = [];
-                $scope.maxSpeedThreshold = 1;
+                $scope.maxSpeedThreshold = 2;
                 $scope.basketPosition = [{
                     x: 50
                 }];
@@ -206,14 +208,15 @@ Game.directive('harvestGame', ['$interval', function($interval) {
                     totalBad: 0,
                     goodCaught: 0,
                     badCaught: 0,
-                    basketWidth: 6,
+                    basketWidth: 8,
+                    basketHeight: 20,
                     timeLeft: 60,
                     dropAppleInterval: 60
                 }
 
                 $scope.ticks = 0;
 
-                $scope.currentGame = $interval($scope.tick, 1000 / 60);
+                $scope.currentGame = $interval($scope.tick, 1000 / 30);
             }
 
             $scope.startGame();

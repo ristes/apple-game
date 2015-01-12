@@ -34,7 +34,7 @@ Game.factory('MonthOperations', ['$resource', '$rootScope',
                 order: 5
             }, {
                 ico: "/public/images/game/operations/clothing.png",
-                name: 'clothing',
+                name: 'pruning',
                 price: 100,
                 duration: 50,
                 order: 4
@@ -75,7 +75,7 @@ Game.factory('MonthOperations', ['$resource', '$rootScope',
                 order: 4
             }, {
                 ico: "/public/images/game/operations/clothing.png",
-                name: 'clothing',
+                name: 'pruning',
                 price: 100,
                 duration: 50,
                 order: 5
@@ -108,7 +108,7 @@ Game.factory('MonthOperations', ['$resource', '$rootScope',
                 order: 5
             }, {
                 ico: "/public/images/game/operations/clothing.png",
-                name: 'clothing',
+                name: 'pruning',
                 price: 100,
                 duration: 50,
                 order: 4
@@ -460,7 +460,7 @@ Game.factory('MonthOperations', ['$resource', '$rootScope',
                 order: 2
             }, {
                 ico: "/public/images/game/operations/clothing.png",
-                name: 'clothing',
+                name: 'pruning',
                 price: 100,
                 duration: 50,
                 order: 4
