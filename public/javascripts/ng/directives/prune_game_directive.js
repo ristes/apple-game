@@ -57,8 +57,7 @@ Game.directive('pruneGame', ['$interval', function($interval) {
             }
           }
         })
-
-        alert('Correct: ' + correctCuts + ' out of: ' + totalBranches);
+        $scope.gameOver({total: totalBranches, correct: correctCuts});
       }
 
       $scope.startGame = function(){

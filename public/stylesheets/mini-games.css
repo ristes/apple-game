@@ -1,3 +1,7 @@
+.harvest{
+  text-align: center;
+}
+
 .harvest svg{
   background: url(/public/images/mini-games/collect-game-bg.png);
   background-size: 1000px 500px;
@@ -11,6 +15,7 @@
 
 .prune .game-bg{
   background: #fff;
+  text-align: center;
 }
 
 .prune .cut-point{

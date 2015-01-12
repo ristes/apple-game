@@ -1,6 +1,6 @@
 Game.controller('ClothingController', ['$scope', function($scope) {
 
-    var unreg = $scope.$root.$on('operation-clothing', function(_s, oper) {
+    var unreg = $scope.$root.$on('operation-pruning', function(_s, oper) {
         $scope.type = oper;
         $scope.gameActive = true;
         $scope.visible = true;
