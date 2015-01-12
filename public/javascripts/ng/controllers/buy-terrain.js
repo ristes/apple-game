@@ -34,7 +34,7 @@ Game.controller('BuyTerrainController', ['$scope', '$farmer', 'Terrain',
           terrainId: item.id,
           size: $scope.size,
           price: item.price,
-          currentState: "/buy_seedlings"
+          currentState: "/buy_base"
         }, null, function(result) {
           if (result.balans) {
             $scope.$root.$emit('shop-hide');

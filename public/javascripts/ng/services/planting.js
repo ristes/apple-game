@@ -28,7 +28,7 @@ Game.factory('Planting', [ '$http', 'State', function($http, State) {
 		buySeedlings : function(seedlings, callback) {
 			var url = "/PlantationController/buySeedlings";
 			var params = {
-				nextState : '/buy_base'
+				nextState : '/plowing'
 			};
 			for (var i = 0; i < seedlings.length; i++) {
 				params['s' + i] = seedlings[i];
@@ -59,7 +59,7 @@ Game.factory('Planting', [ '$http', 'State', function($http, State) {
 			var url = "/PlantationController/buyBase";
 			var params = {
 				base : base,
-				nextState : '/plowing'
+				nextState : '/buy_seedlings'
 			};
 			var res = $http({
 				method : "POST",

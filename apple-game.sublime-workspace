@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"bad",
+				"badCaught"
+			],
+			[
+				"yi",
+				"yield"
+			],
+			[
+				"yie",
+				"yields"
+			],
+			[
+				"plan",
+				"plantTypeId"
+			],
+			[
+				"slide",
+				"sliderQuantity"
+			],
+			[
+				"plantty",
+				"plantTypeName"
+			],
+			[
+				"store",
+				"storeCfg"
+			],
+			[
 				"slid",
 				"sliderQuantity"
 			],
@@ -288,34 +316,10 @@
 			}
 		},
 		{
-			"file": "public/javascripts/ng/controllers/planting.js",
-			"settings":
-			{
-				"buffer_size": 5295,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "public/_views/plantation.html",
-			"settings":
-			{
-				"buffer_size": 2969,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "public/templates/tip-dialog.html",
-			"settings":
-			{
-				"buffer_size": 559,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "public/_views/scenes/sell.html",
 			"settings":
 			{
-				"buffer_size": 2608,
+				"buffer_size": 3026,
 				"line_ending": "Windows"
 			}
 		},
@@ -323,15 +327,7 @@
 			"file": "public/javascripts/ng/controllers/operations/sell.js",
 			"settings":
 			{
-				"buffer_size": 2943,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "public/javascripts/ng/services/fridge.js",
-			"settings":
-			{
-				"buffer_size": 793,
+				"buffer_size": 4387,
 				"line_ending": "Unix"
 			}
 		},
@@ -339,7 +335,7 @@
 			"file": "public/javascripts/ng/controllers/operations/harvesting.js",
 			"settings":
 			{
-				"buffer_size": 4448,
+				"buffer_size": 2413,
 				"line_ending": "Windows"
 			}
 		},
@@ -347,7 +343,23 @@
 			"file": "public/_views/scenes/harvesting.html",
 			"settings":
 			{
-				"buffer_size": 3593,
+				"buffer_size": 1622,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/javascripts/ng/directives/userInfo.js",
+			"settings":
+			{
+				"buffer_size": 1402,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/templates/user-info.html",
+			"settings":
+			{
+				"buffer_size": 2425,
 				"line_ending": "Windows"
 			}
 		}
@@ -418,7 +430,6 @@
 		"/C/workspaces/web/apple-game/public/javascripts",
 		"/C/workspaces/web/apple-game/public/javascripts/ng",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers",
-		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/operations",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/directives",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/global",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/services",
@@ -426,6 +437,20 @@
 	],
 	"file_history":
 	[
+		"/C/workspaces/web/apple-game/public/templates/user-info.html",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/services/harvesting.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/services/fridge.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/directives/slider.js",
+		"/C/workspaces/web/apple-game/public/bower_components/select2/select2_locale_id.js",
+		"/C/workspaces/web/apple-game/public/bower_components/select2/select2_locale_ar.js",
+		"/C/workspaces/web/apple-game/public/templates/side-menu.html",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/filters.js",
+		"/C/workspaces/web/apple-game/public/_views/plantation.html",
+		"/C/workspaces/web/apple-game/public/_views/prune_game.html",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/planting.js",
+		"/C/workspaces/web/apple-game/public/templates/tip-dialog.html",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/growing.js",
+		"/C/workspaces/web/apple-game/public/javascripts/ng/directives/harvest_game_directive.js",
 		"/C/workspaces/web/apple-game/public/bower_components/ng-table/karma.conf.js",
 		"/C/workspaces/web/apple-game/public/bower_components/jquery-ui/ui/i18n/jquery.ui.datepicker-ro.js",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/operations/clothing.js",
@@ -437,14 +462,11 @@
 		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/operations/digging.js",
 		"/C/workspaces/web/apple-game/public/_views/scenes/deseases.html",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/operations/deep-plowing.js",
-		"/C/workspaces/web/apple-game/public/javascripts/ng/directives/harvest_game_directive.js",
 		"/C/workspaces/web/apple-game/public/_views/scenes/harvesting.html",
-		"/C/workspaces/web/apple-game/public/javascripts/ng/services/harvesting.js",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/operations/harvesting.js",
 		"/C/workspaces/web/apple-game/public/_views/scenes/fertilization.html",
 		"/C/workspaces/web/apple-game/public/_views/scenes/planting.html",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/tips.js",
-		"/C/workspaces/web/apple-game/public/templates/tip-dialog.html",
 		"/C/workspaces/web/apple-game/public/javascripts/toolbar.js",
 		"/C/workspaces/web/apple-game/public/bower_components/jquery/src/css/addGetHookIf.js",
 		"/C/workspaces/web/apple-game/public/templates/weather-info.html",
@@ -457,13 +479,11 @@
 		"/C/workspaces/web/apple-game/public/stylesheets/main.css",
 		"/C/workspaces/web/apple-game/public/i18n/mk.json",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/services/planting.js",
-		"/C/workspaces/web/apple-game/public/_views/plantation.html",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/services/info-table.js",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/app.js",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/operations/spraying.js",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/services/spraying.js",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/services/fertilize.js",
-		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/growing.js",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/operations/fertilizing.js",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/directives/g-shop-menu.js",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/directives/shop-menu.js",
@@ -473,16 +493,12 @@
 		"/C/workspaces/web/apple-game/public/javascripts/ng/services/plantation.js",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/services/soil-analyse.js",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/services/preloader.js",
-		"/C/workspaces/web/apple-game/public/templates/side-menu.html",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/directives/side-menu.js",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/services/state.js",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/services/terrain.js",
 		"/C/workspaces/web/apple-game/public/javascripts/terrainShop.js",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/services/initialization.js",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/directives/userInfo.js",
-		"/C/workspaces/web/apple-game/public/templates/user-info.html",
-		"/C/workspaces/web/apple-game/public/bower_components/select2/select2_locale_ar.js",
-		"/C/workspaces/web/apple-game/public/javascripts/ng/controllers/planting.js",
 		"/C/workspaces/web/apple-game/public/_views/login.html",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/directives/directives-test.js",
 		"/C/workspaces/web/apple-game/public/templates/test-dialog.html",
@@ -523,7 +539,6 @@
 		"/C/workspaces/web/apple-game/public/bower_components/select2/select2_locale_ro.js",
 		"/C/workspaces/web/apple-game/data/coefs_irrigation.yml",
 		"/C/workspaces/web/apple-game/data/._coefs_irrigation.yml3417985707461257759.tmp",
-		"/C/workspaces/web/apple-game/public/bower_components/select2/select2_locale_id.js",
 		"/C/workspaces/web/apple-game/public/javascripts/ng/directives/info-table.js",
 		"/C/workspaces/web/apple-game/public/javascripts/sprites.js",
 		"/C/workspaces/web/apple-game/public/bower_components/select2/select2_locale_pl.js",
@@ -549,15 +564,11 @@
 		"/C/workspaces/web/apple-game/public/bower_components/angular-motion/src/slide/docs/slide.demo.html",
 		"/C/workspaces/web/apple-game/public/javascripts/shopwindow.js",
 		"/C/workspaces/web/apple-game/public/bower_components/select2/select2_locale_he.js",
-		"/C/workspaces/web/apple-game/public/javascripts/scenes/baseShop.js",
-		"/C/workspaces/web/apple-game/public/javascripts/scenes/loadingScene.js",
-		"/C/workspaces/web/apple-game/public/javascripts/scenes/seedlingShop.js",
-		"/C/workspaces/web/apple-game/public/javascripts/scenes/shop.js",
-		"/C/workspaces/web/apple-game/public/bower_components/bootstrap/test-infra/npm-shrinkwrap.canonical.json"
+		"/C/workspaces/web/apple-game/public/javascripts/scenes/baseShop.js"
 	],
 	"find":
 	{
-		"height": 36.0
+		"height": 56.0
 	},
 	"find_in_files":
 	{
@@ -581,6 +592,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"                    \n",
+			"100",
+			"storecfg",
 			"shriber",
 			"harvestingInfo",
 			"plant",
@@ -705,10 +719,7 @@
 			"$root.storeItems",
 			"'StoreItems'",
 			"StoreItems",
-			"{\n",
-			"storeitems",
-			"pop",
-			"Followers"
+			"{\n"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -745,7 +756,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -775,111 +786,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "public/javascripts/ng/controllers/planting.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5295,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1241,
-								1241
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
 					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "public/_views/plantation.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2969,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1438,
-								1438
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 180.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "public/templates/tip-dialog.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 559,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								559
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
+					"buffer": 1,
 					"file": "public/_views/scenes/sell.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2608,
+						"buffer_size": 3026,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2387,
-								2387
+								1985,
+								1985
 							]
 						],
 						"settings":
@@ -892,24 +816,24 @@
 						"translation.y": 300.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 2,
 					"file": "public/javascripts/ng/controllers/operations/sell.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2943,
+						"buffer_size": 4387,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								969,
-								969
+								1288,
+								1780
 							]
 						],
 						"settings":
@@ -919,57 +843,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 180.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "public/javascripts/ng/services/fridge.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 793,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								688,
-								688
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 600.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 3,
 					"file": "public/javascripts/ng/controllers/operations/harvesting.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4448,
+						"buffer_size": 2413,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1538,
-								1891
+								2026,
+								2026
 							]
 						],
 						"settings":
@@ -979,27 +873,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 660.0,
+						"translation.y": 1140.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 4,
 					"file": "public/_views/scenes/harvesting.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3593,
+						"buffer_size": 1622,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								494,
-								2634
+								1166,
+								1166
 							]
 						],
 						"settings":
@@ -1007,6 +901,65 @@
 							"syntax": "Packages/HTML/HTML.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "public/javascripts/ng/directives/userInfo.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1402,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								80,
+								80
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "public/templates/user-info.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2425,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								977,
+								977
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 120.0,
@@ -1064,6 +1017,30 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"user-info",
+				"templates\\user-info.html"
+			],
+			[
+				"userinfo.js",
+				"javascripts\\ng\\directives\\userInfo.js"
+			],
+			[
+				"slider",
+				"javascripts\\ng\\directives\\slider.js"
+			],
+			[
+				"fird",
+				"javascripts\\ng\\services\\fridge.js"
+			],
+			[
+				"harvesting.js",
+				"javascripts\\ng\\services\\harvesting.js"
+			],
+			[
+				"growing",
+				"javascripts\\ng\\controllers\\growing.js"
+			],
 			[
 				"plowing",
 				"javascripts\\ng\\controllers\\plowing_scene.js"
@@ -1125,10 +1102,6 @@
 				"javascripts\\ng\\directives\\side-menu.js"
 			],
 			[
-				"growing",
-				"javascripts\\ng\\controllers\\growing.js"
-			],
-			[
 				"planting.js",
 				"javascripts\\ng\\controllers\\planting.js"
 			],
@@ -1187,10 +1160,6 @@
 			[
 				"harvesting.sj",
 				"javascripts\\ng\\controllers\\operations\\harvesting.js"
-			],
-			[
-				"harvesting.js",
-				"javascripts\\ng\\services\\harvesting.js"
 			],
 			[
 				"app.js",
@@ -1559,22 +1528,6 @@
 			[
 				"tasks.html",
 				"src\\main\\webapp\\forms\\tasks.html"
-			],
-			[
-				"tasks.tml",
-				"src\\main\\webapp\\forms\\tasks.html"
-			],
-			[
-				"crud",
-				"src\\main\\webapp\\directives\\crud.html"
-			],
-			[
-				"directi",
-				"src\\main\\webapp\\resources\\js\\directives.js"
-			],
-			[
-				"assign_page",
-				"src\\main\\webapp\\forms\\hr\\assign_page.html"
 			]
 		],
 		"width": 0.0
