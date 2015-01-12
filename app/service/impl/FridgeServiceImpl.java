@@ -134,6 +134,9 @@ public class FridgeServiceImpl implements FridgeService {
 		FridgeUsageDto usage = new FridgeUsageDto();
 		Fridge fridge = Fridge.find("byFarmerAndType", farmer, fridgeType)
 				.first();
+		if (fridge==null) {
+			return null;
+		}
 		List<YieldPortion> portions = YieldPortion.find(
 				"fridge.farmer=?1 And fridge.type=?2 And yield.year=?3",
 				farmer, fridgeType,
@@ -160,9 +163,18 @@ public class FridgeServiceImpl implements FridgeService {
 	@Override
 	public List<FridgeUsageDto> getFarmerFridges(Farmer farmer) {
 		List<FridgeUsageDto> result = new ArrayList<FridgeUsageDto>();
-		result.add(getFridgeUsage(farmer, FridgeService.NO_FRIDGE));
-		result.add(getFridgeUsage(farmer, FridgeService.NA_FRIDGE));
-		result.add(getFridgeUsage(farmer, FridgeService.CA_FRIDGE));
+		FridgeUsageDto usageNo = getFridgeUsage(farmer, FridgeService.NO_FRIDGE);
+		if (usageNo!=null) {
+			result.add(usageNo);
+		}
+		FridgeUsageDto usageNA = getFridgeUsage(farmer, FridgeService.NA_FRIDGE);
+		if (usageNA!=null) {
+			result.add(usageNA);
+		}
+		FridgeUsageDto usageCA = getFridgeUsage(farmer, FridgeService.CA_FRIDGE);
+		if (usageCA!=null) {
+			result.add(usageCA);
+		}
 		return result;
 	}
 

@@ -34,7 +34,7 @@ public class SprayingController extends Controller {
 		executed.itemInstance = instance;
 		executed.save();
 		ServiceInjector.farmerService.subtractEcoPoints(farmer,1);	
-		JsonController.farmerJson(farmer);
+		JsonController.statusJson(farmer);
 	}
 
 }

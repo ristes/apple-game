@@ -44,14 +44,14 @@
 			</div>
 		</div>
 		<div ng-if="quiz_completed" class="row">
-			<span>{{'quiz_results'|translate}}</span>
-			<div class="col-md-6 center">
-				<img src="/public/images/home/apples_gained.png" style="width: 52%;" />
-				<div class="item-store ramka">+{{apples_gained}}kg</div>
+			<div>{{'quiz_results'|translate}}</div>
+			<div class="col-md-6">
+				<img src="/public/images/home/apples_gained.png" style="width: 20%;" />
+				<div class="item-store ramka" style="width:50%; margin-left:25%"><span class="title-text">+{{apples_gained}} kg</span></div>
 			</div>
-			<div class="col-md-6 center">
-				<img src="/public/images/home/eco_gained.png" style="width: 75%;" />
-				<div class="item-store ramka">+{{eco_gained}}eco</div>
+			<div class="col-md-6">
+				<img src="/public/images/home/eco_gained.png" style="width: 28%;" />
+				<div class="item-store ramka" style="width:50%; margin-left:25%"><span class="title-text">+{{eco_gained}} eco</span></div>
 			</div>
 		</div>
 	</div>

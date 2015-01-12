@@ -53,7 +53,7 @@ public class TerrainShop extends Controller {
 		field.owner = farmer;
 		field.save();
 		farmer.save();
-		JsonController.farmerJson(farmer);
+		JsonController.statusJson(farmer);
 	}
 
 	@Deprecated
@@ -67,7 +67,7 @@ public class TerrainShop extends Controller {
 		Farmer farmer = AuthController.getFarmer();
 		StoreService storeService = new StoreServiceImpl();
 		farmer = storeService.buyBase(farmer, itemid, currentState);
-		JsonController.farmerJson(farmer);
+		JsonController.statusJson(farmer);
 	}
 
 	@Deprecated

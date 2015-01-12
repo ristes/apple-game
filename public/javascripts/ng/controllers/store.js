@@ -26,8 +26,8 @@ Game.controller('StoreController', ['$scope', '$translate', '$http', 'Store',
         price: item.price,
         currentState: "/" + $scope.nextState
       }, null, function(result) {
-        if (result.balans) {
-          $farmer.swap(result);
+        if (result.farmer.balans) {
+          $farmer.swap(result.farmer);
           $day.load(result);
           BoughtItems.add($scope.store, item);
           $scope.$root.$emit('shop-hide');

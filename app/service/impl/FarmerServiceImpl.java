@@ -137,6 +137,7 @@ public class FarmerServiceImpl implements FarmerService {
 		if (farmer.deltaCumulative > 50) {
 			farmer.deltaCumulative = 50d;
 		}
+		farmer.save();
 		return farmer;
 	}
 

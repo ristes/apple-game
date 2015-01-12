@@ -67,7 +67,7 @@ public class ContextServiceImpl implements ContextService {
 			if (prevDay != null) {
 				Calendar c = Calendar.getInstance();
 
-				Integer randm = ServiceInjector.randomGeneratorService.random(0.0, 7.0).intValue();
+				Integer randm = ServiceInjector.randomGeneratorService.random(0.0, 4.0).intValue();
 				result += rainCoefForMonth(c.get(Calendar.MONTH)) * randm;
 			}
 
@@ -82,7 +82,7 @@ public class ContextServiceImpl implements ContextService {
 		c.setTime(farmer.gameDate.date);
 		Day today = farmer.gameDate;
 		if (today.weatherType.id.equals(C.WEATHER_TYPE_RAINY)) {
-			Integer randm = ServiceInjector.randomGeneratorService.random(0.1, 8.0).intValue();
+			Integer randm = ServiceInjector.randomGeneratorService.random(0.1, 4.0).intValue();
 			farmer.deltaCumulative += rainCoefForMonth(c.get(Calendar.MONTH))
 					* randm;
 		} else if (today.weatherType.id.equals(C.WEATHER_TYPE_SUNNY)) {
