@@ -70,7 +70,7 @@ public class Application extends GameController {
 	}
 
 	public static void rankings() throws Exception{
-		List<Farmer> farmers = Farmer.findAll();
+		List<Farmer> farmers = Farmer.find("is_active=?1",true).fetch();
 		renderJSON(JsonController.toJsonString(farmers));
 	}
 

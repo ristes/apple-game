@@ -8,7 +8,7 @@ public class FieldDaoImpl implements FieldDao{
 
 	public Boolean hasTensiometerSystem(Farmer farmer) {
 		ItemInstance tensiometerSystem = ItemInstance.find(
-				"byType.nameAndownedBy", "tensiometer", farmer).first();
+				"byType.nameAndownedBy", "tensiometers", farmer).first();
 		if (tensiometerSystem == null) {
 			return false;
 		}

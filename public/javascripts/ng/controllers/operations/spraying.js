@@ -28,7 +28,7 @@ Game.controller('SprayingController', [
         currentState: $scope.$root.farmer.currentState
       }, null, function(result) {
         if (result.farmer.balans) {
-          $day.load(result.farmer);
+          $day.load(result);
           BoughtItems.load(function() {
             $scope.$root.$emit('shop-hide');
             var boughtItems = BoughtItems.get($scope.sprayingOper.requires)[0];

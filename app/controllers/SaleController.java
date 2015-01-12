@@ -30,6 +30,12 @@ public class SaleController extends GameController {
 		statusDto.additionalInfo = String.valueOf(quantity);
 		JsonController.statusJson(statusDto);
 	}
+	
+	public static void price(Integer plantType) throws PriceNotValidException {
+		Farmer farmer = checkFarmer();
+		ServiceInjector.priceService.price(farmer, (PlantType)PlantType.findById((long)plantType));
+		
+	}
 
 	/*
 	 * public static void sale(Integer quantity) throws JsonGenerationException,

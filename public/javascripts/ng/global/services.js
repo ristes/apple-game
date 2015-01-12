@@ -39,7 +39,12 @@ Game.factory('$day', [
     function($rootScope, State, $http, $weather, Diseases, BoughtItems,
         $location) {
 
-        function onFarmer(farmer) {
+        function onFarmer(data) {
+        	if (data.balans === undefined) {
+        		farmer = data.farmer;
+        	} else {
+        		farmer = data;
+        	}
             if (!$rootScope.farmer && farmer.field) {
                 BoughtItems.load();
             }
@@ -57,8 +62,8 @@ Game.factory('$day', [
             get: function() {
                 return State.getByField('farmer');
             },
-            load: function(farmer) {
-                State.set('farmer', farmer);
+            load: function(status) {
+                State.set('farmer', status.farmer);
             },
             next: function() {
                 var res = $http.get("/application/nextday");

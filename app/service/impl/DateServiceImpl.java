@@ -29,14 +29,10 @@ public class DateServiceImpl implements DateService{
 		c.setTime(date);
 		int month = c.get(Calendar.MONTH);
 		int day = c.get(Calendar.DAY_OF_MONTH);
-		if (month >= Calendar.SEPTEMBER) {
+		if (month >= Calendar.NOVEMBER) {
 			return false;
 		}
-		if (month == Calendar.SEPTEMBER) {
-			if (day > 1) {
-				return false;
-			}
-		}
+		
 		return true;
 	}
 	

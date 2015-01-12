@@ -107,10 +107,10 @@ public abstract class JsonController extends Controller {
 		}
 	}
 
-	protected static void farmerJson(Farmer farmer)
-			throws JsonGenerationException, JsonMappingException, IOException {
-		toJson(farmer, "field", "plantation");
-	}
+//	protected static void farmerJson(Farmer farmer)
+//			throws JsonGenerationException, JsonMappingException, IOException {
+//		toJson(farmer, "field", "plantation");
+//	}
 
 	protected static void statusJson(Farmer farmer, String tip)
 			throws JsonGenerationException, JsonMappingException, IOException {

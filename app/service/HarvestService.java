@@ -7,6 +7,9 @@ import exceptions.NotAllowedException;
 import exceptions.NotEnoughMoneyException;
 
 public interface HarvestService {
+	
+	public static final Integer PRIZE = 50;
+	
 	public Boolean isAfterHarvestingPeriod(Farmer farmer, PlantType plantType);
 	public Boolean isAfterHarvestingPeriod(Farmer farmer, Long plantType);
 	public Boolean isInHarvestingPeriod(Farmer farmer, PlantType plantType);

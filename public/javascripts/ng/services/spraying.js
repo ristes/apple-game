@@ -16,8 +16,8 @@ Game.factory('Spraying', [
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).then(function(res) {
-                    if (res.data && res.data.balans) {
-                        $day.load(res.data);
+                    if (res.farmer && res.farmer.balans) {
+                        $day.load(res);
                     }
                     BoughtItems.load();
                 });

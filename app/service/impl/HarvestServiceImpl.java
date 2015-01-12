@@ -28,7 +28,8 @@ public class HarvestServiceImpl implements HarvestService {
 	public Farmer makeHarvesting(Farmer farmer,
 			PlantationSeedling plantationSeedling, Double goodper, Double badper)
 			throws NotEnoughMoneyException, NotAllowedException {
-		double expense = farmer.field.area * 3000;
+		double expense = farmer.field.area * HarvestService.PRIZE;
+		
 		ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer,
 				-expense);
 		Calendar cal = Calendar.getInstance();

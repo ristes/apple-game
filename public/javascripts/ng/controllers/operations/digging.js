@@ -18,7 +18,7 @@ Game.controller('DiggingController', [
               null,
               function(result) {
                 if (result.farmer.balans) {
-                  $day.load(result.farmer);
+                  $day.load(result);
 
                   $scope.$root.$emit('item-bought');
 

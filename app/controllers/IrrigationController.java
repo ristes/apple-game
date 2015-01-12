@@ -37,7 +37,7 @@ public class IrrigationController extends GameController {
 		FarmerService farmerService = new FarmerServiceImpl();
 		farmerService.addCumulative(farmer, deltaCul);
 		ServiceInjector.contextService.evaluateState(farmer);
-		JsonController.farmerJson(farmer);
+		JsonController.statusJson(farmer);
 	}
 
 	public static void dropsIrrigation(Integer time)
