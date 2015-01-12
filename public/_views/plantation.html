@@ -1,4 +1,3 @@
-4
 <div ng-if="nextDay">
     <div id="div_timeline_travel">
         <div style="padding-left: 10px;">
@@ -7,6 +6,17 @@
                 <span class="title-text">{{"season."+$root.farmer.season_level | translate}}</span>
             </div>
         </div>
+        <div class="rankings" ng-controller="RankingsController">
+            <div style="padding-left: 10px;" ng-click="showRankings()">
+                <img class="img img-responsive" style="width: 100px; height: 75px" ng-src="/public/images/home/rankings-bordered.png" />
+                <div class="item-store ramka" style="width:100px">
+                    <span class="title-text">{{"rankings" | translate}}</span>
+                </div>
+            </div>
+
+            <ranking-table rankings="rankings" visible="visible"></ranking-table>
+        </div>
+
         <div class="time-controls ramka">
             <div class="time-ctrl-btn" tooltip="Next Day" id="div_next_day" ng-click="$root.next()">
                 <span style="margin-right: 5px;" id="span_next_day"></span><i class="glyphicon glyphicon-step-forward"></i>
@@ -24,6 +34,7 @@
 
     </div>
 </div>
+
 
 <div class="tip-dialog alert-dismissible row" ng-if="planting" role="alert">
     <div class="col-md-12">

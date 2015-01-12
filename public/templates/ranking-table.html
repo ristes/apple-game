@@ -1,0 +1,31 @@
+<div class="shop-menu" ng-animate="shop" ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
+  <div class="shop_icon">
+       <img src="/public/images/home/rankings-bordered.png" style="width: 75%;"></img>
+      <div class="shop-label ramka">
+          <span class="shop-label-text"> {{ 'ranking' | translate }}
+          </span>
+      </div>
+  </div>
+
+  <div class="shop_arrow" ng-click="hide()"></div>
+
+  <div class="shop_menu_grid fa-inverse">
+    <table class="table" st-table="displayedRankings" st-safe-src="rankings">
+      <tr>
+        <th st-sort="name">{{ 'name' | translate}}</th>
+        <th st-sort="apples_in_stock">{{ 'apples' | translate}}</th>
+        <th st-sort="balance">{{ 'money' | translate}}</th>
+        <th st-sort="eco_points">{{ 'eco points' | translate}}</th>
+      </tr>
+      <tr>
+        <th colspan="4"><input st-search="" class="form-control" placeholder="{{'search' | translate}}" type="text"/></th>
+      </tr>
+      <tr ng-repeat="user in displayedRankings">
+        <td>{{user.name}} {{ user.surname }}</td>
+        <td>{{user.apples_in_stock}}</td>
+        <td>{{user.balance}}</td>
+        <td>{{user.eco_points}}</td>
+      </tr>
+    </table>
+  </div>
+</div>

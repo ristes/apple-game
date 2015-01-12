@@ -447,3 +447,7 @@ div.select-seedling-quantity td{
 .padding15 {
 	padding-left:15%;
 }
+
+.rankings{
+	cursor: pointer;
+}

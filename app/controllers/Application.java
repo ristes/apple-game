@@ -1,7 +1,7 @@
 package controllers;
 
 import java.io.IOException;
-
+import java.util.List;
 import models.Farmer;
 import play.cache.Cache;
 import service.FarmerService;
@@ -68,12 +68,17 @@ public class Application extends GameController {
 		}
 		return null;
 	}
-	
+
+	public static void rankings() throws Exception{
+		List<Farmer> farmers = Farmer.findAll();
+		renderJSON(JsonController.toJsonString(farmers));
+	}
+
 	public static void badges() {
 		Farmer farmer = getFarmer();
 		ServiceInjector.badgesService.fertilizer(farmer);
 		renderJSON(new StatusDto(true));
 	}
-	
-	
+
+
 }
