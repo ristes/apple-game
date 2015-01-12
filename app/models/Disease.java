@@ -99,6 +99,8 @@ public class Disease extends Model implements DeseaseRisk {
 	public Boolean triggersInfoTable;
 
 	public String infoTableText;
+	
+	public Integer type;
 
 	/**
 	 * How much the yield will be diminished with these decease by default
