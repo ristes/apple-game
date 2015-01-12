@@ -1,6 +1,6 @@
 Game.controller('ClothingController', ['$scope', function($scope) {
 
-    var unreg = $scope.$root.$on('operation-clothing', function(_s, oper) {
+    var unreg = $scope.$root.$on('operation-pruning', function(_s, oper) {
         $scope.type = oper;
         $scope.gameActive = true;
         $scope.visible = true;
@@ -9,6 +9,7 @@ Game.controller('ClothingController', ['$scope', function($scope) {
 
     $scope.gameOver = function(gameResult) {
         $scope.gameActive = false;
+        $scope.visible = false;
         // TODO: call the clothing service with the result
     }
 
@@ -18,6 +19,8 @@ Game.controller('ClothingController', ['$scope', function($scope) {
         }
     });
 
-
+    $scope.hide = function(){
+        $scope.visible = false;
+    }
 
 }]);
