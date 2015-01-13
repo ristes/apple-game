@@ -19,7 +19,7 @@ Game.controller('ShoppingController', [
                 if (result.status) {
                     BoughtItems.load();
                     StoreItems.load();
-                    State.set("farmer", result);
+                    State.set("farmer", result.farmer);
                     $scope.$root.$emit('shop-hide');
                 } else {
                     $scope.$root.$emit('insuficient-funds');

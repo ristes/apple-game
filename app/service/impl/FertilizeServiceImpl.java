@@ -100,8 +100,7 @@ public class FertilizeServiceImpl implements FertilizeService{
 		}
 		FarmerService farmerService = new FarmerServiceImpl();
 		
-		YieldService yieldService = new YieldServiceImpl();
-		Double maxQuantity = yieldService.calculateYield(farmer);
+		Double maxQuantity = ServiceInjector.yieldService.getMaxYieldByRecolte(farmer, ServiceInjector.dateService.recolteYear(farmer.gameDate.date));
 		Double res = finalEvaluationItem(farmer,item);
 		Double var = Math.abs(1.0-res);
 		if (var<=0.1) {

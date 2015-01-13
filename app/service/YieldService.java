@@ -12,6 +12,8 @@ public interface YieldService {
 	
 	public Double calculateYield(Farmer farmer);
 	
+	public Double getMaxYieldByRecolte(Farmer farmer, Integer recolte) ;
+	
 	public List<Yield> getPreviousYearYield(Farmer farmer);
 	
 }

@@ -24,7 +24,7 @@ public class YieldController extends Controller {
 	
 	public static void calculate() {
 		Farmer farmer = AuthController.getFarmer();
-		renderJSON(ServiceInjector.yieldService.calculateYield(farmer));
+		renderJSON(ServiceInjector.yieldService.getMaxYieldByRecolte(farmer, ServiceInjector.dateService.recolteYear(farmer.gameDate.date)));
 	}
 	
 }

@@ -173,6 +173,7 @@ public class ContextServiceImpl implements ContextService {
 	public void evaluateSeason(Farmer farmer) {
 		farmer.season_level = ServiceInjector.dateService.season_level(farmer);
 		farmer.month_level = ServiceInjector.dateService.monthLevel(farmer.gameDate.date);
+		farmer.year_level = ServiceInjector.dateService.evaluateYearLevel(ServiceInjector.dateService.recolteYear(farmer.gameDate.date));
 	}
 
 	public void evaluateDisease(Farmer farmer) {

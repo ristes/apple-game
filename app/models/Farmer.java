@@ -181,6 +181,9 @@ public class Farmer extends Model {
 	@Transient
 	public Integer month_level;
 	
+	@Transient
+	public Integer year_level;
+	
 	/**
 	 * The items he owns
 	 */

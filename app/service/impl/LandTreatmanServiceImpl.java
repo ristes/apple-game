@@ -64,6 +64,7 @@ public class LandTreatmanServiceImpl implements LandTreatmanService {
 	}
 
 	public void firstDeepPlowing(Farmer farmer, Integer deep) {
+		farmer.grass_growth = 0.0;
 		farmer.field.firstDeepPlow = deep;
 		ServiceInjector.logFarmerDataService.logExecutedOperation(farmer,
 				(Operation) Operation.find("byName", "deep_plowing").first(),null);

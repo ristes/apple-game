@@ -42,11 +42,12 @@ Game.directive('pruneGame', ['$interval', function($interval) {
       }
 
       scope.finnishGame = function(){
-        var totalBranches = scope.cutPoints.length;
+        var totalBranches = 0;
         var correctCuts = 0;
 
         scope.cutPoints.forEach(function(p){
           if (p.type === 'cut'){
+        	totalBranches++;
             if (p.clicked){
               correctCuts++
             }

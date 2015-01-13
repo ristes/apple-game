@@ -16,13 +16,11 @@ public class BadgesServiceImpl implements BadgesService{
 
 	@Override
 	public Badges yield(Farmer farmer, Integer harvested) {
-		YieldService yieldService = new YieldServiceImpl();
 		
 		Badges badge = Badges.find("byAkka","yield").first();
 		Double trigger = Double.parseDouble(JsonExcluder.byField(badge.metadata, "yield"));
-		double total = yieldService.calculateYield(farmer);
+		double total = ServiceInjector.yieldService.getMaxYieldByRecolte(farmer, ServiceInjector.dateService.recolteYear(farmer.gameDate.date));
 		double per = (harvested / total)*100;
-		
 		if (per>trigger) {
 			return badge;
 		}

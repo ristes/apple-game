@@ -153,7 +153,7 @@ public class Disease extends Model implements DeseaseRisk {
 		Calculable value = null;
 		try {
 			Double rand = ServiceInjector.randomGeneratorService.random(0.0, 1.0);
-			Double maxYield = ServiceInjector.yieldService.calculateYield(context);
+			Double maxYield = ServiceInjector.yieldService.getMaxYieldByRecolte(context, ServiceInjector.dateService.recolteYear(context.gameDate.date));
 			Double avgPrice = ServiceInjector.priceService.price(context);
 			value = new ExpressionBuilder(refundValue)
 					.withVariable("rand", rand)
@@ -259,7 +259,7 @@ public class Disease extends Model implements DeseaseRisk {
 
 	}
 
-	public Double getDemage(Farmer context) {
+	public Double getDemage(Farmer farmer) {
 		Double result = 0.0;
 		if (!isDemageVar) {
 			return result;
@@ -270,11 +270,11 @@ public class Disease extends Model implements DeseaseRisk {
 		Calculable value = null;
 		try {
 			Double rand = ServiceInjector.randomGeneratorService.random(0.0, 1.0);
-			Double maxYield = ServiceInjector.yieldService.calculateYield(context);
+			Double maxYield = ServiceInjector.yieldService.getMaxYieldByRecolte(farmer, ServiceInjector.dateService.recolteYear(farmer.gameDate.date));
 			value = new ExpressionBuilder(demageVarExp)
 					.withVariable("rand", rand)
 					.withVariable("maxYield", maxYield)
-					.withVariable("curYield", context.productQuantity).build();
+					.withVariable("curYield", farmer.productQuantity).build();
 			result = value.calculate();
 		} catch (UnknownFunctionException ex) {
 			ex.printStackTrace();

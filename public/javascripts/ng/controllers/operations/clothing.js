@@ -1,4 +1,4 @@
-Game.controller('ClothingController', ['$scope', function($scope) {
+Game.controller('ClothingController', ['$scope','Prunning','State', function($scope, Prunning, State) {
 
     var unreg = $scope.$root.$on('operation-pruning', function(_s, oper) {
         $scope.type = oper;
@@ -10,7 +10,19 @@ Game.controller('ClothingController', ['$scope', function($scope) {
     $scope.gameOver = function(gameResult) {
         $scope.gameActive = false;
         $scope.visible = false;
-        // TODO: call the clothing service with the result
+        Prunning.prune(gameResult)
+    }
+    $scope.$root.$watch('day.year_level', function(a) {
+    
+    	$scope.year = State.getByField('farmer').year_level;
+    	
+    	if ($scope.year>2) {
+    		$scope.year = 2;
+    	}
+    })
+    
+    $scope.onResult = function(status) {
+    	$scope.hide();
     }
 
     $scope.$on("$destroy", function() {
