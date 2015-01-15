@@ -9,9 +9,8 @@ import models.InfoTableInstance;
 import service.InfoTableService;
 import dto.InfoTableInstanceDto;
 
-public class InfoTableServiceImpl implements InfoTableService{
+public class InfoTableServiceImpl implements InfoTableService {
 
-	
 	/**
 	 * type 1 message: info about some staff ex. ,,You lost 200kg apples"
 	 * 
@@ -28,21 +27,20 @@ public class InfoTableServiceImpl implements InfoTableService{
 		infoIns.plantation = farmer.field.plantation;
 		infoIns.image2_url = image2_url;
 		infoIns.save();
-		
+
 	}
 
-	
 	/**
-	 * type 2 message: info with two actions happened in same time like 
-	 * ,,You lost 200kg apples from heavy rain but received 2000 den from refunding"
+	 * type 2 message: info with two actions happened in same time like ,,You
+	 * lost 200kg apples from heavy rain but received 2000 den from refunding"
 	 * 
 	 * @param image1_url
 	 * @param message
 	 * @param lost_apples
 	 */
 	@Override
-	public void createT2(Farmer farmer, String message1, String message2, String image2_url,
-			String image3_url) {
+	public void createT2(Farmer farmer, String message1, String message2,
+			String image2_url, String image3_url) {
 		InfoTable type = InfoTable.findById(4l);
 		InfoTableInstance infoIns = new InfoTableInstance();
 		infoIns.isRead = false;
@@ -55,22 +53,25 @@ public class InfoTableServiceImpl implements InfoTableService{
 		infoIns.save();
 	}
 
-
 	@Override
 	public void setRead(InfoTableInstance info) {
 		info.isRead = true;
 		info.save();
-		
-	}
 
+	}
 
 	@Override
 	public List<InfoTableInstanceDto> news(Farmer farmer) {
-		if (farmer==null) {
+		if (farmer == null) {
 			return new ArrayList<InfoTableInstanceDto>();
 		}
 		List<InfoTableInstanceDto> newsDto = new ArrayList<InfoTableInstanceDto>();
-		List<InfoTableInstance> news = InfoTableInstance.find("byPlantationAndIsRead",farmer.field.plantation,false).fetch();
+		if (farmer.field == null) {
+			return null;
+		}
+		List<InfoTableInstance> news = InfoTableInstance.find(
+				"byPlantationAndIsRead", farmer.field.plantation, false)
+				.fetch();
 		for (InfoTableInstance ins : news) {
 			ins.isRead = true;
 			ins.save();
@@ -78,8 +79,5 @@ public class InfoTableServiceImpl implements InfoTableService{
 		}
 		return newsDto;
 	}
-	
-	
-	
 
 }
