@@ -74,6 +74,7 @@
 	<script src="/public/javascripts/ng/controllers/operations/harvesting.js"></script>
 	<script src="/public/javascripts/ng/controllers/bought_items.js"></script>
 	<script src="/public/javascripts/ng/controllers/plowing_scene.js"></script>
+	<script src="/public/javascripts/ng/controllers/info-table.js"></script>
 	<script src="/public/javascripts/ng/operations.js"></script>
 	<script src="/public/javascripts/ng/controllers/tips.js"></script>
 	<script src="/public/javascripts/ng/directives/info-table.js"></script>
@@ -157,7 +158,6 @@
 
 		<div ng-if="isSuccessful">
 			<div ng-controller="NotificationController">
-				<!-- <ng-include src="'/public/templates/notification-dialog'"></ng-include> -->
 			</div>
 			<shop-menu items="items"></shop-menu>
 			<resume-dialog></resume-dialog>
@@ -178,5 +178,6 @@
 			<toaster-container toaster-options="{'time-out': 3000}"></toaster-container>
 			<ng-include src="'/public/_views/fb.html'"></ng-include>
 		</div>
+		
 	</body>
 </html>

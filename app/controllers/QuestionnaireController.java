@@ -35,7 +35,7 @@ public class QuestionnaireController extends GameController{
 		}
 		QuizResultsDto result = ServiceInjector.quizService.submitAnswers(farmer, correct, wrong);
 		ServiceInjector.logFarmerDataService.logQuizAnswered(farmer, result);
-		StatusDto<QuizResultsDto> status = new StatusDto<QuizResultsDto>(true,null,null,farmer,result);
+		StatusDto<QuizResultsDto> status = new StatusDto<QuizResultsDto>(true,null,null,farmer,result, null);
 		
 		JsonController.statusJson(status);
 //		FarmerAnswerDto aDto = new Gson().fromJson(body, FarmerAnswerDto.class);
@@ -49,7 +49,7 @@ public class QuestionnaireController extends GameController{
 		}
 		QuizResultsDto qDto = ServiceInjector.quizService.isQuizAnsweredThisYear(farmer);
 		if (qDto!=null) {
-			StatusDto statusDto = new StatusDto(false, null, null, farmer, qDto);
+			StatusDto statusDto = new StatusDto(false, null, null, farmer, qDto, null);
 			JsonController.statusJson(statusDto);
 		}
 		List<Questionnaire> questions = ServiceInjector.quizService.questionsByFarmer(farmer);

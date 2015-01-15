@@ -32,14 +32,6 @@ public class FarmerServiceImpl implements FarmerService {
 		return farmer.luck;
 	}
 
-	public double subtractEcoPoints(Farmer farmer, double points) {
-		farmer.eco_points -= points;
-		if (farmer.eco_points < 0) {
-			farmer.eco_points = 0;
-		}
-		farmer.save();
-		return farmer.eco_points;
-	}
 
 	public Farmer gotoNextDay(Farmer farmer) {
 		List<Day> gameDates = Day.find("byDayOrder",
@@ -101,7 +93,7 @@ public class FarmerServiceImpl implements FarmerService {
 		Day start = Day.find("dayOrder", 318l).first();
 		farmer.gameDate = start;
 		farmer.setBalance(120000.0);
-		farmer.eco_points = 100;
+		ServiceInjector.ecoPointsService.restart(farmer);
 		farmer.deltaCumulative = 0.0;
 		farmer.cumulativeHumidity = 0.0;
 		farmer.cumulativeLeafHumidity = 15d;
@@ -126,8 +118,7 @@ public class FarmerServiceImpl implements FarmerService {
 		farmer.needP = false;
 		farmer.needZn = false;
 		farmer.save();
-		StoreService ss = new StoreServiceImpl();
-		ss.buyItem(farmer, "SoilAnalyse", 1.0d, farmer.currentState);
+		ServiceInjector.storeService.buyItem(farmer, "SoilAnalyse", 1.0d, farmer.currentState);
 		return farmer;
 	}
 

@@ -46,7 +46,7 @@ public class StoreServiceImpl implements StoreService {
 
 	public StatusDto buyItem(Farmer farmer, String itemName, Double quantity,
 			String currentState) {
-		StatusDto statusRes = new StatusDto(true,null,null,farmer);
+		StatusDto statusRes = new StatusDto(true,null,null,farmer, null);
 		if (farmer != null) {
 			Item item = Item.find("name", itemName).first();
 			try {
@@ -89,9 +89,9 @@ public class StoreServiceImpl implements StoreService {
 		if (jsonEco!=null) {
 			int eco = jsonEco.getAsInt();
 			if (eco<0) {
-				ServiceInjector.farmerService.subtractEcoPoints(status.farmer, (double)Math.abs(eco));
+				ServiceInjector.ecoPointsService.substract(status.farmer, Math.abs(eco));
 			} else {
-				status.farmer.eco_points+=eco;
+				ServiceInjector.ecoPointsService.add(status.farmer, eco);
 			}
 		}
 		

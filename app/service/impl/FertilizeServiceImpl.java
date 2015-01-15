@@ -40,26 +40,26 @@ public class FertilizeServiceImpl implements FertilizeService{
 
 		MoneyTransactionService moneyTransactionService = new TransactionServiceImpl();
 		moneyTransactionService.commitMoneyTransaction(farmer, -value);
-		farmer.eco_points -= N.pollutionCoefficient + P.pollutionCoefficient
+		ServiceInjector.ecoPointsService.substract(farmer, N.pollutionCoefficient + P.pollutionCoefficient
 				+ K.pollutionCoefficient + Ca.pollutionCoefficient
-				+ B.pollutionCoefficient + Mg.pollutionCoefficient;
+				+ B.pollutionCoefficient + Mg.pollutionCoefficient);
 		if (n!=0.0) {
-		saveItem(N, farmer, n);
+			saveItem(N, farmer, n);
 		}
 		if (p!=0.0) {
-		saveItem(P, farmer, p);
+			saveItem(P, farmer, p);
 		}
 		if (k!=0.0) {
-		saveItem(K, farmer, k);
+			saveItem(K, farmer, k);
 		}
 		if (ca!=0.0) {
-		saveItem(Ca, farmer, ca);
+			saveItem(Ca, farmer, ca);
 		}
 		if (b!=0.0) {
-		saveItem(B, farmer, b);
+			saveItem(B, farmer, b);
 		}
 		if (mg!=0.0) {
-		saveItem(Mg, farmer, mg);
+			saveItem(Mg, farmer, mg);
 		}
 		farmer.save();
 		ServiceInjector.logFarmerDataService.logExecutedOperation(farmer, (Operation)Operation.find("byName","fertilizing").first(),null);
@@ -98,8 +98,6 @@ public class FertilizeServiceImpl implements FertilizeService{
 		if (item==null){
 			return farmer;
 		}
-		FarmerService farmerService = new FarmerServiceImpl();
-		
 		Double maxQuantity = ServiceInjector.yieldService.getMaxYieldByRecolte(farmer, ServiceInjector.dateService.recolteYear(farmer.gameDate.date));
 		Double res = finalEvaluationItem(farmer,item);
 		Double var = Math.abs(1.0-res);
@@ -113,13 +111,12 @@ public class FertilizeServiceImpl implements FertilizeService{
 			farmer.productQuantity+=maxQuantity*0.05;
 		} else if (res>1.1 && res <= 1.4) {
 			farmer.productQuantity+=maxQuantity*0.2;
-			farmerService.subtractEcoPoints(farmer,5);
+			ServiceInjector.ecoPointsService.substract(farmer,5);
 		} else if (res>1.4 && res <= 2) {
 			farmer.productQuantity+=maxQuantity*0.1;
-			farmerService.subtractEcoPoints(farmer,10);
+			ServiceInjector.ecoPointsService.substract(farmer,10);
 		} else if (res>2) {
-			//farmer.productQuantity+=maxQuantity*0.05;
-			farmer.eco_points /= 2;
+			ServiceInjector.ecoPointsService.divide(farmer, 2.0);
 		}
 		return farmer;
 	}
@@ -310,6 +307,23 @@ public class FertilizeServiceImpl implements FertilizeService{
 		}
 		return items;
 		
+	}
+	
+	public void evalFertilizingState(Farmer farmer) {
+		if ((farmer.gameDate.dayOrder % 8) == 0) {
+			try {
+				farmer.needN = checkNeedOfN(farmer);
+				farmer.needP = checkNeedOfP(farmer);
+				farmer.needK = checkNeedOfK(farmer);
+				farmer.needCa = checkNeedOfCa(farmer);
+				farmer.needB = checkNeedOfB(farmer);
+				farmer.needMg = checkNeedOfMg(farmer);
+				farmer.needZn = checkNeedOfZn(farmer);
+				farmer.field.plantation.save();
+			} catch (NotSuchItemException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 

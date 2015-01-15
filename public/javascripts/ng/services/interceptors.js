@@ -22,6 +22,9 @@ Game.factory('GameHttpInterceptors', ['$timeout', 'State',
         'response': function(response) {
           if (response.data && response.data.farmer) {
             State.set('farmer', response.data.farmer);
+            if (response.data.infoTables) {
+            	State.set('info-table',response.data.infoTables);
+            }
           }
           return response;
         }

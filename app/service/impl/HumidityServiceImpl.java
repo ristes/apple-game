@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import models.Day;
 import models.Farmer;
 import service.HumidityDropsService;
 import service.HumidityGroovesService;
 import service.HumidityService;
+import service.ServiceInjector;
 import dto.C;
 
 public class HumidityServiceImpl implements HumidityService,
@@ -15,8 +17,19 @@ public class HumidityServiceImpl implements HumidityService,
 
 	public void looses_q_less_water(Farmer farmer, Double variation) {
 
-		farmer.productQuantity += (farmer.productQuantity * (variation / 100) * 1.2)
-				/ (32.0 / 8);
+		if (variation >= 10 && variation < 20) {
+		} else if (variation >= 20 && variation < 30) {
+			farmer.irrigation_misses++;
+		} else if (variation >= 30 && variation < 40) {
+			farmer.irrigation_misses++;
+		} else if (variation >= 40 && variation < 50) {
+			farmer.irrigation_misses += 2;
+		} else if (variation >= 50) {
+			farmer.irrigation_misses += 2;
+		}
+		
+		farmer.productQuantity -= (farmer.productQuantity * (variation / 100) * 1.2)
+				/ (240.0 / 8);
 	}
 
 	public void looses_q_more_water(Farmer farmer, Double variation) {
@@ -37,8 +50,8 @@ public class HumidityServiceImpl implements HumidityService,
 			farmer.irrigation_misses += 2;
 			loose_q = -30.0;
 		}
-		farmer.productQuantity += farmer.productQuantity * (loose_q / 100.0)
-				/ (32.0 / 8);
+		farmer.productQuantity -= farmer.productQuantity * (loose_q / 100.0)
+				/ (240.0 / 8);
 		// divide with the number of milestones every 8 days
 
 	}
@@ -49,18 +62,17 @@ public class HumidityServiceImpl implements HumidityService,
 			return;
 		}
 		if (variation >= 10 && variation < 20) {
-			loose_eco = -5.0;
+			loose_eco = 5.0;
 		} else if (variation >= 20 && variation < 30) {
-			loose_eco = -7.0;
+			loose_eco = 7.0;
 		} else if (variation >= 30 && variation < 40) {
-			loose_eco = -10.0;
+			loose_eco = 10.0;
 		} else if (variation >= 40 && variation < 50) {
-			loose_eco = -13.0;
+			loose_eco = 13.0;
 		} else if (variation >= 50) {
-			loose_eco = -15.0;
+			loose_eco = 15.0;
 		}
-		farmer.eco_points = (farmer.eco_points + (farmer.eco_points * (loose_eco / 100))
-				/ (32.0 / 8));
+		ServiceInjector.ecoPointsService.substract(farmer, (int)(farmer.getEco_points() * (loose_eco / 100) / (32.0 / 8)));
 	}
 
 	/**
@@ -179,5 +191,69 @@ public class HumidityServiceImpl implements HumidityService,
 			}
 		}
 	}
+	
+	public void humidityLooses(Farmer farmer) {
+		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl
+				.load_hash(C.COEF_HUMIDITY_YML);
+		if (farmer.gameDate.dayOrder % DAY_INTERVAL_CHECK_HUMIDITY == 0) {
+			double variance = calculateHumidityLooses(farmer);
+			farmer.cumulativeHumidity += variance;
+			farmer.deltaCumulative = variance;
+			Double min_hum = coefs.get(C.KEY_MIN_HUMIDITY).get(0);
+			if (farmer.deltaCumulative < min_hum) {
+				farmer.deltaCumulative = min_hum;
+			}
+		}
+	}
+	
+	public double calculateHumidityLooses(Farmer farmer) {
+
+		double result = 0.0;
+		if (!ServiceInjector.fieldService.hasDropSystem(farmer)) {
+			ServiceInjector.humidityGroovesService.calculateGroovesVarianceImpact(farmer);
+			result = ServiceInjector.humidityGroovesService.varianceBrazdi(farmer);
+		} else {
+			ServiceInjector.humidityDropsService.calculateDropsVarianceImpact(farmer);
+			result = ServiceInjector.humidityDropsService.varianceDrops(farmer);
+		}
+		return result;
+	}
+	
+	public void regulateHumidityLimits(Farmer farmer) {
+		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl
+				.load_hash(C.COEF_HUMIDITY_YML);
+		double max_humidity = coefs.get(C.KEY_MAX_HUMIDITY).get(0);
+		double min_humidity = coefs.get(C.KEY_MIN_HUMIDITY).get(0);
+		if (farmer.deltaCumulative > max_humidity) {
+			farmer.deltaCumulative = max_humidity;
+		}
+		if (farmer.deltaCumulative < min_humidity) {
+			farmer.deltaCumulative = min_humidity;
+		}
+	}
+
+	@Override
+	public void humidityGainsOnDailyLevel(Farmer farmer) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(farmer.gameDate.date);
+		Day today = farmer.gameDate;
+		switch (today.weatherType.type) {
+			case WeatherService.WEATHER_TYPE_RAINY:
+				farmer.deltaCumulative += ServiceInjector.weatherService.getRainingValue(farmer);
+				break;
+			case WeatherService.WEATHER_TYPE_SUNNY:
+				farmer.deltaCumulative -= ServiceInjector.weatherService.getSunnyEvaporation(farmer);
+				break;
+			case WeatherService.WEATHER_TYPE_CLOUDY:
+				farmer.deltaCumulative -= ServiceInjector.weatherService.getCloudyEvaporation(farmer);
+				break;
+			default:
+				break;
+			
+		}
+		
+	}
+	
+
 
 }

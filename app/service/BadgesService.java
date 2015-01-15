@@ -6,6 +6,7 @@ import models.Farmer;
 public interface BadgesService {
 	
 	public static final double BADGE_TRADER_THRESHOLDER = 0.85;
+	public static final Integer BADGE_ECO_THRESHOLDER = 95;
 	
 	public Badges yield(Farmer farmer, Integer harvested);
 	

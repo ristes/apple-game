@@ -32,6 +32,7 @@ public class Day extends Model {
 	public Long humidity;
 
 	public Long dayOrder;
+	
 
 	/**
 	 * if above 0.5, it's high UV radiation otherwise, low UV radiation

@@ -4,7 +4,7 @@ import java.util.Date;
 
 import models.WeatherType;
 
-public class DayWeatherDao {
+public class DayWeatherDto {
 
 	public int id;
 

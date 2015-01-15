@@ -123,6 +123,17 @@ public class LogFarmerDataServiceImpl implements LogFarmerDataService{
 		data.save();
 		
 	}
+
+	@Override
+	public void logRainValue(Farmer farmer, Double value) {
+		LogFarmerData data = new LogFarmerData();
+		data.farmer = farmer;
+		data.logdate = farmer.gameDate.date;
+		data.recolteYear = ServiceInjector.dateService.recolteYear(farmer.gameDate.date);
+		data.information = value;
+		data.typelog = LogFarmerDataService.RAIN_VALUE;
+		data.save();
+	}
 	
 	 
 

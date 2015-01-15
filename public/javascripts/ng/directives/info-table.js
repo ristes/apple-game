@@ -6,10 +6,8 @@ GameDirectives.directive('infoTable', [function() {
     link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
       scope.showNext = true;
       scope.visible = false;
-
-
-
-
+      
+     
 
       var unregShow = scope.$root.$on("info-show", function($scope, cfg) {
         scope.$root.$emit('side-hide');

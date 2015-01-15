@@ -56,7 +56,7 @@ public class Farmer extends Model {
 	 */
 	public Integer season_level;
 
-	public double eco_points = 100;
+	private double eco_points = 100;
 
 	
 	@Transient
@@ -209,6 +209,16 @@ public class Farmer extends Model {
 	public void setApples_in_stock(int apples_in_stock) {
 		this.apples_in_stock = apples_in_stock;
 	}
+
+	public double getEco_points() {
+		return eco_points;
+	}
+
+	public void setEco_points(double eco_points) {
+		this.eco_points = eco_points;
+	}
+	
+	
 	
 
 }

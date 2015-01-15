@@ -76,7 +76,7 @@ public class QuizServiceImpl implements QuizService{
 		Integer plusQuantity = (farmer.productQuantity / 10) * correct/(wrong+correct);
 		Integer plusEco = 10 * correct/(wrong+correct);
 		farmer.productQuantity += plusQuantity;
-		farmer.eco_points += plusEco;
+		ServiceInjector.ecoPointsService.add(farmer, plusEco);
 		farmer.save();
 		QuizResultsDto results = new QuizResultsDto();
 		results.hits = correct;

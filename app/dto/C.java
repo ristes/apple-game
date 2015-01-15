@@ -38,10 +38,7 @@ public class C {
 	public static final int ENUM_GROOVES = 0;
 	public static final int ENUM_DROPS = 1;
 	
-	public static final long WEATHER_TYPE_SUNNY = 1;
-	public static final long WEATHER_TYPE_CLOUDY = 2;
-	public static final long WEATHER_TYPE_RAINY = 3;
-	public static final long WEATHER_TYPE_ICY = 4;
+	
 	/**
 	 * 2. Autumn - 01.10 - 30.11 
 	 * 1. Winter - 01.12 - 28.02 

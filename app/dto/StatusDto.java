@@ -1,6 +1,9 @@
 package dto;
 
+import java.util.List;
+
 import models.Farmer;
+import models.InfoTable;
 
 public class StatusDto<T> {
 	
@@ -14,23 +17,27 @@ public class StatusDto<T> {
 	
 	public String tip;
 	
+	public List<InfoTableInstanceDto> infoTables;
+	
 	public T t;
 	
 	public StatusDto(Boolean status) {
 		this.status = status;
 	}
 	
-	public StatusDto(Boolean status, String message, String additionalInfo, Farmer farmer) {
+	public StatusDto(Boolean status, String message, String additionalInfo, Farmer farmer, List<InfoTableInstanceDto> infoTables) {
 		this.status =status;
 		this.message = message;
 		this.additionalInfo = additionalInfo;
 		this.farmer = farmer;
+		this.infoTables = infoTables;
 	}
-	public StatusDto(Boolean status, String message, String additionalInfo, Farmer farmer, T t) {
+	public StatusDto(Boolean status, String message, String additionalInfo, Farmer farmer, T t, List<InfoTableInstanceDto> infoTables) {
 		this.status =status;
 		this.message = message;
 		this.additionalInfo = additionalInfo;
 		this.farmer = farmer;
+		this.infoTables = infoTables;
 		this.t = t;
 	}
 

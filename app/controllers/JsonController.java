@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.ManyToMany;
@@ -11,8 +12,10 @@ import javax.persistence.OneToMany;
 
 import json.CollaseAnnotationAndExpandFieldsFilter;
 import models.Farmer;
+import models.InfoTable;
 import play.mvc.Controller;
 import play.mvc.Http;
+import service.ServiceInjector;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -26,6 +29,7 @@ import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import dto.InfoTableInstanceDto;
 import dto.StatusDto;
 
 public abstract class JsonController extends Controller {
@@ -114,18 +118,20 @@ public abstract class JsonController extends Controller {
 
 	protected static void statusJson(Farmer farmer, String tip)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		StatusDto status = new StatusDto(farmer != null, null, null, farmer);
+		List<InfoTableInstanceDto> infos = ServiceInjector.infoTableService.news(farmer);
+		StatusDto status = new StatusDto(farmer != null, null, null, farmer, infos);
 		if (tip!=null && !tip.equals("")) {
 			status.tip = tip;
 		} else {
-			status = new StatusDto(farmer!=null, null, null, farmer);
+			status = new StatusDto(farmer!=null, null, null, farmer, infos);
 		}
 		toJson(status, "field", "plantation");
 	}
 	
 	protected static void statusJson(Farmer farmer)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		StatusDto status = new StatusDto(farmer != null, null, null, farmer);
+		List<InfoTableInstanceDto> infos = ServiceInjector.infoTableService.news(farmer);
+		StatusDto status = new StatusDto(farmer != null, null, null, farmer, infos);
 		toJson(status, "field", "plantation");
 	}
 	

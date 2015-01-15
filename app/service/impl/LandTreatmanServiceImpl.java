@@ -1,8 +1,11 @@
 package service.impl;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
+import dto.C;
 import models.Farmer;
 import models.Item;
 import models.ItemInstance;
@@ -55,7 +58,7 @@ public class LandTreatmanServiceImpl implements LandTreatmanService {
 		} catch (TypeOfPlowingNotRecognized ex) {
 			throw ex;
 		}
-		farmer = evaluatePlowingEcoPoints(farmer);
+		evaluatePlowingEcoPoints(farmer);
 		farmer.grass_growth = 0.0;
 		farmer.save();
 		// ServiceInjector.logFarmerDataService.logExecutedOperation(farmer,
@@ -80,11 +83,10 @@ public class LandTreatmanServiceImpl implements LandTreatmanService {
 		return false;
 	}
 
-	public Farmer evaluatePlowingEcoPoints(Farmer farmer) {
+	public void evaluatePlowingEcoPoints(Farmer farmer) {
 		if (!hasEcoTractor(farmer)) {
-			ServiceInjector.farmerService.subtractEcoPoints(farmer, 1);
+			ServiceInjector.ecoPointsService.substract(farmer, 1);
 		}
-		return farmer;
 	}
 
 	/**
@@ -221,6 +223,21 @@ public class LandTreatmanServiceImpl implements LandTreatmanService {
 			}
 		}
 		return false;
+	}
+	
+	public void evalDiggingCoefs(Farmer farmer) {
+		HashMap<String, ArrayList<Double>> coefs = YmlServiceImpl
+				.load_hash(C.COEF_HUMIDITY_YML);
+		int level = ServiceInjector.humidityService.humidityLevel(farmer);
+		if (level >= 3) {
+			farmer.digging_coef += coefs.get(C.KEY_DIGGING_COEF).get(3);
+		} else if (level == 2) {
+			farmer.digging_coef += coefs.get(C.KEY_DIGGING_COEF).get(2);
+		} else if (level == 1) {
+			farmer.digging_coef += coefs.get(C.KEY_DIGGING_COEF).get(1);
+		} else if (level == 0) {
+			farmer.digging_coef += coefs.get(C.KEY_DIGGING_COEF).get(0);
+		}
 	}
 
 }

@@ -19,6 +19,7 @@ public interface LogFarmerDataService {
 	public final static Long APPLES_SOLD = 9l;
 	public final static long APPLES_BURNED_IN_FRIDGE = 10l;
 	public final static Long QUIZ_ANSWERED = 11l;
+	public final static Long RAIN_VALUE = 12l;
 	
 	
 	public void logSetMaxYield(Farmer farmer,  double yield);
@@ -30,6 +31,7 @@ public interface LogFarmerDataService {
 	public void logExecutedOperation(Farmer farmer,  Operation operation, Double deep);
 	public void logApplesSold(Farmer farmer, Integer quantity);
 	public void logQuizAnswered(Farmer farmer, QuizResultsDto answer);
+	public void logRainValue(Farmer farmer, Double value);
 	
 	
 

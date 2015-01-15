@@ -24,7 +24,7 @@ public class LandTreatmanController extends GameController {
 		farmer = ServiceInjector.landTreatmanService.executeDigging(farmer, id);
 
 		ServiceInjector.contextService.evaluateState(farmer);
-		StatusDto status = new StatusDto(true, null, null, farmer);
+		StatusDto status = new StatusDto(true, null, null, farmer, null);
 		JsonController.toJson(status, "field", "gameDate", "weatherType");
 	}
 
@@ -32,7 +32,7 @@ public class LandTreatmanController extends GameController {
 		Farmer farmer = checkFarmer();
 		ServiceInjector.landTreatmanService.executePlowing(farmer, deep);
 		ServiceInjector.contextService.evaluateState(farmer);
-		StatusDto status = new StatusDto(true, null, null, farmer);
+		StatusDto status = new StatusDto(true, null, null, farmer,null);
 		JsonController.toJson(status, "field", "gameDate", "weatherType");
 
 	}

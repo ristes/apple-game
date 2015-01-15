@@ -9,6 +9,8 @@ import models.PlantType;
 public interface DateService {
 	
 
+	public final static Integer YEAR_ORDINARY_FIRST = 1;
+	public final static Integer YEAR_ORDINARY_SECOND = 2;
 	
 	public final static Integer SEASON_WINTER = 1;
 	public final static Integer SEASON_SPRING = 3;

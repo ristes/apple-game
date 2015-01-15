@@ -32,4 +32,5 @@ public interface FertilizeService {
 	public List<Item> checkTheRequiredItemsFromContext(Farmer farmer);
 	public Boolean checkNeedOfFertilizerType(Farmer farmer, Item item);
 	public Double badgeEvaluate(Farmer farmer);
+	public void evalFertilizingState(Farmer farmer);
 }

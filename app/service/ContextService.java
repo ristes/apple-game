@@ -13,14 +13,12 @@ public interface ContextService {
 	public static final Long MUCU = 5L;
 	public static final Long GRENI_SMIT =6L;
 	
+
 	
-	public void calculateLuck(Farmer farmer);
+	
 	public void calculateCumulatives(Farmer farmer);
-	public void calculateGrassGrowth(Farmer farmer);
-	public void calculateDiggingCoefficient(Farmer farmer);
 	public void evaluateSoilImage(Farmer farmer);
 	public void evaluateSeason(Farmer farmer);
-	public void evaluateDisease(Farmer farmer);
 	public void evaluateRestartState(Farmer farmer);
 	public void evaluateFertilizingState(Farmer farmer);
 	public void evaluateState(Farmer farmer);
@@ -29,9 +27,6 @@ public interface ContextService {
 	public void onLoadEvaluateState(Farmer farmer);
 	public void calculateFertalizing(Farmer farmer);
 	public int seasionLevelSoilImage(int season_level);
-	public Double rainCoefForMonth(Date date);
-	public Double rainCoefForMonth(Integer month);
-	public double calculateHumidityLooses(Farmer farmer);
 	public void setAndCheckLastLoginDate(Farmer farmer);
 	public void evaluateFridgesState(Farmer farmer);
 }

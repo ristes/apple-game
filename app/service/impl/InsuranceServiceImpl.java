@@ -34,7 +34,7 @@ public class InsuranceServiceImpl implements InsuranceService {
 		if (!odisease.desease.isRefundable) {
 			return farmer;
 		}
-		Double refund = odisease.desease.getRefund(farmer);
+		Double refund = ServiceInjector.diseaseService.getRefund(farmer,odisease.desease);
 		try {
 			farmer = ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, refund);
 			InfoTableService info = new InfoTableServiceImpl();

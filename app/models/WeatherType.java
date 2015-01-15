@@ -43,5 +43,7 @@ public class WeatherType extends Model {
 	
 	public String background_url;
 	
+	public Integer type;
+	
 
 }

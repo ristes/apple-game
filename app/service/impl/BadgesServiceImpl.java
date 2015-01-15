@@ -80,7 +80,7 @@ public class BadgesServiceImpl implements BadgesService{
 
 	@Override
 	public Badges ecologist(Farmer farmer) {
-		if (farmer.eco_points>95) {
+		if (farmer.getEco_points()>BADGE_ECO_THRESHOLDER) {
 			Badges badge = Badges.find("byAkka","eco").first();
 			return badge;
 		}

@@ -10,7 +10,6 @@ public interface FarmerService {
 	
 	public static final String STATE_GROWING = "growing";
 
-	public double subtractEcoPoints(Farmer farmer, double points);
 	public Double subtractProductQuantity(Farmer farmer, double percent, Boolean showInfoTable, String reason);
 	public Farmer gotoNextDay(Farmer farmer);
 	public Farmer gotoNextWeek(Farmer farmer);

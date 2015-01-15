@@ -33,4 +33,5 @@ public interface LandTreatmanService {
 	public List<LogFarmerData> deepPlowingOperationsForPrevRecolte(Farmer farmer);
 	public Boolean hasDeepPlowed(Farmer farmer);
 	public Boolean hasShallowPlowed(Farmer farmer);
+	public void evalDiggingCoefs(Farmer farmer);
 }
