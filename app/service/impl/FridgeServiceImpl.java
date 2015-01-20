@@ -5,6 +5,7 @@ import java.util.List;
 
 import models.Farmer;
 import models.Fridge;
+import models.FridgeType;
 import models.PlantType;
 import models.PlantationSeedling;
 import models.Yield;
@@ -13,7 +14,6 @@ import service.FridgeService;
 import service.ServiceInjector;
 import dao.FridgeUsageDto;
 import dto.FridgeShelf;
-import dto.StatusDto;
 import exceptions.InvalidYield;
 import exceptions.NotEnoughApplesException;
 import exceptions.NotEnoughMoneyException;
@@ -27,7 +27,8 @@ public class FridgeServiceImpl implements FridgeService {
 
 		Fridge noFridge = new Fridge();
 		noFridge.capacity = 1000000;
-		noFridge.type = FridgeService.NO_FRIDGE;
+		noFridge.type = FridgeType.find("type=?1", FridgeService.NO_FRIDGE)
+				.first();
 		noFridge.name = "Обично складиште";
 		noFridge.farmer = farmer;
 		noFridge.price = 0;
@@ -35,7 +36,9 @@ public class FridgeServiceImpl implements FridgeService {
 
 		Fridge naFridge = new Fridge();
 		naFridge.capacity = 0;
-		naFridge.type = FridgeService.NA_FRIDGE;
+		naFridge.type = FridgeType.find("type=?1", FridgeService.NA_FRIDGE)
+				.first();
+		;
 		naFridge.price = 1;
 		naFridge.name = "Ладилник со нормална атмосфера";
 		naFridge.farmer = farmer;
@@ -43,7 +46,8 @@ public class FridgeServiceImpl implements FridgeService {
 
 		Fridge caFridge = new Fridge();
 		caFridge.capacity = 0;
-		caFridge.type = FridgeService.CA_FRIDGE;
+		caFridge.type = FridgeType.find("type=?1", FridgeService.CA_FRIDGE)
+				.first();
 		caFridge.price = 2;
 		caFridge.name = "Ладилник со контролирана атмосфера";
 		caFridge.farmer = farmer;
@@ -52,8 +56,8 @@ public class FridgeServiceImpl implements FridgeService {
 	}
 
 	@Override
-	public void buyFridgeCapacity(Farmer farmer, int capacity, int fridgeType)
-			throws NotEnoughMoneyException {
+	public void buyFridgeCapacity(Farmer farmer, int capacity,
+			FridgeType fridgeType) throws NotEnoughMoneyException {
 		Fridge fridge = Fridge
 				.find("farmer=?1 And type=?2", farmer, fridgeType).first();
 		Double price = (double) fridge.price * capacity;
@@ -67,13 +71,12 @@ public class FridgeServiceImpl implements FridgeService {
 	@Override
 	public void addToFridge(Farmer farmer, Fridge fridge, PlantType type,
 			int quantity) throws NotEnoughSpaceInFridge, InvalidYield {
-		Yield yield = Yield
-				.find("plantationSeedling.seedling.type = ?1 AND farmer = ?2 And year=?3",
-						type,
-						farmer,
-						ServiceInjector.dateService
-								.recolteYear(fridge.farmer.gameDate.date))
-				.first();
+		Yield yield = Yield.find(
+				"plantType = ?1 AND farmer = ?2 And year=?3",
+				type,
+				farmer,
+				ServiceInjector.dateService
+						.recolteYear(fridge.farmer.gameDate.date)).first();
 		if (yield == null) {
 			throw new InvalidYield();
 		}
@@ -116,32 +119,34 @@ public class FridgeServiceImpl implements FridgeService {
 
 	public void removeAllPlantTypeFromFridge(Farmer farmer, Fridge fridge,
 			PlantType type) {
-		YieldPortion yieldPortion = YieldPortion
-				.find("faremer=?1 AND plantationSeedling..seedling.type=?2 And year=?3",
-						farmer,
-						type,
-						ServiceInjector.dateService
-								.recolteYear(fridge.farmer.gameDate.date))
-				.first();
-		ServiceInjector.logFarmerDataService.logApplesBurnedInFridge(farmer,
-				yieldPortion.quantity);
-		yieldPortion.quantity = 0;
-		yieldPortion.save();
+		YieldPortion yieldPortion = YieldPortion.find(
+				"fridge=?1 AND yield.plantType=?2 And yield.year=?3",
+				fridge,
+				type,
+				ServiceInjector.dateService
+						.fridgerecolteyear(farmer.gameDate.date)).first();
+		if (yieldPortion != null) {
+			ServiceInjector.logFarmerDataService.logApplesBurnedInFridge(
+					farmer, yieldPortion.quantity);
+			yieldPortion.quantity = 0;
+			yieldPortion.save();
+		}
 	}
 
 	@Override
-	public FridgeUsageDto getFridgeUsage(Farmer farmer, int fridgeType) {
+	public FridgeUsageDto getFridgeUsage(Farmer farmer, FridgeType fridgeType) {
 		FridgeUsageDto usage = new FridgeUsageDto();
 		Fridge fridge = Fridge.find("byFarmerAndType", farmer, fridgeType)
 				.first();
-		if (fridge==null) {
+		if (fridge == null) {
 			return null;
 		}
 		List<YieldPortion> portions = YieldPortion.find(
-				"fridge.farmer=?1 And fridge.type=?2 And yield.year=?3",
-				farmer, fridgeType,
-				ServiceInjector.dateService.recolteYear(farmer.gameDate.date))
-				.fetch();
+				"fridge.farmer=?1 And fridge.type=?2 And yield.year=?3 and quantity>0",
+				farmer,
+				fridgeType,
+				ServiceInjector.dateService
+						.fridgerecolteyear(farmer.gameDate.date)).fetch();
 		if (0 == portions.size()) {
 			usage.used = 0;
 		}
@@ -152,7 +157,7 @@ public class FridgeServiceImpl implements FridgeService {
 			shelf.quantity = portion.quantity;
 			usage.shelfs.add(shelf);
 		}
-		usage.fridgeType = fridgeType;
+		usage.fridgeType = fridgeType.type;
 		usage.capacity = fridge.capacity;
 		usage.fridgeName = fridge.name;
 		usage.price = fridge.price;
@@ -163,16 +168,19 @@ public class FridgeServiceImpl implements FridgeService {
 	@Override
 	public List<FridgeUsageDto> getFarmerFridges(Farmer farmer) {
 		List<FridgeUsageDto> result = new ArrayList<FridgeUsageDto>();
-		FridgeUsageDto usageNo = getFridgeUsage(farmer, FridgeService.NO_FRIDGE);
-		if (usageNo!=null) {
+		FridgeUsageDto usageNo = getFridgeUsage(farmer, (FridgeType) FridgeType
+				.find("type=?1", FridgeService.NO_FRIDGE).first());
+		if (usageNo != null) {
 			result.add(usageNo);
 		}
-		FridgeUsageDto usageNA = getFridgeUsage(farmer, FridgeService.NA_FRIDGE);
-		if (usageNA!=null) {
+		FridgeUsageDto usageNA = getFridgeUsage(farmer, (FridgeType) FridgeType
+				.find("type=?1", FridgeService.NA_FRIDGE).first());
+		if (usageNA != null) {
 			result.add(usageNA);
 		}
-		FridgeUsageDto usageCA = getFridgeUsage(farmer, FridgeService.CA_FRIDGE);
-		if (usageCA!=null) {
+		FridgeUsageDto usageCA = getFridgeUsage(farmer, (FridgeType) FridgeType
+				.find("type=?1", FridgeService.CA_FRIDGE).first());
+		if (usageCA != null) {
 			result.add(usageCA);
 		}
 		return result;
@@ -190,7 +198,7 @@ public class FridgeServiceImpl implements FridgeService {
 
 	@Override
 	public Fridge getFridge(Farmer farmer, Integer type) {
-		return Fridge.find("farmer=?1 And type=?2", farmer, type).first();
+		return Fridge.find("farmer=?1 And type.type=?2", farmer, type).first();
 	}
 
 	@Override
@@ -209,11 +217,11 @@ public class FridgeServiceImpl implements FridgeService {
 			List<Yield> yields) {
 
 		for (Yield yield : yields) {
-			List<YieldPortion> portions = YieldPortion.find("byFridgeAndYield",
+			List<YieldPortion> portions = YieldPortion.find("fridge=?1 AND yield=?2 AND quantity>0",
 					fridge, yield).fetch();
 			for (YieldPortion portion : portions) {
 				if (ServiceInjector.yieldPortionService.checkDeadline(farmer,
-						fridge, portion)) {
+						fridge.type, portion)) {
 					int quantity = portion.quantity;
 					removeAllPlantTypeFromFridge(farmer, fridge,
 							portion.yield.plantationSeedling.seedling.type);
@@ -222,7 +230,7 @@ public class FridgeServiceImpl implements FridgeService {
 							fridge.name, quantity);
 					ServiceInjector.infoTableService
 							.createT1(farmer, message,
-									"/public/images.attention/ikona-za-trevoga-od-zamrznato-ovoshje.png");
+									portion.yield.plantType.imageurl);
 				}
 			}
 		}

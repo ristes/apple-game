@@ -16,4 +16,6 @@ public class HarvestingPeriod extends Model{
 	public Date endTo;
 	
 
+	
+
 }

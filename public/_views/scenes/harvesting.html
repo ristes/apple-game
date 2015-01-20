@@ -18,7 +18,7 @@
                 <div class="shop-item-label ramka" ng-click="harvest(item)">
                     <span class="title-text" translate="{{item.type.name}}"></span>
                 </div>
-                <div>S:{{item.strength}}; rf: {{item.rfValue}}; is: {{item.iodineStarch}}</div>
+                <div>Straive Test: {{item.iodineStarch | setDecimal:2}}</div>
             </div>
             <div ng-if="!harvestingInfo">
                 Harvesting done :)

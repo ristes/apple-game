@@ -26,8 +26,8 @@ public class ItemsDaoImpl implements ItemsDao {
 	@Override
 	public Map<String, ItemBoughtDto> getFarmerCurrentItems(Farmer farmer) {
 
-		List<ItemInstance> farmerItems = ItemInstance.find("ownedBy.id",
-				farmer.id).fetch();
+		List<ItemInstance> farmerItems = ItemInstance.find("ownedBy.id=?1 and type.visibleInBoughtItems=?2",
+				farmer.id,true).fetch();
 		// List<ItemBoughtDto> result = new ArrayList<ItemBoughtDto>();
 		Map<String, ItemBoughtDto> boughtItems = new HashMap<String, ItemBoughtDto>();
 		for (ItemInstance item : farmerItems) {

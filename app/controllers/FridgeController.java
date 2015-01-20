@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import models.Farmer;
 import models.Fridge;
+import models.FridgeType;
 import models.PlantType;
 import service.ServiceInjector;
 import dao.FridgeUsageDto;
@@ -30,7 +31,7 @@ public class FridgeController extends GameController {
 			JsonMappingException, IOException {
 		Farmer farmer = checkFarmer();
 		ServiceInjector.fridgeService.buyFridgeCapacity(farmer, capacity,
-				fridgetype);
+				(FridgeType)FridgeType.find("type=?1",fridgetype).first());
 		ServiceInjector.fridgeService.getFarmerFridges(farmer);
 		JsonController.statusJson(farmer);
 	}

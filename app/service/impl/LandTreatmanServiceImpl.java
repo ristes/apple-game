@@ -123,8 +123,8 @@ public class LandTreatmanServiceImpl implements LandTreatmanService {
 		Integer price = 0;
 		switch (level) {
 		case 0:
-			throw new SoilTooDryException(
-					Messages.get("controller.plowing.fail.toodry"));
+			price = (int) (coefTypeTractor * 1.5 * plowing.price * (int) farmer.field.area);
+			break;
 		case 1:
 			price = (int) (coefTypeTractor * 1 * plowing.price * (int) farmer.field.area);
 			break;

@@ -31,6 +31,10 @@ public class PlantType extends Model {
 
 	public String imageurl;
 	
+	public Double minStraif;
+	
+	public Double maxStraif;
+	
 	
 	@ManyToOne
 	public HarvestingPeriod period;

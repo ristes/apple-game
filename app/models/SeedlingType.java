@@ -27,8 +27,7 @@ public class SeedlingType extends Model {
 
 	public String imageurl;
 
-	@OneToMany(mappedBy = "type")
-	public List<Yield> yields;
+
 
 	@ManyToOne
 	public SpriteImage image;

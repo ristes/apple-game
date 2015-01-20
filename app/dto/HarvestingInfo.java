@@ -7,7 +7,7 @@ public class HarvestingInfo {
 
 	public String iodineStarchUrl;
 
-	public double iodineStarch;
+	private double iodineStarch;
 
 	public double strength;
 
@@ -16,4 +16,18 @@ public class HarvestingInfo {
 	public PlantType type;
 
 	public Long plantationSeedlignId;
+
+	public double getIodineStarch() {
+		return iodineStarch;
+	}
+
+	public void setIodineStarch(double iodineStarch) {
+		if (iodineStarch<0) {
+			this.iodineStarch = 0.0;
+		} else {
+			this.iodineStarch = iodineStarch;
+		}
+	}
+	
+	
 }

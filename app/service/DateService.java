@@ -29,4 +29,6 @@ public interface DateService {
 	public int recolteYear(Date date);
 	public int recolteYearByPlantType(Date date, PlantType type);
 	public int getCalendarFieldOfDate(Date date, int fieldType);
+	public int fridgerecolteyear(Date date);
+	public Date convertFridgeDateTo70(Date date);
 }

@@ -18,7 +18,7 @@ public class PlantTypeDeadine extends Model {
 	public PlantType plantType;
 	
 	@ManyToOne
-	public Fridge fridge;
+	public FridgeType fridge;
 
 
 

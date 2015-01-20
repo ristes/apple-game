@@ -166,7 +166,7 @@ public class FarmerServiceImpl implements FarmerService {
 
 	@Override
 	public boolean hasBees(Farmer farmer) {
-		ItemInstance bees = ItemInstance.find("byType.nameAndOwnedBy", "bees",
+		ItemInstance bees = ItemInstance.find("type.name=?1 AND ownedBy=?2", "bees",
 				farmer).first();
 		if (bees == null) {
 			return false;

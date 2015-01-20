@@ -4,6 +4,7 @@ import java.util.List;
 
 import models.Farmer;
 import models.Fridge;
+import models.FridgeType;
 import models.PlantType;
 import models.PlantationSeedling;
 import models.Yield;
@@ -25,7 +26,7 @@ public interface FridgeService {
 	public void setFridges(Farmer farmer,
 			List<PlantationSeedling> plantationSeedling);
 
-	public void buyFridgeCapacity(Farmer farmer, int capacity, int fridgeType)
+	public void buyFridgeCapacity(Farmer farmer, int capacity, FridgeType fridgeType)
 			throws NotEnoughMoneyException;
 
 	public void addToFridge(Farmer farmer, Fridge fridge, PlantType type,
@@ -35,7 +36,7 @@ public interface FridgeService {
 			int quantity) throws NotEnoughApplesException;
 	
 
-	public FridgeUsageDto getFridgeUsage(Farmer farmer, int fridgeType);
+	public FridgeUsageDto getFridgeUsage(Farmer farmer, FridgeType fridgeType);
 
 	public List<FridgeUsageDto> getFarmerFridges(Farmer farmer);
 

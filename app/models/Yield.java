@@ -2,6 +2,7 @@ package models;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -41,8 +42,9 @@ public class Yield extends Model {
 	/**
 	 * The apple type
 	 */
+	
 	@ManyToOne
-	public SeedlingType type;
+	public PlantType plantType;
 
 	@Transient
 	public int storedQuantity;

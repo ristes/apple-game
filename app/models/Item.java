@@ -46,6 +46,11 @@ public class Item extends Model {
 	 * Tells if the price is per Ha
 	 */
 	public Boolean perHa;
+	
+	/**
+	 * Tells if the item is visible as an item in the sliding menu
+	 */
+	public Boolean visibleInBoughtItems;
 
 	/**
 	 * Where can we buy the item

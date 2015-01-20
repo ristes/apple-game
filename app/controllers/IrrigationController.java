@@ -34,8 +34,7 @@ public class IrrigationController extends GameController {
 
 	private static void returnFarmer(Farmer farmer, double deltaCul)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		FarmerService farmerService = new FarmerServiceImpl();
-		farmerService.addCumulative(farmer, deltaCul);
+		ServiceInjector.farmerService.addCumulative(farmer, deltaCul);
 		ServiceInjector.contextService.evaluateState(farmer);
 		JsonController.statusJson(farmer);
 	}
@@ -46,13 +45,8 @@ public class IrrigationController extends GameController {
 
 		Farmer farmer = checkFarmer();
 		double result = 0.0;
-
-		try {
-			IrrigationService irrService = new IrrigationServiceImpl();
-			result = irrService.dropsIrrigation(farmer, time);
-		} catch (NotEnoughMoneyException ex) {
-			ex.printStackTrace();
-		}
+		result = ServiceInjector.irrigationService
+				.dropsIrrigation(farmer, time);
 
 		returnFarmer(farmer, result);
 	}
@@ -61,13 +55,9 @@ public class IrrigationController extends GameController {
 			throws NotEnoughMoneyException, JsonGenerationException,
 			JsonMappingException, IOException {
 		Farmer farmer = checkFarmer();
-		double result = 0.0;
-		try {
-			IrrigationService irrService = new IrrigationServiceImpl();
-			result = irrService.groovesIrrigation(farmer, time);
-		} catch (NotEnoughMoneyException ex) {
-			ex.printStackTrace();
-		}
+		double result = ServiceInjector.irrigationService.groovesIrrigation(farmer,
+				time);
+
 		returnFarmer(farmer, result);
 	}
 
@@ -75,8 +65,7 @@ public class IrrigationController extends GameController {
 		Farmer farmer = checkFarmer();
 		int time = 0;
 		try {
-			IrrigationService irrService = new IrrigationServiceImpl();
-			time = irrService.tensiometerTimeForIrr(farmer);
+			time = ServiceInjector.irrigationService.tensiometerTimeForIrr(farmer);
 		} catch (NotAllowedException e) {
 			e.printStackTrace();
 		}
@@ -85,8 +74,7 @@ public class IrrigationController extends GameController {
 
 	public static void activeIrrigationItem() {
 		Farmer farmer = checkFarmer();
-		IrrigationService irrService = new IrrigationServiceImpl();
-		ItemBoughtDto irrigationType = irrService
+		ItemBoughtDto irrigationType = ServiceInjector.irrigationService
 				.getActiveIrrigationType(farmer);
 		renderJSON(irrigationType);
 	}

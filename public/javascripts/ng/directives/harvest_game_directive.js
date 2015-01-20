@@ -210,7 +210,7 @@ Game.directive('harvestGame', ['$interval', '$filter',  function($interval, $fil
                     badCaught: 0,
                     basketWidth: 8,
                     basketHeight: 20,
-                    timeLeft: 60,
+                    timeLeft: 15,
                     dropAppleInterval: 60
                 }
 

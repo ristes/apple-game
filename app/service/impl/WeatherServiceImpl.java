@@ -35,7 +35,8 @@ public class WeatherServiceImpl implements WeatherService{
 	public Double getPrevDaysValue(Farmer farmer, Integer days) {
 		double result = 0.0;
 		Calendar c = Calendar.getInstance();
-		c.set(Calendar.DAY_OF_MONTH, -days);
+		c.setTime(farmer.gameDate.date);
+		c.set(Calendar.DAY_OF_MONTH, c.get(Calendar.DAY_OF_MONTH)-days);
 		List<LogFarmerData> logs = LogFarmerData.find("typelog=?1 AND logdate>=?2 AND logdate<=?3", LogFarmerDataService.RAIN_VALUE, c.getTime(), farmer.gameDate.date).fetch();
 		for (LogFarmerData log:logs) {
 			result+=log.information;

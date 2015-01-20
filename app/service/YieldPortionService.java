@@ -2,6 +2,7 @@ package service;
 
 import models.Farmer;
 import models.Fridge;
+import models.FridgeType;
 import models.YieldPortion;
 
 public interface YieldPortionService {
@@ -14,5 +15,6 @@ public interface YieldPortionService {
 	 */
 	public Integer removeFromPortion(YieldPortion yieldportion, int quantity);
 	
-	public Boolean checkDeadline(Farmer farmer, Fridge fridge, YieldPortion portion) ;
+	public Boolean checkDeadline(Farmer farmer, FridgeType fridge,
+			YieldPortion portion);
 }

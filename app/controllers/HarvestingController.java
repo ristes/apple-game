@@ -30,6 +30,7 @@ public class HarvestingController extends GameController {
 		double goodper = goodcollected / (double) goodtotal;
 		double badper = badcollected / (double) badtotal;
 		farmer = hService.makeHarvesting(farmer, ps, goodper, badper);
+		ServiceInjector.contextService.evaluateState(farmer);
 		JsonController.statusJson(farmer);
 	}
 
@@ -55,8 +56,11 @@ public class HarvestingController extends GameController {
 			gameDate.setTime(farmer.gameDate.date);
 
 			Calendar start = Calendar.getInstance();
+			Calendar end = Calendar.getInstance();
 			start.setTime(period.startFrom);
 			start.set(Calendar.YEAR, gameDate.get(Calendar.YEAR));
+			end.setTime(period.endTo);
+			end.set(Calendar.YEAR, gameDate.get(Calendar.YEAR));
 
 			HarvestingInfo hi = new HarvestingInfo();
 			long time = gameDate.getTimeInMillis() - start.getTimeInMillis();
@@ -73,9 +77,9 @@ public class HarvestingController extends GameController {
 
 			hi.plantationSeedlignId = ps.id;
 			hi.type = ps.seedling.type;
-			hi.iodineStarch = 4.8;
-			hi.strength = 6.7;
-			hi.rfValue = 11.3;
+			hi.setIodineStarch(ps.seedling.type.minStraif+((ps.seedling.type.maxStraif - ps.seedling.type.minStraif)*(gameDate.getTimeInMillis() - start.getTimeInMillis())/(end.getTimeInMillis()-start.getTimeInMillis())));
+//			hi.strength = 6.7;
+//			hi.rfValue = 11.3;
 			info.add(hi);
 		}
 		JsonController.toJson(info);

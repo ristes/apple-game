@@ -28,8 +28,18 @@ public class DateServiceImpl implements DateService{
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
 		int month = c.get(Calendar.MONTH);
-		int day = c.get(Calendar.DAY_OF_MONTH);
 		if (month >= Calendar.NOVEMBER) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public Boolean isAfterFridgeNewYear(Date date) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		int month = c.get(Calendar.MONTH);
+		if (month >= Calendar.SEPTEMBER) {
 			return false;
 		}
 		
@@ -203,6 +213,27 @@ public class DateServiceImpl implements DateService{
 		}
 		c.setTime(date);
 		return c.get(Calendar.MONTH);
+	}
+
+	@Override
+	public int fridgerecolteyear(Date date) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		if (isAfterFridgeNewYear(date)) {
+			return c.get(Calendar.YEAR) - 2;
+		}
+		return c.get(Calendar.YEAR)-1;	}
+
+	@Override
+	public Date convertFridgeDateTo70(Date date) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		if (isAfterFridgeNewYear(date)) {
+			c.set(Calendar.YEAR, 1971);
+		} else {
+			c.set(Calendar.YEAR, 1970);
+		}
+		return c.getTime();
 	}
 	
 }

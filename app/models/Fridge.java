@@ -12,7 +12,8 @@ public class Fridge extends Model{
 	
 	public Integer capacity;
 	
-	public Integer type;
+	@ManyToOne
+	public FridgeType type;
 	
 	public Integer price;
 	

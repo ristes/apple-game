@@ -59,8 +59,8 @@ public class YieldServiceImpl implements YieldService {
 
 	@Override
 	public List<Yield> getPreviousYearYield(Farmer farmer) {
-		int year = ServiceInjector.dateService.evaluateYearLevel(farmer.gameDate.date);
-		return Yield.find("byFarmerAndYear", farmer, year-1).fetch();
+		int year = ServiceInjector.dateService.fridgerecolteyear(farmer.gameDate.date);
+		return Yield.find("byFarmerAndYear", farmer, year).fetch();
 	}
 
 	@Override

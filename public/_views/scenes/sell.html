@@ -15,7 +15,7 @@
         <div class="shop_menu_grid fa-inverse">
 
             <div ng-repeat="type in plantation.plantTypes" ng-show="storeCfg[type.name].max>0">
-                Unsotred quantity of {{type.name}} ({{storeCfg[type.name].max}} kg): 
+                Unsorted quantity of {{type.name}} ({{storeCfg[type.name].max}} kg): 
                 <button class="btn btn-primary btn-xs" ng-click="sell(type, storeCfg[type.name])">Sell</button>
                 <div slider class="slider" cfg="storeCfg[type.name]" value="storeCfg[type.name].quantity" ng-show="storeCfg[type.name].max"></div>
                 <div>

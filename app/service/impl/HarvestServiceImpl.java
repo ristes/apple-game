@@ -7,10 +7,14 @@ import models.Farmer;
 import models.PlantType;
 import models.PlantationSeedling;
 import models.Yield;
+import models.YieldPortion;
+import service.FridgeService;
 import service.HarvestService;
 import service.ServiceInjector;
+import exceptions.InvalidYield;
 import exceptions.NotAllowedException;
 import exceptions.NotEnoughMoneyException;
+import exceptions.NotEnoughSpaceInFridge;
 
 public class HarvestServiceImpl implements HarvestService {
 
@@ -27,7 +31,7 @@ public class HarvestServiceImpl implements HarvestService {
 
 	public Farmer makeHarvesting(Farmer farmer,
 			PlantationSeedling plantationSeedling, Double goodper, Double badper)
-			throws NotEnoughMoneyException, NotAllowedException {
+			throws NotEnoughMoneyException, NotAllowedException, NotEnoughSpaceInFridge, InvalidYield {
 		double expense = farmer.field.area * HarvestService.PRIZE;
 		
 		ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer,
@@ -35,8 +39,8 @@ public class HarvestServiceImpl implements HarvestService {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(farmer.gameDate.date);
 		// int year = cal.get(Calendar.YEAR);
-		int recolteYear = ServiceInjector.dateService.recolteYearByPlantType(
-				farmer.gameDate.date, plantationSeedling.seedling.type);
+		int recolteYear = ServiceInjector.dateService.recolteYear(
+				farmer.gameDate.date);
 		Yield yieldDone = Yield.find(
 				"year=?1 And farmer=?2 And plantationSeedling=?3", recolteYear,
 				farmer, plantationSeedling).first();
@@ -58,10 +62,11 @@ public class HarvestServiceImpl implements HarvestService {
 		Yield yield = new Yield();
 		yield.farmer = farmer;
 		yield.plantationSeedling = plantationSeedling;
-		yield.type = plantationSeedling.seedling.seedlingType;
+		yield.plantType = plantationSeedling.seedling.type;
 		yield.quantity = q;
 		yield.year = recolteYear;
 		yield.save();
+		ServiceInjector.fridgeService.addToFridge(farmer, ServiceInjector.fridgeService.getFridge(farmer, FridgeService.NO_FRIDGE), yield.plantType, q);
 		return farmer;
 	}
 

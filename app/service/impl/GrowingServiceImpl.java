@@ -28,12 +28,13 @@ public class GrowingServiceImpl implements GrowingService {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(farmer.gameDate.date);
 		int year_level = 1;
+		int recolteYear = ServiceInjector.dateService.recolteYear(farmer.gameDate.date);
 		int year = calendar.get(Calendar.YEAR);
 		int month = calendar.get(Calendar.MONTH);
 		year_level = year_tree_image(ServiceInjector.dateService
 				.evaluateYearLevel(farmer.gameDate.date));
 
-		additional.append(checkToPutApplesOnTree(farmer, year, year_level,
+		additional.append(checkToPutApplesOnTree(farmer, recolteYear, year_level,
 				month, season, plantType));
 		additional.append(checkWhiteSprayed(farmer, year_level));
 		return image_path + String.valueOf(year_level) + String.valueOf(season)
