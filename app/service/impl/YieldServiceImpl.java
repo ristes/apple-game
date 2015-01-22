@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import models.Farmer;
+import models.Item;
 import models.LogFarmerData;
 import models.PlantationSeedling;
 import models.Yield;
@@ -42,7 +43,7 @@ public class YieldServiceImpl implements YieldService {
 		if ((pruneLog=ServiceInjector.prunningService.hasPruned(farmer))!=null) {
 			sum -= sum*ServiceInjector.prunningService.getDiminusher(farmer, pruneLog);
 		}
-		if (ServiceInjector.farmerService.hasBees(farmer)) {
+		if (ServiceInjector.itemInstanceService.has(farmer,(Item)Item.find("name=?1","bees").first())) {
 			sum+= sum*10/100;
 		}
 		if (!ServiceInjector.landTreatmanService.isFirstDeepPlowed(farmer)) {

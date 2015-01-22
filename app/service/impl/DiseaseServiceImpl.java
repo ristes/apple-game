@@ -29,14 +29,9 @@ import exceptions.PriceNotValidException;
 public class DiseaseServiceImpl implements DiseaseService {
 
 	public Double coef_of_diminushing = 0.97;
-	
-	
-	
-	
 
 	@Override
 	public List<DiseaseOccurenceProb> getDiseasesProb(Farmer farmer) {
-		DateService ds = new DateServiceImpl();
 		List<DiseaseOccurenceProb> disProbs = new ArrayList<DiseaseOccurenceProb>();
 		List<Disease> deceases = Disease.findAll();
 		for (Disease disease : deceases) {
@@ -44,8 +39,8 @@ public class DiseaseServiceImpl implements DiseaseService {
 			dis.name = disease.name;
 			Double prob = 0.0;
 			// ako e grad
-			if (disease.id == 10l && farmer.gameDate.weatherType.id == 3l
-					&& ds.season_level(farmer) == 4) {
+			if (disease.id.equals(10l) && farmer.gameDate.weatherType.equals(3l)
+					&& ServiceInjector.dateService.season_level(farmer) == ServiceInjector.dateService.SEASON_SUMMER) {
 				prob = getRisk(farmer, disease);
 			} else {
 				prob = getRisk(farmer, disease);
@@ -54,7 +49,7 @@ public class DiseaseServiceImpl implements DiseaseService {
 						- ((1 - Math.pow(coef_of_diminushing, n)) * 100);
 				disProbs.add(dis);
 			}
-			System.out.println(prob + " - " + farmer.luck * 100);
+			System.out.println(disease.name+" - "+ prob + " - " + farmer.luck * 100);
 		}
 		return disProbs;
 	}
@@ -81,6 +76,7 @@ public class DiseaseServiceImpl implements DiseaseService {
 				}
 				farmer.save();
 				od.save();
+				System.out.println(farmer.gameDate.date +"-"+ d.name+" farmer luck:"+farmer.luck+"<"+prob.probability);
 				ServiceInjector.logFarmerDataService.logOccurredDisease(farmer, d, od.demage.intValue());
 				checkInfoTable(farmer, od);
 				checkRefunding(farmer, od);
@@ -97,8 +93,7 @@ public class DiseaseServiceImpl implements DiseaseService {
 	public List<DiseaseProtectingOperationDto> getMmax(Farmer farmer,
 			Disease disease) {
 		Date curDate = ServiceInjector.dateService.convertDateTo70(farmer.gameDate.date);
-		DeceasesDao diseasesDao = new DeceasesDaoImpl();
-		return diseasesDao.getDiseaseProtectingOpersShouldBeDoneToDate(disease,
+		return DaoInjector.deceasesDao.getDiseaseProtectingOpersShouldBeDoneToDate(disease,
 				curDate);
 	}
 

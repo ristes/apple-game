@@ -46,11 +46,10 @@ public class BadgesServiceImpl implements BadgesService{
 	
 
 	@Override
-	public Badges harvester(Farmer farmer, Integer yield, Integer harvested) {
+	public Badges harvester(Farmer farmer, Double percentCollected) {
 		Badges badge = Badges.find("byAkka","harvester").first();
 		Double trigger = Double.parseDouble(JsonExcluder.byField(badge.metadata, "yield_collector"));
-		double per = (harvested / (double)yield)*100;
-		if (per>trigger){
+		if (percentCollected*100>trigger){
 			return badge;
 		} 
 		return null;

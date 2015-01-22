@@ -20,12 +20,12 @@ import utils.RString;
 public class InsuranceServiceImpl implements InsuranceService {
 
 	@Override
-	public Farmer buyInsurance(Farmer farmer) throws NotEnoughMoneyException {
+	public ItemInstance buyInsurance(Farmer farmer) throws NotEnoughMoneyException {
 		if (hasInsuranceThisYear(farmer) == false) {
 			Double cost = calculatePriceOfInsurance(farmer);
 			return commitTransaction(farmer, cost);
 		}
-		return farmer;
+		return null;
 
 	}
 
@@ -65,7 +65,7 @@ public class InsuranceServiceImpl implements InsuranceService {
 		return cost;
 	}
 
-	private Farmer commitTransaction(Farmer farmer, Double cost)
+	private ItemInstance commitTransaction(Farmer farmer, Double cost)
 			throws NotEnoughMoneyException {
 		ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, -Math.round(cost));
 		Item insurrance = Item.find("byName", "insurrance").first();
@@ -75,7 +75,7 @@ public class InsuranceServiceImpl implements InsuranceService {
 		itemI.quantity = 1d;
 		itemI.year = ServiceInjector.dateService.recolteYear(farmer.gameDate.date);
 		itemI.save();
-		return farmer;
+		return itemI;
 	}
 
 }

@@ -109,32 +109,31 @@ public class TransactionServiceImpl implements MoneyTransactionService,
 	}
 
 	@Override
-	public Farmer commitBuyingItem(Farmer farmer, Item item, Double quantity)
+	public ItemInstance commitBuyingItem(Farmer farmer, Item item, Double quantity)
 			throws NotEnoughMoneyException {
+		ItemInstance instance = new ItemInstance();
 		if (item.price == 0) {
 			commitBuyingSpecialItem(farmer, item, quantity);
 		} else {
-			DateService dateService = new DateServiceImpl();
 			double value = item.price * quantity;
 			commitMoneyTransaction(farmer, -value);
-			ItemInstance instance = new ItemInstance();
 			instance.ownedBy = farmer;
 			instance.type = item;
 			instance.quantity = quantity;
-			instance.year = dateService.recolteYear(farmer.gameDate.date);
+			instance.year = ServiceInjector.dateService.recolteYear(farmer.gameDate.date);
 			instance.save();
 
 			farmer.save();
 		}
-		return farmer;
+		return instance;
 	}
 
-	public Farmer commitBuyingSpecialItem(Farmer farmer, Item item,
+	public ItemInstance commitBuyingSpecialItem(Farmer farmer, Item item,
 			Double quantity) throws NotEnoughMoneyException {
 		if (item.name.equals("insurrance")) {
-			farmer = ServiceInjector.insuranceService.buyInsurance(farmer);
+			return ServiceInjector.insuranceService.buyInsurance(farmer);
 		}
-		return farmer;
+		return null;
 	}
 
 }

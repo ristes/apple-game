@@ -11,7 +11,7 @@ Game.controller('SprayingController', [
 
       $scope.$root.$emit('show-progress-global', {
         title: 'progress.' + oper.name,
-        duration: oper.duration
+        duration: 3
       });
     };
 
@@ -32,7 +32,7 @@ Game.controller('SprayingController', [
           BoughtItems.load(function() {
             $scope.$root.$emit('shop-hide');
             var boughtItems = BoughtItems.get($scope.sprayingOper.requires)[0];
-            showProgress($scope, $scope.sprayingOper, boughtItems);
+            showProgress($scope, $scope.sprayingOper, result.t);
           });
 
         } else {
@@ -54,27 +54,7 @@ Game.controller('SprayingController', [
           onItemClick: onBuyItem
         });
 
-//      } else {
-//        var types = BoughtItems.get(oper.requires);
-//        if (types.length > 1) {
-//          $scope.$root.$emit('shop-show', {
-//            items: types,
-//            showNext: true,
-//            storeUrl: oper.ico,
-//            shop: {
-//              name: oper.requires
-//            },
-//            onItemClick: function(t) {
-//              $scope.type = t;
-//              $scope.$root.$emit('shop-hide');
-//              showProgress($scope, oper, t);
-//            }
-//          });
-//        } else {
-//          $scope.type = types[0];
-//          showProgress($scope, oper, types[0]);
-//        }
-//      }
+
 
     });
 

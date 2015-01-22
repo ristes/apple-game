@@ -160,7 +160,7 @@ public class FridgeServiceImpl implements FridgeService {
 		usage.fridgeType = fridgeType.type;
 		usage.capacity = fridge.capacity;
 		usage.fridgeName = fridge.name;
-		usage.price = fridge.price;
+		usage.price = fridge.type.price;
 		return usage;
 
 	}

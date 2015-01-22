@@ -109,7 +109,6 @@ public class LogFarmerDataServiceImpl implements LogFarmerDataService{
 		data.information = ammount.doubleValue();
 		data.typelog = LogFarmerDataService.APPLES_BURNED_IN_FRIDGE;
 		data.save();
-		
 	}
 
 	@Override
@@ -121,7 +120,6 @@ public class LogFarmerDataServiceImpl implements LogFarmerDataService{
 		data.jsonDataInfo = new Gson().toJson(result);
 		data.typelog = LogFarmerDataService.QUIZ_ANSWERED;
 		data.save();
-		
 	}
 
 	@Override

@@ -56,8 +56,8 @@ public class PlantingServiceImpl implements PlantingService {
 				JsonObject jsonObject = jsonAr.get(i).getAsJsonObject();
 				jsonObject
 						.addProperty(
-								"color",
-								mySeedls.get(mySeedlPercs.length - 1).seedling.type.apple_color);
+								"planttype",
+								mySeedls.get(mySeedlPercs.length - 1).seedling.type.id);
 				resultArr.add(jsonObject);
 			}
 		}

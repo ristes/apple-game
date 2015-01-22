@@ -164,15 +164,7 @@ public class FarmerServiceImpl implements FarmerService {
 		return farmer;
 	}
 
-	@Override
-	public boolean hasBees(Farmer farmer) {
-		ItemInstance bees = ItemInstance.find("type.name=?1 AND ownedBy=?2", "bees",
-				farmer).first();
-		if (bees == null) {
-			return false;
-		}
-		return true;
-	}
+	
 
 	@Override
 	public Double subtractProductQuantity(Farmer farmer, double percent,

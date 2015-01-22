@@ -9,7 +9,7 @@ Game.factory('Fridge', [
             },
             buyCapacity: function(type, capacity, callback) {
                 var res = $resource('/FridgeController/buycapacity?fridgetype=' + type + '&capacity=' + capacity, {});
-                return res.query(callback);
+                return res.get(callback);
             },
             addtofridge: function(fridgeType, plantType, quantity, callback) {
                 var res = $resource('/FridgeController/addtofridge?type=' + fridgeType +

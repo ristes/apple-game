@@ -117,7 +117,8 @@ Game.controller('SellController', [
         $scope.cfg = [{
             range: "max",
             min: 1,
-            max: 100,
+            step:100,
+            max: 1000,
             slide: function(event, ui) {
                 $scope.$apply(function() {
                     $scope.fridgesCapacity[0].capacity = ui.value;
@@ -125,8 +126,9 @@ Game.controller('SellController', [
             }
         }, {
             range: "max",
-            min: 1,
-            max: 100,
+            min: 0,
+            step:100,
+            max: 1000,
             slide: function(event, ui) {
                 $scope.$apply(function() {
                     $scope.fridgesCapacity[1].capacity = ui.value;
@@ -134,8 +136,8 @@ Game.controller('SellController', [
             }
         }, {
             range: "max",
-            min: 1,
-            max: 100,
+            min: 0,
+            max: 1000,
             slide: function(event, ui) {
                 $scope.$apply(function() {
                     $scope.fridgesCapacity[2].capacity = ui.value;

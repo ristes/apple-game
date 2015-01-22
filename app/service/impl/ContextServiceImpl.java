@@ -21,6 +21,7 @@ public class ContextServiceImpl implements ContextService {
 
 	
 	
+	
 	public void calculateCumulatives(Farmer farmer) {
 		ServiceInjector.humidityService.humidityGainsOnDailyLevel(farmer);
 		ServiceInjector.humidityService.humidityLooses(farmer);
@@ -222,7 +223,5 @@ public class ContextServiceImpl implements ContextService {
 	public void evaluateLowTemps(Farmer farmer) {
 		ServiceInjector.iceService.impactLowTemp(farmer);
 	}
-
-
 
 }

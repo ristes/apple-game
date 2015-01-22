@@ -26,10 +26,10 @@ public class HarvestingController extends GameController {
 
 		Farmer farmer = checkFarmer();
 		PlantationSeedling ps = PlantationSeedling.findById(plantationseedling);
-		HarvestService hService = new HarvestServiceImpl();
 		double goodper = goodcollected / (double) goodtotal;
 		double badper = badcollected / (double) badtotal;
-		farmer = hService.makeHarvesting(farmer, ps, goodper, badper);
+		farmer = ServiceInjector.harvestService.makeHarvesting(farmer, ps,
+				goodper, badper);
 		ServiceInjector.contextService.evaluateState(farmer);
 		JsonController.statusJson(farmer);
 	}
@@ -43,44 +43,52 @@ public class HarvestingController extends GameController {
 
 		List<HarvestingInfo> info = new ArrayList<HarvestingInfo>();
 		for (PlantationSeedling ps : seedlings) {
-			int recolteYear = ServiceInjector.dateService
-					.recolteYear(farmer.gameDate.date);
-			Yield yieldDone = Yield.find(
-					"byYearAndFarmerAndPlantationSeedling", recolteYear,
-					farmer, ps).first();
-			if (yieldDone != null) {
-				continue;
+			if (!ServiceInjector.harvestService.isAfterHarvestingPeriod(farmer,
+					ps.seedling.type.id)) {
+				int recolteYear = ServiceInjector.dateService
+						.recolteYear(farmer.gameDate.date);
+				Yield yieldDone = Yield.find(
+						"byYearAndFarmerAndPlantationSeedling", recolteYear,
+						farmer, ps).first();
+				if (yieldDone != null) {
+					continue;
+				}
+				HarvestingPeriod period = ps.seedling.type.period;
+				Calendar gameDate = Calendar.getInstance();
+				gameDate.setTime(farmer.gameDate.date);
+
+				Calendar start = Calendar.getInstance();
+				Calendar end = Calendar.getInstance();
+				start.setTime(period.startFrom);
+				start.set(Calendar.YEAR, gameDate.get(Calendar.YEAR));
+				end.setTime(period.endTo);
+				end.set(Calendar.YEAR, gameDate.get(Calendar.YEAR));
+
+				HarvestingInfo hi = new HarvestingInfo();
+				long time = gameDate.getTimeInMillis()
+						- start.getTimeInMillis();
+				long days = time / 86400000;
+
+				if (days > 9) {
+					hi.iodineStarchUrl = "/public/images/game/harvest-test/9.png";
+				} else if (days < 0) {
+					hi.iodineStarchUrl = "/public/images/game/harvest-test/0.png";
+				} else {
+					hi.iodineStarchUrl = "/public/images/game/harvest-test/"
+							+ days + ".png";
+				}
+
+				hi.plantationSeedlignId = ps.id;
+				hi.type = ps.seedling.type;
+				hi.setIodineStarch(ps.seedling.type.minStraif
+						+ ((ps.seedling.type.maxStraif - ps.seedling.type.minStraif)
+								* (gameDate.getTimeInMillis() - start
+										.getTimeInMillis()) / (end
+								.getTimeInMillis() - start.getTimeInMillis())));
+				// hi.strength = 6.7;
+				// hi.rfValue = 11.3;
+				info.add(hi);
 			}
-			HarvestingPeriod period = ps.seedling.type.period;
-			Calendar gameDate = Calendar.getInstance();
-			gameDate.setTime(farmer.gameDate.date);
-
-			Calendar start = Calendar.getInstance();
-			Calendar end = Calendar.getInstance();
-			start.setTime(period.startFrom);
-			start.set(Calendar.YEAR, gameDate.get(Calendar.YEAR));
-			end.setTime(period.endTo);
-			end.set(Calendar.YEAR, gameDate.get(Calendar.YEAR));
-
-			HarvestingInfo hi = new HarvestingInfo();
-			long time = gameDate.getTimeInMillis() - start.getTimeInMillis();
-			long days = time / 86400000;
-
-			if (days > 9) {
-				hi.iodineStarchUrl = "/public/images/game/harvest-test/9.png";
-			} else if (days < 0) {
-				hi.iodineStarchUrl = "/public/images/game/harvest-test/0.png";
-			} else {
-				hi.iodineStarchUrl = "/public/images/game/harvest-test/" + days
-						+ ".png";
-			}
-
-			hi.plantationSeedlignId = ps.id;
-			hi.type = ps.seedling.type;
-			hi.setIodineStarch(ps.seedling.type.minStraif+((ps.seedling.type.maxStraif - ps.seedling.type.minStraif)*(gameDate.getTimeInMillis() - start.getTimeInMillis())/(end.getTimeInMillis()-start.getTimeInMillis())));
-//			hi.strength = 6.7;
-//			hi.rfValue = 11.3;
-			info.add(hi);
 		}
 		JsonController.toJson(info);
 	}

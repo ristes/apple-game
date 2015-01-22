@@ -19,6 +19,7 @@ import service.impl.IceServiceImpl;
 import service.impl.InfoTableServiceImpl;
 import service.impl.InsuranceServiceImpl;
 import service.impl.IrrigationServiceImpl;
+import service.impl.ItemInstanceServiceImpl;
 import service.impl.LandTreatmanServiceImpl;
 import service.impl.LogFarmerDataServiceImpl;
 import service.impl.LuckServiceImpl;
@@ -90,4 +91,5 @@ public class ServiceInjector {
 	public static GrassGrowthService grassGrowthService = new GrassGrowthServiceImpl();
 	public static EcoPointsService ecoPointsService = new EcoPointsServiceImpl();
 	public static LuckService luckService = new LuckServiceImpl();
+	public static ItemInstanceService itemInstanceService = new ItemInstanceServiceImpl();
 }

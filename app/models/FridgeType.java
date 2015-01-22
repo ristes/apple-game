@@ -12,5 +12,6 @@ public class FridgeType extends Model{
 	
 	public Integer type;
 	public String name;
+	public Double price;
 
 }

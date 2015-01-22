@@ -30,11 +30,11 @@
 
             <!-- Prikaz na frizderite -->
             <div class="shop_item_in_grid" ng-repeat="item in fridges">
-                <div class="shop-item-label " ng-if="item.capacity">
+                <div class="shop-item-label ">
                     <!-- Kupuvanje na kapacitet na frizder -->
                     <div ng-if="item.fridgeType">
                         <div slider class="slider" cfg="cfg[item.fridgeType]" value="fridgesCapacity[item.fridgeType].capacity"></div>
-                        <div class="price">{{fridgesCapacity[item.fridgeType].capacity}} kg ({{fridgesCapacity[item.fridgeType].capacity * item.price}} evra)</div>
+                        <div class="price">{{fridgesCapacity[item.fridgeType].capacity}} kg ({{fridgesCapacity[item.fridgeType].capacity * item.price || integer}} evra)</div>
                         <button class="btn btn-primary btn-xs" ng-click="buyCapacity(item)">Buy capacity</button>
                     </div>
                     <!-- Prikaz na raftovite -->
@@ -52,6 +52,16 @@
                     <span class="title-text" translate="{{item.fridgeName}} ({{item.used}} / {{item.capacity}})"></span>
 
                 </div>
+                <div ng-hide="item.used==0"
+					class="progress"
+					tooltip="NA fridges {{item.used}}kg apples">
+				
+					<div class="progress-bar" role="progressbar" aria-valuenow="60"
+						aria-valuemin="0" aria-valuemax="100"
+						style="width: {{gameState.apples_in_na_fridge/gameState.capacityNAFridges* 100}}">
+						{{item.used/item.capacity}}
+					</div>
+				</div>
 
             </div>
         </div>

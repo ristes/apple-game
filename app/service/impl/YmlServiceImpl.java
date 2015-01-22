@@ -14,6 +14,8 @@ import play.cache.Cache;
 import service.YmlService;
 
 public class YmlServiceImpl implements YmlService{
+	
+	
 
 	public static HashMap<String, ArrayList<Double>> load_hash(String keyName) {
 		HashMap<String, ArrayList<Double>> coefs = (HashMap<String, ArrayList<Double>>) Cache

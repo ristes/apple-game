@@ -12,6 +12,8 @@ import models.FridgeType;
 import models.PlantType;
 import service.ServiceInjector;
 import dao.FridgeUsageDto;
+import dto.InfoTableInstanceDto;
+import dto.StatusDto;
 import exceptions.InvalidYield;
 import exceptions.NotEnoughApplesException;
 import exceptions.NotEnoughMoneyException;
@@ -32,8 +34,10 @@ public class FridgeController extends GameController {
 		Farmer farmer = checkFarmer();
 		ServiceInjector.fridgeService.buyFridgeCapacity(farmer, capacity,
 				(FridgeType)FridgeType.find("type=?1",fridgetype).first());
-		ServiceInjector.fridgeService.getFarmerFridges(farmer);
-		JsonController.statusJson(farmer);
+		List<FridgeUsageDto> result = ServiceInjector.fridgeService.getFarmerFridges(farmer);
+		StatusDto<List<FridgeUsageDto>> resultStatus = new StatusDto<List<FridgeUsageDto>>(farmer!=null, "", "", farmer, null);
+		resultStatus.t = result;
+		JsonController.statusJson(resultStatus);
 	}
 
 	public static void addtofridge(Integer type, long plant_type, int quantity)

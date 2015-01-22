@@ -11,7 +11,7 @@ public class FridgeUsageDto {
 
 	public String fridgeName;
 	
-	public int price;
+	public Double price;
 
 	public List<FridgeShelf> shelfs;
 

@@ -36,9 +36,9 @@ Game.controller('BuyTerrainController', ['$scope', '$farmer', 'Terrain',
           price: item.price,
           currentState: "/buy_base"
         }, null, function(result) {
-          if (result.balans) {
+          if (result.farmer.balans) {
             $scope.$root.$emit('shop-hide');
-            $farmer.swap(result);
+            $farmer.swap(result.farmer);
           } else {
             $scope.$root.$emit('insuficient-funds');
           }

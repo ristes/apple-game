@@ -12,7 +12,7 @@ public interface BadgesService {
 	
 	public Badges trader(Farmer farmer);
 	
-	public Badges harvester(Farmer farmer, Integer yield, Integer harvested);
+	public Badges harvester(Farmer farmer, Double percentCollected);
 	
 	public Badges fertilizer(Farmer farmer);
 	

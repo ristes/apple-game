@@ -8,6 +8,7 @@ import models.Base;
 import models.Farmer;
 import models.Field;
 import models.Item;
+import models.ItemInstance;
 import models.PlantType;
 import models.Plantation;
 import models.PlantationSeedling;
@@ -46,11 +47,12 @@ public class StoreServiceImpl implements StoreService {
 
 	public StatusDto buyItem(Farmer farmer, String itemName, Double quantity,
 			String currentState) {
-		StatusDto statusRes = new StatusDto(true,null,null,farmer, null);
+		StatusDto<ItemInstance> statusRes = new StatusDto<ItemInstance>(true,null,null,farmer, null);
+		ItemInstance itemInstance = null;
 		if (farmer != null) {
 			Item item = Item.find("name", itemName).first();
 			try {
-				farmer = ServiceInjector.itemTransactionService.commitBuyingItem(farmer, item, quantity);
+				itemInstance = ServiceInjector.itemTransactionService.commitBuyingItem(farmer, item, quantity);
 			} catch (NotEnoughMoneyException ex) {
 				ex.printStackTrace();
 			}
@@ -59,6 +61,7 @@ public class StoreServiceImpl implements StoreService {
 				farmer.currentState = currentState;
 			}
 			checkMetaData(statusRes, item);
+			statusRes.t = itemInstance;
 			statusRes.farmer.save();
 		}
 		return statusRes;

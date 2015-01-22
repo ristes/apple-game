@@ -31,7 +31,6 @@ import dto.StatusDto;
 public class AuthController extends GameController {
 
 	public static void farmer() throws Exception {
-		// JsonController.farmerJson(getFarmer());
 		JsonController.statusJson(getFarmer());
 	}
 

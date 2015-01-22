@@ -1,5 +1,7 @@
 package service.impl;
 
+import models.DeceaseProtectingOperation;
+import models.ExecutedOperation;
 import models.Farmer;
 import models.LogFarmerData;
 import models.Operation;
@@ -12,6 +14,11 @@ public class PrunningServiceImpl implements PrunningService{
 	@Override
 	public void prune(Farmer farmer, Double percent) {
 		Operation operation = Operation.find("name=?1",PrunningService.OPERATION_NAME).first();
+		ExecutedOperation prunning = new ExecutedOperation();
+		prunning.field = farmer.field;
+		prunning.startDate = farmer.gameDate.date;
+		prunning.operation = operation;
+		prunning.save();
 		ServiceInjector.logFarmerDataService.logExecutedOperation(farmer, operation, percent);
 	}
 
