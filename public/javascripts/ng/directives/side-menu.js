@@ -71,7 +71,7 @@ GameDirectives.directive('sideMenu', ['jQuery', '$window','BoughtItems',
         	   Resume.load();
         	   State.subscribe('resume','resumeDirective',function(data) {
         		   scope.resumeData = data;
-        		   scope.$apply();
+//        		   scope.$apply();
         	   });
         	   scope.visible = true;
 //        	   scope.bgw = $window.innerWidth;

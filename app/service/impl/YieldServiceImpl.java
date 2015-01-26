@@ -43,7 +43,7 @@ public class YieldServiceImpl implements YieldService {
 		if ((pruneLog=ServiceInjector.prunningService.hasPruned(farmer))!=null) {
 			sum -= sum*ServiceInjector.prunningService.getDiminusher(farmer, pruneLog);
 		}
-		if (ServiceInjector.itemInstanceService.has(farmer,(Item)Item.find("name=?1","bees").first())) {
+		if (ServiceInjector.itemInstanceService.has(farmer,"bees")) {
 			sum+= sum*10/100;
 		}
 		if (!ServiceInjector.landTreatmanService.isFirstDeepPlowed(farmer)) {

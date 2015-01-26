@@ -22,7 +22,6 @@ public interface ContextService {
 	public void evaluateRestartState(Farmer farmer);
 	public void evaluateFertilizingState(Farmer farmer);
 	public void evaluateState(Farmer farmer);
-	public void evaluateUV(Farmer farmer);
 	public void evaluateLowTemps(Farmer farmer);
 	public void onLoadEvaluateState(Farmer farmer);
 	public void calculateFertalizing(Farmer farmer);

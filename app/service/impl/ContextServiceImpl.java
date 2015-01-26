@@ -144,8 +144,7 @@ public class ContextServiceImpl implements ContextService {
 		evaluateFridgesState(farmer);
 		calculateDiggingCoefficient(farmer);
 		evaluateApplesInStock(farmer);
-		evaluateUV(farmer);
-		evaluateIce(farmer);
+
 		farmer.save();
 	}
 
@@ -177,9 +176,7 @@ public class ContextServiceImpl implements ContextService {
 		ServiceInjector.fertilizeService.evalFertilizingState(farmer);
 	}
 	
-	public void evaluateIce(Farmer farmer) {
-		ServiceInjector.iceService.impactLowTemp(farmer);
-	}
+	
 
 	public int seasionLevelSoilImage(int season_level) {
 		if (season_level == 3 || season_level == 4) {
@@ -213,11 +210,7 @@ public class ContextServiceImpl implements ContextService {
 		return ServiceInjector.tipService.randomTip(ServiceInjector.tipService.tipgenerator(farmer));
 	}
 
-	@Override
-	public void evaluateUV(Farmer farmer) {
-		ServiceInjector.uvService.impact(farmer);
-		
-	}
+	
 
 	@Override
 	public void evaluateLowTemps(Farmer farmer) {

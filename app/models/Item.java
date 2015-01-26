@@ -84,6 +84,8 @@ public class Item extends Model {
 	 * How long the item will be active. If -1, it lasts forever.
 	 */
 	public int expirationInYears;
+	
+	public Integer expirationInMonths;
 
 	@OneToMany(mappedBy = "fertilizer")
 	public List<FertilizationOperation> fertilizationOperations;

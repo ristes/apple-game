@@ -121,6 +121,7 @@ public class TransactionServiceImpl implements MoneyTransactionService,
 			instance.type = item;
 			instance.quantity = quantity;
 			instance.year = ServiceInjector.dateService.recolteYear(farmer.gameDate.date);
+			instance.dateBought = farmer.gameDate.date;
 			instance.save();
 
 			farmer.save();

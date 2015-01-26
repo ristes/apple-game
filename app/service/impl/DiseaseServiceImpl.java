@@ -38,18 +38,25 @@ public class DiseaseServiceImpl implements DiseaseService {
 			DiseaseOccurenceProb dis = new DiseaseOccurenceProb();
 			dis.name = disease.name;
 			Double prob = 0.0;
-			// ako e grad
-			if (disease.id.equals(10l) && farmer.gameDate.weatherType.equals(3l)
-					&& ServiceInjector.dateService.season_level(farmer) == ServiceInjector.dateService.SEASON_SUMMER) {
-				prob = getRisk(farmer, disease);
-			} else {
-				prob = getRisk(farmer, disease);
-				int n = getOperationsDiminushingFactor(farmer, disease);
-				dis.probability = prob
-						- ((1 - Math.pow(coef_of_diminushing, n)) * 100);
+			switch (disease.type) {
+			case 1:
+				onDisease(farmer, disease, dis);
 				disProbs.add(dis);
+				break;
+			case DiseaseService.TYPE_PEST:
+				onPest(farmer, disease, dis);
+				disProbs.add(dis);
+				break;
+			case DiseaseService.TYPE_NATURAL_DISASTER:
+				onNaturalDisaster(farmer, disease, dis);
+				disProbs.add(dis);
+				break;
+			default:
+				break;
 			}
-			System.out.println(disease.name+" - "+ prob + " - " + farmer.luck * 100);
+
+			System.out.println(disease.name + " - " + dis.probability + " - "
+					+ farmer.luck * 100);
 		}
 		return disProbs;
 	}
@@ -58,43 +65,50 @@ public class DiseaseServiceImpl implements DiseaseService {
 
 		List<DiseaseOccurenceProb> probs = getDiseasesProb(farmer);
 		for (DiseaseOccurenceProb prob : probs) {
-			if (prob.probability > (farmer.luck * 100)) {
-				farmer.hasNewDisease = true;
-				OccurredDecease od = new OccurredDecease();
-				Disease d = Disease.find("byName", prob.name).first();
-				od.desease = d;
-				od.plantation = farmer.field.plantation;
-				od.date = farmer.gameDate.date;
-				if (d.isDemageVar) {
-					Double demage = getDemage(farmer,d);
-					farmer.productQuantity -= demage;
-					od.demage = demage;
-				} else {
-					od.demage = farmer.productQuantity
-							* (d.defaultDiminishingFactor / 100.0);
-					farmer.productQuantity -= od.demage;
+			if (prob.probability != null) {
+				if (prob.probability > (farmer.luck * 100)) {
+					farmer.hasNewDisease = true;
+					OccurredDecease od = new OccurredDecease();
+					Disease d = Disease.find("byName", prob.name).first();
+					od.desease = d;
+					od.plantation = farmer.field.plantation;
+					od.date = farmer.gameDate.date;
+					if (d.isDemageVar) {
+						Double demage = getDemage(farmer, d);
+						farmer.productQuantity -= demage;
+						od.demage = demage;
+					} else {
+						od.demage = farmer.productQuantity
+								* (d.defaultDiminishingFactor / 100.0);
+						farmer.productQuantity -= od.demage;
+					}
+					farmer.save();
+					od.save();
+					System.out.println(farmer.gameDate.date + "-" + d.name
+							+ " farmer luck:" + farmer.luck + "<"
+							+ prob.probability);
+					ServiceInjector.logFarmerDataService.logOccurredDisease(
+							farmer, d, od.demage.intValue());
+					checkInfoTable(farmer, od);
+					checkRefunding(farmer, od);
 				}
-				farmer.save();
-				od.save();
-				System.out.println(farmer.gameDate.date +"-"+ d.name+" farmer luck:"+farmer.luck+"<"+prob.probability);
-				ServiceInjector.logFarmerDataService.logOccurredDisease(farmer, d, od.demage.intValue());
-				checkInfoTable(farmer, od);
-				checkRefunding(farmer, od);
 			}
 		}
 		return 1;
 	}
 
 	public List<Disease> getOccurredDiseasesEntitiesLast15Days(Farmer farmer) {
-		
-		return DaoInjector.deceasesDao.getOccurredDiseasesEntitiesLast15Days(farmer);
+
+		return DaoInjector.deceasesDao
+				.getOccurredDiseasesEntitiesLast15Days(farmer);
 	}
 
 	public List<DiseaseProtectingOperationDto> getMmax(Farmer farmer,
 			Disease disease) {
-		Date curDate = ServiceInjector.dateService.convertDateTo70(farmer.gameDate.date);
-		return DaoInjector.deceasesDao.getDiseaseProtectingOpersShouldBeDoneToDate(disease,
-				curDate);
+		Date curDate = ServiceInjector.dateService
+				.convertDateTo70(farmer.gameDate.date);
+		return DaoInjector.deceasesDao
+				.getDiseaseProtectingOpersShouldBeDoneToDate(disease, curDate);
 	}
 
 	public List<ExecutedOperation> getProtections(Farmer f) {
@@ -137,14 +151,14 @@ public class DiseaseServiceImpl implements DiseaseService {
 	@Override
 	public void evaluateDiseases(Farmer farmer) {
 		farmer.hasNewDisease = false;
-		if (farmer.season_level !=ServiceInjector.dateService.SEASON_WINTER && farmer.season_level!=ServiceInjector.dateService.SEASON_AUTUMN) {
+		if (farmer.season_level != ServiceInjector.dateService.SEASON_WINTER
+				&& farmer.season_level != ServiceInjector.dateService.SEASON_AUTUMN) {
 			if (farmer.gameDate.dayOrder % DISEASE_CHECK_PERIOD == 0) {
 				ServiceInjector.diseaseService.diseases(farmer);
 			}
 		}
-		
-	}
 
+	}
 
 	@Override
 	public Double getRefund(Farmer context, Disease disease) {
@@ -154,8 +168,11 @@ public class DiseaseServiceImpl implements DiseaseService {
 		}
 		Calculable value = null;
 		try {
-			Double rand = ServiceInjector.randomGeneratorService.random(0.0, 1.0);
-			Double maxYield = ServiceInjector.yieldService.getMaxYieldByRecolte(context, ServiceInjector.dateService.recolteYear(context.gameDate.date));
+			Double rand = ServiceInjector.randomGeneratorService.random(0.0,
+					1.0);
+			Double maxYield = ServiceInjector.yieldService
+					.getMaxYieldByRecolte(context, ServiceInjector.dateService
+							.recolteYear(context.gameDate.date));
 			Double avgPrice = ServiceInjector.priceService.price(context);
 			value = new ExpressionBuilder(disease.refundValue)
 					.withVariable("rand", rand)
@@ -181,15 +198,17 @@ public class DiseaseServiceImpl implements DiseaseService {
 
 		Calculable value = null;
 		try {
-			
-			Double randn02015 = ServiceInjector.randomGeneratorService.randomGausseGenerator(0.2, 0.15);
+
+			Double randn02015 = ServiceInjector.randomGeneratorService
+					.randomGausseGenerator(0.2, 0.15);
 			value = new ExpressionBuilder(disease.expression)
 					.withVariable("humidity", context.gameDate.humidity)
 					.withVariable("tempLow", context.gameDate.tempLow)
 					.withVariable("tempHigh", context.gameDate.tempHigh)
 					.withVariable("iceProb", context.gameDate.iceProb)
 					.withVariable("heavyRain", context.gameDate.heavyRain)
-					.withVariable("season_type_id", ServiceInjector.dateService.season_level(context))
+					.withVariable("season_type_id",
+							ServiceInjector.dateService.season_level(context))
 					.withVariable("rain_type_id",
 							context.gameDate.weatherType.id)
 					.withVariable("randn02015", randn02015)
@@ -197,7 +216,7 @@ public class DiseaseServiceImpl implements DiseaseService {
 					.withVariable("summer_id", 4)
 					.withVariable("humidityOfLeaf",
 							context.gameDate.humidityOfLeaf).build();
-			
+
 		} catch (UnknownFunctionException e) {
 			e.printStackTrace();
 		} catch (UnparsableExpressionException e) {
@@ -205,21 +224,20 @@ public class DiseaseServiceImpl implements DiseaseService {
 		}
 		result = value.calculate();
 		result = addBaseProb(context, disease, result);
-		if (disease.name.equals("IceDemage")) {
-			if (ServiceInjector.dateService.season_level(context)!=C.SEASON_SUMMER || ServiceInjector.fieldService.hasUVProtectingNet(context)) {
-				result=0.0;			}
-		}
+
 		if (result < 0.0) {
 			result = 0.0;
 		}
 		return result;
 	}
-	
+
 	@Override
 	public Double addBaseProb(Farmer farmer, Disease disease, Double prob) {
-		List<BaseDisease> baseDiseaseProbs = BaseDisease.find("byBaseAndDisease", farmer.field.plantation.base, disease).fetch();
-		if (baseDiseaseProbs.size()==0) {
-			return 1.0;
+		List<BaseDisease> baseDiseaseProbs = BaseDisease.find(
+				"byBaseAndDisease", farmer.field.plantation.base, disease)
+				.fetch();
+		if (baseDiseaseProbs.size() == 0) {
+			return prob;
 		}
 		return prob * baseDiseaseProbs.get(0).prob;
 	}
@@ -242,8 +260,10 @@ public class DiseaseServiceImpl implements DiseaseService {
 		List<ExecutedOperation> operations = context.field.executedOperations;
 		List<ExecutedOperation> operationsThisYear = new ArrayList<ExecutedOperation>();
 		for (ExecutedOperation operation : operations) {
-			if (ServiceInjector.dateService.isSameYear(context, operation.startDate)) {
-				operationsThisYear.add(ServiceInjector.dateService.changeYear(operation));
+			if (ServiceInjector.dateService.isSameYear(context,
+					operation.startDate)) {
+				operationsThisYear.add(ServiceInjector.dateService
+						.changeYear(operation));
 			}
 		}
 		List<DiseaseProtectingOperationDto> protections = ServiceInjector.diseaseService
@@ -275,8 +295,11 @@ public class DiseaseServiceImpl implements DiseaseService {
 		}
 		Calculable value = null;
 		try {
-			Double rand = ServiceInjector.randomGeneratorService.random(0.0, 1.0);
-			Double maxYield = ServiceInjector.yieldService.getMaxYieldByRecolte(farmer, ServiceInjector.dateService.recolteYear(farmer.gameDate.date));
+			Double rand = ServiceInjector.randomGeneratorService.random(0.0,
+					1.0);
+			Double maxYield = ServiceInjector.yieldService
+					.getMaxYieldByRecolte(farmer, ServiceInjector.dateService
+							.recolteYear(farmer.gameDate.date));
 			value = new ExpressionBuilder(disease.demageVarExp)
 					.withVariable("rand", rand)
 					.withVariable("maxYield", maxYield)
@@ -292,9 +315,59 @@ public class DiseaseServiceImpl implements DiseaseService {
 
 	@Override
 	public String getImageUrl(Disease disease) {
-		return String
-				.format("%s%s%s", RImage.get("disease_path"), disease.name, ".png");
+		return String.format("%s%s%s", RImage.get("disease_path"),
+				disease.name, ".png");
 	}
-	
+
+	public void onDisease(Farmer farmer, Disease disease,
+			DiseaseOccurenceProb dis) {
+		dis.probability = getDiseaseProb(farmer, disease);
+
+	}
+
+	public void onPest(Farmer farmer, Disease disease, DiseaseOccurenceProb dis) {
+		Double pheromoneDiminusher = 1.0;
+		if (ServiceInjector.itemInstanceService.has(farmer, "pheromone")) {
+			pheromoneDiminusher = 0.5;
+		}
+		dis.probability = getDiseaseProb(farmer, disease) * pheromoneDiminusher;
+
+	}
+
+	public Double getDiseaseProb(Farmer farmer, Disease disease) {
+		Double prob = getRisk(farmer, disease);
+		int n = getOperationsDiminushingFactor(farmer, disease);
+		return prob - ((1 - Math.pow(coef_of_diminushing, n)) * 100);
+	}
+
+	public void onNaturalDisaster(Farmer farmer, Disease disease,
+			DiseaseOccurenceProb dis) {
+		if (disease.name.equals(DiseaseService.NAME_NATURAL_DISEASE_ICE)
+				&& farmer.gameDate.weatherType.id.equals(3l)
+				&& ServiceInjector.dateService.season_level(farmer) == ServiceInjector.dateService.SEASON_SUMMER) {
+			if (ServiceInjector.fieldService.hasUVProtectingNet(farmer)) {
+				dis.probability = 0.0;
+			} else {
+				dis.probability = getRisk(farmer, disease);
+			}
+
+		} else if (disease.name
+				.equals(DiseaseService.NAME_NATURAL_DISEASE_FREEZING)) {
+			evaluateIce(farmer);
+		} else if (disease.name
+				.equals(DiseaseService.NAME_NATURAL_DISEASE_UV_DEMAGE)) {
+			evaluateUV(farmer);
+		}
+
+	}
+
+	public void evaluateIce(Farmer farmer) {
+		ServiceInjector.iceService.impactLowTemp(farmer);
+	}
+
+	public void evaluateUV(Farmer farmer) {
+		ServiceInjector.uvService.impact(farmer);
+
+	}
 
 }

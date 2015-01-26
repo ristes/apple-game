@@ -36,9 +36,8 @@ public class InsuranceServiceImpl implements InsuranceService {
 		}
 		Double refund = ServiceInjector.diseaseService.getRefund(farmer,odisease.desease);
 		try {
-			farmer = ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, refund);
-			InfoTableService info = new InfoTableServiceImpl();
-			info.createT1(farmer, String.format(RString.get("insurrance_refund_money"),refund.intValue()),RImage.get("insurrance_refund_money"));
+			ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, refund);
+			ServiceInjector.infoTableService.createT1(farmer, String.format(RString.get("insurrance_refund_money"),refund.intValue()),RImage.get("insurrance_refund_money"));
 		} catch (NotEnoughMoneyException ex) {
 			ex.printStackTrace();
 		}
@@ -60,6 +59,7 @@ public class InsuranceServiceImpl implements InsuranceService {
 	private Double calculatePriceOfInsurance(Farmer farmer) {
 		Double rApplePrice = ServiceInjector.randomGeneratorService.random(20.0, 25.0);
 		Double rPercent = ServiceInjector.randomGeneratorService.random(0.1, 0.15);
+		
 		//price in euros
 		Double cost = ServiceInjector.yieldService.getMaxYieldByRecolte(farmer, ServiceInjector.dateService.recolteYear(farmer.gameDate.date)) * rApplePrice * rPercent/60.0;
 		return cost;

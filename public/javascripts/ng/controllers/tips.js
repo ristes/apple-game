@@ -19,7 +19,8 @@ Game.controller('TipsController', ['$scope', 'State', '$modal',
         		$scope.$root.tip = data.tip;
         		$scope.$root.type_alert = 'info';
         	}
-        } else if (data.farmer.hasNewDisease) {
+        }
+        if (data.farmer.hasNewDisease) {
         	if ($scope.isHigherPriority('disease')) {
         		 $scope.$root.tip = 'You have a disease on your field. Please prevent...';
         		 $scope.$root.type_alert = 'danger';

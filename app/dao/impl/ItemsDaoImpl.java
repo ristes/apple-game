@@ -2,6 +2,7 @@ package dao.impl;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -40,6 +41,14 @@ public class ItemsDaoImpl implements ItemsDao {
 					if (boughtItems.containsKey(item.type.name)) {
 						boughtItems.get(item.type.name).count++;
 					} else {
+						if (item.type.expirationInMonths!=null && !item.type.expirationInMonths.equals(0)) {
+							Calendar c = Calendar.getInstance();
+							c.setTime(item.dateBought);
+							c.add(Calendar.MONTH, item.type.expirationInMonths);
+							if (c.getTime().before(farmer.gameDate.date)) {
+								continue;
+							}
+						}
 						ItemBoughtDto dto = new ItemBoughtDto(item);
 						dto.count = 1;
 						boughtItems.put(item.type.name, dto);

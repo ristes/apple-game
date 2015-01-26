@@ -100,7 +100,12 @@ public class Disease extends Model{
 
 	public String infoTableText;
 	
-	public Integer type;
+	/**
+	 * type of disease 1 - disease
+	 * 					2 - pest
+	 * 					3 - natural disaster
+	 */
+	public int type;
 
 	/**
 	 * How much the yield will be diminished with these decease by default

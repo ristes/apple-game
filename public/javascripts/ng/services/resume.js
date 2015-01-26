@@ -8,7 +8,7 @@ Game.factory('Resume', ['$http','State', function($http,State) {
       });
     },
     setSeen: function() {
-    	$http.get("/ResumeController/seenResume");
+    	var res = $http.get("/ResumeController/seenResume");
     	res.success(function(data) {
     		
     	});

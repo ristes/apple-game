@@ -89,7 +89,7 @@ public class QuizServiceImpl implements QuizService{
 
 	@Override
 	public QuizResultsDto isQuizAnsweredThisYear(Farmer farmer) {
-		LogFarmerData data = LogFarmerData.find("byTypelogAndRecolteYear",LogFarmerDataService.QUIZ_ANSWERED,ServiceInjector.dateService.recolteYear(farmer.gameDate.date)).first();
+		LogFarmerData data = LogFarmerData.find("byTypelogAndRecolteYearAndFarmer",LogFarmerDataService.QUIZ_ANSWERED,ServiceInjector.dateService.recolteYear(farmer.gameDate.date), farmer).first();
 		if (data==null) {
 			return null;
 		}

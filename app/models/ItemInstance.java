@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -31,5 +33,7 @@ public class ItemInstance extends Model {
 	public Double quantity;
 
 	public Integer year;
+	
+	public Date dateBought;
 
 }
