@@ -24,6 +24,8 @@ public class Operation extends Model {
 	public String name;
 	
 	public String requires;
+	
+	public String description;
 
 	/**
 	 * The default time needed to perform the operation on a single unit of

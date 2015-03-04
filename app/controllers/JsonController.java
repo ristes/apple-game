@@ -122,6 +122,7 @@ public abstract class JsonController extends Controller {
 		StatusDto status = new StatusDto(farmer != null, null, null, farmer, infos);
 		if (tip!=null && !tip.equals("")) {
 			status.tip = tip;
+			
 		} else {
 			status = new StatusDto(farmer!=null, null, null, farmer, infos);
 		}

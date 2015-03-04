@@ -5,8 +5,9 @@ Game.controller('ShoppingController', [
     'State',
     'BoughtItems',
     'Plantation',
+    'Toaster',
     function($scope, Store, StoreItems, State,
-        BoughtItems, Plantation) {
+        BoughtItems, Plantation, Toaster) {
 
         Plantation.load();
 
@@ -21,6 +22,7 @@ Game.controller('ShoppingController', [
                     StoreItems.load();
                     State.set("farmer", result.farmer);
                     $scope.$root.$emit('shop-hide');
+                    Toaster.success("Item bought.");
                 } else {
                     $scope.$root.$emit('insuficient-funds');
                 }

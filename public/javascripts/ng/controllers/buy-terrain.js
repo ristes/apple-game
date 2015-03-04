@@ -1,7 +1,11 @@
-Game.controller('BuyTerrainController', ['$scope', '$farmer', 'Terrain',
-    function($scope, $farmer, Terrain) {
+Game.controller('BuyTerrainController', ['$scope', '$farmer', 'Terrain','ExpertAdvice',
+    function($scope, $farmer, Terrain,ExpertAdvice) {
+	
       $scope.items = Terrain.terrainSizes;
 
+      $scope.onHover = function(item) {
+    	  ExpertAdvice.setAdvice(item.description);
+      }
       $scope.$root.$emit('shop-show', {
         items: $scope.items,
         showNext: false,

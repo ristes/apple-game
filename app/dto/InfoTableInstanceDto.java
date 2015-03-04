@@ -11,6 +11,10 @@ public class InfoTableInstanceDto {
 	public String image2_url;
 	public String image3_url;
 	
+	public InfoTableInstanceDto() {
+		
+	}
+	
 	public InfoTableInstanceDto(InfoTableInstance ins) {
 		this.isRead = ins.isRead;
 		this.message1 = ins.message1;

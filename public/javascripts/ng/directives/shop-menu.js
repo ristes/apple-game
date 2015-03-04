@@ -2,7 +2,8 @@ GameDirectives.directive('shopMenu', [
     'jQuery',
     'BoughtItems',
     'State',
-    function($, BoughtItems, State) {
+    'ExpertAdvice',
+    function($, BoughtItems, State, ExpertAdvice) {
         return {
             restrict: 'E',
             transclude: true,
@@ -21,7 +22,13 @@ GameDirectives.directive('shopMenu', [
                         }
                     }
                 };
-
+                
+                scope.onHover = function(item) {
+                	ExpertAdvice.setAdvice(item.description);
+                }
+                scope.onHide = function() {
+                	ExpertAdvice.hide();
+                }
                 scope.executeItem = function(item) {
                     console.log("Item bought");
                 }

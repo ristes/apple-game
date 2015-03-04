@@ -54,17 +54,55 @@ Game.controller("PreloadController", function($scope, preloader, $timeout) {
 			("/public/images/backgrounds/nova scena/nezagadeno-ezero.png"),
 			("/public/images/backgrounds/nova scena/pozadinski-drva.png"),
 			("/public/images/backgrounds/nova scena/stranicni-drva.png"), ];
+	
+	$scope.menuitems = {
+	'play':{
+		description:"Going to the main screen!"
+	},
+	'help':{
+		description: "Help me playing the game."
+	},
+	'rules': {
+		description: "Rules in playing the game."
+	}};
 
 	preloader.preloadImages($scope.imageLocations).then(
 		function handleResolve(imageLocations) {
 			// display welcome screen
 			$scope.isLoading = false;
 			$scope.isWelcoming = true;
+			$scope.isIntroduction = false;
+			
+			$scope.hover = function(item) {
+				$scope.displayText=item.description;
+			}
+			
+			$scope.leave = function() {
+				$scope.displayText="Let's play!";
+			}
+			
+			$scope.onPlay = function() {
+				$scope.isIntroduction = false;
+				$scope.isWelcoming = false;
+				$scope.isSuccessful = true;
+			}
+			
+			$scope.onHelp = function() {
+				$scope.isIntroduction = false;
+				$scope.isHelp = true;
+			}
+			
+			$scope.onRules = function() {
+				$scope.isIntroduction = false;
+				$scope.isRules = true;
+			}
 
 			var hideWelcomeAnimation = function(){
 				$timeout(function(){
-					$scope.isSuccessful = true;
+					$scope.isIntroduction = true;
 					$scope.isWelcoming = false;
+					$scope.displayText= "Let's play!";
+					$scope.$root.farmer.gameDate.weatherType.background_url = "/public/images/backgrounds/introduction.jpg";
 				}, 2000)
 
 				// start cloud leave animation

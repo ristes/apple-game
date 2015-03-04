@@ -11,7 +11,7 @@
 		
 	<div class="side-items-grid" ng-controller="BoughtItemsController">
 		<div class="side-items-grid-item" 
-				ng-repeat="a in boughtItems" ng-click="executeItem(a)">
+				ng-repeat="a in boughtItems" ng-click="executeItem(a)" ng-mouseenter="onHover(a)" ng-mouseleave="onLeave()">
 			<div class="side-item-top">
 				<img ng-src="{{a.url}}"></img>
 				 
@@ -23,7 +23,9 @@
 	<div class="side-operations-grid">
 		<div class="side-operations-grid-item" ng-if="a.ico"
 				ng-repeat="a in actions"
-				ng-click="itemClick(a)">
+				ng-click="itemClick(a)"
+				ng-mouseenter="onHover(a)"
+				ng-mouseleave="onLeave()">
 			<div class="side-operation-item-top">
 				<img ng-src="{{a.ico}}"></img>
 			</div>

@@ -11,8 +11,8 @@
 	<div class="shop_arrow" ng-show="showNext" ng-click="hide()"></div>
 	
 	<div class="shop_menu_grid">
-		<div class="shop_item_in_grid" ng-repeat="item in items" ng-click="itemClick(item)" 
-				popover-trigger="mouseenter" popover-placement="bottom" popover="{{item.description}}">
+		<div class="shop_item_in_grid"  ng-repeat="item in items" ng-click="itemClick(item)"  ng-mouseover="onHover(item)" ng-mouseleave="onHide()"
+				>
 			<img ng-src="{{item.url}}"></img>
 			<div class="shop-item-label ramka"  ng-click="itemClick(item)">
 				<span class="title-text" translate="{{item.name}}"></span>

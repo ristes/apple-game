@@ -1,17 +1,27 @@
-<div class="seedling-planting" >
 
-	<div ng-repeat="base in bases" 
-		 popover-trigger="mouseenter" 
-		 popover-placement="bottom" 
-		 popover="{{base.description}}"
-		 ng-click="buyBase(base)">
-		 
-		<img ng-src="{{base.imageurl}}" class="seedling-type-header"></img>
-		
-		<div class="shop-item-label ramka">
-			<span class="title-text" translate="{{base.name}}"></span>
+
+<div class="shop-menu" ng-animate="shop"
+	ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
+	<div class="shop_icon">
+		<img class="shop_icon-img" ng-src="{{storeUrl}}"
+			popover-trigger="mouseenter" popover-placement="bottom"
+			popover="{{shop.description}}"></img>
+		<div class="shop-label ramka" popover-trigger="mouseenter"
+			popover-placement="bottom" popover="{{shop.description}}">
+			<span class="shop-label-text">{{shop.name | translate}}</span>
 		</div>
-		
+	</div>
+	<div class="shop_arrow" ng-show="showNext" ng-click="hide()"></div>
+	<div class="shop_menu_grid">
+		<div class="shop_item_in_grid" ng-repeat="base in bases"
+			popover-trigger="mouseenter" popover-placement="bottom"
+			ng-mouseover="onHover(base)" ng-click="buyBase(base)">
+
+			<img ng-src="{{base.imageurl}}"></img>
+
+
+
+		</div>
 	</div>
 
 </div>

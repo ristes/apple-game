@@ -3,9 +3,27 @@
 	src: url("ag.otf");
 }
 
+.ag-font {
+	font-family: ag-font;
+}
+
 .popover{
 	color: #666;
 }
+
+h3 {
+	font-family:ag-font;
+}
+
+div {
+	font-family:ag-font;
+}
+
+li {
+	font-family:ag-font;
+}
+
+ul { list-style: none; }
 
 .btn, .btn-default{
 	background: #7e571a;
@@ -450,4 +468,23 @@ div.select-seedling-quantity td{
 
 .rankings{
 	cursor: pointer;
+}
+.img-resume {
+	width:100px;
+	max-height:95px;
+}
+.introduction-menu-item {
+	width:200px;
+	padding:10px;
+	text-align: center;
+	color:white;
+}
+.introduction-menu-item:hover {
+	cursor:pointer;
+}
+.master-big-icon {
+	width:140%;
+}
+.master-small-icon {
+	width:100%;
 }

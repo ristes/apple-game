@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 
 import dto.QuizResultsDto;
 import models.Disease;
+import models.ExecutedOperation;
 import models.Farmer;
 import models.LogFarmerData;
 import models.Operation;
@@ -132,6 +133,15 @@ public class LogFarmerDataServiceImpl implements LogFarmerDataService{
 		data.typelog = LogFarmerDataService.RAIN_VALUE;
 		data.save();
 	}
+
+	@Override
+	public LogFarmerData hasExecutedOperation(Farmer farmer,
+			String operation, Integer year) {
+		LogFarmerData info = LogFarmerData.find("farmer=?1 and operation.name=?2 and recolteYear=?3 and typelog=?4", farmer, "prunning",year, LogFarmerDataService.OPERATION_EXECUTED).first();
+		return info;
+	}
+
+	
 	
 	 
 

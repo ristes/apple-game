@@ -92,7 +92,9 @@ public class ItemsDaoImpl implements ItemsDao {
 
 		for (Item item : all) {
 			if (!isIn(item, boughtItems)) {
+				if (item.visibleInBoughtItems) {
 				results.add(item);
+				}
 			}
 		}
 		return results;

@@ -1,7 +1,9 @@
 package service;
 
 import models.Disease;
+import models.ExecutedOperation;
 import models.Farmer;
+import models.LogFarmerData;
 import models.Operation;
 import dto.QuizResultsDto;
 
@@ -32,6 +34,8 @@ public interface LogFarmerDataService {
 	public void logApplesSold(Farmer farmer, Integer quantity);
 	public void logQuizAnswered(Farmer farmer, QuizResultsDto answer);
 	public void logRainValue(Farmer farmer, Double value);
+	
+	public LogFarmerData hasExecutedOperation(Farmer farmer, String operation, Integer year);
 	
 	
 

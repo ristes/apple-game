@@ -69,7 +69,8 @@ Game.directive('pruneGame', ['$interval', function($interval) {
             {x: 196, y: 149, type: 'cut', clicked: false},
             {x: 208, y: 225, type: 'cut', clicked: false},
             {x: 203, y: 264, type: 'no-cut', clicked: false},
-          ]
+          ];
+          scope.totalCorrect = 3;
         } else {
           scope.cutPoints = [
             {x: 165, y: 299, type: 'no-cut', clicked: false},
@@ -89,7 +90,7 @@ Game.directive('pruneGame', ['$interval', function($interval) {
             {x: 237, y: 243 , type: 'no-cut', clicked: false},
             {x: 272, y: 226 , type: 'no-cut', clicked: false},
 
-          ]
+          ];
         }
 
         scope.render();

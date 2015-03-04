@@ -24,7 +24,7 @@ public class PrunningServiceImpl implements PrunningService{
 
 	@Override
 	public LogFarmerData hasPruned(Farmer farmer) {
-		return null;
+		return ServiceInjector.logFarmerDataService.hasExecutedOperation(farmer, PrunningService.OPERATION_NAME,ServiceInjector.dateService.recolteYear(farmer.gameDate.date));		
 	}
 
 	@Override

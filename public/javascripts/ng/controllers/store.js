@@ -1,13 +1,17 @@
 Game.controller('StoreController', ['$scope', '$translate', '$http', 'Store',
-  'StoreItems', 'BoughtItems', '$farmer', '$day',
-  function($scope, $translate, $http, Store, StoreItems, BoughtItems, $farmer, $day) {
+  'StoreItems', 'BoughtItems', '$farmer', '$day','Toaster','State','ExpertAdvice',
+  function($scope, $translate, $http, Store, StoreItems, BoughtItems, $farmer, $day, Toaster, State, ExpertAdvice) {
 
     $scope.initStore = function(store, nextState, servMethod, shopIcon) {
       $scope.nextState = nextState;
       $scope.servMethod = servMethod || 'buy';
       $scope.store = store;
       $scope.items = StoreItems.getStoreItems()[store];
+      $scope.onHover = function(item) {
+    	  ExpertAdvice.setAdvice(item.description);
+      };
 
+      
       $scope.$root.$emit('shop-show', {
         items: $scope.items,
         showNext: false,
@@ -31,6 +35,7 @@ Game.controller('StoreController', ['$scope', '$translate', '$http', 'Store',
           $day.load(result);
           BoughtItems.add($scope.store, item);
           $scope.$root.$emit('shop-hide');
+          Toaster.logSuccess('Item bought');
         } else {
           $scope.$root.$emit('insuficient-funds');
         }
@@ -41,6 +46,7 @@ Game.controller('StoreController', ['$scope', '$translate', '$http', 'Store',
 
     var unreg = $scope.$root.$on('buy-item', $scope.onBuyItem);
 
+    
     $scope.$on("$destroy", function() {
       unreg();
     })

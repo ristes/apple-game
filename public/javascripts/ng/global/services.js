@@ -1,4 +1,7 @@
 Game.factory('$farmer', ['$http', 'State', function($http, State) {
+	
+	var self = this;
+	self.start_scene = 'buy_terrain';
 
     function swap(farmer) {
         if (farmer && farmer.hasOwnProperty('balans')) {
@@ -39,6 +42,8 @@ Game.factory('$day', [
     function($rootScope, State, $http, $weather, Diseases, BoughtItems,
         $location) {
 
+    	self.start_scene = 'buy_terrain';
+    	
         function onFarmer(data) {
         	if (data.balans === undefined) {
         		farmer = data.farmer;
@@ -53,7 +58,7 @@ Game.factory('$day', [
                 $rootScope.farmer = farmer;
             }
 
-            $location.path(farmer.currentState || '/buy_tractor');
+            $location.path(farmer.currentState || self.start_scene);
         }
 
         State.subscribe('farmer', '$farmer', onFarmer);
@@ -77,7 +82,7 @@ Game.factory('$day', [
                         $rootScope.farmer = data;
                     }
 
-                    $location.path(data.farmer.currentState || '/buy_tractor');
+                    $location.path(data.farmer.currentState || self.start_scene);
                     $weather.load();
                     Diseases.load();
                 });
@@ -93,7 +98,7 @@ Game.factory('$day', [
                         $rootScope.day = data;
                         $rootScope.farmer = data;
                     }
-                    $location.path(data.farmer.currentState || '/buy_tractor');
+                    $location.path(data.farmer.currentState || self.start_scene);
                     $weather.load();
                     Diseases.load();
                 });
@@ -109,7 +114,7 @@ Game.factory('$day', [
                         $rootScope.day = data;
                         $rootScope.farmer = data;
                     }
-                    $location.path(data.farmer.currentState || '/buy_tractor');
+                    $location.path(data.farmer.currentState || self.start_scene);
                     $weather.load();
                     Diseases.load();
                 });

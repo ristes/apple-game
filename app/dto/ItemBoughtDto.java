@@ -13,6 +13,8 @@ public class ItemBoughtDto {
 	public Long type_id;
 
 	public String name;
+	
+	public String description;
 
 	public String url;
 
@@ -29,7 +31,7 @@ public class ItemBoughtDto {
 		id = instance.id;
 		item_id = instance.type.getId();
 		quantity = instance.quantity;
-
+		description = instance.type.description;
 		type_id = instance.type.id;
 		name = instance.type.name;
 		url = instance.type.imageurl;
