@@ -28,6 +28,7 @@
 					</div>
 				</div>
 			</div>
+			<p>In order to achieve a productive and high-quality apple yield, the soil must contain an adequate quantity of nutrients, as well as being as neutral (in terms of pH) as possible. Nutrients are divided into macro-elements (nitrogen, phosphorus, potassium, magnesium, calcium) and micro-elements (copper, zinc, boron, manganese, iron, and molybdenum). A plantation’s soil should be analyzed every 4-5 years. </p>
 			<div id="irrigation-slider-container" ng-show="!haveAnalisys">
 				<button class="btn btn-xs" ng-click="buyAnalisys()">buy analysys</button>
 			</div>
@@ -48,12 +49,13 @@
 				</div>
 				<table width="100%">
 					<tr>
-						<td width="25%">
+						<td width="20%" >
 							N({{fertilizer.n}} kg/Ha):
 						</td>
-						<td width="55%">
+						<td width="50%">
 							<div slider class="slider" cfg="nCfg" value="fertilizer.n"></div>
 						</td>
+						<td width="10%" class="text-center"><i class="glyphicon glyphicon-question-sign" ng-click="onHelp('n')"></i></td>
 						<td width="20%" class="fertilizer-price">
 							<span><img style="height:20px" src="/public/images/home/money_in_stock.png"> {{fertilizer.n * prices.n}}</span>
 						</td>
@@ -65,6 +67,7 @@
 						<td>
 							<div slider class="slider" cfg="pCfg" value="fertilizer.p"></div>
 						</td>
+						<td width="10%" class="text-center"><i class="glyphicon glyphicon-question-sign" ng-click="onHelp('p')"></i></td>
 						<td class="fertilizer-price">
 							<span>
 								<img style="height:20px" src="/public/images/home/money_in_stock.png">
@@ -79,6 +82,7 @@
 						<td>
 							<div slider class="slider" cfg="kCfg" value="fertilizer.k"></div>
 						</td>
+						<td width="10%" class="text-center"><i class="glyphicon glyphicon-question-sign" ng-click="onHelp('k')"></i></td>
 						<td class="fertilizer-price">
 							<span>
 								<img style="height:20px" src="/public/images/home/money_in_stock.png">
@@ -93,6 +97,7 @@
 						<td>
 							<div slider class="slider" cfg="caCfg" value="fertilizer.ca"></div>
 						</td>
+						<td width="10%" class="text-center"><i class="glyphicon glyphicon-question-sign" ng-click="onHelp('ca')"></i></td>
 						<td class="fertilizer-price">
 							<span>
 								<img style="height:20px" src="/public/images/home/money_in_stock.png">
@@ -107,6 +112,7 @@
 						<td>
 							<div slider class="slider" cfg="bCfg" value="fertilizer.b"></div>
 						</td>
+						<td width="10%" class="text-center"><i class="glyphicon glyphicon-question-sign" ng-click="onHelp('b')"></i></td>
 						<td class="fertilizer-price">
 							<span>
 								<img style="height:20px" src="/public/images/home/money_in_stock.png">
@@ -121,6 +127,7 @@
 						<td>
 							<div slider class="slider" cfg="mgCfg" value="fertilizer.mg"></div>
 						</td>
+						<td width="10%" class="text-center"><i class="glyphicon glyphicon-question-sign" ng-click="onHelp('mg')"></i></td>
 						<td class="fertilizer-price">
 							<span>
 								<img style="height:20px" src="/public/images/home/money_in_stock.png">

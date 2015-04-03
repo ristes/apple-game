@@ -1,31 +1,51 @@
 {
 	"hours": "Часови",
 	"irrigation": {
-		"grooves": "Бразди",
-		"drops":"Капково наводнување",
-		"tensiometers": "Тензиометри", 
-		"mm_rain": "Во претходните денови има акумулирано {{mmRain}} мм вода во почвата од врнежи.", 
-		"choose_duration": "Избери траење",
-		"grooves_info": "При наводнувањето со бразди се наводнува со {{mmPerHour}} мм/час, бла бла бла",
-		"drops_info": "При капка по капка наводнувањето се наводнува со {{mmPerHour}} мм/час, бла бла бла",
-		"tensiometer_info": "Со тензиометрите добивате информација кога треба да запрете со наводнувањето, со што трошите помалку вода и придонесувате кон заштита на околината",
-		"drops_benefits": "Со капковото наводнување се избегнува еродирање на површината и овозможува поефикасно искористување на ѓубривото итн.",
-		"tensiometer_benefits": "Со тензиометрите се постигнува оптимално наводнување. Тие даваат информација која е оптималната влажност во почвата итн.",
-		"irrigate": "Започни наводнување",
-		"tensiometer_recomended": "Препорачано време за наводнување според тензиометрите",
+		"grooves": "Furrow irrigation",
+		"drops":"Drip irrigation",
+		"tensiometers": "Irrigation assisted by tensiometers ", 
+		"mm_rain": "Previously, it was accumulated {{mmRain}} mm water in the soil from raining days.", 
+		"choose_duration": "Choose duration",
+		"grooves_info": "Advantages: Smaller initial investment, the root system penetrates deeper. By using furrow irrigation the speed of irrigation is {{mmPerHour}} mm/h, Disadvantages:  Lower usage of the applied water – up to 60 %; unequal moisturizing, possibility of soil erosion, requires more man hours for opening and closing the furrows, low-yielding, smaller product, possibility of diseases spreading, etc. As a result of inefficient water usage, there is a risk of wash-away of a large portion of this water along with the used fertilizers out of the root zone and into the soil, the surface and underground waters.",
+		"drops_info": "Drip irrigation provides {{mmPerHour}} mm/h speed of irrigation.  Disadvantages: Hardly any, apart from the sizable initial investment.",
+		"tensiometer_info": "Farmers should take great care to water their plantations with the correct amount of water at the correct time. Failure to do so can have an immediate effect on the fruit harvest’s quality and quantity. Over-watering can be just as dangerous as under-watering; it decreases the amount of air available to the plants and raises production costs, as well as increasing erosion and fertilizer pollution.",
+		"drops_benefits": "Advantages: Can be combined with fertilization, saving of water and fertilizers; application of water and fertilizers in accordance with plant needs; saving of energy and man hours, fewer weeds and lower likelihood of disease occurrence, ability to apply other protective measures to the plants, protection from erosion, greater quality and quantity of harvest, lower possibility for pollution.",
+		"tensiometer_benefits": "Determination of time and water quantity is pivotal in ensuring a proper irrigation regime. Application of tensiometers is considered one of the most practical solutions for this determination. Tensiometers are, however, used only in micro-irrigation (drip irrigation).",
+		"irrigate": "Start Irrigation",
+		"tensiometer_recomended": "Recommended time for irrigation",
 		
 		"": ""
 	}, 
 	"action" : {
-		"buy": "Купи"
+		"buy": "Buy"
 	},
 	"plowing": {
-		"plow":"Орај"
+		"plow":"Start Plowing"
 	},
 	"season": {
 		"1":"Зима",
 		"2":"Есен",
 		"3":"Пролет",
 		"4":"Лето"
+	},
+	
+	"buy_terrain": {
+		"advice":"Hello! – I hear you want to be a farmer, so let's choose some land together. How much land would you like to buy?"
+	},
+	"buy_terrain_type": {
+		"advice":"Choose a soil type"
+	},
+	"buy_rootstock": {
+		"advice": "The rootstock is the base and root system of an apple tree. Let’s choose which type to use."
+	},
+	"advice": {
+		"second_plough":"A second round of ploughing helps break up remaining lumps of soil, as well as enhancing the soil structure. Just as with the first round of ploughing, the depth as which the field is ploughed is an important determinant of its efficiency."
+	},
+	"fertilization" : {
+		"quantity": "A sub-optimal content of nutrients can have implications on the size and quality of the harvest, and may also trigger negative symptoms in the plant’s growth.  In addition, surplus nutrients can easily end up as pollution in nearby water systems. To combat a surplus or lack of nutrients, a fertilization plan is created."
+	},
+	"harvest" :  {
+		"help" : "In general, apples can be stored for a long period of time (up to 12 months). A variety of factors influence its shelf life, such as its variety, quality, region of production and mode of storage. Fruit shelf life in storehouses depends on air humidity, temperature and air composition. Apple storage can be in ordinary storehouses without an installed cooling system, refrigerators with normal ambient cooling, refrigerators with controlled ambient cooling, and refrigerators with dynamic ambient cooling. Temperature of 0-3 0С and air relative humidity of 92–93 % ensures optimal conditions for storage of the majority of apple varieties. Modern storage systems (controlled ambient) additionally reduce oxygen concentration while increasing that of carbon dioxide, which makes the effect of fruit storage even more effective."
 	}
+
 }

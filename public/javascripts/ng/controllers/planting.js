@@ -12,9 +12,14 @@ Game.controller('PlantingStateController', [
 
         $scope.availableSeedlings = 0;
 
+        
+        $scope.startNumber = 0;
+        
         $scope.gameState = State.gameState();
+        
 
         Planting.availableSeedlings(function(num) {
+        	$scope.startNumber = num;
             $scope.availableSeedlings = num;
         });
 
@@ -74,6 +79,13 @@ Game.controller('PlantingStateController', [
 
             function successPlanting(data) {
                 if (data.status == true) {
+                	debugger;
+                	$scope.totalPlantedWhenFinished = $scope.startNumber - $scope.availableSeedlings;
+                	 State.set('notification', {
+                		 title: 'Congratulations!',
+                         message: "You’ve successfully planted: "+$scope.totalPlantedWhenFinished+" apple seddlings. but you have too many lumps left in your field, maybe you should think about doing a second ploughing…"
+                       });
+                	 ExpertAdvice.setAdvice($translate('advice.second_plowing'));
                     $farmer.load();
                 }
             }
@@ -167,7 +179,7 @@ Game.controller('PlantingStateController', [
             for (var i = 0; i < N; i++) {
                 var p = r.cols[i];
                 if (p.active && isInCoords(p)) {
-                    //r.cols[i].tree = $scope.$root.farmer.plant_url;
+                    // r.cols[i].tree = $scope.$root.farmer.plant_url;
                     r.cols[i].tree = p.plantType;
                     r.cols[i].treeCls = 'seedling no-mouse-event';
                 }

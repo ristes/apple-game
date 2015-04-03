@@ -16,6 +16,7 @@ Game.factory('jQuery', function() {
 });
 
 
+
 /*
 Game.factory('StoreItems', function($resource) {
   return {
@@ -262,6 +263,23 @@ Game.factory('StoreItems', function($resource) {
   };
 });
 */
+Game.factory('YearSeasons',function() {
+	return {
+		'1': {
+			description:"It's winter!"
+		},
+		'3' : {
+			description:"It’s spring time! You should think about irrigation, fertilization, spraying and some other cool stuff. Your agricultural pharmacy just got some new supplies, go check them out and let’s get to work."
+		},
+		'2' : {
+			description:"It's autumn!"
+		},
+		'4': {
+			description:"It's summer!"
+		}
+	}
+})
+
 Game.factory('Operations', ['$resource', '$rootScope',
   function($resource, $rootScope) {
     return {

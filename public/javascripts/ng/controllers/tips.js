@@ -47,7 +47,7 @@ Game
 													if (data.farmer.hasNewDisease) {
 														if ($scope
 																.isHigherPriority('disease')) {
-															$scope.$root.tip = 'You have a disease on your field. Please prevent...';
+															$scope.$root.tip = "Temperatures are on the rise and insects are waking up! Oh, no, your crops are sick! But don’t worry; there are plenty of things you can do to make them healthy again!";
 															$scope.$root.type_alert = 'danger';
 														}
 													}

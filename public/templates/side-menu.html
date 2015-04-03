@@ -21,13 +21,13 @@
 		</div>
 	</div>
 	<div class="side-operations-grid">
-		<div class="side-operations-grid-item" ng-if="a.ico"
+		<div class="side-operations-grid-item" ng-if="a.icon_url"
 				ng-repeat="a in actions"
 				ng-click="itemClick(a)"
 				ng-mouseenter="onHover(a)"
 				ng-mouseleave="onLeave()">
 			<div class="side-operation-item-top">
-				<img ng-src="{{a.ico}}"></img>
+				<img ng-src="{{a.icon_url}}"></img>
 			</div>
 			<div class="item-store ramka" ><span class="title-text-larger" translate="{{a.name}}" ng-click="itemClick(a)"></span></div>
 			<!-- <span class="side-operation-item-label" translate="{{a.name}}" ng-click="itemClick(a)"></span>	 -->	

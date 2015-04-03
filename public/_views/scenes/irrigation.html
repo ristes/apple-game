@@ -36,10 +36,11 @@
 				<button class="btn btn-xs" ng-click="irrigate()">{{ 'irrigation.irrigate' | translate }}</button>
 			</div>
 			<div class="buy-better-irrigation" ng-show="nextType">
+				
+				<button class="btn btn-xs" ng-click="buy(nextType)">{{ 'action.buy' | translate }} {{ 'irrigation.'+nextType | translate}} </button>
 				<div>
 					{{ "irrigation."+nextType+"_benefits" | translate}}
 				</div>
-				<button class="btn btn-xs" ng-click="buy(nextType)">{{ 'action.buy' | translate }} {{ 'irrigation.'+nextType | translate}} </button>
 			</div>
 		</div>
 	</div>

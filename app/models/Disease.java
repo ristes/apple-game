@@ -100,6 +100,8 @@ public class Disease extends Model{
 
 	public String infoTableText;
 	
+	public String description;
+	
 	/**
 	 * type of disease 1 - disease
 	 * 					2 - pest

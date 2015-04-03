@@ -30,9 +30,8 @@ GameDirectives
 											}
 										});
 										return isFound;
-									}
-									;
-
+									};
+									debugger;
 									scope.itemClick = function(a) {
 										if (!scope.isForbidden(scope.$root.farmer, a.name)) {
 											scope.$root.$emit('operation-'
@@ -104,7 +103,9 @@ GameDirectives
 						'$day',
 						'State',
 						'Resume',
-						function($, $window, $modal, day, State, Resume) {
+						'YearSeasons',
+						'ExpertAdvice',
+						function($, $window, $modal, day, State, Resume,YearSeasons, ExpertAdvice) {
 
 							return {
 								restrict : 'E',
@@ -148,7 +149,31 @@ GameDirectives
 																	.$emit("resume-open");
 														}
 
-													})
+													});
+									
+									scope.$root.$watch("day.season_level", function(newV, oldV) {
+										if (newV!==oldV) {
+											ExpertAdvice.setAdvice(YearSeasons[newV].description);
+										}
+									});
+									
+									scope.$root.$watch("day.grass_growth", function(newV, oldV) {
+										if (newV!==oldV) {
+											if (newV > 9 && oldV<9) {
+												ExpertAdvice.setAdvice("Oh, no! There’s grass around the plantation. Is there something you can do about it?");
+											}
+											
+										}
+									});
+									
+									scope.$root.$watch("day.deltaCumulative", function(newV, oldV) {
+										if (newV!==oldV) {
+											if (newV < -10 && oldV> -10) {
+												ExpertAdvice.setAdvice("The time has come to irrigate!");
+											}
+											
+										}
+									})
 
 								},
 								templateUrl : '/public/templates/resume-dialog.html'

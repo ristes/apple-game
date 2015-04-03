@@ -36,42 +36,42 @@ public class InitializeStoresAndItems extends Job {
 		System.out.println(stores);
 
 		List<Store> dbStores = Store.all().fetch();
-		for (Store s : dbStores) {
-			storeMap.put(s.name, s);
-		}
+//		for (Store s : dbStores) {
+//			storeMap.put(s.name, s);
+//		}
 
-		List<Item> dbItems = Item.all().fetch();
-		for (Item vs : dbItems) {
-			itemsMap.put(vs.name, vs);
-		}
-		List<Operation> dbOperations = Operation.all().fetch();
-		for (Operation op: dbOperations) {
-			operationsMap.put(op.name, op);
-		}
-
-		for (Store s : stores) {
-			if (!storeMap.containsKey(s.name)) {
-				s.save();
-				storeMap.put(s.name, s);
-				System.out.println("Saving store: " + s.name);
-			}
-		}
-		for (Item item : items) {
-			if (!itemsMap.containsKey(item.name)) {
-				item.store = storeMap.get(item.storeName);
-				item.save();
-				itemsMap.put(item.name, item);
-				System.out.println("Saving item: " + item.name);
-			}
-		}
-		
-		for (Operation operation: operations) {
-			if (!operationsMap.containsKey(operation.name)) {
-				operation.save();
-				operationsMap.put(operation.name, operation);
-				System.out.println("Saving item: " + operation.name);
-			}
-		}
+//		List<Item> dbItems = Item.all().fetch();
+//		for (Item vs : dbItems) {
+//			itemsMap.put(vs.name, vs);
+//		}
+//		List<Operation> dbOperations = Operation.all().fetch();
+//		for (Operation op: dbOperations) {
+//			operationsMap.put(op.name, op);
+//		}
+//
+//		for (Store s : stores) {
+//			if (!storeMap.containsKey(s.name)) {
+//				s.save();
+//				storeMap.put(s.name, s);
+//				System.out.println("Saving store: " + s.name);
+//			}
+//		}
+//		for (Item item : items) {
+//			if (!itemsMap.containsKey(item.name)) {
+//				item.store = storeMap.get(item.storeName);
+//				item.save();
+//				itemsMap.put(item.name, item);
+//				System.out.println("Saving item: " + item.name);
+//			}
+//		}
+//		
+//		for (Operation operation: operations) {
+//			if (!operationsMap.containsKey(operation.name)) {
+//				operation.save();
+//				operationsMap.put(operation.name, operation);
+//				System.out.println("Saving item: " + operation.name);
+//			}
+//		}
 		super.doJob();
 	}
 

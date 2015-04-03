@@ -342,9 +342,9 @@ body {
 
 .introduction-helper {
 	position: fixed;
-	width: 26%;
-	height: 40%;
-	left:75%;
+	width: 40%;
+	height: 55%;
+	left:63%;
 	background-image: url("/public/images/home/tip-board-bg.png");
 	background-size: 100% 110%;
 	z-index: 1000;

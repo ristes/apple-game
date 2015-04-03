@@ -8,7 +8,8 @@ Game.controller('FertilizingController', [
     '$timeout',
     '$interval',
     '$window',
-    function($scope, Fertilize, State, Planting, Store, BoughtItems, $timeout, $interval, $window) {
+    'ExpertAdvice',
+    function($scope, Fertilize, State, Planting, Store, BoughtItems, $timeout, $interval, $window,ExpertAdvice) {
 
         $scope.fertilizer = {
             n: 40,
@@ -27,6 +28,10 @@ Game.controller('FertilizingController', [
             $scope.price = n.n * p.n + n.p * p.p + n.k * p.k + n.ca * p.ca + n.b * p.b + n.mg * p.mg;
         }
 
+        $scope.onHelp = function(item) {
+        	ExpertAdvice.setInfinteImportantAdvice(Fertilize[item].description);
+        }
+        
         $scope.nCfg = {
             range: "max",
             min: 0,

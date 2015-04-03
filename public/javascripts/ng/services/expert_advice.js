@@ -15,6 +15,12 @@ Game.factory("ExpertAdvice", [ '$rootScope','State', function( $rootScope, State
 			State.set('notification', {
                 message: message
               });
+		},
+		setInfinteImportantAdvice:function(message) {
+			State.set('notification', {
+				message:message,
+				duration:'100000'
+			})
 		}
 	}
 }]);

@@ -1,5 +1,5 @@
 [{
-  "name": "ObicenTraktor",
+  "name": "Traktor",
   "pollutionCoefficient": 2,
   "price": 2500,
   "storeName": "tractor",
@@ -8,7 +8,7 @@
   "expirationInYears":0
   
 }, {
-  "name": "EkoTraktor",
+  "name": "Ecological Traktor",
   "pollutionCoefficient": 0,
   "price": 3500,
   "storeName": "tractor",

@@ -46,7 +46,13 @@ public class StoreController extends GameController {
 
 	public static void showitems(Long storeId) throws IOException {
 		Store store = Store.findById(storeId);
-		JsonController.toJson(store.items);
+		List<Item> items= new ArrayList<Item>();
+		for (Item item: store.items) {
+			if (item.isValid) {
+				items.add(item);
+			}
+		}
+		JsonController.toJson(items);
 
 	}
 

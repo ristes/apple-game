@@ -1,6 +1,8 @@
-Game.controller('BuySeadlingsController', ['$scope', 'Planting',
-    function($scope, Planting) {
+Game.controller('BuySeadlingsController', ['$scope', 'Planting','ExpertAdvice',
+    function($scope, Planting, ExpertAdvice) {
 
+	
+	ExpertAdvice.setAdvice("Let’s go choose some apples! The number of early twigs on an apple seedling is one of the major indicators of its physical characteristics and quality. Planting material with more twigs is fruitful as early as the first year after planting, becomes fully fruitful in 3-4 years. Planting material without early twigs yields its first fruits in the third year after planting, becomes fully fruitful in 4-5 years. ");
       $scope.seedlings = [];
       $scope.appleTypes = [];
       $scope.seedlingTypes = [];
@@ -50,6 +52,7 @@ Game.controller('BuySeadlingsController', ['$scope', 'Planting',
           bought.push(val);
         });
         Planting.buySeedlings(bought, function() {
+        	ExpertAdvice.hide();
           $scope.showBase = true;
         });
       };

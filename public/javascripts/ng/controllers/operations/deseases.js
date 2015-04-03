@@ -3,7 +3,8 @@ Game.controller('DeseaseController', [
     'Diseases',
     'State',
     'Quiz',
-    function($scope, Diseases, State, Quiz) {
+    'ExpertAdvice',
+    function($scope, Diseases, State, Quiz, ExpertAdvice) {
 
         $scope.visible = false;
         $scope.url = '/public/images/game/operations/desease-analysis.png';
@@ -18,8 +19,9 @@ Game.controller('DeseaseController', [
         }
 
         $scope.showDeseaseHelp = function(item) {
+        	//ExpertAdvice.setImportantAdvice(item.description);
             Diseases.getHintAsync(item.name, function(hint) {
-                item.help = hint;
+            	ExpertAdvice.setInfinteImportantAdvice(hint);
             })
         };
 

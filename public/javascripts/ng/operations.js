@@ -1,5 +1,8 @@
-Game.factory('MonthOperations', ['$resource', '$rootScope',
-    function($resource, $rootScope) {
+(function () {
+Game.factory('MonthOperations', ['$resource', '$rootScope','$http',
+    function($resource, $rootScope, $http) {
+		var operations;
+		var self = this;
         return {
             /**
              * Sadenje
@@ -17,8 +20,18 @@ Game.factory('MonthOperations', ['$resource', '$rootScope',
         		'plowing',
         		'harvest'
         	]},
-        	
-        	
+        	get: function() {
+        		return self.operations;
+        	},
+        	load: function() {
+        		if (self.operations===undefined) {
+        			return $http.get('MonthOperationsController/all').success(function(data) {
+        				self.operations = data;
+        			});
+        		}
+        		return self.operations;
+        		
+        	},
         	
         	 
             'month-1': [{
@@ -498,7 +511,7 @@ Game.factory('MonthOperations', ['$resource', '$rootScope',
                 duration: 50,
                 requires: 'digging',
                 order: 4,
-                description: 'Копањето го зголемува родот.'
+                description: 'Now, let s dig!'
             }, {
                 ico: "/public/images/game/operations/irrigation.png",
                 name: 'irrigation',
@@ -548,3 +561,4 @@ Game.factory('MonthOperations', ['$resource', '$rootScope',
         };
     }
 ]);
+}());

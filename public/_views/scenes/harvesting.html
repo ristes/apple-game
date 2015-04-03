@@ -1,38 +1,55 @@
 <div ng-controller="HarvestingController">
 
-    <div class="shop-menu" ng-animate="shop" ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
+	<div class="shop-menu" ng-animate="shop"
+		ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
 
-        <div class="shop_icon">
-            <img src="{{type.ico}}" style="width: 75%;"></img>
-            <div class="shop-label ramka">
-                <span class="shop-label-text"> {{ 'harvesting' | translate }}
-                </span>
-            </div>
-        </div>
+		<div class="shop_icon">
+			<img src="{{type.ico}}" style="width: 75%;"></img>
+			<div class="shop-label ramka">
+				<span class="shop-label-text"> {{ 'harvesting' | translate }}
+				</span>
+			</div>
+		</div>
 
-        <div class="shop_arrow" ng-click="hide()"></div>
+		<div class="shop_arrow" ng-click="hide()"></div>
 
-        <div class="shop_menu_grid fa-inverse" ng-show="!gameActive">
-            <div class="shop_item_in_grid" ng-repeat="item in harvestingInfo" ng-click="harvest(item)">
-                <img ng-src="{{item.iodineStarchUrl}}" popover-trigger="mouseenter" popover-placement="bottom" popover="harvest"></img>
-                <div class="shop-item-label ramka" ng-click="harvest(item)">
-                    <span class="title-text" translate="{{item.type.name}}"></span>
-                </div>
-                <div>Straive Test: {{item.iodineStarch | setDecimal:2}}</div>
-            </div>
-            <div ng-if="!harvestingInfo">
-                Harvesting done :)
-                <button class="btn btn-primary" ng-click="sell()">Store and Trade apples</button>
-            </div>
-        </div>
+		<div class="shop_menu_grid fa-inverse" ng-show="!gameActive">
+			<p>The farmer should choose the optimal harvest day, which is
+				determined according to the Streif Index. The harvest day depends on
+				the variety of apple chosen; hence, harvesting too early may slash
+				the quantity by between 5% and 15 %. Belated harvest, on the other
+				hand, causes rotting of the apples, and the value of the harvest
+				decreases by 10% every 15 days. Timely harvest is a prerequisite for
+				preservation of fruit quality. Therefore, the right ripening time
+				ought to be identified, and, subsequently, a decision should be made
+				on the harvesting period. The harvesting period varies from year to
+				year. When defining the harvesting period, farmers should take into
+				consideration whether the fruit will be for sale immediately or
+				stored for a long or short period of time.</p>
+			<div class="shop_item_in_grid" ng-repeat="item in harvestingInfo"
+				ng-click="harvest(item)">
+				<img ng-src="{{item.iodineStarchUrl}}" popover-trigger="mouseenter"
+					popover-placement="bottom" popover="harvest"></img>
+				<div class="shop-item-label ramka" ng-click="harvest(item)">
+					<span class="title-text" translate="{{item.type.name}}"></span>
+				</div>
+				<div>Straive Test: {{item.iodineStarch | setDecimal:2}}</div>
+			</div>
+			<div ng-if="!harvestingInfo">
+				Harvesting done :)
+				<button class="btn btn-primary" ng-click="sell()">Store and
+					Trade apples</button>
+			</div>
+		</div>
 
-        <div class="shop_menu_grid fa-inverse" ng-if="gameActive">
-            <div class="harvest">
-                <harvest-game game="game" g-height="400" g-width="350" game-over="gameOver" apples="apples" active="gameActive">
-                </harvest-game>
-            </div>
-        </div>
+		<div class="shop_menu_grid fa-inverse" ng-if="gameActive">
+			<div class="harvest">
+				<harvest-game game="game" g-height="400" g-width="350"
+					game-over="gameOver" apples="apples" active="gameActive">
+				</harvest-game>
+			</div>
+		</div>
 
-    </div>
+	</div>
 
 </div>

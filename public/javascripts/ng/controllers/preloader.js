@@ -57,13 +57,14 @@ Game.controller("PreloadController", function($scope, preloader, $timeout) {
 	
 	$scope.menuitems = {
 	'play':{
-		description:"Going to the main screen!"
+		description:"play"
 	},
-	'help':{
-		description: "Help me playing the game."
+	
+	'about': {
+		description: "about"
 	},
-	'rules': {
-		description: "Rules in playing the game."
+	'facts': {
+		description: "facts"
 	}};
 
 	preloader.preloadImages($scope.imageLocations).then(
@@ -74,14 +75,15 @@ Game.controller("PreloadController", function($scope, preloader, $timeout) {
 			$scope.isIntroduction = false;
 			
 			$scope.hover = function(item) {
-				$scope.displayText=item.description;
+				$scope.current=item.description;
 			}
 			
 			$scope.leave = function() {
-				$scope.displayText="Let's play!";
+				$scope.current="";
 			}
 			
-			$scope.onPlay = function() {
+			$scope.onPlay = function(flag) {
+				$scope.current=flag;
 				$scope.isIntroduction = false;
 				$scope.isWelcoming = false;
 				$scope.isSuccessful = true;

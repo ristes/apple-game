@@ -4,14 +4,20 @@ Game.controller('NotificationController', ['$scope', 'State', '$modal',
 
       State.subscribe('notification', 'NotificationController', function(data) {
         $scope.message = data.message || data.exception;
+        $scope.duration = data.duration || 5000;
+        $scope.title = data.title || "";
+        $scope.close = function() {
+        	notification.dismiss('cancel');
+        }
         var notification = $modal.open({
           backdrop: 'static',
           templateUrl: windowTemplateUrl,
           scope: $scope
         });
+        
         $timeout(function() {
           notification.dismiss('cancel');
-        }, 5000);
+        }, $scope.duration);
       });
 
     }]);

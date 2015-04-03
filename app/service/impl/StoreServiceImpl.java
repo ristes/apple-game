@@ -47,12 +47,14 @@ public class StoreServiceImpl implements StoreService {
 
 	public StatusDto buyItem(Farmer farmer, String itemName, Double quantity,
 			String currentState) {
-		StatusDto<ItemInstance> statusRes = new StatusDto<ItemInstance>(true,null,null,farmer, null);
+		StatusDto<ItemInstance> statusRes = new StatusDto<ItemInstance>(true,
+				null, null, farmer, null);
 		ItemInstance itemInstance = null;
 		if (farmer != null) {
 			Item item = Item.find("name", itemName).first();
 			try {
-				itemInstance = ServiceInjector.itemTransactionService.commitBuyingItem(farmer, item, quantity);
+				itemInstance = ServiceInjector.itemTransactionService
+						.commitBuyingItem(farmer, item, quantity);
 			} catch (NotEnoughMoneyException ex) {
 				ex.printStackTrace();
 			}
@@ -71,33 +73,37 @@ public class StoreServiceImpl implements StoreService {
 		if (item.metadata == null) {
 			return;
 		}
-		
+
 		JsonParser jsonParser = new JsonParser();
 		JsonElement element = jsonParser.parse(item.metadata);
 		JsonElement jsonEco = element.getAsJsonObject().get("eco");
-		JsonElement jsonMoreNAStorage = element.getAsJsonObject().get("moreNAStorage");
-		JsonElement jsonMoreCAStorage = element.getAsJsonObject().get("moreCAStorage");
+		JsonElement jsonMoreNAStorage = element.getAsJsonObject().get(
+				"moreNAStorage");
+		JsonElement jsonMoreCAStorage = element.getAsJsonObject().get(
+				"moreCAStorage");
 		JsonElement jsonYield = element.getAsJsonObject().get("yield");
 		JsonElement jsonTips = element.getAsJsonObject().get("tips");
-		
-		if (jsonMoreCAStorage!=null) {
-			status.farmer.capacityCAFridges+=jsonMoreCAStorage.getAsInt();
+
+		if (jsonMoreCAStorage != null) {
+			status.farmer.capacityCAFridges += jsonMoreCAStorage.getAsInt();
 		}
-		if (jsonMoreNAStorage!=null) {
+		if (jsonMoreNAStorage != null) {
 			status.farmer.capacityNAFridges += jsonMoreNAStorage.getAsInt();
 		}
-		if (jsonYield!=null) {
-			status.farmer.productQuantity += status.farmer.productQuantity * jsonYield.getAsInt()/100;
+		if (jsonYield != null) {
+			status.farmer.productQuantity += status.farmer.productQuantity
+					* jsonYield.getAsInt() / 100;
 		}
-		if (jsonEco!=null) {
+		if (jsonEco != null) {
 			int eco = jsonEco.getAsInt();
-			if (eco<0) {
-				ServiceInjector.ecoPointsService.substract(status.farmer, Math.abs(eco));
+			if (eco < 0) {
+				ServiceInjector.ecoPointsService.substract(status.farmer,
+						Math.abs(eco));
 			} else {
 				ServiceInjector.ecoPointsService.add(status.farmer, eco);
 			}
 		}
-		
+
 		if (jsonTips != null) {
 			status.tip = jsonTips.getAsString();
 		}
@@ -121,7 +127,8 @@ public class StoreServiceImpl implements StoreService {
 
 	public Plantation createPlantation(Farmer farmer) {
 		Field field = Field.find("owner.id", farmer.id).first();
-		Plantation plantation = ServiceInjector.plantationService.buildInstance();
+		Plantation plantation = ServiceInjector.plantationService
+				.buildInstance();
 		field.plantation = plantation;
 		plantation.field = field;
 		plantation.save();
@@ -139,7 +146,8 @@ public class StoreServiceImpl implements StoreService {
 		field.plantation = plantation;
 
 		farmer.currentState = currentState;
-		ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, -plantation.base.price);
+		ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer,
+				-plantation.base.price);
 
 		plantation.save();
 		field.save();
@@ -159,7 +167,8 @@ public class StoreServiceImpl implements StoreService {
 			numSeedlings += ps.quantity;
 		}
 		plantation.currentQuantity = numSeedlings;
-		ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, -value);
+		ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer,
+				-value);
 
 		farmer.currentState = currentState;
 
@@ -191,7 +200,7 @@ public class StoreServiceImpl implements StoreService {
 		return result;
 
 	}
-	
+
 	public List<StoreItemDto> otherUnboughtStoreItems(Farmer farmer) {
 		List<StoreItemDto> result = new ArrayList<StoreItemDto>();
 		List<Item> items = DaoInjector.itemsDao.getUnboughtItem(farmer);
@@ -327,20 +336,22 @@ public class StoreServiceImpl implements StoreService {
 		}
 		return result;
 	}
-	
+
 	public List<StoreItemDto> diggingStoreItems() {
 		List<StoreItemDto> result = new ArrayList<StoreItemDto>();
 		Store store = Store.find("byName", "digging").first();
 		List<Item> items = Item.find("byStore", store).fetch();
 		for (Item item : items) {
-			StoreItemDto storeDto = new StoreItemDto();
-			storeDto.id = item.id;
-			storeDto.name = item.name;
-			storeDto.description = item.description;
-			storeDto.url = item.imageurl;
-			storeDto.price = (double) item.price;
-			storeDto.store = item.store.name;
-			result.add(storeDto);
+			if (item.isValid) {
+				StoreItemDto storeDto = new StoreItemDto();
+				storeDto.id = item.id;
+				storeDto.name = item.name;
+				storeDto.description = item.description;
+				storeDto.url = item.imageurl;
+				storeDto.price = (double) item.price;
+				storeDto.store = item.store.name;
+				result.add(storeDto);
+			}
 		}
 		return result;
 	}
@@ -376,7 +387,7 @@ public class StoreServiceImpl implements StoreService {
 			storeDto.store = item.store.name;
 			result.add(storeDto);
 		}
-		
+
 		return result;
 	}
 
@@ -393,7 +404,6 @@ public class StoreServiceImpl implements StoreService {
 		return result;
 	}
 
-	
 	public StoreItemDto toStoreItemDto(Item item) {
 		StoreItemDto storeDto = new StoreItemDto();
 		storeDto.id = item.id;

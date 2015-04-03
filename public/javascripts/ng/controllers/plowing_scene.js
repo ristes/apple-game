@@ -1,6 +1,6 @@
 Game.controller('PlowingSceneController', ['$scope', 'Planting',
     function($scope, Planting) {
-
+		
         $scope.holder = {};
         $scope.holder.deep = 60;
 

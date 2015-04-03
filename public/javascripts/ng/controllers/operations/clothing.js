@@ -2,7 +2,7 @@ Game.controller('ClothingController', ['$scope','Prunning','State','ExpertAdvice
 
 	var self = this;
 	
-    var unreg = $scope.$root.$on('operation-pruning', function(_s, oper) {
+    var unreg = $scope.$root.$on('operation-prunning', function(_s, oper) {
     	self.oper = oper;
     	Prunning.checkPrune($scope.startPrune, $scope.stopPrune);
         
@@ -23,7 +23,7 @@ Game.controller('ClothingController', ['$scope','Prunning','State','ExpertAdvice
         $scope.gameActive = false;
         $scope.visible = false;
         
-        ExpertAdvice.setAdvice("Kroenje e zavrseno so "+ gameResult.correct + ".");
+        ExpertAdvice.setAdvice("The prunning ended with "+ gameResult.correct + " correct cutted branches. Great work! It’s time to rest and prepare for some hard work in the spring.");
         Prunning.prune(gameResult)
     }
     $scope.$root.$watch('day.year_level', function(a) {

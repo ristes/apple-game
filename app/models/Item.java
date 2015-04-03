@@ -79,6 +79,8 @@ public class Item extends Model {
 	 * When the item will be shown in the store
 	 */
 	public int activationRecolteYear;
+	
+	public Boolean isValid;
 
 	/**
 	 * How long the item will be active. If -1, it lasts forever.

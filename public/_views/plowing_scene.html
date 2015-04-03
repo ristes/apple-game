@@ -13,16 +13,17 @@
 			</div>
 		</div>
 
-
-		<div class="shop_menu_grid fa-inverse">
-			<h2>{{'plowing.deep' | translate}}</h2>
+		
+		<div class="shop_menu_grid fa-inverse" style="margin-top:60px">
+			<div style="font-size:large">In the period between August and September, farmers should plough their fields. The most important purpose of ploughing is to prepare the soil for the planting of trees. The depth of each furrow influences the growth of the tree’s root system. Ploughing is particularly important in very dense and clay-filled soil. </div>
 			<div id="irrigation-slider-container">
-				<div slider class="slider" cfg="cfg" value="holder.deep"></div>
+				<div slider class="slider col-md-8" cfg="cfg" value="holder.deep"></div>
+				<div class="col-md-4" style="font-size: large"><span ng-show="!td" > {{holder.deep}} cm</span></div>
 			</div>
 			<div>
-				<span ng-show="!td" > {{holder.deep}} cm</span>
-				<button class="btn btn-xs" ng-click="plow()">{{ 'plowing.plow' | translate }}</button>
-
+				
+			</div>
+			<div class="text-center" style="margin-top:30px"><button class="btn btn-xs" style="font-size:large" ng-click="plow()">{{ 'plowing.plow' | translate }}</button></div>
 		</div>
 	</div>
 

@@ -57,7 +57,7 @@ public class DeseasesExpertSystem extends GameController {
 					disease.hintPrice);
 			hint.status = true;
 			hint.farmer = _farmer;
-			hint.hint = disease.hint;
+			hint.hint = disease.description;
 		} else {
 			hint.problem = "diseases.invalid_disease";
 		}

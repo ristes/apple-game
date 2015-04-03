@@ -29,7 +29,7 @@ public class FridgeServiceImpl implements FridgeService {
 		noFridge.capacity = 1000000;
 		noFridge.type = FridgeType.find("type=?1", FridgeService.NO_FRIDGE)
 				.first();
-		noFridge.name = "Обично складиште";
+		noFridge.name = "Ordinary storehouses without a cooling system";
 		noFridge.farmer = farmer;
 		noFridge.price = 0;
 		noFridge.save();
@@ -40,7 +40,7 @@ public class FridgeServiceImpl implements FridgeService {
 				.first();
 		;
 		naFridge.price = 1;
-		naFridge.name = "Ладилник со нормална атмосфера";
+		naFridge.name = "Refrigerators with normal ambient";
 		naFridge.farmer = farmer;
 		naFridge.save();
 
@@ -49,7 +49,7 @@ public class FridgeServiceImpl implements FridgeService {
 		caFridge.type = FridgeType.find("type=?1", FridgeService.CA_FRIDGE)
 				.first();
 		caFridge.price = 2;
-		caFridge.name = "Ладилник со контролирана атмосфера";
+		caFridge.name = "Refrigerators with controlled ambient";
 		caFridge.farmer = farmer;
 		caFridge.save();
 

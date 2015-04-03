@@ -1,8 +1,8 @@
-Game.controller('BuyTerrainController', ['$scope', '$farmer', 'Terrain','ExpertAdvice',
-    function($scope, $farmer, Terrain,ExpertAdvice) {
+Game.controller('BuyTerrainController', ['$scope', '$farmer', 'Terrain','ExpertAdvice','$translate','$filter',
+    function($scope, $farmer, Terrain,ExpertAdvice, $translate, $filter) {
 	
       $scope.items = Terrain.terrainSizes;
-
+      ExpertAdvice.setAdvice($translate("buy_terrain.advice"));
       $scope.onHover = function(item) {
     	  ExpertAdvice.setAdvice(item.description);
       }
@@ -10,7 +10,7 @@ Game.controller('BuyTerrainController', ['$scope', '$farmer', 'Terrain','ExpertA
         items: $scope.items,
         showNext: false,
         shop: {
-          name: 'terrainSize'
+          name: 'Choose the land size'
         },
         storeUrl: '/public/images/game/stores/terrain.png'
       });

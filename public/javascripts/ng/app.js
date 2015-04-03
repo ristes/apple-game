@@ -49,12 +49,14 @@ Game.run([
     '$day',
     'Plantation',
     'StoreItems',
-    function($rootScope, $location, $farmer, BoughtItems, $day, Plantation, StoreItems) {
+    'MonthOperations',
+    function($rootScope, $location, $farmer, BoughtItems, $day, Plantation, StoreItems, MonthOperations) {
         $farmer.load();
         BoughtItems.load();
         $rootScope.storeItems = StoreItems.getStoreItems();
         Plantation.load();
         $rootScope.visible = false;
+        MonthOperations.load();
         $rootScope.next = function() {
             $day.next();
             BoughtItems.load();

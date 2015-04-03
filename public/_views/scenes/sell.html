@@ -13,8 +13,9 @@
         <div class="shop_arrow" ng-click="hide()"></div>
 
         <div class="shop_menu_grid fa-inverse">
+        	<div ng-click="onHelp()" class="pull-right" style="font-size:xx-large; "><i class="glyphicon glyphicon-question-sign" ></i></div>
 
-            <div ng-repeat="type in plantation.plantTypes" ng-show="storeCfg[type.name].max>0">
+            <div style="padding-top:70px" ng-repeat="type in plantation.plantTypes" ng-show="storeCfg[type.name].max>0">
                 Unsorted quantity of {{type.name}} ({{storeCfg[type.name].max}} kg): 
                 <button class="btn btn-primary btn-xs" ng-click="sell(type, storeCfg[type.name])">Sell</button>
                 <div slider class="slider" cfg="storeCfg[type.name]" value="storeCfg[type.name].quantity" ng-show="storeCfg[type.name].max"></div>
