@@ -1,6 +1,6 @@
 <div class="board-bg">
-	<div class="seedling-planting" >
-		<div  class="select-seedling">
+	<div class="row seedling-planting" >
+		<div  class="select-seedling col-md-5">
 			<table>
 				<tr>
 					<td></td>
@@ -28,8 +28,7 @@
 				</tr>
 			</table>
 		</div>
-		<div class="clear"></div>
-		<div class="select-seedling-quantity">
+		<div class="select-seedling-quantity" style="float:left; margin-left:100px">
 			<h3>
 				{{ 'total' | translate }}: {{total()}}
 			</h3>
@@ -43,7 +42,7 @@
 							</div>
 						</div>
 					</td>
-					<td>
+					<td style="width:100px">
 						<div popover-trigger="mouseenter" popover-placement="bottom" popover="{{s.seedlingType.description}}">
 							<img ng-src="{{s.seedlingType.imageurl}}" class="seedling-type-header"></img>
 							<div class="shop-item-label ramka">
@@ -51,7 +50,7 @@
 							</div>
 						</div>
 					</td>
-					<td style="width:100px">
+					<td style="width:80px">
 
 						{{ 'quantity' | translate }}: <input type="number" ng-model="s.quantity" style="width:50px"/><br />
 						{{ 'price' | translate }}: {{ s.quantity* s.price }}
