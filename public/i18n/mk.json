@@ -46,6 +46,37 @@
 	},
 	"harvest" :  {
 		"help" : "In general, apples can be stored for a long period of time (up to 12 months). A variety of factors influence its shelf life, such as its variety, quality, region of production and mode of storage. Fruit shelf life in storehouses depends on air humidity, temperature and air composition. Apple storage can be in ordinary storehouses without an installed cooling system, refrigerators with normal ambient cooling, refrigerators with controlled ambient cooling, and refrigerators with dynamic ambient cooling. Temperature of 0-3 0С and air relative humidity of 92–93 % ensures optimal conditions for storage of the majority of apple varieties. Modern storage systems (controlled ambient) additionally reduce oxygen concentration while increasing that of carbon dioxide, which makes the effect of fruit storage even more effective."
+	},
+
+	"facebookShare": {
+	  "Plowing": {
+		"name": "Plowind",
+		"caption":"Plowing",
+		"description":"Plowing"},
+	  "Digging": {
+		"name": "Digging",
+		"caption":"Digging",
+		"description":"Digging"},
+	  "Spraying": {
+		"name": "Spraying",
+		"caption":"Spraying",
+		"description":"Spraying"},
+	  "Fertilizing": {
+		"name": "Fertilizing",
+		"caption":"Fertilizing",
+		"description":"Fertilizing"},
+	  "Prunning": {
+		"name": "Prunning",
+		"caption":"Prunning",
+		"description":"Prunning"},
+	  "Irrigate": {
+		"name": "Irrigate",
+		"caption":"Irrigate",
+		"description":"Irrigate"},
+	  "Harvesting": {
+		"name": "Harvesting",
+		"caption":"Harvesting",
+		"description":"Harvesting"}
 	}
 
 }

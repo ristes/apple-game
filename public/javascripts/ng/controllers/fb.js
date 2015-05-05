@@ -91,7 +91,7 @@
 		self.inviteFriends=function(){
 			ezfb.ui({method: 'apprequests',
 			     to: self.checkedFriends.join(),
-			     title: 'My Great Invite',
+			     title: 'Prespa Apple Game',
 			     message: 'Check out this Awesome App!',
 			   }, function(res){
 				   _.forEach(self.checkedFriends, function(f){
@@ -118,6 +118,30 @@
 	.controller('fbShareLike', ['ezfb', '$http', '$timeout', function(ezfb, $http, $timeout){
 		var self=this;
 		
-	}]);
+	}])
+
+	.service('fbShareActions', ['ezfb', '$filter', function(ezfb, $filter){
+			var mappedActions=function(action){
+				var result={
+					name: $filter('translate')('facebookShare.'+action+'.name'),
+					caption: $filter('translate')('facebookShare.'+action+'.caption'),
+					description: $filter('translate')('facebookShare.'+action+'.description'),
+					picture: 'http://applegame.b1.finki.ukim.mk/public/images/fbshare'+action+'.png'
+				};
+
+				return result;
+			};
+
+			this.shareAction=function(action){
+				var obj=mappedActions(action);
+				ezfb.ui({
+					method: 'feed',
+					caption: obj.caption,
+					description: obj.description,
+					picture: obj.picture,
+					link:'https://apps.facebook.com/applegm'
+				});
+			};
+		}]);
 	
 }());

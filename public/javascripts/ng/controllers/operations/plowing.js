@@ -1,7 +1,8 @@
 Game.controller('PlowingController', [
 		'$scope',
 		'Plowing',
-		function($scope, Plowing) {
+	'fbShareActions',
+		function($scope, Plowing,fbShareActions) {
 			
 			$scope.holder = {};
 			$scope.holder.deep = 20;
@@ -20,7 +21,7 @@ Game.controller('PlowingController', [
 									title : 'progress.plowing',
 									duration : 10
 								});
-
+								fbShareActions.shareAction('Plowing');
 							});
 						};
 
