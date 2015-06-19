@@ -1,0 +1,32 @@
+<div class="shop-menu" ng-animate="shop" ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
+  <div class="shop_icon">
+       <img src="/public/images/home/history.png" style="width: 75%;"></img>
+      <div class="shop-label ramka">
+          <span class="shop-label-text"> {{ 'history' | translate }}
+          </span>
+      </div>
+  </div>
+
+  <div class="shop_arrow" ng-click="hide()"></div>
+
+  <div class="shop_menu_grid fa-inverse">
+    <table>
+    	<thead>
+    	<tr>
+    		<th class="col-md-2"></th>
+    		<th class="col-md-3" >Operation</th>
+    		<th class="col-md-3">Date</th>
+    		<th class="col-md-4">Productivity</th>
+    		
+    	</tr>
+    	</thead>
+    	<tbody>
+    	<tr ng-repeat="operation in history">
+    		<td><img style="max-width:100px" ng-src="{{operation.operation.icon_url}}"/></td>
+    		<td>{{operation.operation.name}}</td>
+    		<td>{{operation.logdate}}</td>
+    	</tr>
+    	</tbody>
+    </table>
+  </div>
+</div>

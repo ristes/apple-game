@@ -14,7 +14,7 @@
 		<div class="shop_item_in_grid"  ng-repeat="item in items" ng-click="itemClick(item)"  ng-mouseover="onHover(item)" ng-mouseleave="onHide()"
 				>
 			<img ng-src="{{item.url}}"></img>
-			<div class="shop-item-label ramka"  ng-click="itemClick(item)">
+			<div class="shop-item-label ramka" ng-if="item.active"  ng-click="itemClick(item)">
 				<span class="title-text" translate="{{item.name}}"></span>
 			</div>
 			<div class="shop-item-price" ng-show="item.price">{{price(item)}}</div>

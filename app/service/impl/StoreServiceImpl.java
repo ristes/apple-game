@@ -193,7 +193,7 @@ public class StoreServiceImpl implements StoreService {
 		result.put("seedling-type", seedlingTypes());
 		result.put("irrigation", irrigationStoreItems());
 		result.put("other", otherUnboughtStoreItems(farmer));
-		result.put("spraying", sprayingStoreItems());
+		result.put("spraying", sprayingStoreItems(farmer));
 		result.put("stores", allStores());
 		result.put("fertilizer", fertilizerStoreItems());
 		result.put("digging", diggingStoreItems());
@@ -206,8 +206,10 @@ public class StoreServiceImpl implements StoreService {
 		List<Item> items = DaoInjector.itemsDao.getUnboughtItem(farmer);
 		List<StoreItemDto> resultUnbought = new ArrayList<StoreItemDto>();
 		for (Item item : items) {
-			StoreItemDto storeDto = toStoreItemDto(item);
-			resultUnbought.add(storeDto);
+			if (isUnlocked(farmer, item)) {
+				StoreItemDto storeDto = toStoreItemDto(item);
+				resultUnbought.add(storeDto);
+			}
 		}
 		return resultUnbought;
 	}
@@ -356,19 +358,23 @@ public class StoreServiceImpl implements StoreService {
 		return result;
 	}
 
-	public List<StoreItemDto> sprayingStoreItems() {
+	public List<StoreItemDto> sprayingStoreItems(Farmer farmer) {
 		List<StoreItemDto> result = new ArrayList<StoreItemDto>();
 		Store store = Store.find("byName", "spraying").first();
-		List<Item> items = Item.find("byStore", store).fetch();
+		List<Item> items = Item.find("store=?1 and isValid=?2", store, true)
+				.fetch();
 		for (Item item : items) {
-			StoreItemDto storeDto = new StoreItemDto();
-			storeDto.id = item.id;
-			storeDto.name = item.name;
-			storeDto.description = item.description;
-			storeDto.url = item.imageurl;
-			storeDto.price = (double) item.price;
-			storeDto.store = item.store.name;
-			result.add(storeDto);
+			if (isUnlocked(farmer, item)) {
+				StoreItemDto storeDto = new StoreItemDto();
+				storeDto.id = item.id;
+				storeDto.name = item.name;
+				storeDto.description = item.description;
+				storeDto.url = item.imageurl;
+				storeDto.price = (double) item.price;
+				storeDto.store = item.store.name;
+				storeDto.metadata = item.metadata;
+				result.add(storeDto);
+			}
 		}
 		return result;
 	}
@@ -378,6 +384,7 @@ public class StoreServiceImpl implements StoreService {
 		Store store = Store.find("byName", "other").first();
 		List<Item> items = Item.find("byStore", store).fetch();
 		for (Item item : items) {
+
 			StoreItemDto storeDto = new StoreItemDto();
 			storeDto.id = item.id;
 			storeDto.name = item.name;
@@ -413,6 +420,25 @@ public class StoreServiceImpl implements StoreService {
 		storeDto.price = (double) item.price;
 		storeDto.store = item.store.name;
 		return storeDto;
+	}
+
+	@Override
+	public Boolean isUnlocked(Farmer farmer, Item item) {
+		if (item.metadata == null) {
+			return true;
+		}
+		JsonParser jsonParser = new JsonParser();
+		JsonElement element = jsonParser.parse(item.metadata);
+		JsonElement jsonActiveFrom = element.getAsJsonObject()
+				.get("activeFrom");
+		if (jsonActiveFrom == null) {
+			return true;
+		}
+		Integer activeFrom = jsonActiveFrom.getAsInt();
+		if (activeFrom < farmer.year_level) {
+			return true;
+		}
+		return false;
 	}
 
 }

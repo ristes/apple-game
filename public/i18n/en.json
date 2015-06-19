@@ -13,8 +13,8 @@
 		"tensiometer_benefits": "Determination of time and water quantity is pivotal in ensuring a proper irrigation regime. Application of tensiometers is considered one of the most practical solutions for this determination. Tensiometers are, however, used only in micro-irrigation (drip irrigation).",
 		"irrigate": "Start Irrigation",
 		"tensiometer_recomended": "Recommended time for irrigation",
+		"": "",
 		
-		"": ""
 	}, 
 	"action" : {
 		"buy": "Buy"
@@ -23,10 +23,10 @@
 		"plow":"Start Plowing"
 	},
 	"season": {
-		"1":"Зима",
-		"2":"Есен",
-		"3":"Пролет",
-		"4":"Лето"
+		"1":"Winter",
+		"2":"Autumn",
+		"3":"Spring",
+		"4":"Summer"
 	},
 	
 	"buy_terrain_advice":"Hello! – I hear you want to be a farmer, so let’s choose some land together. How much land would you like to buy?",
@@ -62,6 +62,11 @@
 	  "Harvesting": {
 		"name": "Harvesting",
 		"caption":"Harvesting",
-		"description":"Harvesting"}
-	}
+		"description":"Harvesting"
+		}
+	},
+	"history" : "History",
+	"ranking": {
+		"chooseYear":"Rankings for year:"
+		}
 }

@@ -5,6 +5,9 @@ Game.factory('Spraying', [
     'jQuery',
     function(BoughtItems, $day, $http, $) {
         return {
+        	avail: function(callback) {
+        		
+        	},
             spray: function(item) {
                 $http({
                     method: 'POST',

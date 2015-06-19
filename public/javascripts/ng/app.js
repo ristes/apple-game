@@ -35,7 +35,7 @@ Game.config([
         });
 
         $httpProvider.interceptors.push('GameHttpInterceptors');
-        $translateProvider.preferredLanguage('mk');
+        $translateProvider.preferredLanguage('en');
         $translateProvider.useCookieStorage();
 
     }

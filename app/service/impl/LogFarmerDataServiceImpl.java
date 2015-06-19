@@ -46,7 +46,9 @@ public class LogFarmerDataServiceImpl implements LogFarmerDataService{
 		data.logdate = farmer.gameDate.date;
 		data.typelog = LogFarmerDataService.MONEY_EARNED;
 		data.information = (double)ammount;
+		if (farmer.isPersistent()) {
 		data.save();
+		}
 	}
 
 	@Override
@@ -139,6 +141,20 @@ public class LogFarmerDataServiceImpl implements LogFarmerDataService{
 			String operation, Integer year) {
 		LogFarmerData info = LogFarmerData.find("farmer=?1 and operation.name=?2 and recolteYear=?3 and typelog=?4", farmer, "prunning",year, LogFarmerDataService.OPERATION_EXECUTED).first();
 		return info;
+	}
+
+	@Override
+	public void logFinalEcoPoints(Farmer farmer, Double value) {
+		LogFarmerData data = new LogFarmerData();
+		data.farmer = farmer;
+		data.logdate = farmer.gameDate.date;
+		data.recolteYear = ServiceInjector.dateService.recolteYear(farmer.gameDate.date);
+		data.information = value;
+		data.typelog = LogFarmerDataService.ECO_END_SEASON;
+		if (farmer.isPersistent()) {
+			data.save();
+		}
+		
 	}
 
 	

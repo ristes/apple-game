@@ -25,7 +25,7 @@ public class LandTreatmanController extends GameController {
 
 		ServiceInjector.contextService.evaluateState(farmer);
 		StatusDto status = new StatusDto(true, null, null, farmer, null);
-		JsonController.toJson(status, "field", "gameDate", "weatherType");
+		JsonController.toJson(status, "field");
 	}
 
 	public static void plowing(Integer deep) throws Exception {
@@ -33,7 +33,7 @@ public class LandTreatmanController extends GameController {
 		ServiceInjector.landTreatmanService.executePlowing(farmer, deep);
 		ServiceInjector.contextService.evaluateState(farmer);
 		StatusDto status = new StatusDto(true, null, null, farmer,null);
-		JsonController.toJson(status, "field", "gameDate", "weatherType");
+		JsonController.toJson(status, "field");
 
 	}
 	

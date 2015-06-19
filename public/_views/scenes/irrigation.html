@@ -35,7 +35,7 @@
 				<span ng-show="!td" > {{holder.duration}} h</span>
 				<button class="btn btn-xs" ng-click="irrigate()">{{ 'irrigation.irrigate' | translate }}</button>
 			</div>
-			<div class="buy-better-irrigation" ng-show="nextType">
+			<div class="buy-better-irrigation" ng-show="nextType" ng-if="farmer.year_order>2">
 				
 				<button class="btn btn-xs" ng-click="buy(nextType)">{{ 'action.buy' | translate }} {{ 'irrigation.'+nextType | translate}} </button>
 				<div>

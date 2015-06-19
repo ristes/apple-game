@@ -46,7 +46,6 @@ public class LandTreatmanServiceImpl implements LandTreatmanService {
 	public Farmer executePlowing(Farmer farmer, Integer type)
 			throws TooWaterOnFieldException, SoilTooDryException,
 			NotEnoughMoneyException, TypeOfPlowingNotRecognized {
-
 		try {
 			farmer = determineThePlowingPrice(farmer, type);
 		} catch (TooWaterOnFieldException ex) {
@@ -61,8 +60,8 @@ public class LandTreatmanServiceImpl implements LandTreatmanService {
 		evaluatePlowingEcoPoints(farmer);
 		farmer.grass_growth = 0.0;
 		farmer.save();
-		// ServiceInjector.logFarmerDataService.logExecutedOperation(farmer,
-		// (Operation)Operation.find("byName","deep_plowing").first());
+//		 ServiceInjector.logFarmerDataService.logExecutedOperation(farmer,
+//		 (Operation)Operation.find("byName","deep_plowing").first(),null);
 		return farmer;
 	}
 
@@ -149,12 +148,12 @@ public class LandTreatmanServiceImpl implements LandTreatmanService {
 			ServiceInjector.logFarmerDataService.logExecutedOperation(
 					farmer,
 					(Operation) Operation.find("byName",
-							LandTreatmanService.DEEP_PLOWING).first(),(double)deep);
+							LandTreatmanService.PLOWING).first(),(double)deep);
 		} else {
 			ServiceInjector.logFarmerDataService.logExecutedOperation(
 					farmer,
 					(Operation) Operation.find("byName",
-							LandTreatmanService.SHALLOW_PLOWING).first(),(double)deep);
+							LandTreatmanService.PLOWING).first(),(double)deep);
 		}
 		return farmer;
 	}

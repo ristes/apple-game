@@ -7,6 +7,7 @@ import java.util.Map;
 
 import models.Farmer;
 import models.LogFarmerData;
+import models.Yield;
 import service.ResumeService;
 import service.ServiceInjector;
 import dto.ResumeMessageDto;
@@ -43,6 +44,17 @@ public class ResumeServiceImpl implements ResumeService {
 		dto.message.add(sum.toString());
 		dto.typeResume = ResumeService.MONEY_EARNED;
 		return dto;
+	}
+	
+	public Integer calcMoneyEarned(Farmer farmer, Integer year) {
+		List<LogFarmerData> logs = LogFarmerData.find(
+				"byFarmerAndRecolteYearAndTypelog", farmer, year,
+				ServiceInjector.logFarmerDataService.MONEY_EARNED).fetch();
+		Integer sum = 0;
+		for (LogFarmerData log : logs) {
+			sum += log.information.intValue();
+		}
+		return sum;
 	}
 
 	@Override
@@ -120,6 +132,16 @@ public class ResumeServiceImpl implements ResumeService {
 		dto.message.add(sum.toString());
 		dto.typeResume = ResumeService.APPLES_BURNT;
 		return dto;
+	}
+
+	@Override
+	public Integer calculateYield(Farmer farmer, int recolte) {
+		List<Yield> yields = Yield.find("farmer=?1 and year=?2", farmer, recolte).fetch();
+		Integer sum = 0;
+		for (Yield yield:yields) {
+			sum+=yield.quantity;
+		}
+		return sum;
 	}
 
 }

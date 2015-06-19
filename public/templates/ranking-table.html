@@ -10,6 +10,10 @@
   <div class="shop_arrow" ng-click="hide()"></div>
 
   <div class="shop_menu_grid fa-inverse">
+  	<div class="row text-center">
+  		<label class="control-label col-md-6" for="year">{{'ranking.chooseYear' | translate}} </label>
+  		<select id="year" style="width:150px" ng-change="changeYear(selectedYear)" class="form-control"  ng-model="selectedYear" ng-options="year.year for year in years track by year.id"></select>
+  	</div>
     <table class="table" st-table="displayedRankings" st-safe-src="rankings">
       <tr>
         <th st-sort="name">{{ 'name' | translate}}</th>
@@ -21,10 +25,10 @@
         <th colspan="4"><input st-search="" class="form-control" placeholder="{{'search' | translate}}" type="text"/></th>
       </tr>
       <tr ng-repeat="user in displayedRankings">
-        <td>{{user.name}} {{ user.surname }}</td>
-        <td>{{user.apples_in_stock}}</td>
-        <td>{{user.balance}}</td>
-        <td>{{user.eco_points}}</td>
+        <td>{{user.farmer.username}} {{ user.surname }}</td>
+        <td>{{user.harvestQuantity}}</td>
+        <td>{{user.moneyEarned}}</td>
+        <td>{{user.ecoPoints}}</td>
       </tr>
     </table>
   </div>

@@ -4,15 +4,17 @@ Game.controller('RankingsController', ['$scope', 'Ranking', function($scope, Ran
   $scope.showRankings = function(){
     $scope.visible = true;
     $scope.getRankings();
-
   }
-
-  $scope.getRankings = function(){
-    Ranking.ranks().then(function(rankings){
-      $scope.rankings = rankings;
-    });
+  var years = new Array();
+  for (var i=0;i<30;i++) {
+	  years.push({
+		  id: i,
+		  year: parseInt(2020)+parseInt(i)
+	  });
   }
+  $scope.years = years;
 
-  $scope.getRankings();
+ 
+//  $scope.getRankings();
 
 }]);

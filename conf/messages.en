@@ -7,8 +7,11 @@ controller.plowing.fail.toodry = The soil is too dry. First irrigate it please.
 
 controller.digging.fail.notenoughmoney = Not enough money for digging.
 
+earn_from_ecos = You earned %s money from your eco points!
+
 lost_quantity_message = На ден %s изгубивте %s кг јаболки поради %s.
 
 uv_demage = прекумерно UV зрачење
 
 low_temp_demage = прениски температури
+

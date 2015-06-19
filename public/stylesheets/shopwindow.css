@@ -161,14 +161,12 @@ body {
 }
 
 .title-text {
-	font-family: ag-font;
 	font-size: large;
 }
 
 .title-text-larger {
 	position: relative;
 	top: -2px;
-	font-family: ag-font;
 	font-size: x-large;
 }
 
@@ -409,7 +407,6 @@ body {
 
 .shop-label-text {
 	position: relative;
-	font-family: ag-font;
 	color: white;
 	font-size: 1.7em;
 }
@@ -451,7 +448,6 @@ body {
 	height: 100%;
 	background-size: cover;
 	text-align: right;
-	font-family: ag-font;
 	color: white;
 	font-size: 1.5em;
 	padding-right: 15%;
@@ -556,7 +552,6 @@ body {
 
 .side-item-label {
 	text-align: center;
-	font-family: ag-font;
 	color: white;
 	font-size: 100%;
 	display: block;
@@ -600,7 +595,6 @@ body {
 
 .side-operation-item-label {
 	text-align: center;
-	font-family: ag-font;
 	color: white;
 	font-size: 160%;
 	cursor: pointer;

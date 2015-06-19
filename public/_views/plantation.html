@@ -1,11 +1,6 @@
 <div ng-if="nextDay">
     <div id="div_timeline_travel">
-        <div style="padding-left: 10px;">
-            <img class="img img-responsive" style="width: 100px; height: 75px" ng-src="/public/images/seasons/season-{{$root.farmer.season_level}}.png" />
-            <div class="item-store ramka" style="width:100px">
-                <span class="title-text">{{"season."+$root.farmer.season_level | translate}}</span>
-            </div>
-        </div>
+        
         <div class="rankings" ng-controller="RankingsController">
             <div style="padding-left: 10px;" ng-click="showRankings()">
                 <img class="img img-responsive" style="width: 100px; height: 75px" ng-src="/public/images/home/rankings-bordered.png" />
@@ -14,9 +9,19 @@
                 </div>
             </div>
 
-            <ranking-table rankings="rankings" visible="visible"></ranking-table>
+            <ranking-table rankings="rankings" years="years" visible="visible"></ranking-table>
         </div>
 
+		 <div class="history" ng-controller="HistoryController">
+            <div style="padding-left: 10px;" ng-click="showHistory()">
+                <img class="img img-responsive" style="width: 100px; height: 70px" src="/public/images/home/history.png" />
+                <div class="item-store ramka" style="width:100px">
+                    <span class="title-text">{{"history" | translate}}</span>
+                </div>
+            </div>
+
+            <history-table history="history" visible="visible"></history-table>
+        </div>
         <div class="time-controls ramka">
             <div class="time-ctrl-btn" tooltip="Next Day" id="div_next_day" ng-click="$root.next()">
                 <span style="margin-right: 5px;" id="span_next_day"></span><i class="glyphicon glyphicon-step-forward"></i>

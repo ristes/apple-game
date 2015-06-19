@@ -12,18 +12,21 @@ public class StoreItemDto {
 	public String url;
 	public Double size;
 	public Boolean perHa;
+	public String metadata;
 
 	public StoreItemDto() {
 
 	}
 
 	public StoreItemDto(Item item) {
-		id = item.id;
-		name = item.name;
-		description = item.description;
-		url = item.imageurl;
-		price = (double) item.price;
-		store = item.store.name;
-		perHa = item.perHa;
+		this.id = item.id;
+		this.name = item.name;
+		this.description = item.description;
+		this.url = item.imageurl;
+		this.price = (double) item.price;
+		this.store = item.store.name;
+		this.perHa = item.perHa;
+		this.metadata = item.metadata;
+		
 	}
 }

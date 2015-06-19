@@ -18,6 +18,8 @@ public class FridgeUsageDto {
 	public int used;
 
 	public int capacity;
+	
+	public int activeFrom;
 
 	public FridgeUsageDto() {
 		shelfs = new ArrayList<FridgeShelf>();

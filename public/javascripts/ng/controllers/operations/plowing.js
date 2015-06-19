@@ -19,7 +19,8 @@ Game.controller('PlowingController', [
 
 								$scope.$root.$emit('show-progress-global', {
 									title : 'progress.plowing',
-									duration : 10
+									duration : 10,
+									actionToShare:'Plowing'
 								});
 								fbShareActions.shareAction('Plowing');
 							});

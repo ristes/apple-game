@@ -88,7 +88,7 @@ public class Item extends Model {
 	public int expirationInYears;
 	
 	public Integer expirationInMonths;
-
+	
 	@OneToMany(mappedBy = "fertilizer")
 	public List<FertilizationOperation> fertilizationOperations;
 

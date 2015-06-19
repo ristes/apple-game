@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import json.CollaseAnnotationAndExpandFieldsFilter;
 import models.Farmer;
 import models.InfoTable;
+import models.LearnStateEvents;
 import play.mvc.Controller;
 import play.mvc.Http;
 import service.ServiceInjector;
@@ -116,7 +117,7 @@ public abstract class JsonController extends Controller {
 //		toJson(farmer, "field", "plantation");
 //	}
 
-	protected static void statusJson(Farmer farmer, String tip)
+	protected static void statusJson(Farmer farmer, String tip, LearnStateEvents event)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		List<InfoTableInstanceDto> infos = ServiceInjector.infoTableService.news(farmer);
 		StatusDto status = new StatusDto(farmer != null, null, null, farmer, infos);

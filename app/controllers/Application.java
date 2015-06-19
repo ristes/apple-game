@@ -2,7 +2,9 @@ package controllers;
 
 import java.io.IOException;
 import java.util.List;
+
 import models.Farmer;
+import models.LearnStateEvents;
 import play.cache.Cache;
 import service.FarmerService;
 import service.ServiceInjector;
@@ -14,7 +16,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import dto.StatusDto;
 
 public class Application extends GameController {
-
+	
+	
 	public static void nextday() throws IOException {
 		Farmer farmer = getFarmer();
 		if (farmer == null) {
@@ -24,7 +27,8 @@ public class Application extends GameController {
 		}
 		farmer.save();
 		String tip = ServiceInjector.tipService.randomTip(ServiceInjector.tipService.tipgenerator(farmer));
-		JsonController.statusJson(farmer, tip);
+//		LearnStateEvents event = ServiceInjector.
+		JsonController.statusJson(farmer, tip, null);
 	}
 
 	public static void nextweek() throws IOException {
@@ -34,7 +38,7 @@ public class Application extends GameController {
 			ServiceInjector.farmerService.gotoNextWeek(farmer);
 		}
 		String tip = ServiceInjector.tipService.randomTip(ServiceInjector.tipService.tipgenerator(farmer));
-		JsonController.statusJson(farmer, tip);
+		JsonController.statusJson(farmer, tip,null);
 	}
 
 	public static void nextmonth() throws IOException {
@@ -44,7 +48,7 @@ public class Application extends GameController {
 			farmer = ServiceInjector.farmerService.gotoNextMonth(farmer);
 		}
 		String tip = ServiceInjector.tipService.randomTip(ServiceInjector.tipService.tipgenerator(farmer));
-		JsonController.statusJson(farmer, tip);
+		JsonController.statusJson(farmer, tip,null);
 	}
 
 	public static void restartGame() throws JsonGenerationException,

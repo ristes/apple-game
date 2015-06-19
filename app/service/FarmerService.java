@@ -8,6 +8,9 @@ import dto.ItemBoughtDto;
 
 public interface FarmerService {
 	
+	public static final String SUBSTATE_TEST_PERIOD = "test_substate";
+	public static final String SUBSTATE_FINISHED_TEST_PERIOD = "finished_test_substate";
+	
 	public static final String STATE_GROWING = "growing";
 
 	public Double subtractProductQuantity(Farmer farmer, double percent, Boolean showInfoTable, String reason);

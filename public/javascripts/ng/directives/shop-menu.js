@@ -1,92 +1,108 @@
 GameDirectives.directive('shopMenu', [
-    'jQuery',
-    'BoughtItems',
-    'State',
-    'ExpertAdvice',
-    function($, BoughtItems, State, ExpertAdvice) {
-        return {
-            restrict: 'E',
-            transclude: true,
-            scope: {},
-            link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
-                scope.showNext = true;
-                scope.visible = false;
-                scope.buying = false;
+		'jQuery',
+		'BoughtItems',
+		'State',
+		'ExpertAdvice',
+		'StoreItems',
+		function($, BoughtItems, State, ExpertAdvice,StoreItems) {
+			return {
+				restrict : 'E',
+				transclude : true,
+				scope : {},
+				controller : function($scope) {
+					angular.forEach($scope.items,
+							function(item) {
+								if (item.metadata.activeFrom < State
+										.gameState().year_order) {
+									item.active = false;
+								} else {
+									item.active = true;
+								}
+							});
+				},
+				link : function(scope, element, attrs, ctrl, transclude,
+						formCtrl) {
+					scope.showNext = true;
+					scope.visible = false;
+					scope.buying = false;
 
-                scope.itemClick = function(item) {
-                    if (!scope.buying) {
-                        scope.buying = true;
-                        scope.$root.$emit('buy-item', item);
-                        if (scope.onItemClick) {
-                            scope.onItemClick(item);
-                        }
-                    }
-                };
-                
-                scope.onHover = function(item) {
-                	ExpertAdvice.setAdvice(item.description);
-                }
-                scope.onHide = function() {
-                	ExpertAdvice.hide();
-                }
-                scope.executeItem = function(item) {
-                    console.log("Item bought");
-                }
+					scope.itemClick = function(item) {
+						if (!scope.buying) {
+							scope.buying = true;
+							scope.$root.$emit('buy-item', item);
+							if (scope.onItemClick) {
+								scope.onItemClick(item);
+							}
+						}
+					};
 
-                var unregBought = scope.$root.$on("item-bought", function($scope) {
-                    if (State.gameState().field) {
-                        BoughtItems.load();
-                    }
-                    scope.buying = false;
-                });
+					scope.onHover = function(item) {
+						ExpertAdvice.setAdvice(item.description);
+					}
+					scope.onHide = function() {
+						ExpertAdvice.hide();
+					}
+					scope.executeItem = function(item) {
+						console.log("Item bought");
+					}
 
-                var unregShow = scope.$root.$on("shop-show", function($scope, cfg) {
-                    scope.$root.$emit('side-hide');
-                    scope.items = cfg.items;
-                    scope.shop = cfg.shop;
-                    scope.storeUrl = cfg.storeUrl;
-                    if (cfg.showNext !== null) {
-                        scope.showNext = cfg.showNext;
-                        if (cfg.onHide) {
-                            scope.hideFn = cfg.onHide;
-                        }
-                    }
-                    if (cfg.onItemClick) {
-                        scope.onItemClick = cfg.onItemClick;
-                    }
-                    scope.visible = true;
-                });
+					var unregBought = scope.$root.$on("item-bought", function(
+							$scope) {
+						
+						if (State.gameState().field) {
+							BoughtItems.load();
+						}
+						scope.buying = false;
+					});
 
-                scope.price = function(item) {
-                    scope.plantation = State.getByField("plantation");
-                    if (item.perHa && item.price && scope.plantation) {
-                        return item.price * scope.plantation.area;
-                    } else {
-                        return item.price;
-                    }
-                }
+					var unregShow = scope.$root.$on("shop-show", function(
+							$scope, cfg) {
+						scope.items = cfg.items;
+						scope.$root.$emit('side-hide');
+						scope.items = cfg.items;
+						scope.shop = cfg.shop;
+						scope.storeUrl = cfg.storeUrl;
+						if (cfg.showNext !== null) {
+							scope.showNext = cfg.showNext;
+							if (cfg.onHide) {
+								scope.hideFn = cfg.onHide;
+							}
+						}
+						if (cfg.onItemClick) {
+							scope.onItemClick = cfg.onItemClick;
+						}
+						scope.visible = true;
+					});
 
-                var unregHide = scope.$root.$on("shop-hide", function() {
-                    scope.hide();
-                });
+					scope.price = function(item) {
+						scope.plantation = State.getByField("plantation");
+						if (item.perHa && item.price && scope.plantation) {
+							return item.price * scope.plantation.area;
+						} else {
+							return item.price;
+						}
+					}
 
-                scope.hide = function() {
-                    scope.visible = false;
-                    scope.buying = false;
-                    if (scope.hideFn) {
-                        scope.hideFn();
-                    }
-                }
+					var unregHide = scope.$root.$on("shop-hide", function() {
+						scope.hide();
+					});
 
-                scope.$on("$destroy", function() {
-                    unregBought();
-                    unregHide();
-                    unregShow();
-                });
+					scope.hide = function() {
+						scope.visible = false;
+						scope.buying = false;
+						if (scope.hideFn) {
+							scope.hideFn();
+						}
+					}
 
-            },
-            templateUrl: '/public/templates/shop-menu.html'
-        };
+					scope.$on("$destroy", function() {
+						unregBought();
+						unregHide();
+						unregShow();
+					});
 
-    }
-])
+				},
+				templateUrl : '/public/templates/shop-menu.html'
+			};
+
+		} ])

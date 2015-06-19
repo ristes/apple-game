@@ -3,11 +3,19 @@ GameDirectives.directive('rankingTable', [
     return {
       restrict: 'E',
       scope: {
-        rankings: "=",
-        visible: "="
+        visible: "=",
+        years: "="
+      },
+      controller: function($scope, Ranking) {
+    	  $scope.changeYear = function(selectedYear) {
+    		   Ranking.ranks(selectedYear.year, function(data) {
+    			   $scope.rankings = data;
+    		  });
+    	 }
+
+    	  
       },
       templateUrl: '/public/templates/ranking-table.html',
-
       link: function(scope, element, attrs) {
         scope.displayedRankings = [].concat(scope.rankings);
 

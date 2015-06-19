@@ -22,5 +22,8 @@ public interface ResumeService {
 	public ResumeMessageDto diseasesOccured(Farmer farmer, Integer year);
 	public ResumeMessageDto applesSold(Farmer farmer, Integer year); 
 	public ResumeMessageDto applesBurned(Farmer farmer, Integer year);
+	
+	public Integer calcMoneyEarned(Farmer farmer, Integer year);
+	public Integer calculateYield(Farmer farmer, int recolte);
 
 }

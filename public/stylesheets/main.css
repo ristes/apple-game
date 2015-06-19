@@ -1,27 +1,12 @@
-@font-face {
-	font-family: "ag-font";
-	src: url("ag.otf");
-}
-
-.ag-font {
-	font-family: ag-font;
+body {
+	font-family: 'Fondamento', cursive;
 }
 
 .popover{
 	color: #666;
 }
 
-h3 {
-	font-family:ag-font;
-}
 
-div {
-	font-family:ag-font;
-}
-
-li {
-	font-family:ag-font;
-}
 
 ul { list-style: none; }
 
@@ -209,7 +194,6 @@ img.ograda-gore {
 
 .text-info {
 	text-align: center;
-	font-family: ag-font;
 	color: white;
 	font-size: 1.1em;
 }
@@ -470,6 +454,9 @@ div.select-seedling-quantity td{
 .rankings{
 	cursor: pointer;
 }
+.history {
+	cursor:pointer;
+}
 .img-resume {
 	width:100px;
 	max-height:95px;
@@ -479,6 +466,11 @@ div.select-seedling-quantity td{
 	padding:10px;
 	text-align: center;
 	color:white;
+}
+.introduction-menu-item.play {
+	width:300px;
+	font-size: xx-large;
+	
 }
 .introduction-menu-item:hover {
 	cursor:pointer;
@@ -493,4 +485,10 @@ div.select-seedling-quantity td{
 {
 	background-color: #000000;
 	border: 2px solid #555555;
+}
+.div-season{
+	position: absolute;
+  top: 1%;
+  right: 13%;
+  z-index: 999;
 }

@@ -14,6 +14,7 @@ public interface LandTreatmanService {
 	public final static Integer DEEP_PLOW_OPTIMAL_VALUE = 70;
 	public final static Integer SHALLOW_PLOW_OPTIMAL_VALUE = 20;
 	public final static int LIMIT_PLOWING_TYPE = 45;
+	public final static String PLOWING = "plowing";
 	public final static String DEEP_PLOWING = "DeepPlowingItem";
 	public final static String SHALLOW_PLOWING = "ShallowPlowingItem";
 	public static final int SHALLOW_PLOWING_OPTIMAL_VALUE = 20;

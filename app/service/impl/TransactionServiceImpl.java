@@ -39,6 +39,7 @@ public class TransactionServiceImpl implements MoneyTransactionService,
 			ServiceInjector.logFarmerDataService.logMoneyEarned(farmer, (int)value);
 		}
 		farmer.setBalance(farmer.getBalance() + value);
+		ServiceInjector.gameEndService.evaluate(farmer);
 		farmer.save();
 		return farmer;
 	}

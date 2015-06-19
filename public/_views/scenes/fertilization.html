@@ -50,88 +50,103 @@
 				<table width="100%">
 					<tr>
 						<td width="20%" >
-							N({{fertilizer.n}} kg/Ha):
+							N({{fertilizer.N[0].value}} kg/Ha):
 						</td>
 						<td width="50%">
-							<div slider class="slider" cfg="nCfg" value="fertilizer.n"></div>
+							<div slider class="slider" cfg="nCfg" value="fertilizer.N[0].value"></div>
 						</td>
 						<td width="10%" class="text-center"><i class="glyphicon glyphicon-question-sign" ng-click="onHelp('n')"></i></td>
 						<td width="20%" class="fertilizer-price">
-							<span><img style="height:20px" src="/public/images/home/money_in_stock.png"> {{fertilizer.n * prices.n}}</span>
+							<span><img style="height:20px" src="/public/images/home/money_in_stock.png"> {{fertilizer.N[0].value * prices.n}}</span>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							P({{fertilizer.p}} kg/Ha):
+							P({{fertilizer.P[0].value}} kg/Ha):
 						</td>
 						<td>
-							<div slider class="slider" cfg="pCfg" value="fertilizer.p"></div>
+							<div slider class="slider" cfg="pCfg" value="fertilizer.P[0].value"></div>
 						</td>
 						<td width="10%" class="text-center"><i class="glyphicon glyphicon-question-sign" ng-click="onHelp('p')"></i></td>
 						<td class="fertilizer-price">
 							<span>
 								<img style="height:20px" src="/public/images/home/money_in_stock.png">
-								{{fertilizer.p * prices.p}}
+								{{fertilizer.P[0].value * prices.p}}
 							</span>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							K({{fertilizer.k}} kg/Ha):
+							K({{fertilizer.K[0].value}} kg/Ha):
 						</td>
 						<td>
-							<div slider class="slider" cfg="kCfg" value="fertilizer.k"></div>
+							<div slider class="slider" cfg="kCfg" value="fertilizer.K[0].value"></div>
 						</td>
 						<td width="10%" class="text-center"><i class="glyphicon glyphicon-question-sign" ng-click="onHelp('k')"></i></td>
 						<td class="fertilizer-price">
 							<span>
 								<img style="height:20px" src="/public/images/home/money_in_stock.png">
-								{{fertilizer.k * prices.k}}
+								{{fertilizer.K[0].value * prices.k}}
 							</span>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							Ca({{fertilizer.ca}} kg/Ha):
+							Ca({{fertilizer.Ca[0].value}} kg/Ha):
 						</td>
 						<td>
-							<div slider class="slider" cfg="caCfg" value="fertilizer.ca"></div>
+							<div slider class="slider" cfg="caCfg" value="fertilizer.Ca[0].value"></div>
 						</td>
 						<td width="10%" class="text-center"><i class="glyphicon glyphicon-question-sign" ng-click="onHelp('ca')"></i></td>
 						<td class="fertilizer-price">
 							<span>
 								<img style="height:20px" src="/public/images/home/money_in_stock.png">
-								{{fertilizer.ca * prices.ca}}
+								{{fertilizer.Ca[0].value * prices.ca}}
 							</span>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							B({{fertilizer.b}} kg/Ha):
+							B({{fertilizer.B[0].value}} kg/Ha):
 						</td>
 						<td>
-							<div slider class="slider" cfg="bCfg" value="fertilizer.b"></div>
+							<div slider class="slider" cfg="bCfg" value="fertilizer.B[0].value"></div>
 						</td>
 						<td width="10%" class="text-center"><i class="glyphicon glyphicon-question-sign" ng-click="onHelp('b')"></i></td>
 						<td class="fertilizer-price">
 							<span>
 								<img style="height:20px" src="/public/images/home/money_in_stock.png">
-								{{fertilizer.b * prices.b}}
+								{{fertilizer.B[0].value * prices.b}}
 							</span>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							Mg({{fertilizer.mg}} kg/Ha):
+							Mg({{fertilizer.Mg[0].value}} kg/Ha):
 						</td>
 						<td>
-							<div slider class="slider" cfg="mgCfg" value="fertilizer.mg"></div>
+							<div slider class="slider" cfg="mgCfg" value="fertilizer.Mg[0].value"></div>
 						</td>
 						<td width="10%" class="text-center"><i class="glyphicon glyphicon-question-sign" ng-click="onHelp('mg')"></i></td>
 						<td class="fertilizer-price">
 							<span>
 								<img style="height:20px" src="/public/images/home/money_in_stock.png">
-								{{fertilizer.mg * prices.mg}}
+								{{fertilizer.Mg[0].value * prices.mg}}
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Zn({{fertilizer.Zn[0].value}} kg/Ha):
+						</td>
+						<td>
+							<div slider class="slider" cfg="znCfg" value="fertilizer.Zn[0].value"></div>
+						</td>
+						<td width="10%" class="text-center"><i class="glyphicon glyphicon-question-sign" ng-click="onHelp('zn')"></i></td>
+						<td class="fertilizer-price">
+							<span>
+								<img style="height:20px" src="/public/images/home/money_in_stock.png">
+								{{fertilizer.Zn[0].value * prices.zn}}
 							</span>
 						</td>
 					</tr>

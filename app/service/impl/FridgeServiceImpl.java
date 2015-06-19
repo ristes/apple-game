@@ -32,19 +32,21 @@ public class FridgeServiceImpl implements FridgeService {
 		noFridge.name = "Ordinary storehouses without a cooling system";
 		noFridge.farmer = farmer;
 		noFridge.price = 0;
+		noFridge.activeFrom = 0;
 		noFridge.save();
 
 		Fridge naFridge = new Fridge();
+		naFridge.activeFrom = 1;
 		naFridge.capacity = 0;
 		naFridge.type = FridgeType.find("type=?1", FridgeService.NA_FRIDGE)
 				.first();
-		;
 		naFridge.price = 1;
 		naFridge.name = "Refrigerators with normal ambient";
 		naFridge.farmer = farmer;
 		naFridge.save();
 
 		Fridge caFridge = new Fridge();
+		caFridge.activeFrom = 2;
 		caFridge.capacity = 0;
 		caFridge.type = FridgeType.find("type=?1", FridgeService.CA_FRIDGE)
 				.first();
@@ -161,6 +163,7 @@ public class FridgeServiceImpl implements FridgeService {
 		usage.capacity = fridge.capacity;
 		usage.fridgeName = fridge.name;
 		usage.price = fridge.type.price;
+		usage.activeFrom = fridge.activeFrom;
 		return usage;
 
 	}

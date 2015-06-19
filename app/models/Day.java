@@ -53,5 +53,6 @@ public class Day extends Model {
 	public String toString() {
 		return date + "-" + weatherType.name;
 	}
+	
 
 }

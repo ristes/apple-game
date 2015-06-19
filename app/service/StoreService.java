@@ -32,4 +32,6 @@ public interface StoreService {
 	Plantation createPlantation(Farmer farmer);
 	
 	public StoreItemDto toStoreItemDto(Item item);
+	
+	public Boolean isUnlocked(Farmer farmer, Item item);
 }

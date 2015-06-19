@@ -26,7 +26,8 @@ Game.controller('DiggingController', [
                     $scope.$root.$emit('item-bought');
                     $scope.$root.$emit('show-progress-global', {
                       title: 'progress.digging',
-                      duration: 5
+                      duration: 5,
+                      actionToShare:'Digging'
                     });
                   });
 

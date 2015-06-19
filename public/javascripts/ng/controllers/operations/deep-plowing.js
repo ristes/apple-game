@@ -8,7 +8,8 @@ Game.controller('DeepPlowingController', [
 
                 $scope.$root.$emit('show-progress-global', {
                   title: 'progress_deep_plowing',
-                  duration: 10
+                  duration: 10,
+                  actionToShare:'DeepPlowing'
                 });
                 Plowing.deepPlowing();
               });

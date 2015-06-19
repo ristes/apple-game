@@ -8,9 +8,11 @@ Game
 						'State',
 						'Harvesting',
 						'ExpertAdvice',
+						'$day',
 						function($scope, $translate, Fridge, State, Harvesting,
-								ExpertAdvice) {
+								ExpertAdvice, $day) {
 
+							$scope.farmer = $day.get();
 							var SliderCfg = function(max, min) {
 								this.range = "max";
 								this.max = max || 0;
@@ -34,6 +36,7 @@ Game
 									.$on(
 											'operation-sell',
 											function(_s, oper) {
+												$scope.farmer = $day.get();
 												$scope.type = {
 													ico : '/public/images/game/operations/shop.png',
 													name : 'sell'

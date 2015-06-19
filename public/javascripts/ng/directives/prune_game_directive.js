@@ -56,6 +56,7 @@ Game.directive('pruneGame', ['$interval', function($interval) {
               correctCuts++;
             }
           }
+          totalBranches++;
         })
         scope.gameOver({total: totalBranches, correct: correctCuts});
       }
@@ -89,8 +90,10 @@ Game.directive('pruneGame', ['$interval', function($interval) {
             {x: 194, y: 240 , type: 'no-cut', clicked: false},
             {x: 237, y: 243 , type: 'no-cut', clicked: false},
             {x: 272, y: 226 , type: 'no-cut', clicked: false},
-
+            {x: 237, y: 243 , type: 'no-cut', clicked: false},
+            {x: 272, y: 226 , type: 'no-cut', clicked: false}
           ];
+          scope.totalCorrect = 3;
         }
 
         scope.render();

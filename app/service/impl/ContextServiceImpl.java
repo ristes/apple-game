@@ -4,15 +4,18 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import models.Day;
 import models.Farmer;
 import service.ContextService;
 import service.DateService;
+import service.FarmerService;
 import service.FertilizeService;
 import service.ServiceInjector;
 import dto.C;
+import dto.ResumeMessageDto;
 import exceptions.NotSuchItemException;
 
 public class ContextServiceImpl implements ContextService {
@@ -75,6 +78,8 @@ public class ContextServiceImpl implements ContextService {
 		farmer.season_level = ServiceInjector.dateService.season_level(farmer);
 		farmer.month_level = ServiceInjector.dateService.monthLevel(farmer.gameDate.date);
 		farmer.year_level = ServiceInjector.dateService.evaluateYearLevel(ServiceInjector.dateService.recolteYear(farmer.gameDate.date));
+		farmer.year_order = ServiceInjector.dateService.evaluateYearOrder(ServiceInjector.dateService.recolteYear(farmer.gameDate.date));
+		ServiceInjector.gameEndService.evaluate(farmer);
 	}
 	
 	public void evaluatePrevDaysRainValue(Farmer farmer) {
@@ -97,11 +102,19 @@ public class ContextServiceImpl implements ContextService {
 	
 	public void triggerNewSeasonEvents(Farmer farmer) {
 		farmer.isNewSeason = true;
+		evaluateEndOfTestSubstate(farmer);
+		int recolte = ServiceInjector.dateService.recolteYear(farmer.gameDate.date);
 		ServiceInjector.farmerService.collectBadge(farmer, ServiceInjector.badgesService.ecologist(farmer));
 		ServiceInjector.farmerService.collectBadge(farmer, ServiceInjector.badgesService.irrigator(farmer));
 		ServiceInjector.farmerService.collectBadge(farmer, ServiceInjector.badgesService.fertilizer(farmer));
+		
 		farmer.productQuantity = (int) Math.round(ServiceInjector.yieldService
 				.calculateYield(farmer));
+		
+		
+		Integer moneyEarned = ServiceInjector.resumeService.calcMoneyEarned(farmer, recolte);
+		Integer applesHarvested = ServiceInjector.resumeService.calculateYield(farmer, recolte);
+		ServiceInjector.rankingService.savePoints(farmer, (int)farmer.getEco_points(), applesHarvested, moneyEarned);
 		ServiceInjector.ecoPointsService.restart(farmer);
 		farmer.irrigation_misses = 0;
 	}
@@ -208,6 +221,12 @@ public class ContextServiceImpl implements ContextService {
 	
 	public String evaluateTip(Farmer farmer) {
 		return ServiceInjector.tipService.randomTip(ServiceInjector.tipService.tipgenerator(farmer));
+	}
+	
+	public void evaluateEndOfTestSubstate(Farmer farmer) {
+		if (farmer.subState.equals(FarmerService.SUBSTATE_TEST_PERIOD)) {
+			farmer.subState = FarmerService.SUBSTATE_FINISHED_TEST_PERIOD;
+		}
 	}
 
 	

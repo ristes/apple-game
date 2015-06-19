@@ -1,12 +1,32 @@
 <div class="weather_wrapper weather-div-transition">
-	<div ng-class="{'past-future':'weather-div','today':'weather-div-bigger'}[w.type]" ng-repeat="w in weather">
-		<div ng-class="{'past-future':'weather-div-image weather-div-transition','today':'weather-div-bigger-image weather-div-transition'}[w.type]">
-			<img ng-class="{'past-future':'div-weather-past-future','today':'div-weather-today'}[w.type]" ng-src="/public/images/game/{{w.icon_url}}.png" />
-			<span class="weather-info-text">{{w.date}}</span>
+	<div
+		ng-class="{'past-future':'weather-div','today':'weather-div-bigger'}[w.type]"
+		ng-repeat="w in weather">
+		<div
+			ng-class="{'past-future':'weather-div-image weather-div-transition','today':'weather-div-bigger-image weather-div-transition'}[w.type]">
+			<img
+				ng-class="{'past-future':'div-weather-past-future','today':'div-weather-today'}[w.type]"
+				ng-src="/public/images/game/{{w.icon_url}}.png" /> <span
+				class="weather-info-text">{{w.date}}</span>
 		</div>
-		<div ng-click="detailsWeather(w)" id="weather-details-info-more-less-{{w.id}}" class="weather-details-info-more-less animate">
-			<span class="weather-details-info-more-less-span"  id="weather-details-info-more-less-span-{{w.id}}" style="font-size: xx-small" >+</span>
+		<div ng-click="detailsWeather(w)"
+			id="weather-details-info-more-less-{{w.id}}"
+			class="weather-details-info-more-less animate">
+			<span class="weather-details-info-more-less-span"
+				id="weather-details-info-more-less-span-{{w.id}}"
+				style="font-size: xx-small">+</span>
 		</div>
 	</div>
 
+	
+
 </div>
+
+<div class="div-season">
+		<img class="img img-responsive" style="width: 100px; height: 75px"
+			ng-src="/public/images/seasons/season-{{$root.farmer.season_level}}.png" />
+		<div class="item-store ramka" style="width: 100px">
+			<span class="title-text">{{"season."+$root.farmer.season_level
+				| translate}}</span>
+		</div>
+	</div>

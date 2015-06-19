@@ -235,5 +235,10 @@ public class DateServiceImpl implements DateService{
 		}
 		return c.getTime();
 	}
+
+	@Override
+	public Integer evaluateYearOrder(int recolteYear) {
+		return recolteYear-2020;
+	}
 	
 }

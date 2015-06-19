@@ -31,4 +31,5 @@ public interface DateService {
 	public int getCalendarFieldOfDate(Date date, int fieldType);
 	public int fridgerecolteyear(Date date);
 	public Date convertFridgeDateTo70(Date date);
+	public Integer evaluateYearOrder(int recolteYear);
 }

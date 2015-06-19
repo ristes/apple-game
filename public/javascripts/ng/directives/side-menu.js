@@ -8,8 +8,9 @@ GameDirectives
 						'BoughtItems',
 						'ExpertAdvice',
 						'MonthOperations',
+						'Modal',
 						function($, $window, BoughtItems, ExpertAdvice,
-								MonthOperations) {
+								MonthOperations, Modal) {
 
 							return {
 								restrict : 'E',
@@ -31,7 +32,6 @@ GameDirectives
 										});
 										return isFound;
 									};
-									debugger;
 									scope.itemClick = function(a) {
 										if (!scope.isForbidden(scope.$root.farmer, a.name)) {
 											scope.$root.$emit('operation-'
@@ -105,7 +105,8 @@ GameDirectives
 						'Resume',
 						'YearSeasons',
 						'ExpertAdvice',
-						function($, $window, $modal, day, State, Resume,YearSeasons, ExpertAdvice) {
+						'Modal',
+						function($, $window, $modal, day, State, Resume,YearSeasons, ExpertAdvice, Modal) {
 
 							return {
 								restrict : 'E',
@@ -162,6 +163,13 @@ GameDirectives
 											if (newV > 9 && oldV<9) {
 												ExpertAdvice.setAdvice("Oh, no! There’s grass around the plantation. Is there something you can do about it?");
 											}
+											
+										}
+									});
+									
+									scope.$root.$watch("day.status", function(newV, oldV) {
+										if (newV==='game_ended') {
+												Modal.start("/public/templates/gameover.html",scope);
 											
 										}
 									});

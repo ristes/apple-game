@@ -20,6 +20,7 @@ import dto.C;
 import dto.ItemBoughtDto;
 
 public class FarmerServiceImpl implements FarmerService {
+	
 
 	public Double generateLuck(Farmer farmer) {
 		Random random = new Random();
@@ -117,6 +118,7 @@ public class FarmerServiceImpl implements FarmerService {
 		farmer.needN = false;
 		farmer.needP = false;
 		farmer.needZn = false;
+		farmer.subState = SUBSTATE_TEST_PERIOD;
 		farmer.save();
 		ServiceInjector.storeService.buyItem(farmer, "SoilAnalyse", 1.0d, farmer.currentState);
 		return farmer;

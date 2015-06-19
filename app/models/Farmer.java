@@ -32,6 +32,8 @@ public class Farmer extends Model {
 	public String password;
 
 	public String currentState;
+	
+	public String subState;
 
 	public Double luck;
 
@@ -184,6 +186,12 @@ public class Farmer extends Model {
 	@Transient
 	public Integer year_level;
 	
+	@Transient
+	public Integer year_order;
+	
+	@Transient
+	private String status;
+	
 	/**
 	 * The items he owns
 	 */
@@ -216,6 +224,14 @@ public class Farmer extends Model {
 
 	public void setEco_points(double eco_points) {
 		this.eco_points = eco_points;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

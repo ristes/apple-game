@@ -22,6 +22,7 @@ public interface LogFarmerDataService {
 	public final static long APPLES_BURNED_IN_FRIDGE = 10l;
 	public final static Long QUIZ_ANSWERED = 11l;
 	public final static Long RAIN_VALUE = 12l;
+	public final static Long ECO_END_SEASON =13l;
 	
 	
 	public void logSetMaxYield(Farmer farmer,  double yield);
@@ -34,6 +35,7 @@ public interface LogFarmerDataService {
 	public void logApplesSold(Farmer farmer, Integer quantity);
 	public void logQuizAnswered(Farmer farmer, QuizResultsDto answer);
 	public void logRainValue(Farmer farmer, Double value);
+	public void logFinalEcoPoints(Farmer farmer, Double value);
 	
 	public LogFarmerData hasExecutedOperation(Farmer farmer, String operation, Integer year);
 	

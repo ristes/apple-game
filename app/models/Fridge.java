@@ -12,6 +12,8 @@ public class Fridge extends Model{
 	
 	public Integer capacity;
 	
+	public Integer activeFrom;
+	
 	@ManyToOne
 	public FridgeType type;
 	

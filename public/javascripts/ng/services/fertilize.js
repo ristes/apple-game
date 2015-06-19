@@ -1,5 +1,10 @@
 Game.factory('Fertilize', ['State', '$http', function(State, $http) {
     return {
+    	recommend: function(callback) {
+    		$http.get("RecommendationController/ferilize").then(function(data) {
+    			callback(data.data);
+    		});
+    	},
         fertilize: function(fertilizer, callback) {
             $http({
                 method: 'POST',

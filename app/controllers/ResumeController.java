@@ -27,6 +27,7 @@ public class ResumeController extends GameController{
 		resume.hashTypes.put("diseasesOccurred",diseasesOccurred);
 		resume.intTypes.put("applesSold",applesSold);
 		resume.intTypes.put("applesBurned", applesBurned);
+
 		renderJSON(resume);
 		
 		

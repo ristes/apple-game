@@ -16,7 +16,8 @@ GameDirectives.directive('appVersion', ['version', function(version) {
 GameDirectives.directive('progressDialog', [
         'jQuery',
         '$modal',
-        function($, $modal) {
+        'fbShareActions',
+        function($, $modal,fb) {
             return {
                 transclude: true,
                 restrict: 'E',
@@ -47,6 +48,7 @@ GameDirectives.directive('progressDialog', [
                     function onHide() {
                         dialog.close();
                         scope.$root.$emit('hide-progress-' + scope.prefix);
+                        fb.shareAction(scope.actionToShare);
                     }
 
                     function onShow(_scope, cfg) {

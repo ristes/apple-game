@@ -77,6 +77,10 @@
 		"name": "Harvesting",
 		"caption":"Harvesting",
 		"description":"Harvesting"}
-	}
+	},
+	"history" : "Претходни акции",
+	"ranking": {
+		"chooseYear":"Rankings for year:"
+		}
 
 }
