@@ -16,6 +16,7 @@ import models.SeedlingType;
 import models.Store;
 import models.Terrain;
 import models.TerrainSize;
+import service.FarmerService;
 import service.ServiceInjector;
 import service.StoreService;
 
@@ -424,6 +425,9 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	public Boolean isUnlocked(Farmer farmer, Item item) {
+		if (farmer.subState.equals(FarmerService.SUBSTATE_TEST_PERIOD)) {
+			return true;
+		}
 		if (item.metadata == null) {
 			return true;
 		}

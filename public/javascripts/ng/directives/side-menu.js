@@ -67,9 +67,13 @@ GameDirectives
 												scope.hide();
 											});
 
+									var de = scope.$root.$on("side-show", function() {
+										scope.show();
+									});
 									scope.$on('$destroy', function() {
 										if (un) {
 											un();
+											de();
 										}
 									})
 

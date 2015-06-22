@@ -4,6 +4,7 @@ import java.util.List;
 
 import models.Farmer;
 import models.InfoTable;
+import models.LearnStateEvents;
 
 public class StatusDto<T> {
 	
@@ -16,6 +17,8 @@ public class StatusDto<T> {
 	public String additionalInfo;
 	
 	public String tip;
+	
+	public LearnStateEvents event;
 	
 	public List<InfoTableInstanceDto> infoTables;
 	

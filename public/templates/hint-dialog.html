@@ -1,0 +1,27 @@
+<div>
+	<div style="background: none; margin-top: 0px; color: white">
+		<img class="img img-responsive pull-left"
+			ng-src="/public/images/master.png" />
+		<div class="game-dialog">
+			<div style="margin: 0 70px 0 70px; padding-top: 60px">
+				<div class="page-header">
+					<h1>Advice: {{message.name}}</h1>
+					<h4>{{message.description}}</h4>
+					<div class="container-fluid">
+						<div class="col-md-5">
+							<button class="btn btn-default " ng-click="itemClick(message)">Do it!</button>
+						</div>
+						<div class="col-md-2">or</div>
+						<div class="col-md-5">
+							<button class="btn btn-default" ng-click="close()">Maybe later!</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="text-center">
+			<button class="btn btn-primary" ng-click="close()">Close</button>
+		</div>
+	</div>
+</div>

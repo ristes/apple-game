@@ -10,7 +10,7 @@ import play.db.jpa.Model;
 
 @Entity
 @Table(name="learn_state_events")
-public class LearnStateEvents extends Model{
+public class LearnStateEvents extends Model implements Comparable<LearnStateEvents>{
 	
 	private Date dateStart;
 	private Date dateEnd;
@@ -20,6 +20,8 @@ public class LearnStateEvents extends Model{
 	
 	private String name;
 	private String description;
+	
+	private Integer weight;
 	
 	
 	public Date getDateStart() {
@@ -52,6 +54,17 @@ public class LearnStateEvents extends Model{
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public Integer getWeight() {
+		return weight;
+	}
+	public void setWeight(Integer weight) {
+		this.weight = weight;
+	}
+	@Override
+	public int compareTo(LearnStateEvents arg0) {
+		return this.weight - arg0.getWeight();
+		
 	}
 	
 	

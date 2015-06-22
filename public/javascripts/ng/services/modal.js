@@ -1,7 +1,7 @@
 Game.factory('Modal', ['$modal', function ($modal) {
     return {
         start: function ( tUrl, sc) {
-            var modalInstance = $modal.open({
+            return $modal.open({
                 backdrop: 'static',
                 templateUrl: tUrl,
                 windowClass: 'app-modal-window',

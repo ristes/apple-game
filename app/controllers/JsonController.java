@@ -127,6 +127,9 @@ public abstract class JsonController extends Controller {
 		} else {
 			status = new StatusDto(farmer!=null, null, null, farmer, infos);
 		}
+		if (event!=null) {
+			status.event = event;
+		}
 		toJson(status, "field", "plantation");
 	}
 	

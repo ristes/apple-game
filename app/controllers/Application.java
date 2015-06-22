@@ -27,8 +27,8 @@ public class Application extends GameController {
 		}
 		farmer.save();
 		String tip = ServiceInjector.tipService.randomTip(ServiceInjector.tipService.tipgenerator(farmer));
-//		LearnStateEvents event = ServiceInjector.
-		JsonController.statusJson(farmer, tip, null);
+		LearnStateEvents event = ServiceInjector.learnStateEventService.generate(farmer);
+		JsonController.statusJson(farmer, tip, event);
 	}
 
 	public static void nextweek() throws IOException {
@@ -38,7 +38,8 @@ public class Application extends GameController {
 			ServiceInjector.farmerService.gotoNextWeek(farmer);
 		}
 		String tip = ServiceInjector.tipService.randomTip(ServiceInjector.tipService.tipgenerator(farmer));
-		JsonController.statusJson(farmer, tip,null);
+		LearnStateEvents event = ServiceInjector.learnStateEventService.generate(farmer);
+		JsonController.statusJson(farmer, tip,event);
 	}
 
 	public static void nextmonth() throws IOException {
@@ -48,7 +49,8 @@ public class Application extends GameController {
 			farmer = ServiceInjector.farmerService.gotoNextMonth(farmer);
 		}
 		String tip = ServiceInjector.tipService.randomTip(ServiceInjector.tipService.tipgenerator(farmer));
-		JsonController.statusJson(farmer, tip,null);
+		LearnStateEvents event = ServiceInjector.learnStateEventService.generate(farmer);
+		JsonController.statusJson(farmer, tip,event);
 	}
 
 	public static void restartGame() throws JsonGenerationException,

@@ -13,6 +13,8 @@ Game.factory('$farmer', ['$http', 'State', function($http, State) {
         State.set('status', status);
         swap(status.farmer);
     }
+    
+   
 
     return {
         load: function() {
@@ -63,6 +65,12 @@ Game.factory('$day', [
 
         State.subscribe('farmer', '$farmer', onFarmer);
 
+        function setHintEvent(status) {
+        	if (status.event!==undefined) {
+        	State.set('hint-event', status.event);
+        	}
+        }
+        
         return {
             get: function() {
                 return State.getByField('farmer');
@@ -74,6 +82,7 @@ Game.factory('$day', [
                 var res = $http.get("/application/nextday");
                 res.success(function(data) {
                     State.set('status', data);
+                    setHintEvent(data);
                     if (!$rootScope.farmer && data.farmer.field) {
                         BoughtItems.load();
                     }
@@ -91,6 +100,7 @@ Game.factory('$day', [
                 var res = $http.get("/application/nextweek");
                 res.success(function(data) {
                     State.set('status', data);
+                    setHintEvent(data);
                     if (!$rootScope.farmer && data.field) {
                         BoughtItems.load();
                     }
@@ -107,6 +117,7 @@ Game.factory('$day', [
                 var res = $http.get("/application/nextmonth");
                 res.success(function(data) {
                     State.set('status', data);
+                    setHintEvent(data);
                     if (!$rootScope.farmer && data.field) {
                         BoughtItems.load();
                     }
