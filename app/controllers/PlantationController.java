@@ -73,32 +73,32 @@ public class PlantationController extends GameController {
 		JsonController.statusJson(farmer);
 	}
 
-	public static void buySeedlings(String nextState, Seedling s0, Integer q0,
-			Seedling s1, Integer q1, Seedling s2, Integer q2) throws Exception {
+	public static void buySeedlings(String nextState, Long s0, Long st0, Integer q0, Long s1, Long st1, Integer q1, Long s2, Long st2, Integer q2) throws Exception {
 		Farmer farmer = checkFarmer();
 		Integer totalPlants = (q0 != null ? q0 : 0) + (q1 != null ? q1 : 0)
 				+ (q2 != null ? q2 : 0);
-		// PlantingService plantingS = new PlantingServiceImpl();
-		// farmer = plantingS.savePlantingParams(farmer, totalPlants);
-		// Integer percentPlanted = farmer.field.plantation.fieldPercentage;
+		
 		List<PlantationSeedling> seedlings = new ArrayList<PlantationSeedling>();
 		if (q0 != null) {
 			PlantationSeedling ps = new PlantationSeedling();
-			ps.seedling = s0;
+			Seedling seedling = Seedling.find("seedlingType.id=? and type.id=?", st0,s0).first();
+			ps.seedling = seedling;
 			ps.quantity = q0;
 			ps.percentOfPlantedArea = q0 * 100 / totalPlants;
 			seedlings.add(ps);
 		}
 		if (q1 != null) {
 			PlantationSeedling ps = new PlantationSeedling();
-			ps.seedling = s1;
+			Seedling seedling = Seedling.find("seedlingType.id=? and type.id=?", st1,s1).first();
+			ps.seedling = seedling;
 			ps.quantity = q1;
 			ps.percentOfPlantedArea = q1 * 100 / totalPlants;
 			seedlings.add(ps);
 		}
 		if (q2 != null) {
 			PlantationSeedling ps = new PlantationSeedling();
-			ps.seedling = s2;
+			Seedling seedling = Seedling.find("seedlingType.id=? and type.id=?", st2,s2).first();
+			ps.seedling = seedling;
 			ps.quantity = q2;
 			ps.percentOfPlantedArea = q2 * 100 / totalPlants;
 			seedlings.add(ps);
@@ -107,7 +107,43 @@ public class PlantationController extends GameController {
 		ServiceInjector.fridgeService.setFridges(farmer, seedlings);
 		
 		JsonController.statusJson(farmer);
+		
 	}
+//	public static void buySeedlings(String nextState, Seedling s0, Integer q0,
+//			Seedling s1, Integer q1, Seedling s2, Integer q2) throws Exception {
+//		Farmer farmer = checkFarmer();
+//		Integer totalPlants = (q0 != null ? q0 : 0) + (q1 != null ? q1 : 0)
+//				+ (q2 != null ? q2 : 0);
+//		// PlantingService plantingS = new PlantingServiceImpl();
+//		// farmer = plantingS.savePlantingParams(farmer, totalPlants);
+//		// Integer percentPlanted = farmer.field.plantation.fieldPercentage;
+//		List<PlantationSeedling> seedlings = new ArrayList<PlantationSeedling>();
+//		if (q0 != null) {
+//			PlantationSeedling ps = new PlantationSeedling();
+//			ps.seedling = s0;
+//			ps.quantity = q0;
+//			ps.percentOfPlantedArea = q0 * 100 / totalPlants;
+//			seedlings.add(ps);
+//		}
+//		if (q1 != null) {
+//			PlantationSeedling ps = new PlantationSeedling();
+//			ps.seedling = s1;
+//			ps.quantity = q1;
+//			ps.percentOfPlantedArea = q1 * 100 / totalPlants;
+//			seedlings.add(ps);
+//		}
+//		if (q2 != null) {
+//			PlantationSeedling ps = new PlantationSeedling();
+//			ps.seedling = s2;
+//			ps.quantity = q2;
+//			ps.percentOfPlantedArea = q2 * 100 / totalPlants;
+//			seedlings.add(ps);
+//		}
+//		ServiceInjector.storeService.buySeedling(farmer, seedlings, nextState);
+//		ServiceInjector.fridgeService.setFridges(farmer, seedlings);
+//		
+//		JsonController.statusJson(farmer);
+//	}
 
 	public static void buyBase(String nextState, Base base) throws Exception {
 		Farmer farmer = checkFarmer();

@@ -4,7 +4,8 @@ GameDirectives.directive('slider', ['jQuery', function($) {
     transclude: true,
     scope: {
       value: '=',
-      cfg: '='
+      cfg: '=',
+      type:'='
     },
     link: function(scope, element, attrs, ctrl, transclude, formCtrl) {
 
@@ -19,7 +20,7 @@ GameDirectives.directive('slider', ['jQuery', function($) {
         });
       }
 
-      scope.cfg = scope.cfg || {
+      scope.cfg =  scope.cfg || scope.fcfg || {
         range: "max",
         min: 0,
         max: 100,

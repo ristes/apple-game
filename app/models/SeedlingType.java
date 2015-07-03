@@ -26,6 +26,8 @@ public class SeedlingType extends Model {
 	public String type;
 
 	public String imageurl;
+	
+	public Integer price;
 
 
 

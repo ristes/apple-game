@@ -31,7 +31,8 @@ Game.factory('Planting', [ '$http', 'State', function($http, State) {
 				nextState : '/plantation'
 			};
 			for (var i = 0; i < seedlings.length; i++) {
-				params['s' + i] = seedlings[i];
+				params['s' + i] = seedlings[i].id;
+				params['st'+i] = seedlings[i].type.id;
 				params['q' + i] = seedlings[i].quantity;
 			}
 			var res = $http({

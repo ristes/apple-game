@@ -10,7 +10,7 @@ Game.controller('BuyTerrainController', ['$scope', '$farmer', 'Terrain','ExpertA
         items: $scope.items,
         showNext: false,
         shop: {
-          name: 'Choose the land size'
+          name: 'Land size'
         },
         storeUrl: '/public/images/game/stores/terrain.png'
       });
