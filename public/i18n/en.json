@@ -12,8 +12,7 @@
 		"drops_benefits": "Advantages: Can be combined with fertilization, saving of water and fertilizers; application of water and fertilizers in accordance with plant needs; saving of energy and man hours, fewer weeds and lower likelihood of disease occurrence, ability to apply other protective measures to the plants, protection from erosion, greater quality and quantity of harvest, lower possibility for pollution.",
 		"tensiometer_benefits": "Determination of time and water quantity is pivotal in ensuring a proper irrigation regime. Application of tensiometers is considered one of the most practical solutions for this determination. Tensiometers are, however, used only in micro-irrigation (drip irrigation).",
 		"irrigate": "Start Irrigation",
-		"tensiometer_recomended": "Recommended time for irrigation",
-		"": "",
+		"tensiometer_recomended": "Recommended time for irrigation"
 		
 	}, 
 	"action" : {
@@ -23,10 +22,10 @@
 		"plow":"Start Plowing"
 	},
 	"season": {
-		"1":"Winter",
-		"2":"Autumn",
-		"3":"Spring",
-		"4":"Summer"
+		"season1":"Winter",
+		"season2":"Autumn",
+		"season3":"Spring",
+		"season4":"Summer"
 	},
 	
 	"buy_terrain_advice":"Hello! – I hear you want to be a farmer, so let’s choose some land together. How much land would you like to buy?",

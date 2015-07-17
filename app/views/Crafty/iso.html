@@ -16,6 +16,7 @@
 	href="/public/bower_components/AngularJS-Toaster/toaster.css"/>
 	<link rel="stylesheet" type="text/css" href="/public/bower_components/angular-nvd3/angular-nvd3.js"/>
 	<link rel="stylesheet" type="text/css" href="/public/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/bower_components/angular-audio/css/ng-audio.css"/>
 
 	<script type="text/javascript" src="/public/javascripts/modelStore.js"></script>
 	<script type="text/javascript" src="/public/javascripts/crafty.js"></script>
@@ -48,22 +49,25 @@
 	<script src="/public/bower_components/angular-nvd3/angular-nvd3.js"></script>
 	<script src="/public/bower_components/underscore/underscore-min.js"></script>
 	<script src="/public/bower_components/angular-bootstrap-slider/slider.js"></script>
-	
+	<script src="/public/bower_components/angular-audio/ng-audio.min.js"></script>
 
 
 	<script src="/public/javascripts/ng/app.js"></script>
 	<script src="/public/javascripts/ng/services/interceptors.js"></script>
 	<script src="/public/javascripts/ng/services.js"></script>
+	<script src="/public/javascripts/ng/services/audioManager.js"></script>
 	<script src="/public/javascripts/ng/filters.js"></script>
 	<script src="/public/javascripts/ng/directives/directives.js"></script>
 	<script src="/public/javascripts/ng/directives/userInfo.js"></script>
 	<script src="/public/javascripts/ng/directives/shop-menu.js"></script>
 	<script src="/public/javascripts/ng/directives/side-menu.js"></script>
+	<script src="/public/javascripts/ng/directives/sound-manager.js"></script>
 	<script src="/public/javascripts/ng/directives/slider.js"></script>
 	<script src="/public/javascripts/ng/directives/quiz.js"></script>
 	<script src="/public/javascripts/ng/directives/touch-spin.js"></script>
 	<script src="/public/javascripts/ng/controllers.js"></script>
 	<script src="/public/javascripts/ng/controllers/store.js"></script>
+	<script src="/public/javascripts/ng/controllers/sound.js"></script>
 	<script src="/public/javascripts/ng/controllers/notification.js"></script>
 	<script src="/public/javascripts/ng/controllers/buy-terrain.js"></script>
 	<script src="/public/javascripts/ng/controllers/buy-base.js"></script>
@@ -92,6 +96,8 @@
 	<script src="/public/javascripts/ng/operations.js"></script>
 	<script src="/public/javascripts/ng/controllers/tips.js"></script>
 	<script src="/public/javascripts/ng/directives/info-table.js"></script>
+	<script src="/public/javascripts/ng/directives/customAudio.js"></script>
+	<script src="/public/javascripts/ng/directives/custom-audio-nonsupervised.js"></script>
 	<script src="/public/javascripts/ng/router.js"></script>
 	<script src="/public/javascripts/ng/global/services.js"></script>
 	<script src="/public/javascripts/ng/services/preloader.js"></script>
@@ -151,6 +157,7 @@
 	style="background: url('{{$root.farmer.gameDate.weatherType.background_url}}'); -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; background-repeat:no-repeat; ">
 
 	<toaster-container></toaster-container>
+	<sound-manager></sound-manager>
 	<div ng-controller="PreloadController">
 
 		<div ng-if="isLoading" class="progress_div">

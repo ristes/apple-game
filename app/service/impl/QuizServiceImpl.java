@@ -1,7 +1,9 @@
 package service.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import models.Answer;
 import models.Disease;
@@ -17,7 +19,6 @@ import com.google.gson.Gson;
 
 import dto.QuestionnaireDto;
 import dto.QuizResultsDto;
-import dto.StatusDto;
 
 
 public class QuizServiceImpl implements QuizService{
@@ -43,16 +44,31 @@ public class QuizServiceImpl implements QuizService{
 		return questions;
 		
 	}
+	
+	public List<Questionnaire> randomQuestions(int num) {
+		List<Questionnaire> result = new ArrayList<Questionnaire>();
+		Set<Long> diffNums = new HashSet<Long>();
+		long questions = Questionnaire.count();
+		while(diffNums.size()!=num) {
+			Long randomNum = (long)(Math.random()*questions+1);
+			diffNums.add(randomNum);
+		}
+		for (Long random:diffNums) {
+			result.add((Questionnaire)Questionnaire.findById(random));
+		}
+		return result;
+	}
 
 	@Override
 	public List<Questionnaire> questionsByFarmer(Farmer farmer) {
 		
-		List<Questionnaire> qS = new ArrayList<Questionnaire>();
-		List<Disease> diseases = ServiceInjector.diseaseService.getOccurredDiseasesEntitiesLast15Days(farmer);
-		qS.addAll(questionsByDiseases(diseases));
-		List<Item> items = ServiceInjector.fertilizeService.checkTheRequiredItemsFromContext(farmer);
-		qS.addAll(questionsByItems(items));
-		return qS;
+//		List<Questionnaire> qS = new ArrayList<Questionnaire>();
+//		List<Disease> diseases = ServiceInjector.diseaseService.getOccurredDiseasesEntitiesLast15Days(farmer);
+//		qS.addAll(questionsByDiseases(diseases));
+//		List<Item> items = ServiceInjector.fertilizeService.checkTheRequiredItemsFromContext(farmer);
+//		qS.addAll(questionsByItems(items));
+		List<Questionnaire> res = randomQuestions(5);
+		return res;
 	}
 
 	@Override

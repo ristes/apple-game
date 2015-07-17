@@ -1,8 +1,9 @@
+ <custom-audio filename="'/public/sounds/background/sunny.mp3'" start-on-init='true'></custom-audio>
 <div ng-if="nextDay">
     <div id="div_timeline_travel">
         
         <div class="rankings" ng-controller="RankingsController">
-            <div style="padding-left: 10px;" ng-click="showRankings()">
+            <div ng-audio-hover="/public/sounds/events/button-hover.mp3"  style="padding-left: 10px;" ng-click="showRankings()">
                 <img class="img img-responsive" style="width: 100px; height: 75px" ng-src="/public/images/home/rankings-bordered.png" />
                 <div class="item-store ramka" style="width:100px">
                     <span class="title-text">{{"rankings" | translate}}</span>
@@ -13,7 +14,7 @@
         </div>
 
 		 <div class="history" ng-controller="HistoryController">
-            <div style="padding-left: 10px;" ng-click="showHistory()">
+            <div ng-audio-hover="/public/sounds/events/button-hover.mp3"  style="padding-left: 10px;" ng-click="showHistory()">
                 <img class="img img-responsive" style="width: 100px; height: 70px" src="/public/images/home/history.png" />
                 <div class="item-store ramka" style="width:100px">
                     <span class="title-text">{{"history" | translate}}</span>
@@ -23,13 +24,13 @@
             <history-table history="history" visible="visible"></history-table>
         </div>
         <div class="time-controls ramka">
-            <div class="time-ctrl-btn" tooltip="Next Day" id="div_next_day" ng-click="$root.next()">
+            <div ng-audio-hover="/public/sounds/events/button-hover.mp3"  class="time-ctrl-btn" tooltip="Next Day" id="div_next_day" ng-click="$root.next()">
                 <span style="margin-right: 5px;" id="span_next_day"></span><i class="glyphicon glyphicon-step-forward"></i>
             </div>
-            <div class="time-ctrl-btn" tooltip="Next Week" id="div_next_week" ng-click="$root.nextWeek()">
+            <div ng-audio-hover="/public/sounds/events/button-hover.mp3"  class="time-ctrl-btn" tooltip="Next Week" id="div_next_week" ng-click="$root.nextWeek()">
                 <span style="margin-right: 5px;" id="span_next_week"></span><i class="glyphicon glyphicon-forward"></i>
             </div>
-            <div class="time-ctrl-btn" tooltip="Next Month" id="div_next_month" ng-click="$root.nextMonth()">
+            <div ng-audio-hover="/public/sounds/events/button-hover.mp3"  class="time-ctrl-btn" tooltip="Next Month" id="div_next_month" ng-click="$root.nextMonth()">
                 <span style="margin-right: 5px;"></span><i class="glyphicon glyphicon-fast-forward"></i>
             </div>
             <div class="time-ctrl-btn">

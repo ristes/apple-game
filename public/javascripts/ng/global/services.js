@@ -41,8 +41,9 @@ Game.factory('$day', [
     'Diseases',
     'BoughtItems',
     '$location',
+    'audioManager',
     function($rootScope, State, $http, $weather, Diseases, BoughtItems,
-        $location) {
+        $location, audioManager) {
 
     	self.start_scene = 'buy_terrain';
     	
@@ -57,12 +58,13 @@ Game.factory('$day', [
             }
             if (farmer.balans != null) {
                 $rootScope.day = farmer;
+                audioManager.notify($rootScope.day.gameDate.weatherType.music_url);
                 $rootScope.farmer = farmer;
             }
 
             $location.path(farmer.currentState || self.start_scene);
         }
-
+        
         State.subscribe('farmer', '$farmer', onFarmer);
 
         function setHintEvent(status) {

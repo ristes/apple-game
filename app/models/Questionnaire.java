@@ -2,6 +2,7 @@ package models;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -28,7 +29,20 @@ public class Questionnaire extends Model{
 	@OneToMany(mappedBy="question")
 	public List<Answer> answers;
 	
+	@Column(name="image_url")
+	public String imageUrl;
+	
+	/**
+	 * 1 -without image
+	 * 2 - with image
+	 */
+	@Column(name="type_question")
+	public Integer typeQuestion;
+	
 	public String name;
+	
+	@Column(name="more_info")
+	public String moreInfo;
 	
 	public String toString() {
 		return name;	

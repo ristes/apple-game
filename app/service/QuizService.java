@@ -12,7 +12,7 @@ import models.Questionnaire;
 
 public interface QuizService {
 	
-	public static Integer MAX_NUM_QUESTIONS = 3;
+	public static Integer MAX_NUM_QUESTIONS = 5;
 	
 	public List<Questionnaire> questionsByDiseases(List<Disease> diseases);
 	public List<Questionnaire> questionsByItems(List<Item> items);

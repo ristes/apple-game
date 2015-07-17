@@ -1,23 +1,38 @@
+<!-- <div ng-controller="SoundController" ng-init="filename='/public/sounds/farm_music_techno.wav'"> -->
+<!-- 	<div ng-audio="/public/sounds/farm_music_techno.wav" volume="0.5" loop="true" -->
+<!-- 		start="0.2"></div> -->
+<!-- </div> -->
+
 <div
 	style="width: 100%; padding-left: 20%; padding-right: 20%; padding-top: 20%">
+	<custom-audio  filename="'/public/sounds/background/farm_music_techno.mp3'" start-on-init='true'></custom-audio>
 	<ul class="list-group">
-		<li><h3 class="ramka introduction-menu-item play title-text-larger"
-				ng-click="onPlay()" ng-mouseenter="hover(menuitems['play'])" >Play</h3></li>
+		<li><h3
+				class="ramka introduction-menu-item play title-text-larger"
+				ng-audio-hover="/public/sounds/events/button-hover.mp3" volume="0.7" ng-click="onPlay()" ng-mouseenter="hover(menuitems['play'])">Play</h3></li>
 		<li><h3 class="ramka introduction-menu-item title-text-larger"
-				 ng-mouseenter="hover(menuitems['about'])" >About</h3></li>
+				ng-audio-hover="/public/sounds/events/button-hover.mp3" volume="0.7"  ng-mouseenter="hover(menuitems['about'])">About</h3></li>
 		<li><h3 class="ramka introduction-menu-item title-text-larger"
-				 ng-mouseenter="hover(menuitems['facts'])">Interesting Facts</h3></li>
-		
+				ng-audio-hover="/public/sounds/events/button-hover.mp3" volume="0.7"  ng-mouseenter="hover(menuitems['facts'])">Interesting Facts</h3></li>
+
 	</ul>
 </div>
 <div style="position: fixed; top: 8%; left: 75%">
 	<div>
-		<img style="background-repeat: no-repeat;" class="img img-responsive" ng-src="/public/images/master.png" />
+		<img style="background-repeat: no-repeat;" class="img img-responsive"
+			ng-src="/public/images/master.png" />
 	</div>
-	<div class="introduction-helper scrollbar" style="padding:4%; font-size: large;">
-		<p ng-show="current=='play'" class="force-overflow" style="overflow-y:scroll; height:300px;" ng-include="'/public/_views/i18n_templates/en/play.html'"></p>
+	<div class="introduction-helper scrollbar"
+		style="padding: 4%; font-size: large;">
+		<p ng-show="current=='play'" class="force-overflow"
+			style="overflow-y: scroll; height: 300px;"
+			ng-include="'/public/_views/i18n_templates/en/play.html'"></p>
 
-		<p ng-show="current=='facts'" class="force-overflow" style="overflow-y:scroll; height:300px;" ng-include="'/public/_views/i18n_templates/en/facts.html'"></p>
-		<p ng-show="current=='about'" class="force-overflow" style="overflow-y:scroll; height:300px;" ng-include="'/public/_views/i18n_templates/en/about.html'"></p>
+		<p ng-show="current=='facts'" class="force-overflow"
+			style="overflow-y: scroll; height: 300px;"
+			ng-include="'/public/_views/i18n_templates/en/facts.html'"></p>
+		<p ng-show="current=='about'" class="force-overflow"
+			style="overflow-y: scroll; height: 300px;"
+			ng-include="'/public/_views/i18n_templates/en/about.html'"></p>
 	</div>
 </div>

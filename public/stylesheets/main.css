@@ -1,5 +1,6 @@
 body {
 	font-family: 'Fondamento', cursive;
+	color:#fff;
 }
 
 .popover{
@@ -491,4 +492,17 @@ div.select-seedling-quantity td{
   top: 1%;
   right: 13%;
   z-index: 999;
+}
+.nopadding {
+	padding:0px !important;
+}
+.sound-manager-position{
+	position:fixed;
+	top:3px;
+	right:30px;
+	z-index:5000
+}
+.sound-icon:HOVER{
+	cursor:pointer;
+}
 }

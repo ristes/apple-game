@@ -54,6 +54,7 @@ GameDirectives.directive('progressDialog', [
                     function onShow(_scope, cfg) {
                         scope.status = 0;
                         scope.title = cfg.title;
+                        scope.filename=cfg.backgroundSound;
 
                         if (cfg.waitProgress) {
                             var prog = scope.$root.$on('progress-' + scope.prefix,

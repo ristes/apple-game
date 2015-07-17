@@ -45,5 +45,7 @@ public class WeatherType extends Model {
 	
 	public Integer type;
 	
+	public String music_url;
+	
 
 }

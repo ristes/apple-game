@@ -15,7 +15,8 @@ Game
 								$scope.$root.$emit('show-progress-global', {
 									title : 'progress.' + oper.name,
 									duration : 3,
-									actionToShare : 'Spraying'
+									actionToShare : 'Spraying',
+									backgroundSound: '/public/sounds/operations/spraying.mp3'
 								});
 							};
 

@@ -58,7 +58,11 @@ public class QuestionnaireController extends GameController{
 			QuestionnaireDto qdto = new QuestionnaireDto();
 			qdto.id = q.id;
 			qdto.name = q.name;
+			qdto.imageUrl = q.imageUrl;
+			qdto.type = q.typeQuestion;
 			qdto.answers = new ArrayList<AnswerDto>();
+			qdto.moreInfo = q.moreInfo;
+			
 			for (Answer a: q.answers) {
 				AnswerDto ans = new AnswerDto();
 				ans.id = a.id;

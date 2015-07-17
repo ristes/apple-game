@@ -27,7 +27,8 @@ Game.controller('DiggingController', [
                     $scope.$root.$emit('show-progress-global', {
                       title: 'progress.digging',
                       duration: 5,
-                      actionToShare:'Digging'
+                      actionToShare:'Digging',
+                      backgroundSound:'/public/sounds/operations/digging.mp3'
                     });
                   });
 

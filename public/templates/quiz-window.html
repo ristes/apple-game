@@ -1,10 +1,11 @@
+
 <div class="side-screen-bg" style='width: {{bgw' ng-click='hide()'
 	ng-show="quizvisible"></div>
-<div class="shop-menu" ng-animate="shop"
-	ng-class="{true: 'shop-enter', false: 'shop-leave'}[quizvisible]">
+<div class="quiz-menu" ng-animate="shop"
+	ng-class="{true: 'quiz-enter', false: 'shop-leave'}[quizvisible]">
 
 
-	<div class="shop_icon">
+	<div class="quiz_icon">
 		<img src="/public/images/master.png" style="width: 75%;"></img>
 		<div class="shop-label ramka">
 			<span class="shop-label-text"> {{ 'Quiz' | translate }} </span>
@@ -13,10 +14,10 @@
 
 	<div class="shop_arrow" ng-click="hide()"></div>
 
-	<div class="shop_menu_grid fa-stack-2x fa-inverse padding15">
+	<div class="shop_menu_grid fa-stack-2x fa-inverse">
 		<div ng-if="questions.length===0 && !quiz_completed">
-			<div class="ramka ag-font">Not active questionnaires for state of your
-				field.</div>
+			<div class="ramka ag-font">Not active questionnaires for state
+				of your field.</div>
 		</div>
 		<div ng-if="questions.length!==0 ">
 			<div ng-if="!quiz_completed" style="padding-left: 10%; width: 90%">
@@ -24,34 +25,41 @@
 					style="font-size: x-large; text-align: right; padding-right: 10%">{{ordnum+1}}/{{questions.length}}</div>
 				<div class="row">
 					<div class="ramka col-xs-6 col-md-3">
-						<i class="glyphicon glyphicon-ok" style="x-large"></i>	
-						<span class="">{{score}}</span>
+						<i class="glyphicon glyphicon-ok" style=""></i> <span class="">{{score}}</span>
 					</div>
 					<div class="ramka col-xs-6 col-md-3">
-						<i class="glyphicon glyphicon-remove" style="x-large"></i>	
-						<span class="">{{misses}}</span>
+						<i class="glyphicon glyphicon-remove" style=""></i> <span class="">{{misses}}</span>
 					</div>
 				</div>
-				<h3 class="ramka" style="padding:10px;">{{questions[ordnum].name | translate}}</h3>
-				<ul class="list-group">
-					<li style="" ng-repeat="ans in questions[ordnum].answers"
-						ng-show="!is_answered">
-						<button class="btn btn-primary" style="min-width: 200px"
-							ng-click="answer(ans)">{{ans.name}}</button>
-					</li>
+				<div class="text-center">
+					<img ng-src="{{questions[ordnum].imageUrl}}"
+						style="max-width: 200px" />
+					<h3 class="ramka" style="width: 450px; padding: 10px;">{{questions[ordnum].name
+						| translate}}</h3>
 
-					<li style="" ng-repeat="ans in questions[ordnum].answers"
-						ng-show="is_answered">
-						<button class="btn btn-primary" style="min-width: 200px"
-							ng-class="{true: 'green', false:'red'}[ans.is_correct]">{{ans.name}}</button>
-					</li>
-					<li ng-show="is_answered">
-						<button class="btn btn-primary"
-							ng-if="ordnum!==questions.length-1" ng-click="next()">Next</button>
-						<button class="btn btn-primary"
-							ng-if="ordnum===questions.length-1" ng-click="submit()">Finish</button>
-					</li>
-				</ul>
+					<ul class="list-group">
+						<li style="" ng-repeat="ans in questions[ordnum].answers"
+							ng-show="!is_answered" class="text-center">
+							<button class="btn btn-primary" style="width: 400px"
+								ng-click="answer(ans)">{{ans.name}}</button>
+						</li>
+
+						<li style="" ng-repeat="ans in questions[ordnum].answers"
+							ng-show="is_answered">
+							<button class="btn btn-primary" style="min-width: 400px"
+								ng-class="{true: 'green', false:'red'}[ans.is_correct]">{{ans.name}}</button>
+						</li>
+						<li ng-show="is_answered" class="pull-right">
+							<button class="btn btn-primary"
+								ng-if="ordnum!==questions.length-1" ng-click="next()">Next</button>
+							<button class="btn btn-primary"
+								ng-if="ordnum===questions.length-1" ng-click="submit()">Finish</button>
+						</li>
+					</ul>
+				</div>
+				<div ng-if="is_answered" class="text-center">	
+					<span>Learn more on the following link: <a ng-href="{{questions[ordnum].moreInfo}}">{{questions[ordnum].moreInfo}}</a></span>
+				</div>
 			</div>
 		</div>
 		<div ng-if="quiz_completed" class="row">

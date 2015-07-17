@@ -93,6 +93,7 @@
 	border-top-color: black;
 	text-align: center;
 	width: 100%;
+	color:#333;
 }
 
 .weather-details-info-more-less:hover {
@@ -270,10 +271,12 @@ body {
 	right: 20%;
 	top: 2%;
 	z-index: 100;
+	color:#333;
 }
 
 #weather-info-details {
 	opacity: 0;
+	color:#333;
 }
 
 .weather-div {
@@ -332,7 +335,9 @@ body {
 .shop-enter {
 	right: 35%;
 }
-
+.quiz-enter {
+	right: 30%;
+}
 .shop-leave {
 	right: -750px;
 }
@@ -357,6 +362,15 @@ body {
 	background-size: 100% 100%;
 	z-index: 1000
 }
+.quiz-menu {
+	position: fixed;
+	width: 55%;
+	height: 85%;
+	top: 10%;
+	background-image: url("/public/images/home/ploca.png");
+	background-size: 100% 100%;
+	z-index: 1000
+}
 
 .shop_icon {
 	position: absolute;
@@ -367,7 +381,15 @@ body {
 	z-index: 900;
 	margin-top: -14%;
 }
-
+.quiz_icon {
+	position: absolute;
+	width: 26%;
+	height: 100%;
+	top: 0%;
+	display: inline-block;
+	z-index: 900;
+	margin-top: -14%;
+}
 .shop_icon-img {
 	width: 75%;
 }

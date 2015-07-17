@@ -20,9 +20,9 @@ Game.controller('PlowingController', [
 								$scope.$root.$emit('show-progress-global', {
 									title : 'progress.plowing',
 									duration : 10,
-									actionToShare:'Plowing'
+									actionToShare:'Plowing',
+									backgroundSound: '/public/sounds/operations/plowing.mp3'
 								});
-								fbShareActions.shareAction('Plowing');
 							});
 						};
 
