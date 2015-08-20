@@ -583,15 +583,15 @@ body {
 	color: white;
 	font-size: 100%;
 	display: block;
-	margin: -3%;
+	margin: -1%;
 	padding: 3%;
 }
 
 .side-operations-grid {
 	position: absolute;
 	width: 75%;
-	height: 50%;
-	top: 45%;
+	height: 40%;
+	top: 40%;
 	left: 23%;
 }
 

@@ -12,6 +12,9 @@ GameDirectives.directive('alertDialog', [
 					scope.closeTip = function() {
 						tip=null;
 					};
+					scope.startSideShow = function() {
+						scope.$root.$emit("side-show");
+					}
 				},
 				templateUrl : '/public/templates/tip.dialog.html'
 			};

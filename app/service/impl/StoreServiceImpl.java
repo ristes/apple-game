@@ -161,10 +161,10 @@ public class StoreServiceImpl implements StoreService {
 			String currentState) throws NotEnoughMoneyException {
 		Plantation plantation = getOrCreatePlantation(farmer);
 		plantation.field = farmer.field;
-		Double value = 0d;
+		Double value = 0.0;
 		Integer numSeedlings = 0;
 		for (PlantationSeedling ps : seedling) {
-			value += ps.seedling.price * ps.quantity * plantation.field.area;
+			value += (double)ps.seedling.price * ps.quantity * plantation.field.area;
 			numSeedlings += ps.quantity;
 		}
 		plantation.currentQuantity = numSeedlings;

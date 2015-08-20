@@ -2,8 +2,11 @@
 <div class="scene">
 	<div class="field">
 		<img src="/public/images/backgrounds/kukarka.png" class="kukja" ng-click="showShop()"/> 
-		<img src="/public/images/backgrounds/pozadinski-drva.png" class="back-trees"/>
-		<img src="/public/images/backgrounds/field-terrain.png" class="field-terrain"/>
+		<img src="/public/images/backgrounds/kukarka_snow.png" class="kukja" ng-click="showShop()"/> 
+		<img ng-if="$root.farmer.season_level!==1" src="/public/images/backgrounds/pozadinski-drva.png" class="back-trees"/>
+		<img ng-if="$root.farmer.season_level===1" src="/public/images/backgrounds/pozadinski-drva_snow.png" class="back-trees"/>
+		<img ng-if="$root.farmer.season_level!==1" src="/public/images/backgrounds/field-terrain.png" class="field-terrain"/>
+		<img ng-if="$root.farmer.season_level===1" src="/public/images/backgrounds/field-terrain_snow.png" class="field-terrain"/>
 		<div class="field-row" ng-repeat="r in rows">
 			<div ng-class="{false: 'pocva-bg', true: 'ograda-bg'}[c.staticV || !planting]" 
 				 ng-repeat="c in r.cols"
@@ -23,6 +26,7 @@
 	</div>	
 </div>
 
-<img src="/public/images/backgrounds/side-trees.png" class="side-trees"/>
-<img ng-show="gameState.eco_points>50" src="/public/images/backgrounds/lake-2.png" class="lake"/>
-<img ng-show="gameState.eco_points<=50" src="/public/images/backgrounds/lake-1.png" class="lake"/>
+<img ng-if="$root.farmer.season_level!==1" src="/public/images/backgrounds/side-trees.png" class="side-trees"/>
+<img ng-if="$root.farmer.season_level===1" src="/public/images/backgrounds/side-trees_snow.png" class="side-trees"/>
+<img ng-show="$root.farmer.eco_points>50" src="/public/images/backgrounds/lake-2.png" class="lake"/>
+<img ng-show="$root.farmer.eco_points<=50" src="/public/images/backgrounds/lake-1.png" class="lake"/>

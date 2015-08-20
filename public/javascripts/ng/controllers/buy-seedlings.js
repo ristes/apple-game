@@ -40,10 +40,27 @@ Game
 							$scope.$watch('selectedPlantType', function(n,o) {
 								$scope.onChange(n);
 							})
-							$scope.onChange = function(value) {
-								$scope.sumPrice = 0;
+							
+							
+							$scope.checkToShow = function(appleType) {
+								var isSelected = false;
 								angular.forEach($scope.appleTypes, function(item) {
 		                        	if (item.quantity!==undefined && item.quantity !==0) {
+		                        		if (item.name === appleType.name) {
+		                        			isSelected = true;
+		                        		}
+		                        	}
+		                        });
+								if ($scope.count >= 3) {
+									return isSelected;
+								}
+								return true;
+							}
+							$scope.onChange = function() {
+								$scope.sumPrice = 0;
+								$scope.count = 0;
+								angular.forEach($scope.appleTypes, function(item) {
+		                        	if (item.quantity!==undefined && item.quantity !=0) {
 		                        		$scope.count++;
 		                        		$scope.sumPrice +=item.quantity * $scope.selectedPlantType.price;
 		                        	}
@@ -57,7 +74,7 @@ Game
 									q = $scope.selected[key].quantity;
 								}
 								seedling.quantity = q;
-								if ($scope.count >= 3
+								if ($scope.count > 3
 										&& !$scope.selected.hasOwnProperty(key)) {
 									alert('To many apple types. Remove some in order to add new')
 								} else {

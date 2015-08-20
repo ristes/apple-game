@@ -1,9 +1,11 @@
 package controllers;
 
+import dao.DaoInjector;
 import models.ExecutedOperation;
 import models.Farmer;
 import models.ItemInstance;
 import service.FertilizeService;
+import service.ServiceInjector;
 import service.impl.FertilizeServiceImpl;
 
 public class FertilizationController extends GameController {
@@ -12,8 +14,7 @@ public class FertilizationController extends GameController {
 			Double b, Double mg) throws Exception {
 
 		Farmer farmer = checkFarmer();
-		FertilizeService ferDao = new FertilizeServiceImpl();
-		farmer = ferDao.fertilize(farmer, n, p, k, ca, b, mg);
+		ServiceInjector.fertilizeService.fertilize(farmer, n, p, k, ca, b, mg);
 		JsonController.statusJson(farmer);
 	}
 	

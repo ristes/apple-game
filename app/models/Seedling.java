@@ -21,7 +21,7 @@ public class Seedling extends Model {
 	 * The price to buy these seedlings per unit of plantation
 	 */
 
-	public int price;
+	public Double price;
 	/**
 	 * The type of the appes
 	 */

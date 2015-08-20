@@ -199,6 +199,9 @@ GameDirectives.directive('progressDialog', [
                     scope.closeTip = function() {
                         scope.tip = null;
                     };
+                    scope.startSideShow = function() {
+						scope.$root.$emit("side-show");
+					};
                     scope.$root.$on("expert-advice-close",function() {
                     	scope.closeTip();
                     });

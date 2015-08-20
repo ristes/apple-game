@@ -8,7 +8,7 @@ Game.controller('PlantingStateController', [
     'Planting',
     'State',
     function($scope, Operations, $farmer, Plantation, $weather, $window,
-        Planting, State) {
+        Planting, State,ExpertAdvice) {
 
         $scope.availableSeedlings = 0;
 

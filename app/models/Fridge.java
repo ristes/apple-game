@@ -17,7 +17,7 @@ public class Fridge extends Model{
 	@ManyToOne
 	public FridgeType type;
 	
-	public Integer price;
+	public Double price;
 	
 	public String name;
 	

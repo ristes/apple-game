@@ -3,13 +3,15 @@ Game.directive("soundManager",["ngAudio","audioManager", function(ngAudio,audioM
 		restrict:'E',
 		templateUrl : '/public/templates/sound-manager.html',
 		controller: function($scope) {
+			$scope.isMuted = false;
 			$scope.mute=function() {
-				console.log("mute");
-				ngAudio.mute();
+				$scope.isMuted = true;
+				$scope.$root.$emit("sound-stop");
 			},
 			$scope.unmute=function() {
-				console.log("unmute");
+				$scope.isMuted = false;
 				ngAudio.unmute();
+				$scope.$root.$emit("sound-start");
 			}
 		}
 	}

@@ -10,6 +10,7 @@
 		
 		
 	<div class="side-items-grid" ng-controller="BoughtItemsController">
+		<h4 class="page-header"><span class="ramka" style="padding-left:10px; padding-right:10px; padding-bottom:5px;padding-top:5px">Bought Items</span></h4>
 		<div class="side-items-grid-item" 
 				ng-repeat="a in boughtItems" ng-click="executeItem(a)" ng-mouseenter="onHover(a)" ng-mouseleave="onLeave()">
 			<div class="side-item-top">
@@ -20,6 +21,7 @@
 		</div>
 	</div>
 	<div class="side-operations-grid">
+		<h4 class="page-header"><span class="ramka" style="padding-left:10px; padding-right:10px; padding-bottom:5px; padding-top:5px">Operations</span></h4>
 		<div class="side-operations-grid-item" ng-if="a.icon_url"
 				ng-repeat="a in actions"
 				ng-click="itemClick(a)"

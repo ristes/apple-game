@@ -1,5 +1,6 @@
 <div class="board-bg">
 	<div class="row seedling-planting">
+		<h3 class="page-header text-center">You can select 3 apple types maximum</h3>
 		<div class="select-seedling col-md-5">
 			<table>
 				<tr>
@@ -14,7 +15,7 @@
 						</div>
 					</td>
 				</tr>
-				<tr ng-repeat="at in appleTypes" ng-if="selectedPlantType!==undefined">
+				<tr ng-if="checkToShow(at) && selectedPlantType!==undefined" ng-repeat="at in appleTypes" ng-if="">
 					<td>
 						<div popover-trigger="mouseenter" popover-placement="bottom"
 							popover="{{at.description}}">
@@ -46,8 +47,8 @@
 				</tr>
 			</table>
 		</div>
-		<div class="select-seedling-quantity"
-			style="float: left; margin-left: 100px">
+		<div class="select-seedling-quantity text-center"
+			style="margin-left: 100px">
 			<h3>{{ 'total' | translate }}: {{sumPrice}}</h3>
 			<table ng-if="finishedSelection">
 				<tr ng-repeat="s in selected">

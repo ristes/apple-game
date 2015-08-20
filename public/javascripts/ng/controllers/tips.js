@@ -16,6 +16,10 @@ Game
 								'tip' : 1,
 								'disease' : 2
 							};
+							
+							$scope.startSideShow = function() {
+								$scope.$root.$emit('side-show');
+							}
 							$scope.current_data = "";
 							
 							

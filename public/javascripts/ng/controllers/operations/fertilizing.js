@@ -122,7 +122,7 @@ Game
 								min : 0,
 								max : 10,
 								onChange : function(n) {
-									$scope.fertilizer.mg[0].value = n;
+									$scope.fertilizer.Mg[0].value = n;
 									calculatePrice();
 								}
 							};
@@ -133,7 +133,7 @@ Game
 								max : 1,
 								step : 0.05,
 								onChange : function(n) {
-									$scope.fertilizer.zn[0].value = n;
+									$scope.fertilizer.Zn[0].value = n;
 									calculatePrice();
 								}
 							};

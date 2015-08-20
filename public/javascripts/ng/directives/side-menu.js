@@ -180,7 +180,7 @@ GameDirectives
 									
 									scope.$root.$watch("day.deltaCumulative", function(newV, oldV) {
 										if (newV!==oldV) {
-											if (newV < -10 && oldV> -10) {
+											if (newV < -10 && oldV> -10 && scope.$root.farmer.season_level !== 1) {
 												ExpertAdvice.setAdvice("The time has come to irrigate!");
 											}
 											
