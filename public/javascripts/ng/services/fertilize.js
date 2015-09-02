@@ -9,7 +9,15 @@ Game.factory('Fertilize', ['State', '$http', function(State, $http) {
             $http({
                 method: 'POST',
                 url: "/fertilizationcontroller/fertilize",
-                data: $.param(fertilizer),
+                data: $.param({
+                	n:fertilizer['N'][0].value || 0,
+                	p:fertilizer['P'][0].value || 0,
+                	k:fertilizer['K'][0].value || 0,
+                	ca:fertilizer['Ca'][0].value || 0,
+                	b:fertilizer['B'][0].value || 0,
+                	mg:fertilizer['Mg'][0].value || 0,
+                	zn: fertilizer['Zn'][0].value || 0
+                }),
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }

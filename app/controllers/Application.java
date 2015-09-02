@@ -26,7 +26,7 @@ public class Application extends GameController {
 			ServiceInjector.farmerService.gotoNextDay(farmer);
 		}
 		farmer.save();
-		String tip = ServiceInjector.tipService.randomTip(ServiceInjector.tipService.tipgenerator(farmer));
+		String tip = ServiceInjector.tipService.randomTip(farmer, ServiceInjector.tipService.tipgenerator(farmer));
 		LearnStateEvents event = ServiceInjector.learnStateEventService.generate(farmer);
 		JsonController.statusJson(farmer, tip, event);
 	}
@@ -37,7 +37,7 @@ public class Application extends GameController {
 		} else {
 			ServiceInjector.farmerService.gotoNextWeek(farmer);
 		}
-		String tip = ServiceInjector.tipService.randomTip(ServiceInjector.tipService.tipgenerator(farmer));
+		String tip = ServiceInjector.tipService.randomTip(farmer, ServiceInjector.tipService.tipgenerator(farmer));
 		LearnStateEvents event = ServiceInjector.learnStateEventService.generate(farmer);
 		JsonController.statusJson(farmer, tip,event);
 	}
@@ -48,7 +48,7 @@ public class Application extends GameController {
 		} else {
 			farmer = ServiceInjector.farmerService.gotoNextMonth(farmer);
 		}
-		String tip = ServiceInjector.tipService.randomTip(ServiceInjector.tipService.tipgenerator(farmer));
+		String tip = ServiceInjector.tipService.randomTip(farmer, ServiceInjector.tipService.tipgenerator(farmer));
 		LearnStateEvents event = ServiceInjector.learnStateEventService.generate(farmer);
 		JsonController.statusJson(farmer, tip,event);
 	}

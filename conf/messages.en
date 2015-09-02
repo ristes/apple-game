@@ -11,6 +11,12 @@ earn_from_ecos = You earned %s money from your eco points!
 
 lost_quantity_message = На ден %s изгубивте %s кг јаболки поради %s.
 
+lost_quantity_in_fridge = The apples became rotten in %s. You lost %d kg apples.
+
+lost_quantity_rotten = The apple type %s got rotten on the field. Please follow the harvesting periods appropriately by the plant type.
+
+good-weather-for-harvesting = Ideal weather for harvesting!
+
 uv_demage = прекумерно UV зрачење
 
 low_temp_demage = прениски температури

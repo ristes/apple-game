@@ -30,6 +30,9 @@ GameDirectives.directive('customAudioNonsupervised', [
 						$scope.audio.play();
 					}
 					
+				
+					
+					
 				}
 			};
 		} ]);

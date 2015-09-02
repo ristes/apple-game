@@ -228,9 +228,8 @@ public class FridgeServiceImpl implements FridgeService {
 					int quantity = portion.quantity;
 					removeAllPlantTypeFromFridge(farmer, fridge,
 							portion.yield.plantationSeedling.seedling.type);
-					String message = String.format(
-							"Скапаа јаболките во %s. Изгубивте %d kg јаболки.",
-							fridge.name, quantity);
+					
+					String message = String.format(play.i18n.Messages.get("lost_quantity_in_fridge", fridge.name, quantity));
 					ServiceInjector.infoTableService
 							.createT1(farmer, message,
 									portion.yield.plantType.imageurl);

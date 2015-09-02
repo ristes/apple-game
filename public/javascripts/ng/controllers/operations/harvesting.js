@@ -23,9 +23,9 @@ Game.controller('HarvestingController', [
                     totalBad: 0,
                     goodCaught: 0,
                     badCaught: 0,
-                    basketWidth: 6,
-                    timeLeft: 30,
-                    dropAppleInterval: 60
+                    basketWidth: 10,
+                    timeLeft: 60,
+                    dropAppleInterval: 30
                 };
 
                 $scope.visible = true;

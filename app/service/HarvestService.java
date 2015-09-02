@@ -18,4 +18,5 @@ public interface HarvestService {
 	public Boolean isInHarvestingPeriod(Farmer farmer, Long plantType);
 	public Farmer makeShtarjfTest(Farmer farmer);
 	public Farmer makeHarvesting(Farmer farmer, PlantationSeedling plantationseedling, Double goodper, Double badper) throws NotEnoughMoneyException, NotAllowedException , NotEnoughSpaceInFridge, InvalidYield;
+	public Boolean isInGlobalHarvetingPeriod(Farmer farmer);
 }

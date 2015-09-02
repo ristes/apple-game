@@ -1,8 +1,8 @@
 <!-- <img src="/public/images/backgrounds/side-terrain.png" class="side-terrain"/> -->
 <div class="scene">
 	<div class="field">
-		<img src="/public/images/backgrounds/kukarka.png" class="kukja" ng-click="showShop()"/> 
-		<img src="/public/images/backgrounds/kukarka_snow.png" class="kukja" ng-click="showShop()"/> 
+		<img ng-if="$root.farmer.season_level!==1" src="/public/images/backgrounds/kukarka.png" class="kukja" ng-click="showShop()"/> 
+		<img ng-if="$root.farmer.season_level===1" src="/public/images/backgrounds/kukarka_snow.png" class="kukja" ng-click="showShop()"/> 
 		<img ng-if="$root.farmer.season_level!==1" src="/public/images/backgrounds/pozadinski-drva.png" class="back-trees"/>
 		<img ng-if="$root.farmer.season_level===1" src="/public/images/backgrounds/pozadinski-drva_snow.png" class="back-trees"/>
 		<img ng-if="$root.farmer.season_level!==1" src="/public/images/backgrounds/field-terrain.png" class="field-terrain"/>

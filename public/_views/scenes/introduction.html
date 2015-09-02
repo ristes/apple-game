@@ -1,11 +1,8 @@
-<!-- <div ng-controller="SoundController" ng-init="filename='/public/sounds/farm_music_techno.wav'"> -->
-<!-- 	<div ng-audio="/public/sounds/farm_music_techno.wav" volume="0.5" loop="true" -->
-<!-- 		start="0.2"></div> -->
-<!-- </div> -->
+
 
 <div
 	style="width: 100%; padding-left: 20%; padding-right: 20%; padding-top: 20%">
-	<custom-audio  filename="'/public/sounds/background/farm_music_techno.mp3'" start-on-init='true'></custom-audio>
+	<custom-audio ng-if="$root.soundsEnabled" filename="'/public/sounds/background/farm_music_techno.mp3'" start-on-init='true'></custom-audio>
 	<ul class="list-group">
 		<li><h3
 				class="ramka introduction-menu-item play title-text-larger"

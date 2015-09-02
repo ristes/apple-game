@@ -8,6 +8,7 @@ import java.util.List;
 import models.Farmer;
 import models.Item;
 import models.LogFarmerData;
+import models.PlantType;
 import models.PlantationSeedling;
 import models.Yield;
 import service.LogFarmerDataService;
@@ -71,6 +72,18 @@ public class YieldServiceImpl implements YieldService {
 			return 0.0;
 		}
 		return data.information;
+	}
+
+	@Override
+	public Boolean areApplesByTypeAndYearHarvested(Farmer farmer,
+			PlantType plantType, Integer year) {
+		if (Yield
+				.find("byFarmerAndYearAndPlantationSeedling.seedling.type.id",
+						farmer, year, plantType.id).fetch().size() == 0) {
+			return false;
+			
+		}
+		return true;
 	}
 
 }

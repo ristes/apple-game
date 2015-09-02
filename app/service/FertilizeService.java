@@ -15,7 +15,7 @@ public interface FertilizeService {
 	//this threshold represents the trigger for obtaining the badge
 	public static final double BADGE_THRESHOLD = 0.15;
 	
-	public Farmer fertilize(Farmer farmer, Double n, Double p, Double k, Double ca, Double b, Double mg) throws NotEnoughMoneyException;
+	public Farmer fertilize(Farmer farmer, Double n, Double p, Double k, Double ca, Double b, Double mg, Double zn) throws NotEnoughMoneyException;
 	public int finalEvaluationFertilizer(Farmer farmer);
 	public Farmer finalEvaluation(String name, Farmer farmer);
 	public Double finalEvaluationItem(Farmer farmer, Item item);

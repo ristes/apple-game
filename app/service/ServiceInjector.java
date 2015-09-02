@@ -25,6 +25,7 @@ import service.impl.LandTreatmanServiceImpl;
 import service.impl.LearnStateEventServiceImpl;
 import service.impl.LogFarmerDataServiceImpl;
 import service.impl.LuckServiceImpl;
+import service.impl.PlantTypeServiceImpl;
 import service.impl.PlantationServiceImpl;
 import service.impl.PlantingServiceImpl;
 import service.impl.PriceServiceImpl;
@@ -34,6 +35,7 @@ import service.impl.RandomGeneratorServiceImpl;
 import service.impl.RankingServiceImpl;
 import service.impl.RecommenderServiceImpl;
 import service.impl.ResumeServiceImpl;
+import service.impl.RottenApplesServiceImpl;
 import service.impl.SellingServiceImpl;
 import service.impl.SoilServiceImpl;
 import service.impl.StoreServiceImpl;
@@ -100,4 +102,6 @@ public class ServiceInjector {
 	public static GameEndService gameEndService = new GameEndServiceImpl();
 	public static RecommenderService recommenderService  =new RecommenderServiceImpl();
 	public static LearnStateEventService learnStateEventService = new LearnStateEventServiceImpl();
+	public static PlantTypeService plantTypeService = new PlantTypeServiceImpl();
+	public static RottenApplesService rottenApplesService = new RottenApplesServiceImpl();
 }

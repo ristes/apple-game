@@ -11,10 +11,10 @@ import service.impl.FertilizeServiceImpl;
 public class FertilizationController extends GameController {
 
 	public static void fertilize(Double n, Double p, Double k, Double ca,
-			Double b, Double mg) throws Exception {
+			Double b, Double mg, Double zn) throws Exception {
 
 		Farmer farmer = checkFarmer();
-		ServiceInjector.fertilizeService.fertilize(farmer, n, p, k, ca, b, mg);
+		ServiceInjector.fertilizeService.fertilize(farmer, n, p, k, ca, b, mg,zn);
 		JsonController.statusJson(farmer);
 	}
 	

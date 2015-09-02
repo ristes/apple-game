@@ -1,20 +1,29 @@
- <custom-audio filename="'/public/sounds/background/sunny.mp3'" start-on-init='true'></custom-audio>
 <div ng-if="nextDay">
+
+	<custom-audio ng-if="$root.soundsEnabled && $root.day.gameDate.weatherType.id===1" filename="'/public/sounds/background/sunny.mp3'" start-on-init='true'></custom-audio>
+	<custom-audio ng-if="$root.soundsEnabled && ($root.day.gameDate.weatherType.id===2 || $root.day.gameDate.weatherType.id===4)" filename="'/public/sounds/background/windy.mp3'" start-on-init='true'></custom-audio>
+	<custom-audio ng-if="$root.soundsEnabled && $root.day.gameDate.weatherType.id===3" filename="'/public/sounds/background/rain.mp3'" start-on-init='true'></custom-audio>
+
+<!-- 	<div  ng-if="$root.soundsEnabled && $root.day.gameDate.weatherType.id===1" loop="true" play-on-init="true" ng-audio="/public/sounds/background/sunny.mp3" start="0.2"></div> -->
+<!-- 	<div  ng-if="$root.soundsEnabled && ($root.day.gameDate.weatherType.id===2 || $root.day.gameDate.weatherType.id===4)" play-on-init="true"  loop="true" ng-audio="/public/sounds/background/windy.mp3" start="0.2"></div> -->
+<!-- 	<div  ng-if="$root.soundsEnabled && $root.day.gameDate.weatherType.id===3" loop="true" ng-audio="/public/sounds/background/rain.mp3" play-on-init="true"  start="0.2"></div> -->
+	<div ng-if="$root.overlayDark" class="overlay-dark game-overlay"></div>
     <div id="div_timeline_travel">
         
         <div class="rankings" ng-controller="RankingsController">
-            <div ng-audio-hover="/public/sounds/events/button-hover.mp3"  style="padding-left: 10px;" ng-click="showRankings()">
+        <!-- ng-audio-hover="/public/sounds/events/button-hover.mp3" -->
+            <div   style="padding-left: 10px;" ng-click="showRankings()">
                 <img class="img img-responsive" style="width: 100px; height: 75px" ng-src="/public/images/home/rankings-bordered.png" />
                 <div class="item-store ramka" style="width:100px">
                     <span class="title-text">{{"rankings" | translate}}</span>
                 </div>
             </div>
-
+			
             <ranking-table rankings="rankings" years="years" visible="visible"></ranking-table>
         </div>
 
 		 <div class="history" ng-controller="HistoryController">
-            <div ng-audio-hover="/public/sounds/events/button-hover.mp3"  style="padding-left: 10px;" ng-click="showHistory()">
+            <div  style="padding-left: 10px;" ng-click="showHistory()">
                 <img class="img img-responsive" style="width: 100px; height: 70px" src="/public/images/home/history.png" />
                 <div class="item-store ramka" style="width:100px">
                     <span class="title-text">{{"history" | translate}}</span>
@@ -24,13 +33,13 @@
             <history-table history="history" visible="visible"></history-table>
         </div>
         <div class="time-controls ramka">
-            <div ng-audio-hover="/public/sounds/events/button-hover.mp3"  class="time-ctrl-btn" tooltip="Next Day" id="div_next_day" ng-click="$root.next()">
+            <div   enabled="{{$root.soundsEnabled}}" class="time-ctrl-btn" tooltip="Next Day" id="div_next_day" ng-click="$root.next()">
                 <span style="margin-right: 5px;" id="span_next_day"></span><i class="glyphicon glyphicon-step-forward"></i>
             </div>
-            <div ng-audio-hover="/public/sounds/events/button-hover.mp3"  class="time-ctrl-btn" tooltip="Next Week" id="div_next_week" ng-click="$root.nextWeek()">
+            <div enabled="{{$root.soundsEnabled}}"  class="time-ctrl-btn" tooltip="Next Week" id="div_next_week" ng-click="$root.nextWeek()">
                 <span style="margin-right: 5px;" id="span_next_week"></span><i class="glyphicon glyphicon-forward"></i>
             </div>
-            <div ng-audio-hover="/public/sounds/events/button-hover.mp3"  class="time-ctrl-btn" tooltip="Next Month" id="div_next_month" ng-click="$root.nextMonth()">
+            <div  enabled="{{$root.soundsEnabled}}"  class="time-ctrl-btn" tooltip="Next Month" id="div_next_month" ng-click="$root.nextMonth()">
                 <span style="margin-right: 5px;"></span><i class="glyphicon glyphicon-fast-forward"></i>
             </div>
             <div class="time-ctrl-btn">

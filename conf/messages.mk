@@ -8,4 +8,10 @@ controller.plowing.fail.toodry = Почвата е премногу сува. Н
 
 earn_from_ecos = Заработивте %s парички од еколошките поени!
 
+lost_quantity_in_fridge = Скапаа јаболките во %s. Изгубивте %d kg јаболка.
+
+lost_quantity_rotten = Јаболката од сортата %s скапаа на нивата. Следи ги периодите на берба внимателно за да не се случи ова повторно во иднина.
+
+good-weather-for-harvesting = Идеални временски услови за берба!
+
 controller.digging.fail.notenoughmoney = Немате доволно пари за копање.

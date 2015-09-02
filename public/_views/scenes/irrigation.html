@@ -46,7 +46,7 @@
 	</div>
 
 	<div ng-if="!enableOther" class="irrigation-progress">
-		<custom-audio-nonsupervised filename="'/public/sounds/operations/irrigation.mp3'" loop='true' start-on-init='true'></custom-audio-nonsupervised>
+		<custom-audio-nonsupervised ng-if="$root.soundsEnabled" filename="'/public/sounds/operations/irrigation.mp3'" loop='true' start-on-init='true'></custom-audio-nonsupervised>
 		<div class="progress-bar-irrigation" style="width: {{status}}%;">
 			<span>
 				{{showStatus | integer}} %

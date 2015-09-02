@@ -18,7 +18,7 @@ public class Crafty extends Controller {
 		Farmer farmer = AuthController.getFarmer();
 
 		if (farmer == null) {
-			login("mk");
+			login("en");
 		}
 		ServiceInjector.contextService.setAndCheckLastLoginDate(farmer);
 		render();
@@ -31,9 +31,9 @@ public class Crafty extends Controller {
 	public static void iso1() {
 		Farmer farmer = AuthController.getFarmer();
 		if (farmer == null) {
-			login("mk");
+			login("en");
 		}
-		render("mk");
+		render("en");
 	}
 
 	public static void login(String locale) {

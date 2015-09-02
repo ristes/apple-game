@@ -25,16 +25,17 @@ public class FertilizeServiceImpl implements FertilizeService{
 
 	@Override
 	public Farmer fertilize(Farmer farmer, Double n, Double p, Double k, Double ca, Double b,
-			Double mg) throws NotEnoughMoneyException{
+			Double mg, Double zn) throws NotEnoughMoneyException{
 		Item N = Item.find("byName", "N").first();
 		Item P = Item.find("byName", "P").first();
 		Item K = Item.find("byName", "K").first();
 		Item Ca = Item.find("byName", "Ca").first();
 		Item B = Item.find("byName", "B").first();
 		Item Mg = Item.find("byName", "Mg").first();
+		Item Zn = Item.find("byName","Zn").first();
 
 		double value = N.price * n + P.price * p + K.price * k + Ca.price * ca
-				+ B.price * b + Mg.price * mg;
+				+ B.price * b + Mg.price * mg + Zn.price*mg;
 
 		value *= farmer.field.area;
 

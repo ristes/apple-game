@@ -113,6 +113,7 @@ public class TransactionServiceImpl implements MoneyTransactionService,
 	public ItemInstance commitBuyingItem(Farmer farmer, Item item, Double quantity)
 			throws NotEnoughMoneyException {
 		ItemInstance instance = new ItemInstance();
+		System.out.println("Item id:"+item.id);
 		if (item.price == 0) {
 			commitBuyingSpecialItem(farmer, item, quantity);
 		} else {

@@ -38,11 +38,12 @@ Game.factory('$day', [
     'State',
     '$http',
     '$weather',
+    '$rootScope',
     'Diseases',
     'BoughtItems',
     '$location',
     'audioManager',
-    function($rootScope, State, $http, $weather, Diseases, BoughtItems,
+    function($rootScope, State, $http, $weather, $rootScope, Diseases, BoughtItems,
         $location, audioManager) {
 
     	self.start_scene = 'buy_terrain';
@@ -81,6 +82,7 @@ Game.factory('$day', [
                 State.set('farmer', status.farmer);
             },
             next: function() {
+            	$rootScope.overlayDark = true;
                 var res = $http.get("/application/nextday");
                 res.success(function(data) {
                     State.set('status', data);
@@ -96,9 +98,11 @@ Game.factory('$day', [
                     $location.path(data.farmer.currentState || self.start_scene);
                     $weather.load();
                     Diseases.load();
+                    $rootScope.overlayDark = false;
                 });
             },
             nextWeek: function() {
+            	$rootScope.overlayDark = true;
                 var res = $http.get("/application/nextweek");
                 res.success(function(data) {
                     State.set('status', data);
@@ -113,9 +117,11 @@ Game.factory('$day', [
                     $location.path(data.farmer.currentState || self.start_scene);
                     $weather.load();
                     Diseases.load();
+                    $rootScope.overlayDark = false;
                 });
             },
             nextMonth: function() {
+            	$rootScope.overlayDark = true;
                 var res = $http.get("/application/nextmonth");
                 res.success(function(data) {
                     State.set('status', data);
@@ -130,6 +136,7 @@ Game.factory('$day', [
                     $location.path(data.farmer.currentState || self.start_scene);
                     $weather.load();
                     Diseases.load();
+                    $rootScope.overlayDark = false;
                 });
             }
         };

@@ -7,8 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import play.i18n.Messages;
 import models.Day;
 import models.Farmer;
+import models.PlantType;
+import models.Plantation;
+import models.RottenApples;
 import service.ContextService;
 import service.DateService;
 import service.FarmerService;
@@ -156,6 +160,7 @@ public class ContextServiceImpl implements ContextService {
 		evaluatePlantState(farmer);
 		evaluateFridgesState(farmer);
 		calculateDiggingCoefficient(farmer);
+		evaluateRottenApples(farmer);
 		evaluateApplesInStock(farmer);
 
 		farmer.save();
@@ -217,6 +222,28 @@ public class ContextServiceImpl implements ContextService {
 	
 	public void evaluateFridgesState(Farmer farmer) {
 		ServiceInjector.fridgeService.checkApplesState(farmer);
+	}
+	
+	public void evaluateRottenApples(Farmer farmer) {
+		List<PlantType> plantTypes = ServiceInjector.plantTypeService.ownedByFarmer(farmer);
+		for (PlantType pt: plantTypes) {
+			if (ServiceInjector.harvestService.isAfterHarvestingPeriod(farmer, pt.id)) {
+				Integer year = ServiceInjector.dateService.fridgerecolteyear(farmer.gameDate.date);
+				if (!ServiceInjector.yieldService.areApplesByTypeAndYearHarvested(farmer, pt, year)) {
+					if (ServiceInjector.rottenApplesService.getByFarmerYearAndPlantType(farmer, year, pt).size()==0) {
+						String message = Messages.get("lost_quantity_rotten", pt.name);
+						ServiceInjector.infoTableService
+						.createT1(farmer, message,
+								pt.imageurl);
+						RottenApples rottenApples = new RottenApples();
+						rottenApples.setFarmer(farmer);
+						rottenApples.setPlantType(pt);
+						rottenApples.setYear(year);
+						rottenApples.save();
+					}
+				}
+			}
+		}
 	}
 	
 	public String evaluateTip(Farmer farmer) {

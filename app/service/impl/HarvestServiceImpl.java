@@ -107,4 +107,14 @@ public class HarvestServiceImpl implements HarvestService {
 		return isAfterHarvestingPeriod(farmer, plant);
 	}
 
+	@Override
+	public Boolean isInGlobalHarvetingPeriod(Farmer farmer) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(farmer.gameDate.date);
+		if (c.get(Calendar.MONTH)>=Calendar.SEPTEMBER && c.get(Calendar.MONTH)<Calendar.NOVEMBER) {
+			return true;
+		}
+		return false;
+	}
+
 }

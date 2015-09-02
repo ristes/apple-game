@@ -208,10 +208,10 @@ Game.directive('harvestGame', ['$interval', '$filter',  function($interval, $fil
                     totalBad: 0,
                     goodCaught: 0,
                     badCaught: 0,
-                    basketWidth: 8,
+                    basketWidth: 14,
                     basketHeight: 20,
-                    timeLeft: 15,
-                    dropAppleInterval: 60
+                    timeLeft: 60,
+                    dropAppleInterval: 30
                 }
 
                 $scope.ticks = 0;

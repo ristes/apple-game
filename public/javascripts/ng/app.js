@@ -61,7 +61,6 @@ Game.run([
             $day.next();
             BoughtItems.load();
             $rootScope.$emit("weather-hide");
-
         };
         $rootScope.nextWeek = function() {
             $day.nextWeek();

@@ -1,5 +1,5 @@
 <div class="tip-dialog alert-dismissible row" ng-if="tip" role="alert">
-	<custom-audio-nonsupervised filename="/public/sounds/events/tip_expert.mp3" loop='false' start-on-init='true'></custom-audio-nonsupervised>
+	<custom-audio-nonsupervised ng-if="$root.soundsEnabled" filename="/public/sounds/events/tip_expert.mp3" loop='false' start-on-init='true'></custom-audio-nonsupervised>
     <div style="background-color: black !important;">
         <div class="col-md-3">
 
