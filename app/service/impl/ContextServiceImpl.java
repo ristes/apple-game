@@ -247,7 +247,7 @@ public class ContextServiceImpl implements ContextService {
 	}
 	
 	public String evaluateTip(Farmer farmer) {
-		return ServiceInjector.tipService.randomTip(ServiceInjector.tipService.tipgenerator(farmer));
+		return ServiceInjector.tipService.randomTip(farmer,ServiceInjector.tipService.tipgenerator(farmer));
 	}
 	
 	public void evaluateEndOfTestSubstate(Farmer farmer) {
