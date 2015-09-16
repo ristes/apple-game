@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import models.ExecutedOperation;
 import models.Farmer;
+import models.Item;
 import models.ItemInstance;
 import play.mvc.Controller;
 import service.ContextService;
@@ -23,6 +24,7 @@ public class SprayingController extends Controller {
 		if (farmer == null) {
 			renderJSON("");
 		}
+		Item item = Item.findById(itemid);
 		ItemInstance instance = ItemInstance.findById(itemid);
 		if (instance.ownedBy.id != farmer.id) {
 			renderJSON("");

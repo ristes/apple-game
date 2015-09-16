@@ -1,5 +1,5 @@
 
-<div class="side-screen-bg" style='width:{{bgw}}px;height:{{bgh}}px'  ng-click='hide()'></div>
+<div class="side-screen-bg" style='width: {{bgw' ng-click='hide()'></div>
 <div class="side-screen" ng-animate="slide"
 	ng-class="{true: 'slide-enter', false: 'slide-leave'}[visible]">
 
@@ -11,82 +11,97 @@
 
 
 	<div class="resume-dialog">
-		<div class="container shop-label-text" style="color: white; width:100%">
-			<h2>Resume for previous year</h2>
+		<div class="container shop-label-text"
+			style="color: white; width: 100%">
+			<h4>Resume for previous year</h4>
 			<div class="row">
 				<div class="col-sm-6 col-md-4">
 					<div class="thumb-custom thumbnail">
 						<img class="img-resume" src="/public/images/coinbucket.png" />
 						<div class="caption text-center">
-							<h5>Money earned ${{resumeData.data.intTypes.moneyEarned.message[0]}}</h5>
+							<h5>Money earned
+								${{resumeData.data.intTypes.moneyEarned.message[0]}}</h5>
 						</div>
 					</div>
 				</div>
 				<div class="col-xs-6 col-md-4">
 					<div class="thumb-custom thumbnail">
-						<img class="img-resume" src="/public/images/home/apples_gained2.png" />
+						<img class="img-resume"
+							src="/public/images/home/apples_gained2.png" />
 						<div class="caption text-center">
-							<h5>Apples sold {{resumeData.data.intTypes.applesSold.message[0]}}kg</h5>
+							<h5>Apples sold
+								{{resumeData.data.intTypes.applesSold.message[0]}}kg</h5>
 						</div>
 					</div>
 				</div>
-				
-				<div class="col-xs-6 col-md-4">
-					<div class="thumb-custom thumbnail">
-						<img class="img-resume" src="/public/images/game/deceases/Aphid.png" />
-						<div class="caption text-center">
-							<h5>FireBlight {{resumeData.data.hashTypes.diseasesOccurred.message['FireBlight']}}kg</h5>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-xs-6 col-md-4">
-					<div class="thumb-custom thumbnail">
-						<img class="img-resume" src="/public/images/game/deceases/Aphid.png" />
-						<div class="caption text-center">
-							<h5>Aphid {{resumeData.data.hashTypes.diseasesOccurred.message['Aphid']}}kg</h5>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-xs-6 col-md-4">
-					<div class="thumb-custom thumbnail">
-						<img class="img-resume" src="/public/images/game/deceases/CodlingMoth.png" />
-						<div class="caption text-center">
-							<h5>CodlingMoth {{resumeData.data.hashTypes.diseasesOccurred.message['CodlingMoth']}}kg</h5>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-xs-6 col-md-4">
-					<div class="thumb-custom thumbnail">
-						<img class="img-resume" src="/public/images/game/deceases/Konidia.png" />
-						<div class="caption text-center">
-							<h5>Konidia {{resumeData.data.hashTypes.diseasesOccurred.message['Konidia']}}kg</h5>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-xs-6 col-md-4">
-					<div class="thumb-custom thumbnail">
-						<img class="img-resume" src="/public/images/game/deceases/Ascospore.png" />
-						<div class="caption text-center">
-							<h5>Ascospore {{resumeData.data.hashTypes.diseasesOccurred.message['Ascospore']}}kg</h5>
-							<p></p>
-						</div>
-					</div>
-				</div>
-				
 			</div>
-			
-			
-			
+			<div class="row">
+				<h4>Quantity of apples burned by diseases and insects</h4>
+				<div class="col-xs-6 col-md-4">
+					<div class="thumb-custom thumbnail">
+						<img class="img-resume"
+							src="/public/images/game/deceases/FireBlight.png" />
+						<div class="caption text-center">
+							<h5>FireBlight burned:
+								{{resumeData.data.hashTypes.diseasesOccurred.message['FireBlight']}}kg</h5>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-6 col-md-4">
+					<div class="thumb-custom thumbnail">
+						<img class="img-resume"
+							src="/public/images/game/deceases/Aphid.png" />
+						<div class="caption text-center">
+							<h5>Aphid burned:
+								{{resumeData.data.hashTypes.diseasesOccurred.message['Aphid']}}kg</h5>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-6 col-md-4">
+					<div class="thumb-custom thumbnail">
+						<img class="img-resume"
+							src="/public/images/game/deceases/CodlingMoth.png" />
+						<div class="caption text-center">
+							<h5>CodlingMoth burned:
+								{{resumeData.data.hashTypes.diseasesOccurred.message['CodlingMoth']}}kg</h5>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-6 col-md-4">
+					<div class="thumb-custom thumbnail">
+						<img class="img-resume"
+							src="/public/images/game/deceases/Konidia.png" />
+						<div class="caption text-center">
+							<h5>Konidia burned:
+								{{resumeData.data.hashTypes.diseasesOccurred.message['Konidia']}}kg</h5>
+						</div>
+					</div>
+				</div>
+
+<!-- 				<div class="col-xs-6 col-md-4"> -->
+<!-- 					<div class="thumb-custom thumbnail"> -->
+<!-- 						<img class="img-resume" -->
+<!-- 							src="/public/images/game/deceases/Ascospore.png" /> -->
+<!-- 						<div class="caption text-center"> -->
+<!-- 							<h5>Ascospore -->
+<!-- 								{{resumeData.data.hashTypes.diseasesOccurred.message['Ascospore']}}kg</h5> -->
+<!-- 							<p></p> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+
+
+
+
+			</div>
+
 		</div>
 
+
+
+
+
 	</div>
-
-
-
-
-
-</div>

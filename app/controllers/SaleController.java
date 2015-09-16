@@ -24,10 +24,10 @@ public class SaleController extends GameController {
 		Farmer farmer = checkFarmer();
 		PlantType plantType = PlantType.findById(plant_id);
 
-		ServiceInjector.sellService.sell(farmer, plantType, quantity);
+		double sumMoney = ServiceInjector.sellService.sell(farmer, plantType, quantity);
 		StatusDto statusDto = new StatusDto(true);
 		statusDto.farmer = farmer;
-		statusDto.additionalInfo = String.valueOf(quantity);
+		statusDto.additionalInfo = String.valueOf(sumMoney);
 		JsonController.statusJson(statusDto);
 	}
 	

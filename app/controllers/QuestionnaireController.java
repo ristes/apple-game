@@ -48,10 +48,10 @@ public class QuestionnaireController extends GameController{
 			renderJSON("");
 		}
 		QuizResultsDto qDto = ServiceInjector.quizService.isQuizAnsweredThisYear(farmer);
-		if (qDto!=null) {
-			StatusDto statusDto = new StatusDto(false, null, null, farmer, qDto, null);
-			JsonController.statusJson(statusDto);
-		}
+//		if (qDto!=null) {
+//			StatusDto statusDto = new StatusDto(false, null, null, farmer, qDto, null);
+//			JsonController.statusJson(statusDto);
+//		}
 		List<Questionnaire> questions = ServiceInjector.quizService.questionsByFarmer(farmer);
 		List<QuestionnaireDto> result = new ArrayList<QuestionnaireDto>();
 		for (Questionnaire q: questions) {

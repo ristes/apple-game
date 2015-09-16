@@ -64,8 +64,17 @@
 		"description":"Harvesting"
 		}
 	},
-	"history" : "History",
+	"history" : "history",
 	"ranking": {
 		"chooseYear":"Rankings for year:"
-		}
+	},
+	"disease": {
+		"get_help":"Help!"
+	},
+	"copper_fungicide": "Fungicide",
+	"white-oil":"White Oil",
+	"insecticide":"Insecticide",
+	"quiz": {
+		"result":"Quiz Results"
+	}
 }

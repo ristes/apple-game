@@ -27,6 +27,11 @@ public class SellingServiceImpl implements SellingService {
 		Yield yield = Yield
 				.find("year=?1 And farmer=?2 AND plantationSeedling.seedling.type =?3",
 						recolteYear, farmer, plantType).first();
+		if (yield==null) {
+			yield = Yield
+					.find("year=?1 And farmer=?2 AND plantationSeedling.seedling.type =?3",
+							recolteYear-1, farmer, plantType).first();
+		}
 		if (yield != null) {
 			yield.storedQuantity = 0;
 			for (YieldPortion yp : yield.yieldPortions) {
@@ -54,7 +59,7 @@ public class SellingServiceImpl implements SellingService {
 		sold.price = sum_money;
 		sold.date = farmer.gameDate.date;
 		sold.save();
-		return sum_money;
+		return ServiceInjector.moneyConversionService.toEuros(sum_money);
 	}
 
 }

@@ -10,11 +10,24 @@
 	<div ng-if="$root.overlayDark" class="overlay-dark game-overlay"></div>
     <div id="div_timeline_travel">
         
+        <div class="rankings" ng-controller="SellButtonController">
+        <!-- ng-audio-hover="/public/sounds/events/button-hover.mp3" -->
+            <div   style="padding-left: 10px;" ng-click="sell()">
+                <img class="img img-responsive" style="width: 80px; height: 60px" ng-src="/public/images/home/fridge-bordered.png" />
+                <div class="item-store ramka" style="width:80px">
+                    <span class="title-text">{{"sell" | translate}}</span>
+                </div>
+            </div>
+			
+            <ranking-table rankings="rankings" years="years" visible="visible"></ranking-table>
+        </div>
+        
+        
         <div class="rankings" ng-controller="RankingsController">
         <!-- ng-audio-hover="/public/sounds/events/button-hover.mp3" -->
             <div   style="padding-left: 10px;" ng-click="showRankings()">
-                <img class="img img-responsive" style="width: 100px; height: 75px" ng-src="/public/images/home/rankings-bordered.png" />
-                <div class="item-store ramka" style="width:100px">
+                <img class="img img-responsive" style="width: 80px; height: 60px" ng-src="/public/images/home/rankings-bordered.png" />
+                <div class="item-store ramka" style="width:80px">
                     <span class="title-text">{{"rankings" | translate}}</span>
                 </div>
             </div>
@@ -24,8 +37,8 @@
 
 		 <div class="history" ng-controller="HistoryController">
             <div  style="padding-left: 10px;" ng-click="showHistory()">
-                <img class="img img-responsive" style="width: 100px; height: 70px" src="/public/images/home/history.png" />
-                <div class="item-store ramka" style="width:100px">
+                <img class="img img-responsive" style="width: 90px; height: 60px" src="/public/images/home/history.png" />
+                <div class="item-store ramka" style="width:90px">
                     <span class="title-text">{{"history" | translate}}</span>
                 </div>
             </div>

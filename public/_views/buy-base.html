@@ -8,7 +8,7 @@
 			popover="{{shop.description}}"></img>
 		<div class="shop-label ramka" popover-trigger="mouseenter"
 			popover-placement="bottom" popover="{{shop.description}}">
-			<span class="shop-label-text">{{shop.name | translate}}</span>
+			<span class="shop-label-text">Base type</span>
 		</div>
 	</div>
 	<div class="shop_arrow" ng-show="showNext" ng-click="hide()"></div>
@@ -17,7 +17,7 @@
 			popover-trigger="mouseenter" popover-placement="bottom"
 			ng-mouseover="onHover(base)" ng-click="buyBase(base)">
 
-			<div class="shop-item-name ramka">{{item.name}}</div>
+			<div class="shop-item-name ramka">{{base.name}}</div>
 			<div class="shop-item-label ramka" ng-if="item.active"
 				ng-click="itemClick(item)">
 				<span class="title-text" translate="{{base.name}}"></span>

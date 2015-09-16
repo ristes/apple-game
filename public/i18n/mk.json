@@ -81,6 +81,9 @@
 	"history" : "Претходни акции",
 	"ranking": {
 		"chooseYear":"Rankings for year:"
-		}
+		},
+	"disease": {
+		"get_help":"Помош!"
+	}
 
 }

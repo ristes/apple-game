@@ -13,5 +13,7 @@ public class RecommendationController extends JsonController{
 		List<FertilizationItem> result = ServiceInjector.recommenderService.fertilize(farmer);
 		toJson(result);
 	}
+	
+	
 
 }

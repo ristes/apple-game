@@ -116,10 +116,16 @@ Game
 									}
 								}
 							};
+							
+							var successfulApplesSold = function(quantity,money) {
+								ExpertAdvice
+								.setInfinteImportantAdvice("Congratulations! You sold:"+quantity+" kg apples and earned: "+parseInt(money)+" coins");
+								$scope.inintStoring();
+							}
 
 							$scope.sell = function(type, cfg) {
 								Harvesting.sell(type.id, cfg.quantity,
-										$scope.inintStoring);
+										successfulApplesSold);
 							};
 
 							$scope.removeQuantity = function(shelf, fridge) {
@@ -129,6 +135,7 @@ Game
 										shelf.sliderQuantity,
 										$scope.inintStoring);
 								shelf.changeQuantity = false;
+								$scope.sell(shelf.plantType, {quantity:shelf.sliderQuantity});
 							};
 
 							$scope.fridgesCapacity = [ {
@@ -181,3 +188,9 @@ Game
 							};
 
 						} ]);
+
+Game.controller("SellButtonController", ["$scope", function($scope) {
+	$scope.sell = function() {
+		$scope.$root.$emit('operation-sell');
+	}
+}])

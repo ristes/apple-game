@@ -47,7 +47,9 @@ Game.factory('Harvesting', ['$http', 'State', function($http, State) {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             });
-            res.then(callback);
+            res.success(function(data) {
+            	callback(quantity,data.additionalInfo);
+            });
         }
     };
 }]);

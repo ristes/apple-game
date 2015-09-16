@@ -29,6 +29,11 @@ Game
 							$scope.setSelectedPlantType = function(type) {
 								$scope.selectedPlantType = type;
 							}
+							
+							$http.get("PlantationController/availableSeedlings").success(function(data) {
+								$scope.maximumSeedlings = data.t;
+							});
+							 
 
 							$scope.total = function() {
 								var total = 0;

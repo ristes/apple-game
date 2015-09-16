@@ -22,6 +22,8 @@ import service.impl.StoreServiceImpl;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import dto.StatusDto;
+
 public class PlantationController extends GameController {
 
 	public static void seedlings() {
@@ -49,6 +51,9 @@ public class PlantationController extends GameController {
 		}
 		List<Base> bases = Base.find("from models.Base where maxTreePerHa>?1",
 				num).fetch();
+		for (Base base:bases) {
+			base.description = String.format("You can plant maximum %d plants.",Integer.parseInt(String.valueOf((int)(base.maxTreePerHa*farmer.field.area))));
+		}
 		JsonController.toJson(bases);
 	}
 
@@ -60,7 +65,9 @@ public class PlantationController extends GameController {
 		for (PlantationSeedling ps : res) {
 			num += ps.quantity;
 		}
-		JsonController.toJson(num);
+		StatusDto<Integer> result = new StatusDto<Integer>(true);
+		result.t = num;
+		JsonController.toJson(result);
 	}
 
 	public static void savePlanting(String array, Integer seedlings)

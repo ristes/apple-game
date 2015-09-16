@@ -107,9 +107,22 @@ public class FridgeServiceImpl implements FridgeService {
 						type,
 						ServiceInjector.dateService
 								.recolteYear(fridge.farmer.gameDate.date),
+						
 						fridge).first();
 		if (yieldPortion == null) {
-			throw new NotEnoughApplesException();
+			
+			yieldPortion = YieldPortion
+					.find("fridge.farmer=?1 And yield.plantationSeedling.seedling.type=?2 And yield.year=?3 AND fridge = ?4",
+							farmer,
+							type,
+							ServiceInjector.dateService
+									.recolteYear(fridge.farmer.gameDate.date)-1,
+							fridge).first();
+			
+			if (yieldPortion==null) {
+				throw new NotEnoughApplesException();
+			}
+			
 		}
 		if (yieldPortion.quantity < quantity) {
 			throw new NotEnoughApplesException();
@@ -143,12 +156,13 @@ public class FridgeServiceImpl implements FridgeService {
 		if (fridge == null) {
 			return null;
 		}
-		List<YieldPortion> portions = YieldPortion.find(
-				"fridge.farmer=?1 And fridge.type=?2 And yield.year=?3 and quantity>0",
-				farmer,
-				fridgeType,
-				ServiceInjector.dateService
-						.fridgerecolteyear(farmer.gameDate.date)).fetch();
+		List<YieldPortion> portions = YieldPortion
+				.find("fridge.farmer=?1 And fridge.type=?2 And yield.year=?3 and quantity>0",
+						farmer,
+						fridgeType,
+						ServiceInjector.dateService
+								.fridgerecolteyear(farmer.gameDate.date))
+				.fetch();
 		if (0 == portions.size()) {
 			usage.used = 0;
 		}
@@ -220,19 +234,20 @@ public class FridgeServiceImpl implements FridgeService {
 			List<Yield> yields) {
 
 		for (Yield yield : yields) {
-			List<YieldPortion> portions = YieldPortion.find("fridge=?1 AND yield=?2 AND quantity>0",
-					fridge, yield).fetch();
+			List<YieldPortion> portions = YieldPortion.find(
+					"fridge=?1 AND yield=?2 AND quantity>0", fridge, yield)
+					.fetch();
 			for (YieldPortion portion : portions) {
 				if (ServiceInjector.yieldPortionService.checkDeadline(farmer,
 						fridge.type, portion)) {
 					int quantity = portion.quantity;
 					removeAllPlantTypeFromFridge(farmer, fridge,
 							portion.yield.plantationSeedling.seedling.type);
-					
-					String message = String.format(play.i18n.Messages.get("lost_quantity_in_fridge", fridge.name, quantity));
-					ServiceInjector.infoTableService
-							.createT1(farmer, message,
-									portion.yield.plantType.imageurl);
+
+					String message = String.format(play.i18n.Messages.get(
+							"lost_quantity_in_fridge", fridge.name, quantity));
+					ServiceInjector.infoTableService.createT1(farmer, message,
+							portion.yield.plantType.imageurl);
 				}
 			}
 		}
