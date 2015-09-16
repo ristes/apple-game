@@ -35,7 +35,7 @@ Game.controller('StoreController', ['$scope', '$translate', '$http', 'Store',
           $day.load(result);
           BoughtItems.add($scope.store, item);
           $scope.$root.$emit('shop-hide');
-          Toaster.logSuccess('Item bought');
+          Toaster.success('Item bought');
         } else {
           $scope.$root.$emit('insuficient-funds');
         }
