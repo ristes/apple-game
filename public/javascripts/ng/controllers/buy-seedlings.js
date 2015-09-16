@@ -29,11 +29,9 @@ Game
 							$scope.setSelectedPlantType = function(type) {
 								$scope.selectedPlantType = type;
 							}
-							
-							$http.get("PlantationController/availableSeedlings").success(function(data) {
+							Planting.maxSeedlingsAllowed(function(data) {
 								$scope.maximumSeedlings = data.t;
-							});
-							 
+							})
 
 							$scope.total = function() {
 								var total = 0;
@@ -64,10 +62,12 @@ Game
 							$scope.onChange = function() {
 								$scope.sumPrice = 0;
 								$scope.count = 0;
+								$scope.totalSeedlings = 0;
 								angular.forEach($scope.appleTypes, function(item) {
 		                        	if (item.quantity!==undefined && item.quantity !=0) {
 		                        		$scope.count++;
 		                        		$scope.sumPrice +=item.quantity * $scope.selectedPlantType.price;
+		                        		$scope.totalSeedlings += item.quantity;
 		                        	}
 		                        });
 							}

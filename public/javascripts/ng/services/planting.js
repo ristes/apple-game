@@ -56,6 +56,9 @@ Game.factory('Planting', [ '$http', 'State', function($http, State) {
 		availableSeedlings : function(callback) {
 			doGet("/PlantationController/availableSeedlings", callback);
 		},
+		maxSeedlingsAllowed : function(callback) {
+			doGet("/PlantationController/maxSeedlingsAllowed", callback);
+		},
 		buyBase : function(base, callback) {
 			var url = "/PlantationController/buyBase";
 			var params = {

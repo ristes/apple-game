@@ -57,6 +57,13 @@ public class PlantationController extends GameController {
 		JsonController.toJson(bases);
 	}
 
+	
+	public static void maxSeedlingsAllowed() {
+		Farmer farmer = checkFarmer();
+		StatusDto<Integer> result = new StatusDto<Integer>(true);
+		result.t = (int)(farmer.field.area * farmer.field.plantation.base.maxTreePerHa);
+		renderJSON(result);
+	}
 	public static void availableSeedlings() {
 		Farmer farmer = checkFarmer();
 		List<PlantationSeedling> res = PlantationSeedling.find(

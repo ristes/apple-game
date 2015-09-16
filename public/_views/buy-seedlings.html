@@ -84,7 +84,7 @@
 				</tr>
 			</table>
 			<br />
-			<button ng-if="sumPrice!==0" class="btn btn-default btn" ng-click="buySeedlings()">{{
+			<button ng-if="sumPrice!==0" class="btn btn-default btn" ng-disabled="totalSeedlings>maximumSeedlings" ng-click="buySeedlings()">{{
 				'buy_seedlings' | translate }}</button>
 		</div>
 
