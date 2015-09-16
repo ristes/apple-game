@@ -74,7 +74,7 @@ public class PlantationController extends GameController {
 		}
 		StatusDto<Integer> result = new StatusDto<Integer>(true);
 		result.t = num;
-		JsonController.toJson(result);
+		JsonController.toJson(num);
 	}
 
 	public static void savePlanting(String array, Integer seedlings)

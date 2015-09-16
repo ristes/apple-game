@@ -25,3 +25,4 @@ conf/db.conf
 app/views/Crafty/iso.html
 /cookbooks/
 provision/data/*
+/conf/db.conf

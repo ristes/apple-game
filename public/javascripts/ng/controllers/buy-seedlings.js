@@ -67,7 +67,7 @@ Game
 		                        	if (item.quantity!==undefined && item.quantity !=0) {
 		                        		$scope.count++;
 		                        		$scope.sumPrice +=item.quantity * $scope.selectedPlantType.price;
-		                        		$scope.totalSeedlings += item.quantity;
+		                        		$scope.totalSeedlings += parseInt(item.quantity);
 		                        	}
 		                        });
 							}

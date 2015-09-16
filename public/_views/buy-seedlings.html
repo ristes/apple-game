@@ -1,7 +1,7 @@
 <div class="board-bg">
 	<div class="row seedling-planting">
 		<div class="page-header text-center">
-			<h3 >You can select 3 apple types maximum</h3>
+			<h3>You can select 3 apple types maximum</h3>
 			<h4>You can plant maximum: {{maximumSeedlings}} seedlings.</h4>
 		</div>
 		<div class="select-seedling col-md-5">
@@ -18,7 +18,8 @@
 						</div>
 					</td>
 				</tr>
-				<tr ng-if="checkToShow(at) && selectedPlantType!==undefined" ng-repeat="at in appleTypes" ng-if="">
+				<tr ng-if="checkToShow(at) && selectedPlantType!==undefined"
+					ng-repeat="at in appleTypes" ng-if="">
 					<td>
 						<div popover-trigger="mouseenter" popover-placement="bottom"
 							popover="{{at.description}}">
@@ -28,17 +29,13 @@
 							</div>
 						</div>
 					</td>
-					<td colspan="2">
-						<spin value="at.quantity" min="0" max="1000" step="50" callback="onChange"/>
-						
-<!-- 						<div slider class="slider" cfg="nCfg" -->
-<!-- 												value="at.quantity" type="at"></div> -->
-
-							 <!-- 						<div slider class="slider" cfg="nCfg(at)" -->
-						<!-- 							value="at.quantity"></div> -->
-					</td>
+					<td colspan="2"><spin value="at.quantity" min="0" max="1000"
+							step="50" callback="onChange" /> <!-- 						<div slider class="slider" cfg="nCfg" -->
+						<!-- 												value="at.quantity" type="at"></div> --> <!-- 						<div slider class="slider" cfg="nCfg(at)" -->
+						<!-- 							value="at.quantity"></div> --></td>
 					<td align="center">
-						<div class="shop-item-price" ng-if="at.quantity!==undefined">{{at.quantity * selectedPlantType.price | number}}</div>
+						<div class="shop-item-price" ng-if="at.quantity!==undefined">{{at.quantity
+							* selectedPlantType.price | number}}</div>
 					</td>
 					<!--  <td
 						ng-repeat="s in seedlings | filter: { type: at }: true | orderBy: seedlingType.id"
@@ -53,39 +50,49 @@
 		<div class="select-seedling-quantity text-center"
 			style="margin-left: 100px">
 			<h3>{{ 'total' | translate }}: {{sumPrice}}</h3>
-			<table ng-if="finishedSelection">
-				<tr ng-repeat="s in selected">
-					<td>
-						<div popover-trigger="mouseenter" popover-placement="bottom"
-							popover="{{s.type.description}}">
-							<img ng-src="{{s.type.imageurl}}" class="seedling-type-header"></img>
-							<div class="shop-item-label ramka">
-								<span class="title-text" translate="{{s.type.name}}"></span>
+			<div class="col-md-5">
+				<table ng-if="finishedSelection">
+					<tr ng-repeat="s in selected">
+						<td>
+							<div popover-trigger="mouseenter" popover-placement="bottom"
+								popover="{{s.type.description}}">
+								<img ng-src="{{s.type.imageurl}}" class="seedling-type-header"></img>
+								<div class="shop-item-label ramka">
+									<span class="title-text" translate="{{s.type.name}}"></span>
+								</div>
 							</div>
-						</div>
-					</td>
-					<td style="width: 100px">
-						<div popover-trigger="mouseenter" popover-placement="bottom"
-							popover="{{s.seedlingType.description}}">
-							<img ng-src="{{s.seedlingType.imageurl}}"
-								class="seedling-type-header"></img>
-							<div class="shop-item-label ramka">
-								<span class="title-text"
-									translate="{{s.seedlingType.description}}"></span>
+						</td>
+						<td style="width: 100px">
+							<div popover-trigger="mouseenter" popover-placement="bottom"
+								popover="{{s.seedlingType.description}}">
+								<img ng-src="{{s.seedlingType.imageurl}}"
+									class="seedling-type-header"></img>
+								<div class="shop-item-label ramka">
+									<span class="title-text"
+										translate="{{s.seedlingType.description}}"></span>
+								</div>
 							</div>
-						</div>
-					</td>
-					<td style="width: 80px">{{ 'quantity' | translate }}: <input
-						type="number" ng-model="s.quantity" style="width: 50px" /><br />
-						{{ 'price' | translate }}: {{ s.quantity* s.price }}
-					</td>
-					<td ng-click="removeSelected(s)"><span
-						class="btn btn-xs remove">{{ 'remove' | translate }}</span></td>
-				</tr>
-			</table>
-			<br />
-			<button ng-if="sumPrice!==0" class="btn btn-default btn" ng-disabled="totalSeedlings>maximumSeedlings" ng-click="buySeedlings()">{{
-				'buy_seedlings' | translate }}</button>
+						</td>
+						<td style="width: 80px">{{ 'quantity' | translate }}: <input
+							type="number" ng-model="s.quantity" style="width: 50px" /><br />
+							{{ 'price' | translate }}: {{ s.quantity* s.price }}
+						</td>
+						<td ng-click="removeSelected(s)"><span
+							class="btn btn-xs remove">{{ 'remove' | translate }}</span></td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-md-5">
+				<button ng-if="sumPrice!==0 && totalSeedlings<=maximumSeedlings"
+					class="btn btn-default btn"
+					ng-disabled="totalSeedlings>maximumSeedlings"
+					ng-click="buySeedlings()">{{ 'buy_seedlings' | translate
+					}}</button>
+				<div style="width: 400px; color: red">
+					<span ng-if="totalSeedlings>maximumSeedlings">Depending on
+						your plantation, you can buy only {{maximumSeedlings}} seedlings.</span>
+				</div>
+			</div>
 		</div>
 
 	</div>
