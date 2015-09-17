@@ -552,3 +552,21 @@ div.select-seedling-quantity td {
 	background: linear-gradient(135deg, #b3dced 0%, #29b8e5 50%, #bce0ee 100%);
 	/* W3C */
 }
+.notification-panel {
+	position: fixed;
+	top: 60%;
+	left: 20px;
+	width: 300px;
+	z-index: 99999;
+	font-size: small;
+	background-image: url('/public/images/home/tip-board-bg.png');
+	background-size: 100% 100%;
+	padding: 15px;
+	color: white;
+}
+.notification-panel .rounded {
+	width: 50px;
+    height: 50px;
+    background-color: red;
+    border-radius: 30px;
+}

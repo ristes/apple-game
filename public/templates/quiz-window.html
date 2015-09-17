@@ -30,12 +30,13 @@
 								class="">{{misses}}</span>
 						</div>
 					</div>
-					<div class="text-center">
-						<img ng-if="questions[ordnum].imageUrl!==undefined" ng-src="{{questions[ordnum].imageUrl}}"
-							style="max-width: 200px" />
-						<h3 class="ramka" style="width: 450px; padding: 10px;">{{questions[ordnum].name
-							| translate}}</h3>
 
+					<div class="text-center">
+						<img ng-if="questions[ordnum].imageUrl!==undefined"
+							ng-src="{{questions[ordnum].imageUrl}}" style="max-width: 200px" />
+						<div class="ramka" padding: 10px;">
+							<h3>{{questions[ordnum].name | translate}}</h3>
+						</div>
 						<ul class="list-group">
 							<li style="" ng-repeat="ans in questions[ordnum].answers"
 								ng-show="!is_answered" class="text-center">

@@ -15,10 +15,12 @@
 		<div class="pull-right" style="margin-top:10%;"><button class="btn btn-xs" style="font-size:large" ng-click="showQuiz()">Play Quiz</button></div>
 
 		<div class="text-center shop_menu_grid fa-inverse" style="left:20%">
-
+			
 			<div id="disease-info" ng-show="!hasProblem">
 				{{ 'The plantation is in good condition.' | translate }}
 			</div>
+			<div ng-show="hasProblem" class="text-center">{{"diseases.lastDays" | translate}}</div>
+			
 			<div id="irrigation-slider-container" ng-show="hasProblem">
 				<div class="shop_menu_grid" style="top:20%">
 					<div class="shop_item_in_grid" ng-repeat="item in deceases">

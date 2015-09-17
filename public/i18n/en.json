@@ -76,5 +76,10 @@
 	"insecticide":"Insecticide",
 	"quiz": {
 		"result":"Quiz Results"
-	}
+	},
+	"diseases" : {
+		"lastDays": "Diseases occurred last 15 days!"
+	}	
+		
+		
 }
