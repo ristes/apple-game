@@ -28,7 +28,7 @@ input {
 	clear: both;
 }
 
-.btn:hover,.btn-default:hover {
+.btn:hover, .btn-default:hover {
 	color: #ddd;
 	background: #7e571a;
 }
@@ -353,9 +353,9 @@ img.ograda-gore {
 .board-bg {
 	background-image: url('/public/images/home/tip-board-bg.png');
 	position: fixed;
-	top: 112px;
-	left: 363px;
-	width: 731px;
+	top: 80px;
+	left: 300px;
+	width: 660px;
 	height: 600px;
 	background-size: 100% 100%;
 	padding: 10px;
@@ -417,7 +417,7 @@ img.ograda-gore {
 }
 
 div.select-seedling {
-	
+	padding-left: 100px;
 }
 
 div.select-seedling-quantity {
@@ -536,4 +536,25 @@ div.select-seedling-quantity td {
 	left: 0px;
 	right: 0px;
 	z-index: 1010 !important;
+}
+.help-button:HOVER{
+	cursor:pointer;
+}
+
+.background-default {
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b3dced+0,29b8e5+50,bce0ee+100;Blue+Pipe */
+	background: #b3dced; /* Old browsers */
+	background: -moz-linear-gradient(-45deg, #b3dced 0%, #29b8e5 50%, #bce0ee 100%);
+	/* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #b3dced),
+		color-stop(50%, #29b8e5), color-stop(100%, #bce0ee));
+	/* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(-45deg, #b3dced 0%, #29b8e5 50%, #bce0ee 100%);
+	/* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(-45deg, #b3dced 0%, #29b8e5 50%, #bce0ee 100%);
+	/* Opera 11.10+ */
+	background: -ms-linear-gradient(-45deg, #b3dced 0%, #29b8e5 50%, #bce0ee 100%);
+	/* IE10+ */
+	background: linear-gradient(135deg, #b3dced 0%, #29b8e5 50%, #bce0ee 100%);
+	/* W3C */
 }

@@ -72,10 +72,24 @@ public class FarmerServiceImpl implements FarmerService {
 				.setParameter("username", username).first();
 		if (farmer == null) {
 			farmer = buildInstance(username, "default_password");
-		} else {
-			farmer = buildInstance(username, "default_password");
-		}
+		} 
+//		else {
+//			farmer = buildInstance(username, "default_password");
+//		}
 
+		farmer.fb_access_token = access_token;
+		farmer.name = name;
+		farmer.surname = surname;
+		farmer.email = email;
+		farmer.picture = picture;
+		farmer.is_active = true;
+		farmer.save();
+
+		return farmer;
+	}
+	
+	public Farmer restartGame(String username, String access_token, String name, String surname, String email, String picture) {
+		Farmer farmer = buildInstance(username, "default_password");
 		farmer.fb_access_token = access_token;
 		farmer.name = name;
 		farmer.surname = surname;

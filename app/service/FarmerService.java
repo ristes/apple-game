@@ -24,4 +24,5 @@ public interface FarmerService {
 	public Map<String,ItemBoughtDto> farmersItems(Farmer farmer);
 	public Farmer restartGame(Farmer farmer);
 	public Farmer collectBadge(Farmer farmer, Badges badge);
+	public Farmer restartGame(String username, String access_token, String name, String surname, String email, String picture);
 }
