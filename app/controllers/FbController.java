@@ -126,7 +126,7 @@ public class FbController extends Controller {
 		String picture = profilepic.getAsJsonObject().get("data")
 				.getAsJsonObject().get("url").getAsString();
 		FarmerService farmerService = new FarmerServiceImpl();
-		farmer = farmerService.buildFbInstance(user.getId(),
+		farmer = farmerService.restartGame(user.getId(),
 				oauthToken, user.getFirstName(), user.getLastName(),
 				user.getEmail(), picture);
 

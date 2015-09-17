@@ -531,6 +531,9 @@ div.select-seedling-quantity td {
 	right: 0px;
 	z-index: 1010 !important;
 }
+.help-button:HOVER{
+	cursor:pointer;
+}
 
 .background-default {
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b3dced+0,29b8e5+50,bce0ee+100;Blue+Pipe */
