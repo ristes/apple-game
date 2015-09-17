@@ -1,51 +1,63 @@
 <div class="board-bg">
-	<div class="row seedling-planting">
-		<div class="page-header text-center">
+	<div class="seedling-planting">
+		<div class="text-center">
 			<h3>You can select 3 apple types maximum</h3>
 			<h4>You can plant maximum: {{maximumSeedlings}} seedlings.</h4>
 		</div>
-		<div class="select-seedling col-md-5">
-			<table>
-				<tr>
-					<td></td>
-					<td ng-repeat="st in seedlingTypes | orderBy: id">
-						<div popover-trigger="mouseenter" popover-placement="bottom"
-							popover="{{st.description}}" ng-click="setSelectedPlantType(st)">
-							<img ng-src="{{st.imageurl}}" class="seedling-type-header"></img>
-							<div class="shop-item-label ramka">
-								<span class="title-text" translate="{{st.name}}"></span>
+		<div class="select-seedling text-center">
+			<div>
+				<table>
+					<tr>
+						<td></td>
+						<td ng-repeat="st in seedlingTypes | orderBy: id">
+							<div popover-trigger="mouseenter" popover-placement="bottom"
+								popover="{{st.description}}" ng-click="setSelectedPlantType(st)">
+								<img ng-src="{{st.imageurl}}" class="seedling-type-header"></img>
+								<div class="shop-item-label ramka">
+									<span class="title-text" translate="{{st.name}}"></span>
+								</div>
 							</div>
-						</div>
-					</td>
-				</tr>
-				<tr ng-if="checkToShow(at) && selectedPlantType!==undefined"
-					ng-repeat="at in appleTypes" ng-if="">
-					<td>
-						<div popover-trigger="mouseenter" popover-placement="bottom"
-							popover="{{at.description}}">
-							<img ng-src="{{at.imageurl}}" class="seedling-type-header"></img>
-							<div class="shop-item-label ramka">
-								<span class="title-text" translate="{{at.name}}"></span>
+						</td>
+					</tr>
+					<tr ng-if="checkToShow(at) && selectedPlantType!==undefined"
+						ng-repeat="at in appleTypes" ng-if="">
+						<td>
+							<div popover-trigger="mouseenter" popover-placement="bottom"
+								popover="{{at.description}}">
+								<img ng-src="{{at.imageurl}}" class="seedling-type-header"></img>
+								<div class="shop-item-label ramka">
+									<span class="title-text" translate="{{at.name}}"></span>
+								</div>
 							</div>
-						</div>
-					</td>
-					<td colspan="2"><spin value="at.quantity" min="0" max="1000"
-							step="50" callback="onChange" /> <!-- 						<div slider class="slider" cfg="nCfg" -->
-						<!-- 												value="at.quantity" type="at"></div> --> <!-- 						<div slider class="slider" cfg="nCfg(at)" -->
-						<!-- 							value="at.quantity"></div> --></td>
-					<td align="center">
-						<div class="shop-item-price" ng-if="at.quantity!==undefined">{{at.quantity
-							* selectedPlantType.price | number}}</div>
-					</td>
-					<!--  <td
+						</td>
+						<td colspan="2"><spin value="at.quantity" min="0" max="1000"
+								step="50" callback="onChange" /> <!-- 						<div slider class="slider" cfg="nCfg" -->
+							<!-- 												value="at.quantity" type="at"></div> --> <!-- 						<div slider class="slider" cfg="nCfg(at)" -->
+							<!-- 							value="at.quantity"></div> --></td>
+						<td align="center">
+							<div class="shop-item-price" ng-if="at.quantity!==undefined">{{at.quantity
+								* selectedPlantType.price | number}}</div>
+						</td>
+						<!--  <td
 						ng-repeat="s in seedlings | filter: { type: at }: true | orderBy: seedlingType.id"
 						class="td-price">
 						<div slider class="slider" cfg="nCfg"
 							value="fertilizer.N[0].value"></div> <span
 						class="seedling-price badge" ng-click="select(s)">{{s.price}}</span>
 					</td>-->
-				</tr>
-			</table>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<button ng-if="sumPrice!==0 && totalSeedlings<=maximumSeedlings"
+				class="btn btn-default btn"
+				ng-disabled="totalSeedlings>maximumSeedlings"
+				ng-click="buySeedlings()">{{ 'buy_seedlings' | translate }}</button>
+			<div style="width: 400px; color: red">
+				<span ng-if="totalSeedlings>maximumSeedlings">Depending on
+					your plantation, you can buy only {{maximumSeedlings}} seedlings.</span>
+			</div>
 		</div>
 		<div class="select-seedling-quantity text-center"
 			style="margin-left: 100px">
@@ -82,17 +94,7 @@
 					</tr>
 				</table>
 			</div>
-			<div class="col-md-5">
-				<button ng-if="sumPrice!==0 && totalSeedlings<=maximumSeedlings"
-					class="btn btn-default btn"
-					ng-disabled="totalSeedlings>maximumSeedlings"
-					ng-click="buySeedlings()">{{ 'buy_seedlings' | translate
-					}}</button>
-				<div style="width: 400px; color: red">
-					<span ng-if="totalSeedlings>maximumSeedlings">Depending on
-						your plantation, you can buy only {{maximumSeedlings}} seedlings.</span>
-				</div>
-			</div>
+
 		</div>
 
 	</div>

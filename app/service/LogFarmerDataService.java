@@ -1,5 +1,7 @@
 package service;
 
+import java.util.List;
+
 import models.Disease;
 import models.ExecutedOperation;
 import models.Farmer;
@@ -38,6 +40,8 @@ public interface LogFarmerDataService {
 	public void logFinalEcoPoints(Farmer farmer, Double value);
 	
 	public LogFarmerData hasExecutedOperation(Farmer farmer, String operation, Integer year);
+	
+	public List<LogFarmerData> getFarmerExecutedOperationsForYear(Farmer farmer, Integer year);
 	
 	
 

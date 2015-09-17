@@ -353,12 +353,12 @@ img.ograda-gore {
 .board-bg{
 	background-image: url('/public/images/home/tip-board-bg.png');
 	position:fixed;
-	top: 100px;
-	left: 256px;
-	width: 900px;
+	top: 80px;
+	left: 300px;
+	width: 660px;
 	height: 600px;
 	background-size: 100% 100%;
-	padding: 50px;
+	padding: 10px;
 }
 
 .select-seedling-quantity{
@@ -411,12 +411,10 @@ img.ograda-gore {
 }
 
 div.select-seedling {
-	float: left;
+
 }
 
 div.select-seedling-quantity {
-	margin-left: 20px;
-	float: left;
 }
 
 .rotate90 {

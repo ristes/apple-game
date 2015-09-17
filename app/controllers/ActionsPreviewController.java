@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.List;
 
+import service.ServiceInjector;
 import models.Farmer;
 import models.LogFarmerData;
 
@@ -9,7 +10,7 @@ public class ActionsPreviewController extends JsonController{
 	
 	public static void log(Integer year, Integer typeLog) {
 		Farmer farmer = AuthController.getFarmer();
-		List<LogFarmerData> logs = LogFarmerData.find("farmer=?1 and recolteYear=?2 and typeLog=?3 order by id desc",farmer,year, typeLog).fetch();
+		List<LogFarmerData> logs = ServiceInjector.logFarmerDataService.getFarmerExecutedOperationsForYear(farmer, year);
 		toJson(logs, "farmer");
 	}
 

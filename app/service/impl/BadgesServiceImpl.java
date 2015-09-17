@@ -12,16 +12,19 @@ import service.ServiceInjector;
 import service.YieldService;
 import utils.JsonExcluder;
 
-public class BadgesServiceImpl implements BadgesService{
+public class BadgesServiceImpl implements BadgesService {
 
 	@Override
 	public Badges yield(Farmer farmer, Integer harvested) {
-		
-		Badges badge = Badges.find("byAkka","yield").first();
-		Double trigger = Double.parseDouble(JsonExcluder.byField(badge.metadata, "yield"));
-		double total = ServiceInjector.yieldService.getMaxYieldByRecolte(farmer, ServiceInjector.dateService.recolteYear(farmer.gameDate.date));
-		double per = (harvested / total)*100;
-		if (per>trigger) {
+
+		Badges badge = Badges.find("byAkka", "yield").first();
+		Double trigger = Double.parseDouble(JsonExcluder.byField(
+				badge.metadata, "yield"));
+		double total = ServiceInjector.yieldService.getMaxYieldByRecolte(
+				farmer,
+				ServiceInjector.dateService.recolteYear(farmer.gameDate.date));
+		double per = (harvested / total) * 100;
+		if (per > trigger) {
 			return badge;
 		}
 		return null;
@@ -29,38 +32,42 @@ public class BadgesServiceImpl implements BadgesService{
 
 	@Override
 	public Badges trader(Farmer farmer) {
-		List<LogFarmerData> logs = LogFarmerData.find("byTypelog",LogFarmerDataService.APPLES_SOLD).fetch();
-		List<LogFarmerData> logsBurned = LogFarmerData.find("byTypelog", LogFarmerDataService.APPLES_BURNED_IN_FRIDGE).fetch();
-		int total = logs.size()+logsBurned.size();
+		List<LogFarmerData> logs = LogFarmerData.find("byTypelog",
+				LogFarmerDataService.APPLES_SOLD).fetch();
+		List<LogFarmerData> logsBurned = LogFarmerData.find("byTypelog",
+				LogFarmerDataService.APPLES_BURNED_IN_FRIDGE).fetch();
+		int total = logs.size() + logsBurned.size();
 		int success = 0;
-		for (LogFarmerData log:logs) {
-			if (ServiceInjector.dateService.getCalendarFieldOfDate(log.logdate, Calendar.MONTH)==Calendar.JUNE) {
+		for (LogFarmerData log : logs) {
+			if (ServiceInjector.dateService.getCalendarFieldOfDate(log.logdate,
+					Calendar.MONTH) == Calendar.JUNE) {
 				success++;
 			}
- 		}
-		if ((success/(double)total)>BadgesService.BADGE_TRADER_THRESHOLDER) {
-			return Badges.find("byAkka","trader").first();
+		}
+		if ((success / (double) total) > BadgesService.BADGE_TRADER_THRESHOLDER) {
+			return Badges.find("byAkka", "trader").first();
 		}
 		return null;
 	}
-	
 
 	@Override
 	public Badges harvester(Farmer farmer, Double percentCollected) {
-		Badges badge = Badges.find("byAkka","harvester").first();
-		Double trigger = Double.parseDouble(JsonExcluder.byField(badge.metadata, "yield_collector"));
-		if (percentCollected*100>trigger){
+		Badges badge = Badges.find("byAkka", "harvester").first();
+		Double trigger = Double.parseDouble(JsonExcluder.byField(
+				badge.metadata, "yield_collector"));
+		if (percentCollected * 100 > trigger) {
 			return badge;
-		} 
+		}
 		return null;
 	}
-	
 
 	@Override
 	public Badges fertilizer(Farmer farmer) {
-		Badges badge = Badges.find("byAkka","fertilizer").first();
-		Double percent = Double.parseDouble(JsonExcluder.byField(badge.metadata, "fertilizer_hit"));
-		Double percent_hits = ServiceInjector.fertilizeService.badgeEvaluate(farmer);
+		Badges badge = Badges.find("byAkka", "fertilizer").first();
+		Double percent = Double.parseDouble(JsonExcluder.byField(
+				badge.metadata, "fertilizer_hit"));
+		Double percent_hits = ServiceInjector.fertilizeService
+				.badgeEvaluate(farmer);
 		if (percent_hits >= percent) {
 			return badge;
 		}
@@ -69,9 +76,10 @@ public class BadgesServiceImpl implements BadgesService{
 
 	@Override
 	public Badges irrigator(Farmer farmer) {
-		Badges badge = Badges.find("byAkka","irrigator").first();
-		Integer trigger = Integer.parseInt(JsonExcluder.byField(badge.metadata, "irrigation_misses"));
-		if (farmer.irrigation_misses<trigger) {
+		Badges badge = Badges.find("byAkka", "irrigator").first();
+		Integer trigger = Integer.parseInt(JsonExcluder.byField(badge.metadata,
+				"irrigation_misses"));
+		if (farmer.irrigation_misses < trigger) {
 			return badge;
 		}
 		return null;
@@ -79,9 +87,15 @@ public class BadgesServiceImpl implements BadgesService{
 
 	@Override
 	public Badges ecologist(Farmer farmer) {
-		if (farmer.getEco_points()>BADGE_ECO_THRESHOLDER) {
-			Badges badge = Badges.find("byAkka","eco").first();
-			return badge;
+		if (farmer.getEco_points() > BADGE_ECO_THRESHOLDER) {
+			List<LogFarmerData> logs = ServiceInjector.logFarmerDataService
+					.getFarmerExecutedOperationsForYear(farmer,
+							ServiceInjector.dateService
+									.recolteYear(farmer.gameDate.date));
+			if (logs.size() > BADGE_EXECUTED_OPERATIONS) {
+				Badges badge = Badges.find("byAkka", "eco").first();
+				return badge;
+			}
 		}
 		return null;
 	}

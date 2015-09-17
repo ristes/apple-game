@@ -1,6 +1,7 @@
 package service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import com.google.gson.Gson;
 
@@ -155,6 +156,12 @@ public class LogFarmerDataServiceImpl implements LogFarmerDataService{
 			data.save();
 		}
 		
+	}
+
+	@Override
+	public List<LogFarmerData> getFarmerExecutedOperationsForYear(
+			Farmer farmer, Integer year) {
+		return LogFarmerData.find("farmer=?1 and recolteYear=?2 and typeLog=?3 order by id desc",farmer,year, OPERATION_EXECUTED).fetch();
 	}
 
 	
