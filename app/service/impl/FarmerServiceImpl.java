@@ -72,9 +72,10 @@ public class FarmerServiceImpl implements FarmerService {
 				.setParameter("username", username).first();
 		if (farmer == null) {
 			farmer = buildInstance(username, "default_password");
-		} else {
-			farmer = buildInstance(username, "default_password");
-		}
+		} 
+//		else {
+//			farmer = buildInstance(username, "default_password");
+//		}
 
 		farmer.fb_access_token = access_token;
 		farmer.name = name;

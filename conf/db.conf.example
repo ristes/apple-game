@@ -1,4 +1,0 @@
-db.url=jdbc:mysql://localhost:3306/applegame
-db.driver=com.mysql.jdbc.Driver
-db.user=root
-db.pass=root

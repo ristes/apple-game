@@ -1,34 +1,34 @@
 body {
 	font-family: 'Fondamento', cursive;
-	color:#fff;
+	color: #fff;
 }
 
-.popover{
+.popover {
 	color: #666;
 }
 
+ul {
+	list-style: none;
+}
 
-
-ul { list-style: none; }
-
-.btn, .btn-default{
+.btn, .btn-default {
 	background: #7e571a;
 	color: white;
-	-webkit-box-shadow: 3px 3px 0px 0px rgba(0,0,0,0.17);
-	-moz-box-shadow: 3px 3px 0px 0px rgba(0,0,0,0.17);
-	box-shadow: 3px 3px 0px 0px rgba(0,0,0,0.17);
+	-webkit-box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 0.17);
+	-moz-box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 0.17);
+	box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 0.17);
 	border-color: #503306;
 }
 
-input{
+input {
 	color: #666 !important;
 }
 
-.clear{
-	clear:both;
+.clear {
+	clear: both;
 }
 
-.btn:hover, .btn-default:hover{
+.btn:hover, .btn-default:hover {
 	color: #ddd;
 	background: #7e571a;
 }
@@ -225,7 +225,7 @@ img.ograda-gore {
 
 #irrigation-slider-container {
 	margin: 30px 30px 30px 30px;
-	font-size:xx-large;
+	font-size: xx-large;
 }
 
 .ui-slider-horizontal .ui-slider-handle {
@@ -333,7 +333,7 @@ img.ograda-gore {
 }
 
 .li-inner {
-
+	
 }
 
 .modal-content {
@@ -350,9 +350,9 @@ img.ograda-gore {
 	margin-top: 0px;
 }
 
-.board-bg{
+.board-bg {
 	background-image: url('/public/images/home/tip-board-bg.png');
-	position:fixed;
+	position: fixed;
 	top: 80px;
 	left: 300px;
 	width: 660px;
@@ -361,7 +361,7 @@ img.ograda-gore {
 	padding: 10px;
 }
 
-.select-seedling-quantity{
+.select-seedling-quantity {
 	color: white;
 }
 
@@ -369,19 +369,19 @@ img.ograda-gore {
 	z-index: 5000;
 	height: 100%;
 	overflow-y: auto;
-	overflow-x:hidden;
+	overflow-x: hidden;
 }
 
 #div_timeline_travel {
-	position:absolute;
-	top:120px;
-	z-index:100;
+	position: absolute;
+	top: 120px;
+	z-index: 100;
 	height: 200px;
 	width: 200px;
 	opacity: 0.9;
 }
 
-.time-controls{
+.time-controls {
 	width: 125px;
 	height: 30px;
 	margin: 10px;
@@ -403,35 +403,36 @@ img.ograda-gore {
 }
 
 .tip-bottom-left {
-	width:inherit;
-	height:50px;
-	background:blue;
-	position:absolute;
+	width: inherit;
+	height: 50px;
+	background: blue;
+	position: absolute;
 	top: 3;
 }
 
 div.select-seedling {
-
+	padding-left: 100px;
 }
 
 div.select-seedling-quantity {
+	
 }
 
 .rotate90 {
 	-ms-transform: rotate(270deg); /* IE 9 */
-    -webkit-transform: rotate(270deg); /* Chrome, Safari, Opera */
-    transform: rotate(270deg);
+	-webkit-transform: rotate(270deg); /* Chrome, Safari, Opera */
+	transform: rotate(270deg);
 }
 
-div.select-seedling-quantity td{
+div.select-seedling-quantity td {
 	padding: 5px;
 }
 
 .tip-dialog {
 	position: fixed;
-    top: 60%;
-    left: 20px;
-    width:300px;
+	top: 60%;
+	left: 20px;
+	width: 300px;
 	z-index: 99999;
 	font-size: small;
 	background-image: url('/public/images/home/tip-board-bg.png');
@@ -441,80 +442,110 @@ div.select-seedling-quantity td{
 }
 
 .green {
-	background-color:green;
-}
-.red {
-	background-color:red;
-}
-.padding15 {
-	padding-left:15%;
+	background-color: green;
 }
 
-.rankings{
+.red {
+	background-color: red;
+}
+
+.padding15 {
+	padding-left: 15%;
+}
+
+.rankings {
 	cursor: pointer;
 }
+
 .history {
-	cursor:pointer;
+	cursor: pointer;
 }
+
 .img-resume {
-	width:100px;
-	max-height:95px;
+	width: 100px;
+	max-height: 95px;
 }
+
 .introduction-menu-item {
-	width:200px;
-	padding:10px;
+	width: 200px;
+	padding: 10px;
 	text-align: center;
-	color:white;
+	color: white;
 }
+
 .introduction-menu-item.play {
-	width:300px;
+	width: 300px;
 	font-size: xx-large;
-	
 }
+
 .introduction-menu-item:hover {
-	cursor:pointer;
+	cursor: pointer;
 }
+
 .master-big-icon {
-	width:140%;
+	width: 140%;
 }
+
 .master-small-icon {
-	width:100%;
+	width: 100%;
 }
-#style-4::-webkit-scrollbar-thumb
-{
+
+#style-4::-webkit-scrollbar-thumb {
 	background-color: #000000;
 	border: 2px solid #555555;
 }
-.div-season{
+
+.div-season {
 	position: absolute;
-  top: 1%;
-  right: 13%;
-  z-index: 999;
+	top: 1%;
+	right: 13%;
+	z-index: 999;
 }
+
 .nopadding {
-	padding:0px !important;
+	padding: 0px !important;
 }
-.sound-manager-position{
-	position:fixed;
-	top:3px;
-	right:30px;
-	z-index:5000
+
+.sound-manager-position {
+	position: fixed;
+	top: 3px;
+	right: 30px;
+	z-index: 5000
 }
-.sound-icon:HOVER{
-	cursor:pointer;
+
+.sound-icon:HOVER {
+	cursor: pointer;
 }
+
 .thumb-custom {
-	background-color: rgba(255,255,255,0.4);
+	background-color: rgba(255, 255, 255, 0.4);
 }
 
 .overlay-dark {
-  background: #333333;
-  opacity: 0.9;
-  position: fixed;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  z-index: 1010 !important;
+	background: #333333;
+	opacity: 0.9;
+	position: fixed;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	z-index: 1010 !important;
 }
 
+.background-default {
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b3dced+0,29b8e5+50,bce0ee+100;Blue+Pipe */
+	background: #b3dced; /* Old browsers */
+	background: -moz-linear-gradient(-45deg, #b3dced 0%, #29b8e5 50%, #bce0ee 100%);
+	/* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #b3dced),
+		color-stop(50%, #29b8e5), color-stop(100%, #bce0ee));
+	/* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(-45deg, #b3dced 0%, #29b8e5 50%, #bce0ee 100%);
+	/* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(-45deg, #b3dced 0%, #29b8e5 50%, #bce0ee 100%);
+	/* Opera 11.10+ */
+	background: -ms-linear-gradient(-45deg, #b3dced 0%, #29b8e5 50%, #bce0ee 100%);
+	/* IE10+ */
+	background: linear-gradient(135deg, #b3dced 0%, #29b8e5 50%, #bce0ee 100%);
+	/* W3C */
+}
