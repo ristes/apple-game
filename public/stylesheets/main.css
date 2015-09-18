@@ -11,7 +11,7 @@ ul {
 	list-style: none;
 }
 
-.btn, .btn-default {
+.btn,.btn-default {
 	background: #7e571a;
 	color: white;
 	-webkit-box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 0.17);
@@ -359,6 +359,12 @@ img.ograda-gore {
 	height: 600px;
 	background-size: 100% 100%;
 	padding: 10px;
+}
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .select-seedling-quantity {
