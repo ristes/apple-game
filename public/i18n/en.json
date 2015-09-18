@@ -1,4 +1,7 @@
 {
+	"general": {
+		"buy_seedlings":"Buy"
+	},
 	"hours": "Часови",
 	"irrigation": {
 		"grooves": "Furrow irrigation",

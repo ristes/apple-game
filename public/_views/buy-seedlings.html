@@ -48,12 +48,12 @@
 				</table>
 			</div>
 		</div>
-		<div class="col-md-5">
+		<div class="text-center">
 			<button ng-if="sumPrice!==0 && totalSeedlings<=maximumSeedlings"
-				class="btn btn-default btn"
+				class="btn btn-default"
 				ng-disabled="totalSeedlings>maximumSeedlings"
-				ng-click="buySeedlings()">{{ 'buy_seedlings' | translate }}</button>
-			<div style="width: 400px; color: red">
+				ng-click="buySeedlings()">{{ 'general.buy_seedlings' | translate }}</button>
+			<div style="color: white">
 				<span ng-if="totalSeedlings>maximumSeedlings">Depending on
 					your plantation, you can buy only {{maximumSeedlings}} seedlings.</span>
 			</div>
