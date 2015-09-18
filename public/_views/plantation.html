@@ -77,8 +77,8 @@
     <button class="btn btn-primary" ng-click="plantingDone()">{{ 'planting_done' | translate}} </button>
 </div>
 
-<div class="notification-panel">
-	<div class="rounded"></div>
+<div ng-controller="DiseaseNotificationPanel" class="notification-panel">
+	<div ng-animate class="rounded" ng-if="visible"></div>
 </div>
 
 

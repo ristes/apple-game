@@ -560,19 +560,33 @@ div.select-seedling-quantity td {
 }
 .notification-panel {
 	position: fixed;
-	top: 60%;
-	left: 20px;
-	width: 300px;
-	z-index: 99999;
-	font-size: small;
-	background-image: url('/public/images/home/tip-board-bg.png');
-	background-size: 100% 100%;
+    bottom: 0%;
+    right: 5%;
+    width: 300px;
+    z-index: 99999;
+    font-size: small;
 	padding: 15px;
 	color: white;
 }
 .notification-panel .rounded {
-	width: 50px;
-    height: 50px;
+	width: 4rem;
+    height: 4rem;
     background-color: red;
     border-radius: 30px;
+}
+.rounded.ng-enter, .rounded.ng-leave,
+.rounded.ng-anchor, .rounded.ng-animate, .rounded.ng-show, .rounded.ng-hide {
+  transition:1s linear all;
+}
+.rounded.ng-enter {
+  transform:translateY(100px);
+}
+.rounded.ng-enter.ng-enter-active{
+  transform:translateY(0px);
+}
+.rounded.ng-leave{
+	transform:translateY(100px);
+}
+.rounded.ng-leave.ng-leave-active {
+  transform:translateY(0px);
 }
