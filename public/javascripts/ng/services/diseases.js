@@ -1,10 +1,11 @@
-Game.factory('Diseases', ['$http', 'State', function($http, State) {
+Game.factory('Diseases', ['$http', 'State','BubbleNotification', function($http, State, BubbleNotification) {
 
   return {
     load: function() {
       var res = $http.get('/DeseasesExpertSystem/getOccurredDiseases');
       res.success(function(data) {
         State.set('diseases', data);
+        BubbleNotification.warning(data);
       });
     },
     getHintAsync: function(name, callback) {

@@ -5,7 +5,7 @@ Game.controller('LoginController', ['$scope', '$translate',
 
     }
 ]);
-Game.controller("DiseaseNotificationPanel", ["$scope","$timeout", function($scope,$timeout) {
+Game.controller("DiseaseNotificationPanel", ["$scope","$timeout",'BubbleNotification', function($scope,$timeout, BubbleNotification) {
 	$scope.visible = false;
 	$timeout(function() {
 		$scope.visible = true;

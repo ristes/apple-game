@@ -160,6 +160,8 @@ public class Farmer extends Model {
 
 	public String tips;
 	
+	public Boolean soundsEnabled;
+	
 	/**
 	 * need of minerals
 	 */

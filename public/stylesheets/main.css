@@ -561,32 +561,45 @@ div.select-seedling-quantity td {
 .notification-panel {
 	position: fixed;
     bottom: 0%;
-    right: 5%;
+    right: 15%;
     width: 300px;
     z-index: 99999;
     font-size: small;
-	padding: 15px;
+	padding: 25px;
 	color: white;
 }
 .notification-panel .rounded {
-	width: 4rem;
-    height: 4rem;
+	width: 5rem;
+    height: 5rem;
     background-color: red;
     border-radius: 30px;
+    float:left;
+    margin-right:5px;
 }
 .rounded.ng-enter, .rounded.ng-leave,
 .rounded.ng-anchor, .rounded.ng-animate, .rounded.ng-show, .rounded.ng-hide {
-  transition:1s linear all;
+  transition:1s ease-in;
+}
+.rounded:HOVER {
+	cursor:pointer;
 }
 .rounded.ng-enter {
   transform:translateY(100px);
+  width:1rem;
+  height:1rem;
 }
 .rounded.ng-enter.ng-enter-active{
   transform:translateY(0px);
+  width:5rem;
+  height:5rem;
 }
 .rounded.ng-leave{
-	transform:translateY(100px);
+	transform:translateY(0px);
+	width:5rem;
+	height:5rem;
 }
 .rounded.ng-leave.ng-leave-active {
-  transform:translateY(0px);
+  transform:translateY(100px);
+  width:1rem;
+  height:1rem;
 }
