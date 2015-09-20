@@ -8,7 +8,7 @@
 		<img ng-if="$root.farmer.season_level!==1" src="/public/images/backgrounds/field-terrain.png" class="field-terrain"/>
 		<img ng-if="$root.farmer.season_level===1" src="/public/images/backgrounds/field-terrain_snow.png" class="field-terrain"/>
 		<div class="field-row" ng-repeat="r in rows">
-			<div ng-class="{false: 'pocva-bg', true: 'ograda-bg'}[c.staticV || !planting]" 
+			<div ng-init="last = $last" ng-class="{false: 'pocva-bg', true: 'ograda-bg'}[c.staticV || !planting]" 
 				 ng-repeat="c in r.cols"
 				 style="width: {{atom}}px; height: {{atom}}px">
 				<img ng-show="c.show"  ng-if="!c.staticV" ng-src="{{gameState.soil_url}}" class="{{c.cls}}" ng-click="soilClick(c)"/>
@@ -20,6 +20,12 @@
 				<img ng-if="c.tree===4"  ng-src="{{gameState.plant_jonalgold}}" class="{{c.treeCls}}" ng-click="treeClick(c)"/>
 				<img ng-if="c.tree===5"  ng-src="{{gameState.plant_mucu}}" class="{{c.treeCls}}" ng-click="treeClick(c)"/>
 				<img ng-if="c.tree===6"  ng-src="{{gameState.plant_mucu}}" class="{{c.treeCls}}" ng-click="treeClick(c)"/>
+				<div ng-show="$root.active_operation" class="operation-on-field">
+					<img ng-if="c.tree!==undefined"  ng-src="{{$root.operation_gif}}" class="{{c.treeCls}}"/>
+				</div>
+<!-- 				<div ng-if="last && $root.activeOnLast" ng-show="$root.active_operation" class="operation-on-field"> -->
+<!-- 					<img   ng-src="{{$root.operation_gif}}" class="{{c.treeCls}}"/> -->
+<!-- 				</div> -->
 			</div>
 			
 		</div>

@@ -151,27 +151,32 @@ Game
 
 														$scope.status = 0;
 														$scope.fertilizeProgress = true;
+														
+														$scope.hide();
 
-														$interval(
-																function() {
-																	$scope.status += 100 / time;
-																	$scope.showStatus = Math
-																			.round($scope.status);
-																	if ($scope.status > 100) {
-																		$scope.status = 100;
-																	}
+//														$interval(
+//																function() {
+//																	$scope.status += 100 / time;
+//																	$scope.showStatus = Math
+//																			.round($scope.status);
+//																	if ($scope.status > 100) {
+//																		$scope.status = 100;
+//																	}
+//
+//																}, interval,
+//																time);
 
-																}, interval,
-																time);
-
-														$timeout(
-																function() {
-																	$scope.fertilizeProgress = false;
-																	$scope
-																			.hide();
-																},
-																interval
-																		* (time + 1));
+//														$timeout(
+//																function() {
+//																	$scope.fertilizeProgress = false;
+//																	$scope
+//																			.hide();
+//																},
+//																interval
+//																		* (time + 1));
+														$scope.$root.$emit("show-animation-manager", {
+									                    	name:"fertilizing"
+									                    });
 													});
 
 								}

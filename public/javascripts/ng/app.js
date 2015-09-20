@@ -50,13 +50,15 @@ Game.run([
     'Plantation',
     'StoreItems',
     'MonthOperations',
-    function($rootScope, $location, $farmer, BoughtItems, $day, Plantation, StoreItems, MonthOperations) {
+    '$timeout',
+    function($rootScope, $location, $farmer, BoughtItems, $day, Plantation, StoreItems, MonthOperations, $timeout) {
         $farmer.load();
         BoughtItems.load();
         $rootScope.storeItems = StoreItems.getStoreItems();
         Plantation.load();
         $rootScope.visible = false;
         MonthOperations.load();
+        
         $rootScope.next = function() {
             $day.next();
             BoughtItems.load();
@@ -72,6 +74,24 @@ Game.run([
             BoughtItems.load();
             $rootScope.$emit("weather-hide");
         };
+        $rootScope.active_operation = false;
+        $rootScope.operation_gif = "";
+        $rootScope.$on("show-animation-manager", function(_scope,cfg) {
+        	$rootScope.$emit("side-hide");
+        	$rootScope.$emit("shop-hide");
+        	$rootScope.active_operation = true;
+        	$rootScope.operation_gif = "/public/images/animations/"+cfg.name+".gif";
+        	if (cfg.type==="active-on-last-row") {
+        		$rootScope.activeOnLast = true;
+        	} else {
+        		$rootScope.activeOnLast = false;
+        	}
+        	$timeout(function() {
+        		$rootScope.active_operation = false;
+        		$rootScope.$emit("shop-hide")
+        		$rootScope.operation_gif = "";
+        	},5000);
+        });
         $location.path("/");
     }
 ]);

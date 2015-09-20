@@ -558,12 +558,17 @@ div.select-seedling-quantity td {
 	background: linear-gradient(135deg, #b3dced 0%, #29b8e5 50%, #bce0ee 100%);
 	/* W3C */
 }
+
+.operation-on-field{
+	width:100%;
+	height:100%;
+}
 .notification-panel {
 	position: fixed;
     bottom: 0%;
     right: 15%;
     width: 300px;
-    z-index: 99999;
+    z-index: 999;
     font-size: small;
 	padding: 25px;
 	color: white;

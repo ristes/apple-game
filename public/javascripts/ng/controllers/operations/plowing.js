@@ -17,12 +17,17 @@ Game.controller('PlowingController', [
 						$scope.plow = function() {
 							Plowing.plowing($scope.holder.deep, function() {
 
-								$scope.$root.$emit('show-progress-global', {
-									title : 'progress.plowing',
-									duration : 10,
-									actionToShare:'Plowing',
-									backgroundSound: '/public/sounds/operations/plowing.mp3'
+								$scope.$root.$emit("show-animation-manager",{
+									name:"plowing",
+									type:"active-on-last-row"
 								});
+								$scope.visible = false;
+//								$scope.$root.$emit('show-progress-global', {
+//									title : 'progress.plowing',
+//									duration : 10,
+//									actionToShare:'Plowing',
+//									backgroundSound: '/public/sounds/operations/plowing.mp3'
+//								});
 							});
 						};
 

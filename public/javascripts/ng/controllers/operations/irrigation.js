@@ -55,6 +55,11 @@ Game.controller('IrrigationController', [ '$scope', '$day', '$interval',
 				if ($scope.enableOther) {
 					$scope.status = 0;
 					$scope.enableOther = false;
+					
+					$scope.$root.$emit("show-animation-manager", {
+                    	name:"irrigation"
+                    });
+					
 					$interval(function() {
 						$scope.status += 100 / time;
 						$scope.showStatus = Math.round($scope.status);

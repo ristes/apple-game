@@ -12,12 +12,15 @@ Game
 							var showProgress = function(_scope, oper, item) {
 								Spraying.spray(item);
 
-								$scope.$root.$emit('show-progress-global', {
-									title : 'progress.' + oper.name,
-									duration : 3,
-									actionToShare : 'Spraying',
-									backgroundSound: '/public/sounds/operations/spraying.mp3'
-								});
+								$scope.$root.$emit("show-animation-manager", {
+			                    	name:"spraying"
+			                    });
+//								$scope.$root.$emit('show-progress-global', {
+//									title : 'progress.' + oper.name,
+//									duration : 3,
+//									actionToShare : 'Spraying',
+//									backgroundSound: '/public/sounds/operations/spraying.mp3'
+//								});
 							};
 
 							$scope.quantity = 1;
