@@ -1,4 +1,11 @@
 <div class="sound-manager-position">
-		<i ng-if="!isMuted" class="sound-icon glyphicon glyphicon-volume-up" style="font-size:25px" ng-click="mute()"></i>
-		<i ng-if="isMuted" class="sound-icon glyphicon glyphicon-volume-off" style="font-size:25px" ng-click="unmute()"></i>
+	<div ng-if="!$root.farmer.soundsEnabled">
+		<i class="sound-icon glyphicon glyphicon-volume-up"
+			style="font-size: 25px" ng-click="mute()"></i>
 	</div>
+	<div ng-if="$root.farmer.soundsEnabled">
+		<i ng-if="$root.farmer.soundsEnabled"
+			class="sound-icon glyphicon glyphicon-volume-off"
+			style="font-size: 25px" ng-click="unmute()"></i>
+	</div>
+</div>

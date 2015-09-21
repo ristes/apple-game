@@ -41,15 +41,18 @@
 					Trade apples</button>
 			</div>
 		</div>
-
-		<div class="shop_menu_grid fa-inverse" ng-if="gameActive">
-			<div class="harvest">
-				<harvest-game game="game" g-height="400" g-width="350"
-					game-over="gameOver" apples="apples" active="gameActive">
-				</harvest-game>
-			</div>
+		<div class="shop_menu_grid fa-inverse" style="width: 750px; z-index:99999999999"
+		ng-if="gameActive">
+		<div class="harvest">
+			<harvest-game game="game" g-height="400" g-width="650"
+				game-over="gameOver" apples="apples" active="gameActive">
+			</harvest-game>
 		</div>
+	</div>
+
 
 	</div>
+
+	
 
 </div>
