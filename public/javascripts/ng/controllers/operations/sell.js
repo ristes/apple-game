@@ -124,6 +124,8 @@ Game
 							}
 
 							$scope.sell = function(type, cfg) {
+								$scope.storeCfg[shelf.plantType.name] = new SliderCfg(
+										shelf.sliderQuantity);
 								Harvesting.sell(type.id, cfg.quantity,
 										successfulApplesSold);
 							};

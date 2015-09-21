@@ -41,7 +41,7 @@
 		self.shareGame=function(){
 			ezfb.ui({
 				  method: 'share',
-				  href: 'https://apps.facebook.com/applegm',
+				  href: 'https://apps.facebook.com/prespaville',
 				}, function(response){
 					if(!(response.error_code!=undefined &&response.error_code==4201)){
 						$http.post('/shareGame').then(function(res){
@@ -139,7 +139,7 @@
 					caption: obj.caption,
 					description: obj.description,
 					picture: obj.picture,
-					link:'https://apps.facebook.com/applegm'
+					link:'https://apps.facebook.com/prespaville'
 				});
 			};
 		}]);
