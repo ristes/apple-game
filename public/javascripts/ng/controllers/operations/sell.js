@@ -135,8 +135,14 @@ Game
 										shelf.sliderQuantity,
 										$scope.inintStoring);
 								shelf.changeQuantity = false;
-								$scope.sell(shelf.plantType, {quantity:shelf.sliderQuantity});
+								$scope.storeCfg[shelf.plantType.name] = new SliderCfg(
+										shelf.sliderQuantity);
+//								$scope.sell(shelf.plantType, {quantity:shelf.sliderQuantity});
 							};
+							
+//							$scope.sell = function() {
+//								$scope.sell(shelf.plantType, {quantity:shelf.sliderQuantity});
+//							}
 
 							$scope.fridgesCapacity = [ {
 								capacity : 0

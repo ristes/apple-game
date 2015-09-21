@@ -31,7 +31,7 @@
             </div>
 
             <!-- Prikaz na frizderite -->
-            <div class="shop_item_in_grid" ng-repeat="item in fridges">
+            <div class="shop_item_in_grid" ng-repeat="item in fridges" style="padding:10px">
             	<img class="img img-responsive" ng-src="/public/images/fridges/{{item.fridgeType}}.png"/>
                 <div class="shop-item-label ">
                     <!-- Kupuvanje na kapacitet na frizder -->
@@ -47,7 +47,7 @@
                         <!-- Remove slider div-->
                         <div ng-if="shelf.changeQuantity">
                             <div slider class="slider" cfg="shelf.cfg" value="shelf.sliderQuantity"></div>
-                            <button class="btn btn-primary btn-xs" ng-click="removeQuantity(shelf,item)">Sell</button>
+                            <button class="btn btn-primary btn-xs" ng-click="removeQuantity(shelf,item)">Move to unsorted</button>
                         </div>
 
                     </div>

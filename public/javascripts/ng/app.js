@@ -24,8 +24,8 @@ Game.config([
         });
 
         ezfbProvider.setInitParams({
-            appId: '671566419604666',
-            version: 'v2.0'
+            appId: '761102634001845',
+            version: 'v2.4'
         });
 
         // Initialize angular-translate
