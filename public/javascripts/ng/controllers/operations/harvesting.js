@@ -47,10 +47,11 @@ Game.controller('HarvestingController', [
         $scope.harvest = function(info) {
             $scope.harvest.info = info;
             $scope.gameActive = true;
-            Modal.start("/public/templates/harvest-modal.html", $scope);
+            $scope.modalInstance = Modal.start("/public/templates/harvest-modal.html", $scope);
         };
 
         $scope.gameOver = function(result) {
+        	$scope.modalInstance.dismiss();
             $scope.gameActive = false;
             Harvesting.harvest({
                 goodcollected: result.goodCaught,

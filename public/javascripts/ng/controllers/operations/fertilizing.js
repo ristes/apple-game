@@ -150,7 +150,7 @@ Game
 													function() {
 
 														$scope.status = 0;
-														$scope.fertilizeProgress = true;
+//														$scope.fertilizeProgress = true;
 														
 														$scope.hide();
 

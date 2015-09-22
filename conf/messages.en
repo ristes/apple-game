@@ -9,7 +9,7 @@ controller.digging.fail.notenoughmoney = Not enough money for digging.
 
 earn_from_ecos = You earned %s money from your eco points!
 
-lost_quantity_message = На ден %s изгубивте %s кг јаболки поради %s.
+lost_quantity_message = On %s you lost %s kg apples because %s.
 
 lost_quantity_in_fridge = The apples became rotten in %s. You lost %d kg apples.
 
@@ -17,7 +17,7 @@ lost_quantity_rotten = The apple type %s got rotten on the field. Please follow 
 
 good-weather-for-harvesting = Ideal weather for harvesting!
 
-uv_demage = прекумерно UV зрачење
+uv_demage = the UV index was too high
 
-low_temp_demage = прениски температури
+low_temp_demage = the temperature was too low
 
