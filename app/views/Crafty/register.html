@@ -23,19 +23,28 @@
 
 
 
-	<div class="introduction-screen introduction-helper">
+	<div class="introduction-screen">
 		<div
 			style="padding-top: 8%">
 			<div class="container">
-				<form action="/Crafty/authenticate" method="post">
+				<div class="page-header"><h3>New Farmer Registration</h3></div>
+				<form action="/Crafty/saveregistration" method="post">
 					<label class="label-control">Username:</label>
-					<input class="form-control" style="width:30%" type="text" name="username"></input>
+					<input class="form-control" style="width:30%" type="text" name="username" required></input>
 					<label class="label-control">Password:</label>
-					<input class="form-control" style="width:30%" type="password" name="password"></input>
-					<div>${message}</div>
-					<br />
-					<input class="btn btn-success" style="color:white !important" type="submit" value="Login"></input>
-					<a href="register" class="btn btn-success">Register</a>
+					<input class="form-control" style="width:30%" type="password" name="password" required></input>
+					<label class="label-control">Repeat Password:</label>
+					<input class="form-control" style="width:30%" type="password" name="passwordRepeat" required></input>
+					<label class="label-control">E-mail:</label>
+					<input class="form-control" style="width:30%" type="email" name="email" required></input>
+					<label class="label-control">Name:</label>
+					<input class="form-control" style="width:30%" type="text" name="name" required></input>
+					<label class="label-control">Surname:</label>
+					<input class="form-control" style="width:30%" type="text" name="surname" required></input>
+					<div style="color:red">${message}</div>
+					<br/>
+					
+					<input class="btn btn-success" style="color:white !important" type="submit" value="Register"></input>
 				</form>
 				
 			</div>

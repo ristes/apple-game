@@ -90,10 +90,12 @@ Game
 												$scope.inintStoring);
 							};
 
-							$scope.store = function(fridge, plantType, cfg) {
+							$scope.store = function(fridge, plantType, cfg,
+									plantName) {
 								var quantity = cfg.quantity;
 								var plantType = plantType.id;
-
+								$scope.storeCfg[plantName] = new SliderCfg(
+										cfg.max - cfg.quantity);
 								Fridge.addtofridge(fridge.fridgeType,
 										plantType, quantity,
 										$scope.inintStoring);
@@ -116,16 +118,19 @@ Game
 									}
 								}
 							};
-							
-							var successfulApplesSold = function(quantity,money) {
+
+							var successfulApplesSold = function(quantity, money) {
 								ExpertAdvice
-								.setInfinteImportantAdvice("Congratulations! You sold:"+quantity+" kg apples and earned: "+parseInt(money)+" coins");
+										.setInfinteImportantAdvice("Congratulations! You sold:"
+												+ quantity
+												+ " kg apples and earned: "
+												+ parseInt(money) + " coins");
 								$scope.inintStoring();
 							}
 
 							$scope.sell = function(type, cfg) {
-								$scope.storeCfg[shelf.plantType.name] = new SliderCfg(
-										shelf.sliderQuantity);
+								$scope.storeCfg[type.name] = new SliderCfg(
+										cfg.max - cfg.quantity);
 								Harvesting.sell(type.id, cfg.quantity,
 										successfulApplesSold);
 							};
@@ -137,14 +142,20 @@ Game
 										shelf.sliderQuantity,
 										$scope.inintStoring);
 								shelf.changeQuantity = false;
-								$scope.storeCfg[shelf.plantType.name] = new SliderCfg(
-										shelf.sliderQuantity);
-//								$scope.sell(shelf.plantType, {quantity:shelf.sliderQuantity});
+								if ($scope.storeCfg[shelf.plantType.name].max > 0) {
+									$scope.storeCfg[shelf.plantType.name].max += shelf.sliderQuantity;
+								} else {
+									$scope.storeCfg[shelf.plantType.name] = new SliderCfg(
+											shelf.sliderQuantity);
+								}
+								// $scope.sell(shelf.plantType,
+								// {quantity:shelf.sliderQuantity});
 							};
-							
-//							$scope.sell = function() {
-//								$scope.sell(shelf.plantType, {quantity:shelf.sliderQuantity});
-//							}
+
+							// $scope.sell = function() {
+							// $scope.sell(shelf.plantType,
+							// {quantity:shelf.sliderQuantity});
+							// }
 
 							$scope.fridgesCapacity = [ {
 								capacity : 0
@@ -197,8 +208,8 @@ Game
 
 						} ]);
 
-Game.controller("SellButtonController", ["$scope", function($scope) {
+Game.controller("SellButtonController", [ "$scope", function($scope) {
 	$scope.sell = function() {
 		$scope.$root.$emit('operation-sell');
 	}
-}])
+} ])

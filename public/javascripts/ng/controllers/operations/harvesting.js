@@ -4,7 +4,8 @@ Game.controller('HarvestingController', [
     'Harvesting',
     'Fridge',
     'State',
-    function($scope, $interval, Harvesting, Fridge, State) {
+    'Modal',
+    function($scope, $interval, Harvesting, Fridge, State, Modal) {
 
         $scope.gameActive = false;
 
@@ -46,6 +47,7 @@ Game.controller('HarvestingController', [
         $scope.harvest = function(info) {
             $scope.harvest.info = info;
             $scope.gameActive = true;
+            Modal.start("/public/templates/harvest-modal.html", $scope);
         };
 
         $scope.gameOver = function(result) {

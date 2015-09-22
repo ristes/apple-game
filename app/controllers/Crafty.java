@@ -6,6 +6,7 @@ import models.Farmer;
 import play.cache.Cache;
 import play.i18n.Lang;
 import play.mvc.Controller;
+import play.mvc.Http;
 import service.ContextService;
 import service.FarmerService;
 import service.ServiceInjector;
@@ -18,7 +19,7 @@ public class Crafty extends Controller {
 		Farmer farmer = AuthController.getFarmer();
 
 		if (farmer == null) {
-			login("en");
+			login("en",null);
 		}
 		ServiceInjector.contextService.setAndCheckLastLoginDate(farmer);
 		render();
@@ -31,25 +32,30 @@ public class Crafty extends Controller {
 	public static void iso1() {
 		Farmer farmer = AuthController.getFarmer();
 		if (farmer == null) {
-			login("en");
+			login("en",null);
 		}
 		render("en");
 	}
 
-	public static void login(String locale) {
+	public static void login(String locale, String message) {
 		if (null == locale) {
 			Lang.setDefaultLocale();
 		} else {
 			Lang.change(locale);
 		}
-		render();
+		render(message);
+	}
+
+	public static void register(String message) {
+		render(message);
 	}
 
 	public static void test() {
 		render();
 	}
 
-	public static void authenticate(String username, String password) {
+	public static void saveregistration(String username, String password,
+			String passwordRepeat, String name, String surname, String email) {
 		Farmer farmer = null;
 		try {
 			farmer = Farmer.find("username=:username and password=:password")
@@ -59,9 +65,36 @@ public class Crafty extends Controller {
 			System.out.println(ex);
 
 		}
+		if (farmer != null) {
+			register("The user already exists! Try another username.");
+		} else {
+			if (!password.equals(passwordRepeat)) {
+				register("Passwords do not match!");
+			} else {
+				farmer = ServiceInjector.farmerService.buildInstance(username,
+						password);
+				farmer.name = name;
+				farmer.surname = surname;
+				farmer.email = email;
+				farmer.save();
+			}
+		}
+		login("en","");
+	}
+
+	public static void authenticate(String username, String password) {
+		Farmer farmer = null;
+		try {
+			farmer = Farmer.find("username=:username and password=:password")
+					.setParameter("username", username)
+					.setParameter("password", password).first();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+
+		}
 		FarmerService farmerService = new FarmerServiceImpl();
 		if (farmer == null) {
-			farmer = farmerService.buildInstance(username, password);
+			login("en","Username or password are invalid!");
 		}
 		UUID id = UUID.randomUUID();
 		Cache.add(id.toString(), farmer.id);

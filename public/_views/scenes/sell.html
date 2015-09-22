@@ -25,7 +25,7 @@
                         Store {{storeCfg[type.name].quantity || 0}} kg in:
                     </div>
                     <div class="shop_item_in_grid" ng-repeat="item in fridges">
-                        <button class="btn btn-primary btn-xs" ng-click="store(item, type, storeCfg[type.name])">Store here</button>
+                        <button class="btn btn-primary btn-xs" ng-click="store(item, type, storeCfg[type.name],type.name)">Store here</button>
                     </div>
                 </div>
             </div>
@@ -56,16 +56,16 @@
                     <span style="color: red;" ng-if="item.activeFrom>farmer.year_order">Locked!</span>
 
                 </div>
-                <div ng-hide="item.used==0"
-					class="progress"
-					tooltip="NA fridges {{item.used}}kg apples">
+<!--                 <div ng-hide="item.used==0" -->
+<!-- 					class="progress" -->
+<!-- 					tooltip="NA fridges {{item.used}}kg apples"> -->
 				
-					<div class="progress-bar" role="progressbar" aria-valuenow="60"
-						aria-valuemin="0" aria-valuemax="100"
-						style="width: {{gameState.apples_in_na_fridge/gameState.capacityNAFridges* 100}}">
-						{{item.used/item.capacity}}
-					</div>
-				</div>
+<!-- 					<div class="progress-bar" role="progressbar" aria-valuenow="60" -->
+<!-- 						aria-valuemin="0" aria-valuemax="100" -->
+<!-- 						style="width: {{gameState.apples_in_na_fridge/gameState.capacityNAFridges* 100}}"> -->
+<!-- 						{{item.used/item.capacity}} -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 
             </div>
         </div>

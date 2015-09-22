@@ -80,6 +80,15 @@ public class FridgeServiceImpl implements FridgeService {
 				ServiceInjector.dateService
 						.recolteYear(fridge.farmer.gameDate.date)).first();
 		if (yield == null) {
+			 yield = Yield.find(
+						"plantType = ?1 AND farmer = ?2 And year=?3",
+						type,
+						farmer,
+						ServiceInjector.dateService
+								.recolteYear(fridge.farmer.gameDate.date)-1).first();
+			
+		}
+		if (yield==null) {
 			throw new InvalidYield();
 		}
 

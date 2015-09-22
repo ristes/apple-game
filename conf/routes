@@ -9,6 +9,8 @@ GET		/logout									Crafty.logout
 
 GET		/login									Crafty.login
 
+GET		/register								Crafty.register
+
 GET		/test									Crafty.test
 
 # Ignore favicon requests
