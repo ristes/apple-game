@@ -13,7 +13,7 @@
 		</div>
 
 		<div class="shop_arrow" ng-show="!fertilizeProgress" ng-click="hide()"></div>
-
+		<div ng-click="onGlobalHelp()" class="pull-right help-button" style="font-size:xx-large; margin-right:10px; margin-top:10px"><i class="glyphicon glyphicon-question-sign" ></i></div>
 		<div class="shop_menu_grid fa-inverse">
 
 			<div id="irrigation-slider-container" ng-show="fertilizeProgress">
@@ -25,17 +25,19 @@
 					</div>
 				</div>
 			</div>
-			<p>In order to achieve a productive and high-quality apple yield,
-				the soil must contain an adequate quantity of nutrients, as well as
-				being as neutral (in terms of pH) as possible. Nutrients are divided
-				into macro-elements (nitrogen, phosphorus, potassium, magnesium,
-				calcium) and micro-elements (copper, zinc, boron, manganese, iron,
-				and molybdenum). A plantation’s soil should be analyzed every 4-5
-				years.</p>
-			<div id="irrigation-slider-container" ng-show="!haveAnalisys">
-				<button class="btn btn-xs" ng-click="buyAnalisys()">buy
-					analysys</button>
-			</div>
+<!-- 			<p>In order to achieve a productive and high-quality apple yield, -->
+<!-- 				the soil must contain an adequate quantity of nutrients, as well as -->
+<!-- 				being as neutral (in terms of pH) as possible. Nutrients are divided -->
+<!-- 				into macro-elements (nitrogen, phosphorus, potassium, magnesium, -->
+<!-- 				calcium) and micro-elements (copper, zinc, boron, manganese, iron, -->
+<!-- 				and molybdenum). A plantation’s soil should be analyzed every 4-5 -->
+<!-- 				years.</p> -->
+			
+<!-- 			<div id="irrigation-slider-container" ng-show="!haveAnalisys"> -->
+<!-- 				<button class="btn btn-xs" ng-click="buyAnalisys()">buy -->
+<!-- 					analysys</button> -->
+<!-- 			</div> -->
+		
 			<div id="irrigation-slider-container"
 				ng-show="haveAnalisys && !showingAnalysis">
 				<button class="btn btn-xs" ng-click="showAnalisys()">show
@@ -45,6 +47,10 @@
 				ng-show="haveAnalisys && showingAnalysis">
 				<button class="btn btn-xs" ng-click="hideAnalisys()">hide
 					analysys</button>
+			</div>
+			<div class="text-center">You can also buy a help!</div>
+			<div class="shop-button"  ng-click="buyHelpFertilizing()">
+				Buy Help
 			</div>
 
 			<div id="analysis-container" ng-show="showingAnalysis">
@@ -185,14 +191,19 @@
 						</span>
 						</td>
 					</tr>
-					<tr>
-						<td></td>
-						<td colspan="2" class="fertilizer-price" style="font-size: 0.8em">
-							<button class="btn btn-xs" ng-click="fertilize()">fertilize</button>
-						</td>
-					</tr>
+<!-- 					<tr> -->
+<!-- 						<td></td> -->
+<!-- 						<td colspan="2" class="fertilizer-price" style="font-size: 0.8em"> -->
+<!-- 							<button class="btn btn-xs" ng-click="fertilize()">fertilize</button> -->
+<!-- 						</td> -->
+<!-- 					</tr> -->
 				</table>
 			</div>
+			
+			<div class="text-center">
+				<button class="btn btn-xs operation-execute" ng-click="fertilize()">fertilize</button>
+			</div>
+			
 		</div>
 	</div>
 

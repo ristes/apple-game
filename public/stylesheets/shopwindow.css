@@ -93,7 +93,7 @@
 	border-top-color: black;
 	text-align: center;
 	width: 100%;
-	color:#333;
+	color: #333;
 }
 
 .weather-details-info-more-less:hover {
@@ -271,12 +271,12 @@ body {
 	right: 20%;
 	top: 2%;
 	z-index: 100;
-	color:#333;
+	color: #333;
 }
 
 #weather-info-details {
 	opacity: 0;
-	color:#333;
+	color: #333;
 }
 
 .weather-div {
@@ -335,9 +335,11 @@ body {
 .shop-enter {
 	right: 35%;
 }
+
 .quiz-enter {
 	right: 30%;
 }
+
 .shop-leave {
 	right: -750px;
 }
@@ -362,6 +364,7 @@ body {
 	background-size: 100% 100%;
 	z-index: 1000
 }
+
 .quiz-menu {
 	position: fixed;
 	width: 55%;
@@ -381,6 +384,7 @@ body {
 	z-index: 900;
 	margin-top: -14%;
 }
+
 .quiz_icon {
 	position: absolute;
 	width: 26%;
@@ -390,6 +394,7 @@ body {
 	z-index: 900;
 	margin-top: -14%;
 }
+
 .shop_icon-img {
 	width: 75%;
 }
@@ -438,7 +443,7 @@ body {
 	z-index: 300;
 	cursor: pointer;
 	float: left;
-	margin-bottom:25px;
+	margin-bottom: 25px;
 }
 
 .shop_item_in_grid img {
@@ -463,7 +468,6 @@ body {
 }
 
 .shop-item-name {
-	
 	height: 20%;
 	min-height: 25px;
 	color: white;
@@ -478,9 +482,30 @@ body {
 	text-align: right;
 	color: white;
 	font-size: 1.5em;
-	padding-left:40%;
+	padding-left: 40%;
 	padding-top: 8%;
 	margin-top: -8%;
+}
+
+.shop-button {
+	background-image: url("/public/images/game/pricetag.png");
+	width: 170px;
+	height: 50px;
+	background-size: cover;
+	text-align: center;
+	color: white;
+	font-size: 1.0em;
+	padding-left: 10px;
+	padding-top: 7%;
+}
+
+.shop-button:HOVER {
+	cursor: pointer;
+}
+
+.operation-execute {
+	padding: 10px !important;
+	font-size: large !important;
 }
 
 .rotate,.rotateCounterwise {

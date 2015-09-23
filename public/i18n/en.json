@@ -82,7 +82,13 @@
 	},
 	"diseases" : {
 		"lastDays": "Diseases occurred last 15 days!"
-	}	
+	},
+	"fertilization": {
+		"quantity":"Choose the right quantity of nutrients"
+	} ,
+	"progress": {
+		"plowing":"Let's plow"
+	}
 		
 		
 }

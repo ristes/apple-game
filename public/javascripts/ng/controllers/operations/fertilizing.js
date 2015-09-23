@@ -50,7 +50,14 @@ Game
 								$scope.fertilizer.Zn = data.Zn || [{'name':'Zn','value':0}];
 							});
 							
-
+							$scope.onGlobalHelp = function() {
+								ExpertAdvice
+										.setInfinteImportantAdvice("In order to achieve a productive and high-quality apple yield, the soil must contain an adequate quantity of nutrients, as well as being as neutral (in terms of pH) as possible. Nutrients are divided into macro-elements (nitrogen, phosphorus, potassium, magnesium, calcium) and micro-elements (copper, zinc, boron, manganese, iron, and molybdenum). A plantation’s soil should be analyzed every 4-5 years.");
+							}
+							
+							$scope.buyHelpFertilizing = function() {
+								
+							}
 							function calculatePrice() {
 								var n = $scope.fertilizer;
 								var p = $scope.prices;
