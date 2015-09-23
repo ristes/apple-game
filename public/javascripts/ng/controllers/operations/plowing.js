@@ -2,7 +2,8 @@ Game.controller('PlowingController', [
 		'$scope',
 		'Plowing',
 	'fbShareActions',
-		function($scope, Plowing,fbShareActions) {
+	'ExpertAdvice',
+		function($scope, Plowing,fbShareActions,ExpertAdvice) {
 			
 			$scope.holder = {};
 			$scope.holder.deep = 20;
@@ -31,6 +32,11 @@ Game.controller('PlowingController', [
 							});
 						};
 
+						$scope.onHelp = function() {
+							ExpertAdvice
+									.setInfinteImportantAdvice("Overgrowth of grass on plantations has a myriad of positive features: enhancing the soil qualities, boosting water absorption from precipitation, mitigation of erosion etc. Plantations are high-yielding if overgrown surfaces are properly maintained (for e.g. regularly mowed) and if there is increased application of fertilizers and water for irrigation. Growth of grass on the plantation has both advantages and disadvantages. It can enhance the soil quality, boost water absorption, and mitigate erosion. However, it can also act as a breeding ground for mice and increase the amount of water and nutrients required by the trees. Thus, it is important to carefully manage the height and spread of grass on the plantation; mowed grass can act as a fertilizer for the trees after 3 years of growth. In areas with larger amounts of precipitation, the grass can be allowed to grow higher. In areas of low precipitation it must be kept short.");
+						}
+						
 						$scope.visible = true;
 						$scope.$root.$emit('shop-hide');
 						$scope.$root.$emit("side-hide");

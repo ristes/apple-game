@@ -12,5 +12,7 @@ public interface InsuranceService {
 	public Boolean hasInsuranceThisYear(Farmer farmer);
 	
 	public Farmer refundInsurance(Farmer farmer, OccurredDecease odisease);
+	
+	public Farmer refundByQuantityLost(Farmer farmer, Integer quantity);
 
 }

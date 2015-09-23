@@ -21,3 +21,6 @@ uv_demage = the UV index was too high
 
 low_temp_demage = the temperature was too low
 
+lost_apples_ice= You lost %s kg apples from the Ice Demage.
+insurrance_refund_money= The insurance refunded %s coins.
+

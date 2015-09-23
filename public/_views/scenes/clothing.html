@@ -1,30 +1,34 @@
 <div ng-controller="ClothingController">
 
-    <div class="shop-menu" ng-animate="shop" ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
+	<div class="shop-menu" ng-animate="shop"
+		ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
 
-        <div class="shop_icon">
-            <img src="{{type.ico}}" style="width: 75%;"></img>
-            <div class="shop-label ramka">
-                <span class="shop-label-text"> {{ 'pruning' | translate }}
-				</span>
-            </div>
-        </div>
+		<div class="shop_icon">
+			<img src="{{type.ico}}" style="width: 75%;"></img>
+			<div class="shop-label ramka">
+				<span class="shop-label-text"> {{ 'pruning' | translate }} </span>
+			</div>
+		</div>
 
-        <div class="shop_arrow" ng-click="hide()" ng-show="gameActive"></div>
+		<div class="shop_arrow" ng-click="hide()" ng-show="gameActive"></div>
 
-        <div class="shop_menu_grid fa-inverse" ng-show="!gameActive">
-	        <!-- Show game result -->
+		<div class="shop_menu_grid fa-inverse" ng-show="!gameActive">
+			<!-- Show game result -->
 
-        </div>
+		</div>
+		<div ng-click="onHelp()" class="pull-right help-button" style="font-size:xx-large; margin-right:10px; margin-top:10px"><i class="glyphicon glyphicon-question-sign" ></i></div>
+		<div class="shop_menu_grid fa-inverse" ng-if="gameActive">
+			<div class="prune">
+				<p></p>
+				<p>Click the marked spots on the branches you wish to prune.
+					When done pruning, click "Done".</p>
+				<prune-game g-width="300" g-height="350" game-over="gameOver"
+					year="year"></prune-game>	
+			</div>
+			
+			
+		</div>
 
-        <div class="shop_menu_grid fa-inverse" ng-if="gameActive">
-            <div class="prune">
-            	<p>Pruning is multifunctional and dependent on the age of the fruit trees. Correct and timely pruning facilitates rapid, timely and proper formation of compact and productive crowns, which have the ability to utilize the maximum amount of sunlight. Improper pruning disturbs growth and reduces the yield and quality of fruits throughout the plant’s life span. Once errors are made in pruning, it is difficult to correct them.</p>
-                <p>Click the marked spots on the branches you wish to prune. When done pruning, click "Done".</p>
-                <prune-game g-width="300" g-height="350" game-over="gameOver" year="year"></prune-game>
-            </div>
-        </div>
-
-    </div>
+	</div>
 
 </div>

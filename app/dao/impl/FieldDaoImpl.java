@@ -35,7 +35,7 @@ public class FieldDaoImpl implements FieldDao{
 
 	@Override
 	public Boolean hasUVProtectingNet(Farmer farmer) {
-		ItemInstance uv_prot_net = ItemInstance.find("byType.nameAndownedBy", "uv_protecting_net", farmer).first();
+		ItemInstance uv_prot_net = ItemInstance.find("byType.nameAndownedBy", "Protective Net", farmer).first();
 		if (uv_prot_net == null) {
 			return false;
 		}

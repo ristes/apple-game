@@ -11,29 +11,16 @@
 		</div>
 
 		<div class="shop_arrow" ng-click="hide()"></div>
-
+		<div ng-click="onHelp()" class="pull-right help-button" style="font-size:xx-large; margin-right:10px; margin-top:10px"><i class="glyphicon glyphicon-question-sign" ></i></div>
 		<div class="shop_menu_grid fa-inverse">
-			<p>: Overgrowth of grass on plantations has a myriad of positive
-				features: enhancing the soil qualities, boosting water absorption
-				from precipitation, mitigation of erosion etc. Plantations are
-				high-yielding if overgrown surfaces are properly maintained (for
-				e.g. regularly mowed) and if there is increased application of
-				fertilizers and water for irrigation. Growth of grass on the
-				plantation has both advantages and disadvantages. It can enhance the
-				soil quality, boost water absorption, and mitigate erosion. However,
-				it can also act as a breeding ground for mice and increase the
-				amount of water and nutrients required by the trees. Thus, it is
-				important to carefully manage the height and spread of grass on the
-				plantation; mowed grass can act as a fertilizer for the trees after
-				3 years of growth. In areas with larger amounts of precipitation,
-				the grass can be allowed to grow higher. In areas of low
-				precipitation it must be kept short.</p>
+			<h2 class="text-center">Choose the deepness of plowing</h2>
 			<div id="irrigation-slider-container">
 				<div slider class="slider" cfg="cfg" value="holder.deep"></div>
+				<div class="text-center"><span  ng-show="!td"> {{holder.deep}} cm</span></div>
 			</div>
-			<div>
-				<span ng-show="!td"> {{holder.deep}} cm</span>
-				<button class="btn btn-xs" style="padding: 20px;" ng-click="plow()">{{
+			<div class="text-center">
+				
+				<button class="btn btn-xs" style="padding: 10px; font-size: large" ng-click="plow()">{{
 					'plowing.plow' | translate }}</button>
 
 			</div>

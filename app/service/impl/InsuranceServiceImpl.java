@@ -1,6 +1,8 @@
 package service.impl;
 
+import play.i18n.Messages;
 import exceptions.NotEnoughMoneyException;
+import exceptions.PriceNotValidException;
 import models.Disease;
 import models.Farmer;
 import models.Item;
@@ -34,10 +36,28 @@ public class InsuranceServiceImpl implements InsuranceService {
 		if (!odisease.desease.isRefundable) {
 			return farmer;
 		}
-		Double refund = ServiceInjector.diseaseService.getRefund(farmer,odisease.desease);
+		Double refund = ServiceInjector.moneyConversionService.toEuros(ServiceInjector.diseaseService.getRefund(farmer,odisease.desease))+5;
 		try {
 			ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, refund);
-			ServiceInjector.infoTableService.createT1(farmer, String.format(RString.get("insurrance_refund_money"),refund.intValue()),RImage.get("insurrance_refund_money"));
+			ServiceInjector.infoTableService.createT1(farmer, Messages.getMessage("en", "insurrance_refund_money", String.valueOf(refund.intValue())),String.format(Messages.getMessage("en", "insurrance_refund_money", String.valueOf(refund))));
+		} catch (NotEnoughMoneyException ex) {
+			ex.printStackTrace();
+		}
+		return farmer;
+	}
+	
+	public Farmer refundByQuantityLost(Farmer farmer, Integer quantity) {
+		double price = 0.0;
+		try {
+			price = ServiceInjector.priceService.price(farmer);
+		} catch (PriceNotValidException e) {
+			e.printStackTrace();
+		}
+		Double refund = ServiceInjector.moneyConversionService.toEuros(price * quantity);
+		try {
+			ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, refund);
+			ServiceInjector.infoTableService.createT1(farmer, Messages.getMessage("en", "insurrance_refund_money", String.valueOf(refund.intValue())),String.format(Messages.getMessage("en", "insurrance_refund_money", String.valueOf(refund))));
+			
 		} catch (NotEnoughMoneyException ex) {
 			ex.printStackTrace();
 		}
@@ -46,7 +66,7 @@ public class InsuranceServiceImpl implements InsuranceService {
 
 	@Override
 	public Boolean hasInsuranceThisYear(Farmer farmer) {
-		Item insurrance = Item.find("byName", "insurrance").first();
+		Item insurrance = Item.find("byName", "insurance").first();
 		int year = ServiceInjector.dateService.recolteYear(farmer.gameDate.date);
 		ItemInstance item = ItemInstance.find("byOwnedByAndTypeAndYear", farmer,
 				insurrance, year).first();

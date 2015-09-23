@@ -37,7 +37,7 @@ public class ItemsDaoImpl implements ItemsDao {
 					.recolteYear(farmer.gameDate.date);
 			if (item != null && item.type != null && item.year != null) {
 				if (item.type.expirationInYears == 0
-						|| (item.year + item.type.expirationInYears >= recolteYear)) {
+						|| ((item.year + item.type.expirationInYears-1) == recolteYear)) {
 					if (boughtItems.containsKey(item.type.name)) {
 						boughtItems.get(item.type.name).count++;
 					} else {

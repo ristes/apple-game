@@ -15,11 +15,14 @@ public class IceServiceImpl implements IceService {
 		if (farmer.gameDate.tempHigh>0 && farmer.gameDate.tempLow<-5
 				&& (((farmer.month_level - 1) == Calendar.MARCH) || ((farmer.month_level - 1) == Calendar.APRIL))) {
 			if (!ServiceInjector.fieldService.hasArtificialRain(farmer)) {
-				double demage = ServiceInjector.randomGeneratorService.random(
+				Double demage = ServiceInjector.randomGeneratorService.random(
 						5.0, 10.0);
-				ServiceInjector.farmerService.subtractProductQuantity(farmer,
+				Double demageQuantity = ServiceInjector.farmerService.subtractProductQuantity(farmer,
 						demage, true,
 						Messages.getMessage("en", "low_temp_demage", ""));
+				if (ServiceInjector.insuranceService.hasInsuranceThisYear(farmer)) {
+					ServiceInjector.insuranceService.refundByQuantityLost(farmer, demageQuantity.intValue());
+				}
 			}
 		}
 	}

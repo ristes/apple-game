@@ -174,9 +174,7 @@ public class DateServiceImpl implements DateService{
 	}
 //	@Override
 	public int evaluateYearLevel(Date date) {
-		Calendar c = Calendar.getInstance();
-		c.setTime(date);
-		int year = c.get(Calendar.YEAR);
+		int year = ServiceInjector.dateService.recolteYear(date);
 		return evaluateYearLevel(year);
 	}
 
