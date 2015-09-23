@@ -10,6 +10,21 @@
 	<div ng-if="$root.overlayDark" class="overlay-dark game-overlay"></div>
     <div id="div_timeline_travel">
         
+         <div class="time-controls ramka">
+            <div   enabled="{{$root.soundsEnabled}}" class="time-ctrl-btn" tooltip="Next Day" id="div_next_day" ng-click="$root.next()">
+                <span style="margin-right: 5px;" id="span_next_day"></span><i class="glyphicon glyphicon-step-forward"></i>
+            </div>
+            <div enabled="{{$root.soundsEnabled}}"  class="time-ctrl-btn" tooltip="Next Week" id="div_next_week" ng-click="$root.nextWeek()">
+                <span style="margin-right: 5px;" id="span_next_week"></span><i class="glyphicon glyphicon-forward"></i>
+            </div>
+            <div  enabled="{{$root.soundsEnabled}}"  class="time-ctrl-btn" tooltip="Next Month" id="div_next_month" ng-click="$root.nextMonth()">
+                <span style="margin-right: 5px;"></span><i class="glyphicon glyphicon-fast-forward"></i>
+            </div>
+            <div class="time-ctrl-btn">
+                <a tooltip="Restart" class="div_restart_game glyphicon glyphicon-repeat" href="/fbcontroller/restart" id="div_restart_game"></a>
+            </div>
+        </div>
+        
         <div class="rankings" ng-controller="SellButtonController">
         <!-- ng-audio-hover="/public/sounds/events/button-hover.mp3" -->
             <div   style="padding-left: 10px;" ng-click="sell()">
@@ -45,20 +60,7 @@
 
             <history-table history="history" visible="visible"></history-table>
         </div>
-        <div class="time-controls ramka">
-            <div   enabled="{{$root.soundsEnabled}}" class="time-ctrl-btn" tooltip="Next Day" id="div_next_day" ng-click="$root.next()">
-                <span style="margin-right: 5px;" id="span_next_day"></span><i class="glyphicon glyphicon-step-forward"></i>
-            </div>
-            <div enabled="{{$root.soundsEnabled}}"  class="time-ctrl-btn" tooltip="Next Week" id="div_next_week" ng-click="$root.nextWeek()">
-                <span style="margin-right: 5px;" id="span_next_week"></span><i class="glyphicon glyphicon-forward"></i>
-            </div>
-            <div  enabled="{{$root.soundsEnabled}}"  class="time-ctrl-btn" tooltip="Next Month" id="div_next_month" ng-click="$root.nextMonth()">
-                <span style="margin-right: 5px;"></span><i class="glyphicon glyphicon-fast-forward"></i>
-            </div>
-            <div class="time-ctrl-btn">
-                <a tooltip="Restart" class="div_restart_game glyphicon glyphicon-repeat" href="/fbcontroller/restart" id="div_restart_game"></a>
-            </div>
-        </div>
+       
 
     </div>
 </div>
