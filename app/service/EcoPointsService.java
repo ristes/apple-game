@@ -9,7 +9,7 @@ public interface EcoPointsService {
 	
 	public void add(Farmer farmer, Integer value);
 	public void substract(Farmer farmer, Integer value);
-	public void divide(Farmer farmer, Double value);
+	public Integer divide(Farmer farmer, Double value);
 	public void restart(Farmer farmer);
 
 }

@@ -87,7 +87,10 @@
 
 <side-menu weather="weather" actions="actions"></side-menu>
 
-
+<div ng-controller="BugController" style="position:fixed;bottom:3%;right:5%;z-index:9999999">
+		<a href="" ng-click="openDialog()">Report a bug</a>
+		<bug-dialog visible="visible" try-new="tryNew" submit="submit" is-submitted="isSubmitted"></bug-dialog>
+	</div>
 
 
 <div ng-controller="ShoppingController"></div>

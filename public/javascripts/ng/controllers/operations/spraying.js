@@ -46,8 +46,8 @@ Game
 																.load(function() {
 																	$scope.$root
 																			.$emit('shop-hide');
-																	var boughtItems = BoughtItems
-																			.get($scope.sprayingOper.requires)[0];
+//																	var boughtItems = BoughtItems
+//																			.get($scope.sprayingOper.requires)[0];
 																	showProgress(
 																			$scope,
 																			$scope.sprayingOper,

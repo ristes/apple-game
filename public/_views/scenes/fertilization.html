@@ -12,198 +12,246 @@
 			</div>
 		</div>
 
-		<div class="shop_arrow" ng-show="!fertilizeProgress" ng-click="hide()"></div>
-		<div ng-click="onGlobalHelp()" class="pull-right help-button" style="font-size:xx-large; margin-right:10px; margin-top:10px"><i class="glyphicon glyphicon-question-sign" ></i></div>
-		<div class="shop_menu_grid fa-inverse">
+		<div ng-if="isHelp">
 
-			<div id="irrigation-slider-container" ng-show="fertilizeProgress">
-				<div id="fertilization-info">{{ 'fertilization.progress' |
-					translate }}</div>
-				<div class="progress progress-striped active">
-					<div class="progress-bar" style="width: {{status">
-						<span> {{showStatus | integer}} % </span>
+			<div class="shop_menu_grid fa-inverse">
+				<div class="text-center">
+					<h3 class="text-center">Depending on the soil analyse, you
+						should apply the following quantities of fertilizers</h3>
+
+				</div>
+				<div class="text-center">
+					<h5>Remember the values. This dialog will be automatically
+						closed for: {{startValue}} seconds!</h5>
+				</div>
+				<div ng-if="recommendedValues.length===0">
+					<h3 class="text-center">Currently you should not apply
+						fertilizer on your plantation!</h3>
+				</div>
+				<div class="shop_item_in_grid"
+					ng-repeat="recommend in recommendedValues">
+					<img src="/public/images/home/gubrivo.png"></img>
+					<div style="margin-top: -16%">{{recommend.name}}</div>
+					<div class="shop-item-name ramka">{{recommend.value}}</div>
+
+					<!-- 					<div class="col-md-5">{{recommend.name}}</div> -->
+					<!-- 					<div class="col-md-5">{{recommend.value}}</div> -->
+				</div>
+			</div>
+		</div>
+
+		<div ng-if="!isHelp">
+			<div class="shop_arrow" ng-show="!fertilizeProgress"
+				ng-click="hide()"></div>
+			<div ng-click="onGlobalHelp()" class="pull-right help-button"
+				style="font-size: xx-large; margin-right: 10px; margin-top: 10px">
+				<i class="glyphicon glyphicon-question-sign"></i>
+			</div>
+			<div class="shop_menu_grid fa-inverse">
+
+				<div id="irrigation-slider-container" ng-show="fertilizeProgress">
+					<div id="fertilization-info">{{ 'fertilization.progress' |
+						translate }}</div>
+					<div class="progress progress-striped active">
+						<div class="progress-bar" style="width: {{status">
+							<span> {{showStatus | integer}} % </span>
+						</div>
+					</div>
+				</div>
+				<!-- 			<p>In order to achieve a productive and high-quality apple yield, -->
+				<!-- 				the soil must contain an adequate quantity of nutrients, as well as -->
+				<!-- 				being as neutral (in terms of pH) as possible. Nutrients are divided -->
+				<!-- 				into macro-elements (nitrogen, phosphorus, potassium, magnesium, -->
+				<!-- 				calcium) and micro-elements (copper, zinc, boron, manganese, iron, -->
+				<!-- 				and molybdenum). A plantation’s soil should be analyzed every 4-5 -->
+				<!-- 				years.</p> -->
+
+				<!-- 			<div id="irrigation-slider-container" ng-show="!haveAnalisys"> -->
+				<!-- 				<button class="btn btn-xs" ng-click="buyAnalisys()">buy -->
+				<!-- 					analysys</button> -->
+				<!-- 			</div> -->
+
+				<!-- 				<div id="irrigation-slider-container" -->
+				<!-- 					ng-show="haveAnalisys && !showingAnalysis"> -->
+				<!-- 					<button class="btn btn-xs" ng-click="showAnalisys()">show -->
+				<!-- 						analysys</button> -->
+				<!-- 				</div> -->
+				<!-- 				<div id="irrigation-slider-container" -->
+				<!-- 					ng-show="haveAnalisys && showingAnalysis"> -->
+				<!-- 					<button class="btn btn-xs" ng-click="hideAnalisys()">hide -->
+				<!-- 						analysys</button> -->
+				<!-- 				</div> -->
+
+				<div id="analysis-container" ng-show="showingAnalysis">
+
+					<div class="page-header text-center">
+						<h4>Recommended values for fertilization in this period of
+							the year</h4>
+						<h5>The values depend on the type of the soil</h5>
+					</div>
+					<div></div>
+					<table>
+						<thead>
+							<tr>
+								<th class="text-center col-md-2">Date From</th>
+								<th class="text-center col-md-3">Date To</th>
+								<th class="text-center col-md-3">Fertilizer</th>
+								<th class="text-center col-md-4">Quantity</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="a in analysis">
+								<td class="text-center">{{a.startFrom }}</td>
+								<td class="text-center">{{a.endTo }}</td>
+								<td class="text-center">{{a.name}}</td>
+								<td class="text-center">{{a.quantity}} kg</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+
+				<div id="irrigation-slider-container"
+					ng-show="!fertilizeProgress && !showingAnalisys">
+					<div id="fertilization-info">{{ 'fertilization.quantity' |
+						translate }}</div>
+					<table width="100%">
+						<tr>
+							<td width="20%">N({{fertilizer.N[0].value}} kg/Ha):</td>
+							<td width="50%">
+								<div slider class="slider" cfg="nCfg"
+									value="fertilizer.N[0].value"></div>
+							</td>
+							<td width="10%" class="text-center"><i
+								class="glyphicon glyphicon-question-sign" ng-click="onHelp('n')"></i></td>
+							<td width="20%" class="fertilizer-price"><span><img
+									style="height: 20px"
+									src="/public/images/home/money_in_stock.png">
+									{{fertilizer.N[0].value * prices.n | integer}}</span></td>
+						</tr>
+						<tr>
+							<td>P({{fertilizer.P[0].value}} kg/Ha):</td>
+							<td>
+								<div slider class="slider" cfg="pCfg"
+									value="fertilizer.P[0].value"></div>
+							</td>
+							<td width="10%" class="text-center"><i
+								class="glyphicon glyphicon-question-sign" ng-click="onHelp('p')"></i></td>
+							<td class="fertilizer-price"><span> <img
+									style="height: 20px"
+									src="/public/images/home/money_in_stock.png">
+									{{fertilizer.P[0].value * prices.p | integer}}
+							</span></td>
+						</tr>
+						<tr>
+							<td>K({{fertilizer.K[0].value}} kg/Ha):</td>
+							<td>
+								<div slider class="slider" cfg="kCfg"
+									value="fertilizer.K[0].value"></div>
+							</td>
+							<td width="10%" class="text-center"><i
+								class="glyphicon glyphicon-question-sign" ng-click="onHelp('k')"></i></td>
+							<td class="fertilizer-price"><span> <img
+									style="height: 20px"
+									src="/public/images/home/money_in_stock.png">
+									{{fertilizer.K[0].value * prices.k | integer}}
+							</span></td>
+						</tr>
+						<tr>
+							<td>Ca({{fertilizer.Ca[0].value}} kg/Ha):</td>
+							<td>
+								<div slider class="slider" cfg="caCfg"
+									value="fertilizer.Ca[0].value"></div>
+							</td>
+							<td width="10%" class="text-center"><i
+								class="glyphicon glyphicon-question-sign"
+								ng-click="onHelp('ca')"></i></td>
+							<td class="fertilizer-price"><span> <img
+									style="height: 20px"
+									src="/public/images/home/money_in_stock.png">
+									{{fertilizer.Ca[0].value * prices.ca | integer}}
+							</span></td>
+						</tr>
+						<tr>
+							<td>B({{fertilizer.B[0].value}} kg/Ha):</td>
+							<td>
+								<div slider class="slider" cfg="bCfg"
+									value="fertilizer.B[0].value"></div>
+							</td>
+							<td width="10%" class="text-center"><i
+								class="glyphicon glyphicon-question-sign" ng-click="onHelp('b')"></i></td>
+							<td class="fertilizer-price"><span> <img
+									style="height: 20px"
+									src="/public/images/home/money_in_stock.png">
+									{{fertilizer.B[0].value * prices.b | integer}}
+							</span></td>
+						</tr>
+						<tr>
+							<td>Mg({{fertilizer.Mg[0].value}} kg/Ha):</td>
+							<td>
+								<div slider class="slider" cfg="mgCfg"
+									value="fertilizer.Mg[0].value"></div>
+							</td>
+							<td width="10%" class="text-center"><i
+								class="glyphicon glyphicon-question-sign"
+								ng-click="onHelp('mg')"></i></td>
+							<td class="fertilizer-price"><span> <img
+									style="height: 20px"
+									src="/public/images/home/money_in_stock.png">
+									{{fertilizer.Mg[0].value * prices.mg | integer}}
+							</span></td>
+						</tr>
+						<tr>
+							<td>Zn({{fertilizer.Zn[0].value}} kg/Ha):</td>
+							<td>
+								<div slider class="slider" cfg="znCfg"
+									value="fertilizer.Zn[0].value"></div>
+							</td>
+							<td width="10%" class="text-center"><i
+								class="glyphicon glyphicon-question-sign"
+								ng-click="onHelp('zn')"></i></td>
+							<td class="fertilizer-price"><span> <img
+									style="height: 20px"
+									src="/public/images/home/money_in_stock.png">
+									{{fertilizer.Zn[0].value * prices.zn | integer}}
+							</span></td>
+						</tr>
+						<tr>
+							<td>{{ 'Total' | translate}}:</td>
+							<td colspan="2" class="fertilizer-price" style="font-size: 0.8em">
+								<span> <img style="height: 30px"
+									src="/public/images/home/money_in_stock.png"> {{price | integer}}
+							</span>
+							</td>
+						</tr>
+						<!-- 					<tr> -->
+						<!-- 						<td></td> -->
+						<!-- 						<td colspan="2" class="fertilizer-price" style="font-size: 0.8em"> -->
+						<!-- 							<button class="btn btn-xs" ng-click="fertilize()">fertilize</button> -->
+						<!-- 						</td> -->
+						<!-- 					</tr> -->
+					</table>
+				</div>
+				<div class="row">
+					<div class="col-md-6 text-center">
+						<div ng-if="farmer.year_order>2">
+							<img style="float: left; width: 75px"
+								class="img img-responsive btn-image col-md-5"
+								src="/public/images/master.png"></img>
+							<button class="btn btn-xs operation-execute" style="width: 85%"
+								ng-click="buyHelpFertilizing()">Ask the expert!</button>
+						</div>
+					</div>
+					<div class="col-md-6 text-center">
+						<img style="float: left; width: 98px"
+							class="img img-responsive btn-image col-md-5"
+							src="/public/images/home/gubrivo.png"></img>
+						<button class="btn btn-xs operation-execute" style="width: 85%"
+							ng-click="fertilize()">Fertilize</button>
 					</div>
 				</div>
 			</div>
-<!-- 			<p>In order to achieve a productive and high-quality apple yield, -->
-<!-- 				the soil must contain an adequate quantity of nutrients, as well as -->
-<!-- 				being as neutral (in terms of pH) as possible. Nutrients are divided -->
-<!-- 				into macro-elements (nitrogen, phosphorus, potassium, magnesium, -->
-<!-- 				calcium) and micro-elements (copper, zinc, boron, manganese, iron, -->
-<!-- 				and molybdenum). A plantation’s soil should be analyzed every 4-5 -->
-<!-- 				years.</p> -->
-			
-<!-- 			<div id="irrigation-slider-container" ng-show="!haveAnalisys"> -->
-<!-- 				<button class="btn btn-xs" ng-click="buyAnalisys()">buy -->
-<!-- 					analysys</button> -->
-<!-- 			</div> -->
-		
-			<div id="irrigation-slider-container"
-				ng-show="haveAnalisys && !showingAnalysis">
-				<button class="btn btn-xs" ng-click="showAnalisys()">show
-					analysys</button>
-			</div>
-			<div id="irrigation-slider-container"
-				ng-show="haveAnalisys && showingAnalysis">
-				<button class="btn btn-xs" ng-click="hideAnalisys()">hide
-					analysys</button>
-			</div>
-			<div class="text-center">You can also buy a help!</div>
-			<div class="shop-button"  ng-click="buyHelpFertilizing()">
-				Buy Help
-			</div>
-
-			<div id="analysis-container" ng-show="showingAnalysis">
-			
-				<div class="page-header text-center">
-					<h4>Recommended values for fertilization in this period of the year</h4>
-					<h5>The values depend on the type of the soil</h5>
-				</div>
-				<div>
-				</div>
-				<table>
-					<thead>
-						<tr>
-							<th class="text-center col-md-2">Date From</th>
-							<th class="text-center col-md-3">Date To</th>
-							<th class="text-center col-md-3">Fertilizer</th>
-							<th class="text-center col-md-4">Quantity</th>
-
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="a in analysis">
-							<td class="text-center">{{a.startFrom }}</td>
-							<td class="text-center">{{a.endTo }}</td>
-							<td class="text-center">{{a.name}}</td>
-							<td class="text-center">{{a.quantity}} kg</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div id="irrigation-slider-container"
-				ng-show="!fertilizeProgress && !showingAnalisys">
-				<div id="fertilization-info">{{ 'fertilization.quantity' |
-					translate }}</div>
-				<table width="100%">
-					<tr>
-						<td width="20%">N({{fertilizer.N[0].value}} kg/Ha):</td>
-						<td width="50%">
-							<div slider class="slider" cfg="nCfg"
-								value="fertilizer.N[0].value"></div>
-						</td>
-						<td width="10%" class="text-center"><i
-							class="glyphicon glyphicon-question-sign" ng-click="onHelp('n')"></i></td>
-						<td width="20%" class="fertilizer-price"><span><img
-								style="height: 20px"
-								src="/public/images/home/money_in_stock.png">
-								{{fertilizer.N[0].value * prices.n}}</span></td>
-					</tr>
-					<tr>
-						<td>P({{fertilizer.P[0].value}} kg/Ha):</td>
-						<td>
-							<div slider class="slider" cfg="pCfg"
-								value="fertilizer.P[0].value"></div>
-						</td>
-						<td width="10%" class="text-center"><i
-							class="glyphicon glyphicon-question-sign" ng-click="onHelp('p')"></i></td>
-						<td class="fertilizer-price"><span> <img
-								style="height: 20px"
-								src="/public/images/home/money_in_stock.png">
-								{{fertilizer.P[0].value * prices.p}}
-						</span></td>
-					</tr>
-					<tr>
-						<td>K({{fertilizer.K[0].value}} kg/Ha):</td>
-						<td>
-							<div slider class="slider" cfg="kCfg"
-								value="fertilizer.K[0].value"></div>
-						</td>
-						<td width="10%" class="text-center"><i
-							class="glyphicon glyphicon-question-sign" ng-click="onHelp('k')"></i></td>
-						<td class="fertilizer-price"><span> <img
-								style="height: 20px"
-								src="/public/images/home/money_in_stock.png">
-								{{fertilizer.K[0].value * prices.k}}
-						</span></td>
-					</tr>
-					<tr>
-						<td>Ca({{fertilizer.Ca[0].value}} kg/Ha):</td>
-						<td>
-							<div slider class="slider" cfg="caCfg"
-								value="fertilizer.Ca[0].value"></div>
-						</td>
-						<td width="10%" class="text-center"><i
-							class="glyphicon glyphicon-question-sign" ng-click="onHelp('ca')"></i></td>
-						<td class="fertilizer-price"><span> <img
-								style="height: 20px"
-								src="/public/images/home/money_in_stock.png">
-								{{fertilizer.Ca[0].value * prices.ca}}
-						</span></td>
-					</tr>
-					<tr>
-						<td>B({{fertilizer.B[0].value}} kg/Ha):</td>
-						<td>
-							<div slider class="slider" cfg="bCfg"
-								value="fertilizer.B[0].value"></div>
-						</td>
-						<td width="10%" class="text-center"><i
-							class="glyphicon glyphicon-question-sign" ng-click="onHelp('b')"></i></td>
-						<td class="fertilizer-price"><span> <img
-								style="height: 20px"
-								src="/public/images/home/money_in_stock.png">
-								{{fertilizer.B[0].value * prices.b}}
-						</span></td>
-					</tr>
-					<tr>
-						<td>Mg({{fertilizer.Mg[0].value}} kg/Ha):</td>
-						<td>
-							<div slider class="slider" cfg="mgCfg"
-								value="fertilizer.Mg[0].value"></div>
-						</td>
-						<td width="10%" class="text-center"><i
-							class="glyphicon glyphicon-question-sign" ng-click="onHelp('mg')"></i></td>
-						<td class="fertilizer-price"><span> <img
-								style="height: 20px"
-								src="/public/images/home/money_in_stock.png">
-								{{fertilizer.Mg[0].value * prices.mg}}
-						</span></td>
-					</tr>
-					<tr>
-						<td>Zn({{fertilizer.Zn[0].value}} kg/Ha):</td>
-						<td>
-							<div slider class="slider" cfg="znCfg"
-								value="fertilizer.Zn[0].value"></div>
-						</td>
-						<td width="10%" class="text-center"><i
-							class="glyphicon glyphicon-question-sign" ng-click="onHelp('zn')"></i></td>
-						<td class="fertilizer-price"><span> <img
-								style="height: 20px"
-								src="/public/images/home/money_in_stock.png">
-								{{fertilizer.Zn[0].value * prices.zn}}
-						</span></td>
-					</tr>
-					<tr>
-						<td>{{ 'Total' | translate}}:</td>
-						<td colspan="2" class="fertilizer-price" style="font-size: 0.8em">
-							<span> <img style="height: 30px"
-								src="/public/images/home/money_in_stock.png"> {{price}}
-						</span>
-						</td>
-					</tr>
-<!-- 					<tr> -->
-<!-- 						<td></td> -->
-<!-- 						<td colspan="2" class="fertilizer-price" style="font-size: 0.8em"> -->
-<!-- 							<button class="btn btn-xs" ng-click="fertilize()">fertilize</button> -->
-<!-- 						</td> -->
-<!-- 					</tr> -->
-				</table>
-			</div>
-			
-			<div class="text-center">
-				<button class="btn btn-xs operation-execute" ng-click="fertilize()">fertilize</button>
-			</div>
-			
 		</div>
 	</div>
 

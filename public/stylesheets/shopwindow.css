@@ -801,6 +801,9 @@ keyframes cloud-enter-right { 0% {
 	right: auto;
 	width: 280px
 }
+.btn-image {
+	width:40px;
+}
 
 @media ( max-width : 1200px) {
 	.weather-info-text {

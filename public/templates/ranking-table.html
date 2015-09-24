@@ -12,7 +12,7 @@
   <div class="shop_menu_grid fa-inverse">
   	<div class="row text-center">
   		<label class="control-label col-md-6" for="year">{{'ranking.chooseYear' | translate}} </label>
-  		<select id="year" style="width:150px" ng-change="changeYear(selectedYear)" class="form-control"  ng-model="selectedYear" ng-options="year.year for year in years track by year.id"></select>
+  		<select id="year" style="width:150px" ng-change="changeYear(selectedYear)" class="form-control"  ng-model="selectedYear" ng-options="year.year for year in years track by year.year"></select>
   	</div>
     <table class="table" st-table="displayedRankings" st-safe-src="rankings">
       <tr>
@@ -20,6 +20,7 @@
         <th st-sort="apples_in_stock">{{ 'apples' | translate}}</th>
         <th st-sort="balance">{{ 'money' | translate}}</th>
         <th st-sort="eco_points">{{ 'eco points' | translate}}</th>
+        <th st-sort="eco_points">{{ 'total_points' | translate}}</th>
       </tr>
       <tr>
         <th colspan="4"><input st-search="" class="form-control" placeholder="{{'search' | translate}}" type="text"/></th>
@@ -29,6 +30,7 @@
         <td>{{user.harvestQuantity}}</td>
         <td>{{user.moneyEarned}}</td>
         <td>{{user.ecoPoints}}</td>
+        <td>{{user.totalPoints}}</td>
       </tr>
     </table>
   </div>

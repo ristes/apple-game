@@ -12,9 +12,11 @@ Game
 						'$interval',
 						'$window',
 						'ExpertAdvice',
+						'Modal',
+						'$farmer',
 						function($scope, Fertilize, State, Planting, Store,
 								BoughtItems, $timeout, $interval, $window,
-								ExpertAdvice) {
+								ExpertAdvice, Modal, farmer) {
 
 							// $scope.fertilizer = {
 							// n: 40,
@@ -25,7 +27,7 @@ Game
 							// b: 0.35
 							// };
 
-							
+							$scope.isHelp = false;
 
 							Fertilize.recommend(function(data) {
 								data = _.groupBy(data, function(
@@ -56,7 +58,20 @@ Game
 							}
 							
 							$scope.buyHelpFertilizing = function() {
+								$scope.isHelp = true;
 								
+								Fertilize.recommendWithPayment(function(data) {
+									farmer.load();
+									$scope.startValue = 10;
+									$scope.recommendedValues = data;
+//									$scope.modalInstance = Modal.start("/public/templates/fertilize_recommendation.html",$scope);
+									$timeout(function() {
+										$scope.isHelp = false;
+									},10000);
+									$interval(function() {
+										$scope.startValue--;
+									},1000,10);
+								});
 							}
 							function calculatePrice() {
 								var n = $scope.fertilizer;

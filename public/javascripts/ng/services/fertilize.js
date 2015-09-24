@@ -5,6 +5,12 @@ Game.factory('Fertilize', ['State', '$http', function(State, $http) {
     			callback(data.data);
     		});
     	},
+    	recommendWithPayment: function(callback) {
+    		$http.get("RecommendationController/ferilizeWitPayment").then(function(data) {
+    			callback(data.data);
+    		});
+    	},
+
         fertilize: function(fertilizer, callback) {
             $http({
                 method: 'POST',

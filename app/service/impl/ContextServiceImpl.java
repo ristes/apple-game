@@ -214,7 +214,9 @@ public class ContextServiceImpl implements ContextService {
 					if (!ServiceInjector.yieldService.areApplesByTypeAndYearHarvested(farmer, pt, year)) {
 						if (ServiceInjector.rottenApplesService.getByFarmerYearAndPlantType(farmer, year, pt)
 								.size() == 0) {
-							String message = Messages.get("lost_quantity_rotten", pt.name);
+							Integer minusEco = ServiceInjector.ecoPointsService.divide(farmer, 20.0);
+							String message = Messages.get("lost_quantity_rotten", pt.name, minusEco);
+							
 							ServiceInjector.infoTableService.createT1(farmer, message, pt.imageurl);
 							RottenApples rottenApples = new RottenApples();
 							rottenApples.setFarmer(farmer);

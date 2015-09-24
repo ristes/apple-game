@@ -252,9 +252,9 @@ public class FridgeServiceImpl implements FridgeService {
 					int quantity = portion.quantity;
 					removeAllPlantTypeFromFridge(farmer, fridge,
 							portion.yield.plantationSeedling.seedling.type);
-
+					Integer lostEco = ServiceInjector.ecoPointsService.divide(farmer, 25.0);
 					String message = String.format(play.i18n.Messages.get(
-							"lost_quantity_in_fridge", fridge.name, quantity));
+							"lost_quantity_in_fridge", fridge.name, quantity,lostEco));
 					ServiceInjector.infoTableService.createT1(farmer, message,
 							portion.yield.plantType.imageurl);
 				}

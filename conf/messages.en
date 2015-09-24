@@ -11,9 +11,9 @@ earn_from_ecos = You earned %s money from your eco points!
 
 lost_quantity_message = On %s you lost %s kg apples because %s.
 
-lost_quantity_in_fridge = The apples became rotten in %s. You lost %d kg apples.
+lost_quantity_in_fridge = The apples became rotten in %s. You lost %d kg apples and %d eco points.
 
-lost_quantity_rotten = The apple type %s got rotten on the field. Please follow the harvesting periods appropriately by the plant type.
+lost_quantity_rotten = The apple type %s got rotten on the field. You lost %d eco points. Please follow the harvesting periods appropriately by the plant type.
 
 good-weather-for-harvesting = Ideal weather for harvesting!
 

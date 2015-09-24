@@ -12,6 +12,7 @@ Game.controller('RankingsController', ['$scope', 'Ranking', function($scope, Ran
 		  year: parseInt(2020)+parseInt(i)
 	  });
   }
+  $scope.selectedYear = 2020 + $scope.$root.farmer.year_order;
   $scope.years = years;
 
  

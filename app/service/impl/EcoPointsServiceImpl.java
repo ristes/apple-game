@@ -33,12 +33,14 @@ public class EcoPointsServiceImpl implements EcoPointsService {
 	}
 
 	@Override
-	public void divide(Farmer farmer, Double value) {
+	public Integer divide(Farmer farmer, Double value) {
 		if (value <= 0) {
 			throw new NumberFormatException();
 		}
-		farmer.setEco_points(farmer.getEco_points() + farmer.getEco_points()
+		Integer substract = (int)(farmer.getEco_points()
 				/ value);
+		farmer.setEco_points(farmer.getEco_points() - substract);
+		return substract;
 
 	}
 
