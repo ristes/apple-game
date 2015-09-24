@@ -1,6 +1,7 @@
 package service.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -55,8 +56,8 @@ public class DiseaseServiceImpl implements DiseaseService {
 				break;
 			}
 
-			System.out.println(disease.name + " - " + dis.probability + " - "
-					+ farmer.luck * 100);
+//			System.out.println(disease.name + " - " + dis.probability + " - "
+//					+ farmer.luck * 100);
 		}
 		return disProbs;
 	}
@@ -257,14 +258,19 @@ public class DiseaseServiceImpl implements DiseaseService {
 		if (context.field == null) {
 			return 0;
 		}
-		List<ExecutedOperation> operations = context.field.executedOperations;
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.DAY_OF_MONTH, 1);
+		c.set(Calendar.MONTH, Calendar.NOVEMBER);
+		c.set(Calendar.YEAR,
+				ServiceInjector.dateService.recolteYear(context.gameDate.date));
+		List<ExecutedOperation> operations = ExecutedOperation.find(
+				"field=?1 and startDate>=?2", context.field, c.getTime())
+				.fetch();
 		List<ExecutedOperation> operationsThisYear = new ArrayList<ExecutedOperation>();
 		for (ExecutedOperation operation : operations) {
-			if (ServiceInjector.dateService.isSameYear(context,
-					operation.startDate)) {
-				operationsThisYear.add(ServiceInjector.dateService
-						.changeYear(operation));
-			}
+
+			operationsThisYear.add(ServiceInjector.dateService
+					.changeYear(operation));
 		}
 		List<DiseaseProtectingOperationDto> protections = ServiceInjector.diseaseService
 				.getMmax(context, disease);
@@ -304,7 +310,7 @@ public class DiseaseServiceImpl implements DiseaseService {
 					.withVariable("rand", rand)
 					.withVariable("maxYield", maxYield)
 					.withVariable("curYield", farmer.productQuantity).build();
-			result = value.calculate();
+			result = value.calculate()*0.5;
 		} catch (UnknownFunctionException ex) {
 			ex.printStackTrace();
 		} catch (UnparsableExpressionException ex) {

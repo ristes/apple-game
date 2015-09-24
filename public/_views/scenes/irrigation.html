@@ -1,56 +1,70 @@
 <div ng-controller="IrrigationController">
 	<div class="shop-menu" ng-animate="shop"
-			ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
+		ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
 
 
 		<div class="shop_icon">
-			<img src="{{type.url}}" style="width:75%;"></img>
+			<img src="{{type.url}}" style="width: 75%;"></img>
 			<div class="shop-label ramka">
-				<span class="shop-label-text">
-					{{ 'irrigation.'+type.name | translate }}
-				</span>
+				<span class="shop-label-text"> {{ 'irrigation.'+type.name |
+					translate }} </span>
 			</div>
 		</div>
 
 		<div class="shop_arrow" ng-show="showNext" ng-click="hide()"></div>
 
-		<div class="shop_menu_grid fa-inverse" ng-show="enableOther">
-			<div id="mm-rain">
-				{{ 'irrigation.mm_rain' | translate: info }}
+		<div class="shop_menu_grid fa-inverse text-center"
+			ng-show="enableOther">
+			<div id="mm-rain">{{ 'irrigation.mm_rain' | translate: info }}
 			</div>
-			<div id="irrigation-description">
-				{{ 'irrigation.'+type.name+"_info" | translate: type }}
-			</div>
-			<div id="irrigation-info" ng-show="holder.best!=null">
-				{{ 'irrigation.tensiometer_recomended' | translate }} {{holder.best}} {{ 'hours' | translate }}
-			</div>
-			<div id="irrigation-info" ng-show="!hasTensiometer">
-				{{ 'irrigation.choose_duration' | translate }}
-			</div>
-			<div id="irrigation-slider-container">
-				<div slider class="slider" cfg="cfg" value="holder.duration"></div>
-			</div>
-			<div>
-				<span ng-show="td" >{{td}} h</span>
-				<span ng-show="!td" > {{holder.duration}} h</span>
-				<button class="btn btn-xs" ng-click="irrigate()">{{ 'irrigation.irrigate' | translate }}</button>
-			</div>
-			<div class="buy-better-irrigation" ng-show="nextType" ng-if="farmer.year_order>2">
-				
-				<button class="btn btn-xs" ng-click="buy(nextType)">{{ 'action.buy' | translate }} {{ 'irrigation.'+nextType | translate}} </button>
-				<div>
-					{{ "irrigation."+nextType+"_benefits" | translate}}
+			<div id="irrigation-description">{{
+				'irrigation.'+type.name+"_info" | translate: type }}</div>
+
+			<div style="margin-top:20px;font-size:x-large" id="irrigation-info" ng-show="!hasTensiometer">{{
+				'irrigation.choose_duration' | translate }}</div>
+			<div ng-show="hasTensiometer" style="margin-top: 15px"
+				class="tensiometer-group">
+				<img src="/public/images/elems/tensiometer.png"
+					style="width: 35px; float: left" />
+				<div style="float: left; width: 84%">
+					<div style="font-size: 17px;" id="irrigation-info"
+						class="text-center" ng-show="holder.best!=null">{{
+						'irrigation.tensiometer_recomended' | translate }}</div>
+					<div style="font-size: x-large;">{{holder.best}} h</div>
+					<div>irrigation of the soil.</div>
 				</div>
+			</div>
+			<div style="clear: both" id="irrigation-slider-container">
+				<div class="text-center">{{holder.duration}} {{ 'hours' |
+					translate }}</div>
+				<div slider class="slider" cfg="cfg" value="holder.duration"></div>
+				<div class="float:left"></div>
+				<div style="font-size: small" class="text-center">Slide to
+					choose the duration of irrigation</div>
+			</div>
+			<div class="text-center">
+				<span ng-show="td">{{td}} h</span> <span ng-show="!td">
+					{{holder.duration}} h</span>
+				<button class="btn btn-xs" ng-click="irrigate()">{{
+					'irrigation.irrigate' | translate }}</button>
+			</div>
+			<div class="buy-better-irrigation" ng-show="nextType"
+				ng-if="farmer.year_order>2">
+
+				<button class="btn btn-xs" ng-click="buy(nextType)">{{
+					'action.buy' | translate }} {{ 'irrigation.'+nextType | translate}}
+				</button>
+				<div>{{ "irrigation."+nextType+"_benefits" | translate}}</div>
 			</div>
 		</div>
 	</div>
 
 	<div ng-if="!enableOther" class="irrigation-progress">
-		<custom-audio-nonsupervised ng-if="$root.soundsEnabled" filename="'/public/sounds/operations/irrigation.mp3'" loop='true' start-on-init='true'></custom-audio-nonsupervised>
-		<div class="progress-bar-irrigation" style="width: {{status}}%;">
-			<span>
-				{{showStatus | integer}} %
-			</span>
+		<custom-audio-nonsupervised ng-if="$root.soundsEnabled"
+			filename="'/public/sounds/operations/irrigation.mp3'" loop='true'
+			start-on-init='true'></custom-audio-nonsupervised>
+		<div class="progress-bar-irrigation" style="width: {{status">
+			<span> {{showStatus | integer}} % </span>
 		</div>
 	</div>
 

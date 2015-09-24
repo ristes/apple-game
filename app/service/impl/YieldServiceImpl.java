@@ -67,7 +67,7 @@ public class YieldServiceImpl implements YieldService {
 
 	@Override
 	public Double getMaxYieldByRecolte(Farmer farmer, Integer recolte) {
-		LogFarmerData data = LogFarmerData.find("typelog=?1 AND farmer=?2 AND recolteYear=?3", LogFarmerDataService.CURRENT_YIELD, farmer,recolte).first();
+		LogFarmerData data = LogFarmerData.find("typelog=?1 AND farmer=?2 AND recolteYear=?3", LogFarmerDataService.MAX_YIELD, farmer,recolte).first();
 		if (data==null) {
 			return 0.0;
 		}

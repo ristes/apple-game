@@ -10,7 +10,7 @@
   <div class="shop_arrow" ng-click="hide()"></div>
 
   <div class="shop_menu_grid fa-inverse">
-  	<div class="row text-center">
+  	<div class="text-center">
   		<label class="control-label col-md-6" for="year">{{'ranking.chooseYear' | translate}} </label>
   		<select id="year" style="width:150px" ng-change="changeYear(selectedYear)" class="form-control"  ng-model="selectedYear" ng-options="year.year for year in years track by year.year"></select>
   	</div>

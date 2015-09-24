@@ -188,7 +188,7 @@ public class FarmerServiceImpl implements FarmerService {
 		int beforeQuantity = farmer.productQuantity;
 		farmer.productQuantity -= farmer.productQuantity * percent / 100.0;
 		Double demage = (double)(beforeQuantity - farmer.productQuantity);
-		if (demage != 0.0) {
+		if (demage > 5.0) {
 			if (showInfoTable) {
 				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 				ServiceInjector.infoTableService.createT1(farmer, Messages

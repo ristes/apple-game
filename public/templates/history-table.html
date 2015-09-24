@@ -9,22 +9,24 @@
 
   <div class="shop_arrow" ng-click="hide()"></div>
 
-  <div class="shop_menu_grid fa-inverse">
-    <table>
+  <div class="shop_menu_grid fa-inverse text-center">
+  	<div class="page-header text-center">
+  		<h3>List of operations applies this year</h3>
+  	</div>
+    <table class="table table-condensed">
     	<thead>
     	<tr>
-    		<th class="col-md-2"></th>
-    		<th class="col-md-3" >Operation</th>
-    		<th class="col-md-3">Date</th>
-    		<th class="col-md-4">Productivity</th>
+    		<th align="center" valign="center" class="col-md-4 text-center"></th>
+    		<th align="center" valign="center" class="col-md-4 text-center" >Operation</th>
+    		<th align="center" valign="center" class="col-md-4 text-center">Date</th>
     		
     	</tr>
     	</thead>
     	<tbody>
     	<tr ng-repeat="operation in history">
-    		<td><img style="max-width:100px" ng-src="{{operation.operation.icon_url}}"/></td>
-    		<td>{{operation.operation.name}}</td>
-    		<td>{{operation.logdate}}</td>
+    		<td align="center" valign="center"><img style="max-width:100px" ng-src="{{operation.operation.icon_url}}"/></td>
+    		<td align="center" valign="center">{{operation.operation.name}}</td>
+    		<td align="center" valign="center">{{operation.logdate}}</td>
     	</tr>
     	</tbody>
     </table>

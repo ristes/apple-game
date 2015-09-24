@@ -1,23 +1,14 @@
 package service.impl;
 
-import play.i18n.Messages;
-import exceptions.NotEnoughMoneyException;
-import exceptions.PriceNotValidException;
-import models.Disease;
 import models.Farmer;
 import models.Item;
 import models.ItemInstance;
 import models.OccurredDecease;
-import service.DateService;
-import service.HarvestService;
-import service.InfoTableService;
+import play.i18n.Messages;
 import service.InsuranceService;
-import service.MoneyTransactionService;
-import service.RandomGeneratorService;
 import service.ServiceInjector;
-import service.YieldService;
-import utils.RImage;
-import utils.RString;
+import exceptions.NotEnoughMoneyException;
+import exceptions.PriceNotValidException;
 
 public class InsuranceServiceImpl implements InsuranceService {
 
@@ -36,10 +27,10 @@ public class InsuranceServiceImpl implements InsuranceService {
 		if (!odisease.desease.isRefundable) {
 			return farmer;
 		}
-		Double refund = ServiceInjector.moneyConversionService.toEuros(ServiceInjector.diseaseService.getRefund(farmer,odisease.desease))+5;
+		Double refund = ServiceInjector.moneyConversionService.toEuros(ServiceInjector.diseaseService.getRefund(farmer,odisease.desease));
 		try {
 			ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, refund);
-			ServiceInjector.infoTableService.createT1(farmer, Messages.getMessage("en", "insurrance_refund_money", String.valueOf(refund.intValue())),String.format(Messages.getMessage("en", "insurrance_refund_money", String.valueOf(refund))));
+			ServiceInjector.infoTableService.createT1(farmer, Messages.getMessage("en", "insurrance_refund_money", String.valueOf(refund.intValue())),"/public/images/game/items/insurance.png");
 		} catch (NotEnoughMoneyException ex) {
 			ex.printStackTrace();
 		}
@@ -56,7 +47,7 @@ public class InsuranceServiceImpl implements InsuranceService {
 		Double refund = ServiceInjector.moneyConversionService.toEuros(price * quantity);
 		try {
 			ServiceInjector.moneyTransactionService.commitMoneyTransaction(farmer, refund);
-			ServiceInjector.infoTableService.createT1(farmer, Messages.getMessage("en", "insurrance_refund_money", String.valueOf(refund.intValue())),String.format(Messages.getMessage("en", "insurrance_refund_money", String.valueOf(refund))));
+			ServiceInjector.infoTableService.createT1(farmer, Messages.getMessage("en", "insurrance_refund_money", String.valueOf(refund.intValue())),"/public/images/game/items/insurance.png");
 			
 		} catch (NotEnoughMoneyException ex) {
 			ex.printStackTrace();

@@ -112,12 +112,12 @@ public class FertilizeServiceImpl implements FertilizeService{
 			farmer.productQuantity+=maxQuantity*0.05;
 		} else if (res>1.1 && res <= 1.4) {
 			farmer.productQuantity+=maxQuantity*0.2;
-			ServiceInjector.ecoPointsService.substract(farmer,5);
+			ServiceInjector.ecoPointsService.substract(farmer,1);
 		} else if (res>1.4 && res <= 2) {
 			farmer.productQuantity+=maxQuantity*0.1;
-			ServiceInjector.ecoPointsService.substract(farmer,10);
+			ServiceInjector.ecoPointsService.substract(farmer,2);
 		} else if (res>2) {
-			ServiceInjector.ecoPointsService.divide(farmer, 2.0);
+			ServiceInjector.ecoPointsService.divide(farmer, new Double(40.0));
 		}
 		return farmer;
 	}

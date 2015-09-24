@@ -34,13 +34,13 @@
 					<div class="text-center">
 						<img ng-if="questions[ordnum].imageUrl!==undefined"
 							ng-src="{{questions[ordnum].imageUrl}}" style="max-width: 200px" />
-						<div class="ramka" padding: 10px;">
+						<div class="ramka" style="padding: 10px;">
 							<h3>{{questions[ordnum].name | translate}}</h3>
 						</div>
-						<ul class="list-group">
+						<ul class="list-group" style="margin-top:15px">
 							<li style="" ng-repeat="ans in questions[ordnum].answers"
 								ng-show="!is_answered" class="text-center">
-								<button class="btn btn-primary" style="width: 400px"
+								<button class="btn btn-primary" style="width: 500px"
 									ng-click="answer(ans)">{{ans.name}}</button>
 							</li>
 

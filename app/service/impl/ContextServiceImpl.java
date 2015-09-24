@@ -105,9 +105,12 @@ public class ContextServiceImpl implements ContextService {
 		ServiceInjector.farmerService.collectBadge(farmer, ServiceInjector.badgesService.fertilizer(farmer));
 
 		farmer.productQuantity = (int) Math.round(ServiceInjector.yieldService.calculateYield(farmer));
-
+		ServiceInjector.logFarmerDataService.logSetMaxYield(farmer, farmer.productQuantity);
+		
+		
 		Integer moneyEarned = ServiceInjector.resumeService.calcMoneyEarned(farmer, recolte);
 		Integer applesHarvested = ServiceInjector.resumeService.calculateYield(farmer, recolte);
+		
 		ServiceInjector.rankingService.savePoints(farmer, (int) farmer.getEco_points(), applesHarvested, moneyEarned);
 		ServiceInjector.ecoPointsService.restart(farmer);
 		farmer.irrigation_misses = 0;
@@ -118,7 +121,7 @@ public class ContextServiceImpl implements ContextService {
 		c.setTime(farmer.gameDate.date);
 		int month = c.get(Calendar.MONTH);
 		int day = c.get(Calendar.DAY_OF_MONTH);
-		if (month == Calendar.OCTOBER && day == 1
+		if (month == Calendar.SEPTEMBER && day == 1
 				&& ServiceInjector.dateService.evaluateYearLevel(farmer.gameDate.date) > 1) {
 			ServiceInjector.fertilizeService.finalEvaluationFertilizer(farmer);
 		}
