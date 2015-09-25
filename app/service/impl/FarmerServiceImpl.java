@@ -68,8 +68,7 @@ public class FarmerServiceImpl implements FarmerService {
 
 	public Farmer buildFbInstance(String username, String access_token,
 			String name, String surname, String email, String picture) {
-		Farmer farmer = Farmer.find("username=:username")
-				.setParameter("username", username).first();
+		Farmer farmer = Farmer.find("username=?1 and is_active=?2", username,true).first();
 		if (farmer == null) {
 			farmer = buildInstance(username, "default_password");
 		} 
