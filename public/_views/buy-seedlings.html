@@ -3,6 +3,7 @@
 		<div class="text-center">
 			<h3>You can select 3 apple types maximum</h3>
 			<h4>You can plant maximum: {{maximumSeedlings}} seedlings.</h4>
+			<h4>You must plant at least {{maximumSeedlings/2}} seedlings!</h4>
 		</div>
 		<div class="select-seedling text-center">
 			<div>
@@ -29,7 +30,7 @@
 								</div>
 							</div>
 						</td>
-						<td colspan="2"><spin value="at.quantity" min="0" max="1000"
+						<td colspan="2"><spin value="at.quantity" min="0" max="2000"
 								step="50" callback="onChange" /> <!-- 						<div slider class="slider" cfg="nCfg" -->
 							<!-- 												value="at.quantity" type="at"></div> --> <!-- 						<div slider class="slider" cfg="nCfg(at)" -->
 							<!-- 							value="at.quantity"></div> --></td>
@@ -49,18 +50,22 @@
 			</div>
 		</div>
 		<div class="text-center">
-			<button ng-if="sumPrice!==0 && totalSeedlings<=maximumSeedlings"
+			<button
+				ng-if="sumPrice!==0 && totalSeedlings<=maximumSeedlings && totalSeedlings>=maximumSeedlings/2"
 				class="btn btn-default"
 				ng-disabled="totalSeedlings>maximumSeedlings"
-				ng-click="buySeedlings()">{{ 'general.buy_seedlings' | translate }}</button>
+				ng-click="buySeedlings()">{{ 'general.buy_seedlings' |
+				translate }}</button>
 			<div style="color: white">
 				<span ng-if="totalSeedlings>maximumSeedlings">Depending on
 					your plantation, you can buy only {{maximumSeedlings}} seedlings.</span>
 			</div>
+
 		</div>
-		<div class="select-seedling-quantity text-center"
-			style="">
-			<h3>{{ 'total' | translate }}: {{sumPrice}}</h3>
+		<div class="select-seedling-quantity page=header" style="">
+		
+			<h3 class="pull-right" style="margin-right:50px"><span class="shop-item-price" style="font-size:x-large;padding-top:2%; padding-left:30%; width:200px">{{sumPrice}}</span> </h3>
+			<h3 class="pull-right" style="margin-right:50px"><span class="shop-plants" style="font-size:x-large;padding-top:2%; padding-left:30%; width:200px">{{totalSeedlings}}</span> </h3>
 			<div class="col-md-5">
 				<table ng-if="finishedSelection">
 					<tr ng-repeat="s in selected">

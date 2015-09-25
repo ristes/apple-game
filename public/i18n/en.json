@@ -87,7 +87,7 @@
 		"quantity":"Choose the right quantity of nutrients"
 	} ,
 	"progress": {
-		"plowing":"Let's plow"
+		"plowing":"Plowing operation in progress"
 	},
 	"total_points": "Total",
 	"soil_analyse": "soil analyse",
