@@ -439,7 +439,7 @@ public class StoreServiceImpl implements StoreService {
 			return true;
 		}
 		Integer activeFrom = jsonActiveFrom.getAsInt();
-		if (activeFrom < farmer.year_level) {
+		if (activeFrom <= farmer.year_level) {
 			return true;
 		}
 		return false;
