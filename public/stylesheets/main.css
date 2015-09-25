@@ -296,7 +296,7 @@ img.ograda-gore {
 .fb-friends-container {
 	position: relative;
 	padding: 10% 15%;
-	padding-top: 160px;
+	padding-top: 15%;
 }
 
 .fb-friends-grid {
@@ -448,11 +448,11 @@ div.select-seedling-quantity td {
 }
 
 .green {
-	background-color: green;
+	background-color: green !important;
 }
 
 .red {
-	background-color: red;
+	background-color: red !important;
 }
 
 .padding15 {
@@ -620,4 +620,14 @@ div.select-seedling-quantity td {
 .btn-default.disabled, .btn-default.disabled.active, .btn-default.disabled.focus, .btn-default.disabled:active, .btn-default.disabled:focus, .btn-default.disabled:hover, .btn-default[disabled], .btn-default[disabled].active, .btn-default[disabled].focus, .btn-default[disabled]:active, .btn-default[disabled]:focus, .btn-default[disabled]:hover, fieldset[disabled] .btn-default, fieldset[disabled] .btn-default.active, fieldset[disabled] .btn-default.focus, fieldset[disabled] .btn-default:active, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn-default:hover {
 	background-color: red;
 	color:white;
+}
+.menu-item-quiz {
+	background: #7e571a;
+	padding: 20px 7px;
+	margin:5px;
+	border-radius:5px;
+}    
+.menu-item-quiz:HOVER{
+	cursor:pointer;
+	background: #333333;
 }

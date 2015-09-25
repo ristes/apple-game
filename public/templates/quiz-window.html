@@ -40,14 +40,14 @@
 						<ul class="list-group" style="margin-top:15px">
 							<li style="" ng-repeat="ans in questions[ordnum].answers"
 								ng-show="!is_answered" class="text-center">
-								<button class="btn btn-primary" style="width: 500px"
-									ng-click="answer(ans)">{{ans.name}}</button>
+								<div class="menu-item-quiz" style="min-width:100%; max-width:100%"
+									ng-click="answer(ans)">{{ans.name}}</div>
 							</li>
 
 							<li style="" ng-repeat="ans in questions[ordnum].answers"
 								ng-show="is_answered">
-								<button class="btn btn-primary" style="min-width: 400px"
-									ng-class="{true: 'green', false:'red'}[ans.is_correct]">{{ans.name}}</button>
+								<div class="menu-item-quiz" style="min-width:100%; max-width:100%"
+									ng-class="{true: 'green', false:'red'}[ans.is_correct]">{{ans.name}}</div>
 							</li>
 							<li ng-show="is_answered" class="pull-right">
 								<button class="btn btn-primary"

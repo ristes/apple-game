@@ -24,6 +24,7 @@ GameDirectives
 												if (!n)
 													return;
 												if (n === true) {
+													reload();
 													Quiz.load();
 													$scope.quiz_completed = false;	
 												}
@@ -41,9 +42,17 @@ GameDirectives
 									}
 									State.subscribe('quiz', 'QuizController',
 											onDataReceived);
+									
+									var reload = function() {
+										
+										$scope.score = 0;
+										$scope.misses = 0;
+										$scope.ordnum = 0;
+										$scope.is_answered = false;
+									}
+									reload();
 									$scope.is_answered = false;
-									$scope.score = 0;
-									$scope.misses = 0;
+									
 									$scope.submit = function() {
 
 									}
@@ -113,6 +122,7 @@ GameDirectives
 
 									var un = $scope.$root.$on("quiz-end",
 											function() {
+												reload();
 												$scope.hide();
 											});
 								},
