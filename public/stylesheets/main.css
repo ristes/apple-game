@@ -373,9 +373,9 @@ img.ograda-gore {
 
 .seedling-planting {
 	z-index: 5000;
-	height: 100%;
+	height:100%;
 	overflow-y: auto;
-	overflow-x: hidden;
+	overflow-x: auto;
 }
 
 #div_timeline_travel {

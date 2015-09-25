@@ -1,10 +1,8 @@
-<div class="board-bg" style="padding-bottom: 100px; paddding-top:50px"> 
-	<div class="seedling-planting" style="margin-bottom:300px">
-		<div class="text-center">
-			<h3>You can select 3 apple types maximum</h3>
-			<h4>You can plant maximum: {{maximumSeedlings}} seedlings.</h4>
-			<h4>You must plant at least {{maximumSeedlings/2}} seedlings!</h4>
-		</div>
+<div class="board-bg" style="padding-bottom: 80px; padding-top: 50px">
+	<div class="seedling-planting text-center" class="text-center">
+		<h3>You can select 3 apple types maximum</h3>
+		<h4>You can plant maximum: {{maximumSeedlings}} seedlings.</h4>
+		<h4>You must plant at least {{maximumSeedlings/2}} seedlings!</h4>
 		<div class="select-seedling text-center">
 			<div>
 				<table>
@@ -49,11 +47,17 @@
 				</table>
 			</div>
 		</div>
-		<hr style="margin-left:40px; margin-right:40px"></hr>
+		<hr style="margin-left: 40px; margin-right: 40px"></hr>
 		<div class="select-seedling-quantity" style="">
-		
-			<h3 class="pull-right" style="margin-right:50px"><span class="shop-item-price" style="font-size:x-large;padding-top:2%; padding-left:30%; width:200px">{{sumPrice}}</span> </h3>
-			<h3 class="pull-right" style="margin-right:50px"><span class="shop-plants" style="font-size:x-large;padding-top:2%; padding-left:30%; width:200px">{{totalSeedlings}}</span> </h3>
+
+			<h3 class="pull-right" style="margin-right: 50px">
+				<span class="shop-item-price"
+					style="font-size: x-large; padding-top: 2%; padding-left: 30%; width: 200px">{{sumPrice}}</span>
+			</h3>
+			<h3 class="pull-right" style="margin-right: 50px">
+				<span class="shop-plants"
+					style="font-size: x-large; padding-top: 2%; padding-left: 30%; width: 200px">{{totalSeedlings}}</span>
+			</h3>
 			<div class="col-md-5">
 				<table ng-if="finishedSelection">
 					<tr ng-repeat="s in selected">
@@ -88,11 +92,10 @@
 			</div>
 
 		</div>
-		<br/>
+		<br />
 		<div class="text-center">
-			<button
-				ng-if="sumPrice!==0 && totalSeedlings<=maximumSeedlings"
-				class="btn btn-default"
+			<button ng-if="sumPrice!==0 && totalSeedlings<=maximumSeedlings"
+				class="btn btn-default" style="font-size:large;padding:10px"
 				ng-disabled="totalSeedlings>maximumSeedlings ||  totalSeedlings<maximumSeedlings/2"
 				ng-click="buySeedlings()">{{ 'general.buy_seedlings' |
 				translate }}</button>
