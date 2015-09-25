@@ -1,5 +1,5 @@
-<div class="board-bg">
-	<div class="seedling-planting">
+<div class="board-bg" style="padding-bottom: 100px; paddding-top:50px"> 
+	<div class="seedling-planting" style="margin-bottom:300px">
 		<div class="text-center">
 			<h3>You can select 3 apple types maximum</h3>
 			<h4>You can plant maximum: {{maximumSeedlings}} seedlings.</h4>
@@ -49,20 +49,8 @@
 				</table>
 			</div>
 		</div>
-		<div class="text-center">
-			<button
-				ng-if="sumPrice!==0 && totalSeedlings<=maximumSeedlings && totalSeedlings>=maximumSeedlings/2"
-				class="btn btn-default"
-				ng-disabled="totalSeedlings>maximumSeedlings"
-				ng-click="buySeedlings()">{{ 'general.buy_seedlings' |
-				translate }}</button>
-			<div style="color: white">
-				<span ng-if="totalSeedlings>maximumSeedlings">Depending on
-					your plantation, you can buy only {{maximumSeedlings}} seedlings.</span>
-			</div>
-
-		</div>
-		<div class="select-seedling-quantity page=header" style="">
+		<hr style="margin-left:40px; margin-right:40px"></hr>
+		<div class="select-seedling-quantity" style="">
 		
 			<h3 class="pull-right" style="margin-right:50px"><span class="shop-item-price" style="font-size:x-large;padding-top:2%; padding-left:30%; width:200px">{{sumPrice}}</span> </h3>
 			<h3 class="pull-right" style="margin-right:50px"><span class="shop-plants" style="font-size:x-large;padding-top:2%; padding-left:30%; width:200px">{{totalSeedlings}}</span> </h3>
@@ -97,6 +85,20 @@
 							class="btn btn-xs remove">{{ 'remove' | translate }}</span></td>
 					</tr>
 				</table>
+			</div>
+
+		</div>
+		<br/>
+		<div class="text-center">
+			<button
+				ng-if="sumPrice!==0 && totalSeedlings<=maximumSeedlings"
+				class="btn btn-default"
+				ng-disabled="totalSeedlings>maximumSeedlings ||  totalSeedlings<maximumSeedlings/2"
+				ng-click="buySeedlings()">{{ 'general.buy_seedlings' |
+				translate }}</button>
+			<div style="color: white">
+				<span ng-if="totalSeedlings>maximumSeedlings">Depending on
+					your plantation, you can buy only {{maximumSeedlings}} seedlings.</span>
 			</div>
 
 		</div>
