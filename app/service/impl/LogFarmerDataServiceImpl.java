@@ -21,7 +21,7 @@ public class LogFarmerDataServiceImpl implements LogFarmerDataService{
 		LogFarmerData data = new LogFarmerData();
 		data.farmer = farmer;
 		data.logdate = farmer.gameDate.date;
-		data.recolteYear = ServiceInjector.dateService.recolteYear(farmer.gameDate.date);
+		data.recolteYear = ServiceInjector.dateService.recolteYear(farmer.gameDate.date)+1;
 		data.typelog = LogFarmerDataService.MAX_YIELD;
 		data.information = yield;
 		data.save();

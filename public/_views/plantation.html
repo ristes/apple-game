@@ -76,7 +76,7 @@
     <div class="col-md-12">
     	{{plantation.base.description}}
     </div>
-    <button class="btn btn-primary" ng-click="plantingDone()">{{ 'planting_done' | translate}} </button>
+    <button class="btn btn-primary" ng-if="availableSeedlings<=(startNumber/2)" ng-click="plantingDone()">{{ 'planting_done' | translate}} </button>
 </div>
 
 <div ng-controller="DiseaseNotificationPanel" class="notification-panel">

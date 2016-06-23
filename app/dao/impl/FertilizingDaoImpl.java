@@ -12,6 +12,7 @@ import models.Farmer;
 import models.Item;
 import play.db.jpa.JPA;
 import service.DateService;
+import service.ServiceInjector;
 import service.impl.DateServiceImpl;
 import dao.FertilizingDao;
 import dto.FertilizerOperationDto;
@@ -49,11 +50,12 @@ public class FertilizingDaoImpl implements FertilizingDao{
 	public List<FertilizerOperationDto> getExecFertOper(Farmer farmer,
 			Long operation_id) {
 		DateService dateService = new DateServiceImpl();
-		String sqlSelect = "select * from executedoperation,iteminstance where field_id=:field_id and itemInstance_id=iteminstance.id and executedoperation.operation_id=:operation_id";
+		String sqlSelect = "select * from executedoperation,iteminstance where field_id=:field_id and (YEAR(startDate)=:recolteYear or YEAR(startDate)=:recolteYear+1) and itemInstance_id=iteminstance.id and executedoperation.operation_id=:operation_id";
 		List<FertilizerOperationDto> resultEnd = new ArrayList<FertilizerOperationDto>();
 		Query query = JPA.em().createNativeQuery(sqlSelect);
 		query.setParameter("field_id", farmer.field.id);
 		query.setParameter("operation_id", operation_id);
+		query.setParameter("recolteYear", ServiceInjector.dateService.recolteYear(farmer.gameDate.date));
 		List<Object[]> result = query.getResultList();
 		for (Object[] obj : result) {
 			FertilizerOperationDto fo = new FertilizerOperationDto();

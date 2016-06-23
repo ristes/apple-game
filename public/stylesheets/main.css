@@ -1,6 +1,62 @@
 body {
-	font-family: 'Fondamento', cursive;
+	font-family: 'PT Sans Narrow', sans-serif;
 	color: #fff;
+	scrollbar-face-color: #6a2d04;
+	scrollbar-shadow-color: #FFFFFF;
+	scrollbar-highlight-color: #FFFFFF;
+	scrollbar-3dlight-color: #FFFFFF;
+	scrollbar-darkshadow-color: #FFFFFF;
+	scrollbar-track-color: #FFFFFF;
+	scrollbar-arrow-color: #FFFFFF;
+}
+::-webkit-scrollbar {
+      width: 15px;
+}
+::-webkit-scrollbar-track {
+      background-color: #906012;
+} /* the new scrollbar will have a flat appearance with the set background color */
+ 
+::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.2); 
+} /* this will style the thumb, ignoring the track */
+ 
+::-webkit-scrollbar-button {
+     /* background-color: #6a2d04;*/
+} /* optionally, you can style the top and the bottom buttons (left and right for horizontal bars) */
+ 
+::-webkit-scrollbar-corner {
+      background-color: black;
+}
+
+}
+.flexcroll {
+	scrollbar-face-color: #6a2d04;
+	scrollbar-shadow-color: #FFFFFF;
+	scrollbar-highlight-color: #FFFFFF;
+	scrollbar-3dlight-color: #FFFFFF;
+	scrollbar-darkshadow-color: #FFFFFF;
+	scrollbar-track-color: #FFFFFF;
+	scrollbar-arrow-color: #FFFFFF;
+}
+
+/* Let's get this party started */
+.flexcroll::-webkit-scrollbar {
+	width: 12px;
+}
+
+/* Track */
+.flexcroll::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+
+/* Handle */
+.flexcroll::-webkit-scrollbar-thumb {
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
 .popover {
@@ -28,7 +84,7 @@ input {
 	clear: both;
 }
 
-.btn:hover, .btn-default:hover {
+.btn:hover,.btn-default:hover {
 	color: #ddd;
 	background: #7e571a;
 }
@@ -373,9 +429,11 @@ img.ograda-gore {
 
 .seedling-planting {
 	z-index: 5000;
-	height:100%;
+	height: 100%;
+	width:95%;
 	overflow-y: auto;
 	overflow-x: auto;
+	overflow-y: auto;
 }
 
 #div_timeline_travel {
@@ -537,8 +595,9 @@ div.select-seedling-quantity td {
 	right: 0px;
 	z-index: 1010 !important;
 }
-.help-button:HOVER{
-	cursor:pointer;
+
+.help-button:HOVER {
+	cursor: pointer;
 }
 
 .background-default {
@@ -559,75 +618,89 @@ div.select-seedling-quantity td {
 	/* W3C */
 }
 
-.operation-on-field{
-	width:100%;
-	height:100%;
+.operation-on-field {
+	width: 100%;
+	height: 100%;
 }
+
 .notification-panel {
 	position: fixed;
-    bottom: 0%;
-    right: 15%;
-    width: 300px;
-    z-index: 999;
-    font-size: small;
+	bottom: 0%;
+	right: 15%;
+	width: 300px;
+	z-index: 999;
+	font-size: small;
 	padding: 25px;
 	color: white;
 }
+
 .notification-panel .rounded {
 	width: 5rem;
-    height: 5rem;
-    background-color: red;
-    border-radius: 30px;
-    float:left;
-    margin-right:5px;
+	height: 5rem;
+	background-color: red;
+	border-radius: 30px;
+	float: left;
+	margin-right: 5px;
 }
-.rounded.ng-enter, .rounded.ng-leave,
-.rounded.ng-anchor, .rounded.ng-animate, .rounded.ng-show, .rounded.ng-hide {
-  transition:1s ease-in;
+
+.rounded.ng-enter,.rounded.ng-leave,.rounded.ng-anchor,.rounded.ng-animate,.rounded.ng-show,.rounded.ng-hide
+	{
+	transition: 1s ease-in;
 }
+
 .rounded:HOVER {
-	cursor:pointer;
+	cursor: pointer;
 }
+
 .rounded.ng-enter {
-  transform:translateY(100px);
-  width:1rem;
-  height:1rem;
+	transform: translateY(100px);
+	width: 1rem;
+	height: 1rem;
 }
-.rounded.ng-enter.ng-enter-active{
-  transform:translateY(0px);
-  width:5rem;
-  height:5rem;
+
+.rounded.ng-enter.ng-enter-active {
+	transform: translateY(0px);
+	width: 5rem;
+	height: 5rem;
 }
-.rounded.ng-leave{
-	transform:translateY(0px);
-	width:5rem;
-	height:5rem;
+
+.rounded.ng-leave {
+	transform: translateY(0px);
+	width: 5rem;
+	height: 5rem;
 }
+
 .rounded.ng-leave.ng-leave-active {
-  transform:translateY(100px);
-  width:1rem;
-  height:1rem;
+	transform: translateY(100px);
+	width: 1rem;
+	height: 1rem;
 }
-.tensiometer-group{
+
+.tensiometer-group {
 	background-color: #333333;
-	border-radius:5px;
-	height:115px;
-	padding:10px;
+	border-radius: 5px;
+	height: 115px;
+	padding: 10px;
 }
-.buy-better-irrigation{
+
+.buy-better-irrigation {
 	
 }
-.btn-default.disabled, .btn-default.disabled.active, .btn-default.disabled.focus, .btn-default.disabled:active, .btn-default.disabled:focus, .btn-default.disabled:hover, .btn-default[disabled], .btn-default[disabled].active, .btn-default[disabled].focus, .btn-default[disabled]:active, .btn-default[disabled]:focus, .btn-default[disabled]:hover, fieldset[disabled] .btn-default, fieldset[disabled] .btn-default.active, fieldset[disabled] .btn-default.focus, fieldset[disabled] .btn-default:active, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn-default:hover {
+
+.btn-default.disabled,.btn-default.disabled.active,.btn-default.disabled.focus,.btn-default.disabled:active,.btn-default.disabled:focus,.btn-default.disabled:hover,.btn-default[disabled],.btn-default[disabled].active,.btn-default[disabled].focus,.btn-default[disabled]:active,.btn-default[disabled]:focus,.btn-default[disabled]:hover,fieldset[disabled] .btn-default,fieldset[disabled] .btn-default.active,fieldset[disabled] .btn-default.focus,fieldset[disabled] .btn-default:active,fieldset[disabled] .btn-default:focus,fieldset[disabled] .btn-default:hover
+	{
 	background-color: red;
-	color:white;
+	color: white;
 }
+
 .menu-item-quiz {
 	background: #7e571a;
-	padding: 20px 7px;
-	margin:5px;
-	border-radius:5px;
-}    
-.menu-item-quiz:HOVER{
-	cursor:pointer;
+	padding: 20px 5px;
+	margin: 3px;
+	border-radius: 5px;
+}
+
+.menu-item-quiz:HOVER {
+	cursor: pointer;
 	background: #333333;
 }

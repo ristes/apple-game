@@ -10,7 +10,7 @@ public class GameEndServiceImpl implements GameEndService{
 		if (farmer.getEco_points()<=0) {
 			farmer.setStatus(STATUS_GAME_END);
 		}
-		if (farmer.getBalance()<=0.0) {
+		if (farmer.getBalance()<=1000.0) {
 			farmer.setStatus(STATUS_GAME_END);
 		}
 		if (farmer.gameDate.dayOrder.equals(11314l)) {

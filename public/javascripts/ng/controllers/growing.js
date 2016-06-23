@@ -131,6 +131,7 @@ Game.controller('GrowingStateController', [
 			}
 			$scope.treeClick = function(p) {
 				$scope.$root.$emit('operation-desease-analysis');
+//				p.clicked=true;
 			};
 
 		} ]);

@@ -44,6 +44,9 @@ public class Farmer extends Model {
 	public Double rain_values;
 	
 	public Date lastLogIn;
+	
+	@ManyToOne
+	public User user;
 
 	@OneToMany(mappedBy = "farmer")
 	public List<Yield> yields;

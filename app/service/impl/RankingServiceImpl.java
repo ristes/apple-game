@@ -11,7 +11,7 @@ public class RankingServiceImpl implements RankingService{
 
 	@Override
 	public List<FarmerPoints> rank(Integer year) {
-		List<FarmerPoints> result = FarmerPoints.find("SELECT fp FROM FarmerPoints fp where fp.year=?1 ORDER BY fp.totalPoints DESC",year).fetch(10);
+		List<FarmerPoints> result = FarmerPoints.find("SELECT fp FROM FarmerPoints fp where fp.year=?1 and fp.farmer.is_active=true ORDER BY fp.totalPoints DESC",year).fetch(10);
 		return result;
 	}
 

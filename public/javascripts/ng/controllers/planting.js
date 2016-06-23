@@ -97,7 +97,8 @@ Game.controller('PlantingStateController', [
         };
 
         $scope.planting = true;
-        $scope.dif = 35;
+        $scope.dif = 70;
+        
         $scope.soilClick = function(p) {
             if ($scope.planting) {
                 if (p.active && !p.tree) {
@@ -137,7 +138,9 @@ Game.controller('PlantingStateController', [
         }
 
         $scope.treeClick = function(t) {
-            // does nothing
+            if (!$scope.isPlanting) {
+            	t.clicked=true;
+            }
         };
 
         $scope.rows = [];

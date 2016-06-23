@@ -27,7 +27,7 @@ public class PrunningController extends GameController {
 		} else {
 			InfoTableInstanceDto infoT = new InfoTableInstanceDto();
 			SimpleDateFormat fd = new SimpleDateFormat("dd:MM");
-			infoT.message1 = String.format("Kroenjeto e zavrseno na den %s so %d uspesno iskroeni grancinja.", fd.format(info.logdate), info.information);
+			infoT.message1 = String.format("Clothing is done on %s with %d successfully prunned branches.", fd.format(info.logdate), info.information);
 			JsonController.statusJson(new StatusDto<Void>(true, null, null, farmer, Arrays.asList(infoT)));
 		}
 	}

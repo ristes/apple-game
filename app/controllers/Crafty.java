@@ -85,9 +85,10 @@ public class Crafty extends Controller {
 	public static void authenticate(String username, String password) {
 		Farmer farmer = null;
 		try {
-			farmer = Farmer.find("username=:username and password=:password")
+			farmer = Farmer.find("username=:username and password=:password and is_active=:is_active")
 					.setParameter("username", username)
-					.setParameter("password", password).first();
+					.setParameter("password", password)
+					.setParameter("is_active",true).first();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 

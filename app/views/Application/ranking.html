@@ -23,24 +23,41 @@
 
 
 
-	<div class="introduction-screen introduction-helper">
-		<div
-			style="padding-top: 8%">
-			<div class="container">
-				<form action="/Crafty/authenticate" method="post">
-					<label class="label-control">Username:</label>
-					<input class="form-control" style="width:30%" type="text" name="username"></input>
-					<label class="label-control">Password:</label>
-					<input class="form-control" style="width:30%" type="password" name="password"></input>
-					<div>${message}</div>
-					<br />
-					<input class="btn btn-success" style="color:white !important" type="submit" value="Login"></input>
-					<a href="register" class="btn btn-success">Register</a>
-				</form>
-				
-			</div>
-		</div>
-	</div>
+	<div class="shop-menu" ng-animate="shop" ng-class="{true: 'shop-enter', false: 'shop-leave'}[visible]">
+  <div class="shop_icon">
+       <img src="/public/images/home/rankings-bordered.png" style="width: 75%;"></img>
+      <div class="shop-label ramka">
+          <span class="shop-label-text"> {{ 'ranking' | translate }}
+          </span>
+      </div>
+  </div>
+
+
+  	<div class="text-center">
+  		<label class="control-label col-md-6" for="year">{{'ranking.chooseYear' | translate}} </label>
+  		<select id="year" style="width:150px" ng-change="changeYear(selectedYear)" class="form-control"  ng-model="selectedYear" ng-options="year.year for year in years track by year.year"></select>
+  	</div>
+    <table class="table" st-table="displayedRankings" st-safe-src="rankings">
+      <tr>
+        <th st-sort="name">{{ 'name' | translate}}</th>
+        <th st-sort="apples_in_stock">{{ 'apples' | translate}}</th>
+        <th st-sort="balance">{{ 'money' | translate}}</th>
+        <th st-sort="eco_points">{{ 'eco points' | translate}}</th>
+        <th st-sort="eco_points">{{ 'total_points' | translate}}</th>
+      </tr>
+      <tr>
+        <th colspan="4"><input st-search="" class="form-control" placeholder="{{'search' | translate}}" type="text"/></th>
+      </tr>
+      <tr ng-repeat="user in displayedRankings">
+        <td>{{user.farmer.name}} {{ user.farmer.surname }}</td>
+        <td>{{user.harvestQuantity}}</td>
+        <td>{{user.moneyEarned}}</td>
+        <td>{{user.ecoPoints}}</td>
+        <td>{{user.totalPoints}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
 
 
 </body>

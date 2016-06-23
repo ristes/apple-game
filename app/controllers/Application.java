@@ -86,5 +86,8 @@ public class Application extends GameController {
 		renderJSON(new StatusDto(true));
 	}
 
+	public static void ranking() {
+		render();
+	}
 
 }

@@ -106,7 +106,7 @@ public class FarmerServiceImpl implements FarmerService {
 		farmer.password = password;
 		Day start = Day.find("dayOrder", 318l).first();
 		farmer.gameDate = start;
-		farmer.setBalance(120000.0);
+		farmer.setBalance(150000.0);
 		ServiceInjector.ecoPointsService.restart(farmer);
 		farmer.deltaCumulative = 0.0;
 		farmer.cumulativeHumidity = 0.0;

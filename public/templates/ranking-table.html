@@ -26,7 +26,7 @@
         <th colspan="4"><input st-search="" class="form-control" placeholder="{{'search' | translate}}" type="text"/></th>
       </tr>
       <tr ng-repeat="user in displayedRankings">
-        <td>{{user.farmer.username}} {{ user.surname }}</td>
+        <td>{{user.farmer.name}} {{ user.farmer.surname }}</td>
         <td>{{user.harvestQuantity}}</td>
         <td>{{user.moneyEarned}}</td>
         <td>{{user.ecoPoints}}</td>

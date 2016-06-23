@@ -13,6 +13,7 @@
 		"drops_info": "Drip irrigation provides {{mmPerHour}} mm/h speed of irrigation.  Disadvantages: Hardly any, apart from the sizable initial investment.",
 		"tensiometer_info": "Farmers should take great care to water their plantations with the correct amount of water at the correct time. Failure to do so can have an immediate effect on the fruit harvest’s quality and quantity. Over-watering can be just as dangerous as under-watering; it decreases the amount of air available to the plants and raises production costs, as well as increasing erosion and fertilizer pollution.",
 		"drops_benefits": "Advantages: Can be combined with fertilization, saving of water and fertilizers; application of water and fertilizers in accordance with plant needs; saving of energy and man hours, fewer weeds and lower likelihood of disease occurrence, ability to apply other protective measures to the plants, protection from erosion, greater quality and quantity of harvest, lower possibility for pollution.",
+		"tensiometers_benefits":"A tensiometer is a device for measuring soil water tension. It consists of a cylindrical pipe about one inch in diameter with a porous ceramic cup attached to one end and vacuum gauge attached to the other. Tensiometers indirectly measure soil moisture tension providing a information about the soil humidity.",
 		"tensiometer_benefits": "Determination of time and water quantity is pivotal in ensuring a proper irrigation regime. Application of tensiometers is considered one of the most practical solutions for this determination. Tensiometers are, however, used only in micro-irrigation (drip irrigation).",
 		"irrigate": "Start Irrigation",
 		"tensiometer_recomended": "The tensiometer recommends:"
@@ -93,6 +94,8 @@
 	"soil_analyse": "soil analyse",
 	"EcoTractor":"eco tractor",
 	"artificial_rain":"artificial rain",
-	"Protective Net":"protective net"
+	"Protective Net":"protective net",
+	"planting_done":"Finish!",
+	"seedlings_left":"seedlings left"
 		
 }

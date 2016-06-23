@@ -21,6 +21,8 @@ public class BugReport extends Model{
 	
 	private String name;
 	
+	private Boolean approved;
+	
 	@Column(name="description")
 	private String description;
 	
@@ -74,10 +76,24 @@ public class BugReport extends Model{
 
 
 
+	public Boolean getApproved() {
+		return approved;
+	}
+
+
+
+	public void setApproved(Boolean approved) {
+		this.approved = approved;
+	}
+
+
+
 	@PrePersist
 	public void setDate() {
-		dateCreated = new Date();
+		this.dateCreated = new Date();
+		this.approved = false;
 	}
+	
 	
 	
 

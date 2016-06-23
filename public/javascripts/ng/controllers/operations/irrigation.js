@@ -49,7 +49,7 @@ Game.controller('IrrigationController', [ '$scope', '$day', '$interval',
 
 			$scope.irrigate = function() {
 				var interval = 100;
-				var time = $scope.holder.duration * 50;
+				var time = $scope.holder.duration * 5;
 				$scope.visible = false;
 
 				if ($scope.enableOther) {
